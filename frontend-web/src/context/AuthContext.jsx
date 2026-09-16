@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
     if (token) {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       axios
-        .get("http://localhost:3000/api/users/me")
+        .get("/api/users/me")
         .then((res) => {
           setUser(res.data);
         })
@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
   }, [token]);
 
   const login = async (email, password) => {
-    const res = await axios.post("http://localhost:3000/api/login", {
+    const res = await axios.post("/api/login", {
       email,
       password,
     });

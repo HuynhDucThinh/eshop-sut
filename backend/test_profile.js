@@ -1,8 +1,11 @@
-const axios = require('axios');
 const jwt = require('jsonwebtoken');
 
-const token = jwt.sign({ id: 2, role: 'user' }, 'super_secret_key_that_should_not_be_here');
-console.log("Token:", token);
-axios.get('http://localhost:3000/api/users/me', { headers: { Authorization: 'Bearer ' + token }})
-.then(res => console.log("Profile ok:", res.data))
-.catch(err => console.log("Lỗi:", err.message));
+if (!process.env.JWT_SECRET) throw new Error('Missing JWT_SECRET environment variable');
+const token = jwt.sign({ id: 2, role: 'user' }, process.env.JWT_SECRET);
+fetch('http://localhost:3000/api/users/me', { headers: { Authorization: 'Bearer ' + token } })
+    .then(async response => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const user = await response.json();
+        console.log('Profile ok:', { id: user.id, name: user.name, email: user.email });
+    })
+    .catch(err => { console.error('Lỗi:', err.message); process.exitCode = 1; });

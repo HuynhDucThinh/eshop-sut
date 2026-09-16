@@ -13,7 +13,7 @@ export default function ForgotPassword() {
   const handleRequest = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:3000/api/forgot-password', { email });
+      const res = await axios.post('/api/forgot-password', { email });
       setMessage(`Mã OTP của bạn là: ${res.data.resetToken}`);
       setStep(2);
     } catch (err) {
@@ -30,7 +30,7 @@ export default function ForgotPassword() {
     }
 
     try {
-      await axios.post('http://localhost:3000/api/reset-password', { email, resetToken, newPassword });
+      await axios.post('/api/reset-password', { email, resetToken, newPassword });
       alert("Đổi mật khẩu thành công!");
       navigate('/login');
     } catch (err) {

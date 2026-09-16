@@ -13,7 +13,7 @@ export default function Home() {
     try {
       setErrorHtml("");
       const res = await axios.get(
-        `http://localhost:3000/api/products?search=${query}`,
+        `/api/products?search=${query}`,
       );
       if (typeof res.data === "string" && res.data.includes("<h1>")) {
         setErrorHtml(res.data);

@@ -1,0 +1,62 @@
+name: eshop-sut
+
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: deploy/Dockerfile.backend
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      DB_PATH: /app/data/database.sqlite
+      JWT_SECRET: ${JWT_SECRET:?Please set JWT_SECRET in .env}
+    volumes:
+      - eshop_data:/app/data
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - "fetch('http://127.0.0.1:3000/api/products').then(async r => { if (!r.ok || !Array.isArray(await r.json())) process.exit(1); }).catch(() => process.exit(1))"
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    logging: *default-logging
+
+  web:
+    build:
+      context: .
+      dockerfile: deploy/Dockerfile.frontend
+      args:
+        APP_DIR: frontend-web
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8280:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    logging: *default-logging
+
+  admin:
+    build:
+      context: .
+      dockerfile: deploy/Dockerfile.frontend
+      args:
+        APP_DIR: frontend-admin
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8281:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    logging: *default-logging
+
+volumes:
+  eshop_data:

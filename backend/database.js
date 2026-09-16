@@ -1,7 +1,9 @@
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
+const fs = require('fs');
 
-const dbPath = path.resolve(__dirname, 'database.sqlite');
+const dbPath = process.env.DB_PATH || path.resolve(__dirname, 'database.sqlite');
+fs.mkdirSync(path.dirname(dbPath), { recursive: true });
 const db = new sqlite3.Database(dbPath, (err) => {
     if (err) {
         console.error('Could not connect to database', err);
@@ -114,6 +116,20 @@ function initDatabase() {
     });
 }
 
-initDatabase();
+db.get(
+    "SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'users'",
+    [],
+    (err, row) => {
+        if (err) {
+            console.error('Cannot inspect database:', err);
+            process.exit(1);
+        }
+        if (!row) {
+            initDatabase();
+        } else {
+            console.log('Using existing database; initialization skipped.');
+        }
+    },
+);
 
 module.exports = db;

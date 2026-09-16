@@ -1,0 +1,14 @@
+.git
+**/node_modules
+**/dist
+**/.expo
+.idea
+.env
+.env.*
+**/.env
+**/.env.*
+**/*.sqlite
+**/*.sqlite-*
+**/*.log
+**/*.tar.gz
+frontend-mobile
