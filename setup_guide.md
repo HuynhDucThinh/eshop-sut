@@ -1,9 +1,14 @@
 # Hướng dẫn Cài đặt & Khởi chạy EShop (System Under Test)
 
+> Triển khai VPS bằng Docker Compose: xem [deploy/README.md](deploy/README.md).
+> Backend hiện yêu cầu biến `JWT_SECRET`. Khi chạy local, tạo `.env` ở gốc repo
+> theo `.env.example`, rồi chạy `node --env-file=../.env server.js` từ `backend`.
+> Database đã tồn tại sẽ được giữ lại; `node database.js` không còn reset dữ liệu.
+
 Hệ thống EShop bao gồm 3 phân hệ chính: Backend API, Frontend Web và Frontend Mobile. Để kiểm thử toàn bộ hệ thống, bạn cần khởi chạy Backend và ít nhất một trong hai nền tảng Frontend.
 
 ## Yêu cầu Hệ thống (Prerequisites)
-- Đã cài đặt **Node.js** (Phiên bản >= 18.x).
+- Đã cài đặt **Node.js 24** cho backend và hai frontend Vite.
 - Đã cài đặt trình quản lý gói `npm` (thường đi kèm với Node.js).
 - (Tùy chọn) Ứng dụng **Expo Go** trên điện thoại (iOS/Android) nếu muốn chạy Frontend Mobile trên thiết bị thật.
 
@@ -22,13 +27,13 @@ Backend cung cấp dữ liệu và xử lý logic cho toàn bộ hệ thống.
    ```bash
    npm install
    ```
-4. Khởi tạo cơ sở dữ liệu và dữ liệu mẫu (Seed Data). Chỉ cần chạy lệnh này một lần ở lần đầu tiên hoặc khi muốn reset dữ liệu:
+4. Khởi tạo cơ sở dữ liệu và dữ liệu mẫu nếu chưa có (server cũng tự thực hiện bước này):
    ```bash
    node database.js
    ```
 5. Khởi chạy server:
    ```bash
-   node server.js
+   node --env-file=../.env server.js
    ```
    *Terminal sẽ thông báo: `Server is running on http://localhost:3000`.*
    *(Lưu ý: Bạn phải để Terminal này chạy liên tục trong suốt quá trình test).*

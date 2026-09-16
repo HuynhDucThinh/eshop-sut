@@ -1,12 +1,16 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const db = require("./database");
 const jwt = require("jsonwebtoken");
 
 const app = express();
 const PORT = 3000;
-const SECRET_KEY = "super_secret_key_that_should_not_be_here";
+const SECRET_KEY = process.env.JWT_SECRET;
+if (!SECRET_KEY) {
+  throw new Error("Missing JWT_SECRET environment variable");
+}
+// Validate configuration before opening or initializing the database.
+const db = require("./database");
 
 app.use(cors());
 app.use(bodyParser.json());
