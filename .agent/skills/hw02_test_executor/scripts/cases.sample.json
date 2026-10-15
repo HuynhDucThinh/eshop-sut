@@ -1,0 +1,42 @@
+﻿{
+  "_ghi_chu": "Ví dụ minh họa định dạng. Thay bằng endpoint/giá trị THẬT lấy từ đặc tả của feature. Các giá trị dưới đây không phải đặc tả của EShop.",
+  "baseUrl": "http://localhost:3000",
+  "defaultHeaders": {
+    "Accept": "application/json"
+  },
+  "cases": [
+    {
+      "id": "EP-TC01",
+      "title": "Hợp lệ: gộp các lớp đầu vào hợp lệ",
+      "covers": "EC01, EC05, EC09",
+      "method": "POST",
+      "path": "/api/vi-du",
+      "body": { "a": 10, "b": 9 },
+      "expectStatus": 200,
+      "expectBodyIncludes": ["19"],
+      "expectedNote": "SUM = 19 (nguồn: SRS mục X)"
+    },
+    {
+      "id": "EP-TC02",
+      "title": "Không hợp lệ: A nhỏ hơn cận dưới",
+      "covers": "EC02, EC10",
+      "method": "POST",
+      "path": "/api/vi-du",
+      "body": { "a": -102, "b": 9 },
+      "expectStatus": 400,
+      "expectedNote": "Thông báo lỗi (nội dung chưa quy định)"
+    },
+    {
+      "id": "BV-TC05",
+      "title": "Biên: A = UB + 1",
+      "covers": "B01 (A = UB+1)",
+      "method": "POST",
+      "path": "/api/vi-du",
+      "body": { "a": 100, "b": 9 },
+      "expectStatus": 400,
+      "skip": true,
+      "skipReason": "Ví dụ mẫu, chưa nối với endpoint thật"
+    }
+  ]
+}
+
