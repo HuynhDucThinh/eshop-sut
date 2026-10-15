@@ -1259,7 +1259,7 @@ Bộ test ban đầu của AI bao phủ tốt các lớp tương đương, giá 
 | Thành phần kiểm thử | Web Admin (`http://localhost:5174`) & Backend REST API (`http://localhost:3000`) |
 | Nguồn đặc tả | `README.md` (FR-14: dòng 186–190; FR-12: dòng 174–180; FR-15: dòng 197; FR-21–FR-24: dòng 240–271; SEC-02–SEC-05: dòng 279–282), `api_specification.md` (mục 3.4: dòng 102–107) |
 | Ngày trích | 2026-10-15 |
-| Trạng thái | Chờ sinh viên xác nhận |
+| Trạng thái | Đã xác nhận bởi sinh viên |
 
 ### 0.2 Biến đầu vào (Inputs)
 
@@ -1299,7 +1299,7 @@ Bộ test ban đầu của AI bao phủ tốt các lớp tương đương, giá 
 |---|---|---|
 | **V1** (`auth_token`) | Token JWT hợp lệ của tài khoản Admin `admin@eshop.com` (`Admin123!`) | Tài khoản Admin mặc định có `role = 'admin'` theo `README.md` dòng 23. |
 | **V2** (`name`) | `"Thiết bị gia dụng thông minh"` | Chuỗi tiếng Việt có dấu hợp lệ, có nghĩa thực tế, độ dài 28 ký tự (nằm an toàn trong khoảng $[1, 255]$). |
-| **V3** (`id`) | `ID_NEW` (ID của danh mục vừa tạo mới để test, hoặc ID danh mục hợp lệ đang tồn tại, ví dụ `2`) | Số nguyên dương hợp lệ tồn tại trong CSDL, ưu tiên thao tác trên danh mục test vừa tạo để bảo toàn dữ liệu gốc. |
+| **V3** (`id`) | `ID_NEW` (ID của danh mục vừa tạo mới để test, hoặc `ID_NOM = 3` trong bộ fixture 5 danh mục `[1..5]`) | Số nguyên dương hợp lệ tồn tại trong CSDL, ưu tiên thao tác trên danh mục test vừa tạo hoặc fixture độc lập để bảo toàn dữ liệu gốc. |
 | **V4** (`category_in_use`) | `false` (Danh mục mới tạo chưa gắn sản phẩm nào) | Trạng thái danh định an toàn không bị vướng ràng buộc khóa ngoại khi kiểm thử thao tác xóa cơ bản. |
 
 ### 0.6 Cách thức giao tiếp (API Contract & UI Element)
@@ -1316,12 +1316,414 @@ Bộ test ban đầu của AI bao phủ tốt các lớp tương đương, giá 
 
 | Mã | Vấn đề mơ hồ / Mâu thuẫn trong đặc tả | Phân tích & Rủi ro | Giả định tạm thời đề xuất | Trạng thái |
 |---|---|---|---|---|
-| **Q1** | **Độ dài tối đa (Max length) của Tên danh mục (`name`):** `README.md` dòng 189 chỉ quy định *"Tên danh mục là bắt buộc, không được để trống"* (cận dưới $\ge 1$ ký tự), nhưng `unspecified` đối với cận trên (trong khi FR-15 dòng 195 quy định tên sản phẩm tối đa 255 ký tự). | Nếu không có cận trên, hệ thống có thể chấp nhận chuỗi dài tùy ý (ví dụ hàng nghìn ký tự) gây vỡ giao diện hoặc tốn tài nguyên lưu trữ; đồng thời BVA cần cận trên xác định để áp dụng công thức. | **Giả định:** Áp dụng cận trên chuẩn $255$ ký tự tương đồng với quy chuẩn tên thực thể ở FR-15, tạo miền độ dài đóng $[1, 255]$ với bước $\delta = 1$ ký tự. Khi thiết kế BVA, kiểm tra đầy đủ cận dưới ($0, 1, 2$) và cận trên ($254, 255, 256$). Nếu thực thi tại $256$ ký tự hệ thống vẫn cho phép tạo, sẽ đối chiếu theo câu hỏi mở thay vì tự ý kết luận bug ngoài đặc tả. | Chờ sinh viên xác nhận |
-| **Q2** | **Chuỗi chỉ chứa khoảng trắng (Whitespace-only) và chuẩn hóa khoảng trắng:** Đặc tả ghi *"không được để trống"*, nhưng không nêu rõ chuỗi chỉ gồm dấu cách (`"   "`) có bị coi là để trống không, và khoảng trắng thừa ở hai đầu (`"  Điện tử  "`) có được tự động `trim()` không. | Nếu không `trim()`, người dùng có thể tạo danh mục tên `"   "` (trống trên giao diện) hoặc tạo bản ghi có dấu cách thừa. | **Giả định:** Chuỗi chỉ gồm khoảng trắng (`"   "`) về mặt nghiệp vụ tương đương với để trống và **phải bị từ chối** (`400 Bad Request`, không tạo bản ghi). | Chờ sinh viên xác nhận |
-| **Q3** | **Tính duy nhất (Uniqueness) của Tên danh mục:** `README.md` FR-14 không nêu tên danh mục có bắt buộc duy nhất (unique) hay không (khác với FR-01 nêu email duy nhất và FR-17 nêu mã coupon duy nhất). | Nếu cho phép tạo nhiều danh mục trùng hệt tên (ví dụ hai danh mục cùng tên `"Điện thoại"`), Admin và người dùng sẽ không phân biệt được khi chọn danh mục cho sản phẩm ở FR-15. | **Giả định:** Đưa ca kiểm thử trùng tên danh mục (kể cả trùng chính xác và khác hoa/thường) vào bộ test EP để kiểm tra hành vi thực tế; ghi nhận là điểm mơ hồ đặc tả (`unspecified`) để quan sát phản hồi của SUT. | Chờ sinh viên xác nhận |
-| **Q4** | **Mâu thuẫn đặc tả về thao tác Cập nhật/Sửa (`PUT /api/categories/:id`):** Tiêu đề FR-14 ghi *"Category CRUD"*, FR-12 dòng 177 ghi rõ *"POST/PUT/DELETE /api/products, /api/categories, /api/coupons"*, và `api_specification.md` mục 3.4 dòng 105 định nghĩa endpoint `PUT /api/categories/:id`. Tuy nhiên, mô tả chi tiết FR-14 dòng 188 lại chỉ ghi *"Admin có thể Thêm / Xem / Xóa danh mục"*. | Có sự không nhất quán giữa tài liệu đặc tả nghiệp vụ (`README.md` dòng 188) và đặc tả giao tiếp (`api_specification.md` dòng 105 + `README.md` dòng 177). | **Giả định:** Kiểm thử trọng tâm vào 3 thao tác Thêm (`POST`), Xem (`GET`), Xóa (`DELETE`) trên cả API và UI; đồng thời thiết kế các ca kiểm thử EP cho `PUT /api/categories/:id` (cập nhật hợp lệ, kiểm tra quyền Admin theo FR-12, kiểm tra `name` rỗng và `:id` không tồn tại) để phủ toàn diện hợp đồng API. | Chờ sinh viên xác nhận |
-| **Q5** | **Hành vi khi xóa danh mục đang có sản phẩm tham chiếu (`category_in_use = true`):** FR-14 cho phép Admin xóa danh mục, trong khi FR-15 quy định mỗi sản phẩm bắt buộc thuộc một danh mục có sẵn (`category_id`). Đặc tả không nêu khi xóa danh mục đang chứa sản phẩm thì hệ thống phải chặn xóa (`400`/`409`) hay xử lý thế nào. | Nếu xóa thẳng danh mục đang có sản phẩm mà không kiểm tra ràng buộc khóa ngoại, các sản phẩm đó sẽ rơi vào trạng thái mồ côi (`orphan category_id`), vi phạm FR-15. | **Giả định:** Hệ thống cần từ chối xóa danh mục đang có sản phẩm tham chiếu (`4xx`) HOẶC không được làm hỏng tính toàn vẹn dữ liệu của sản phẩm hiện có. Sẽ thiết kế ca EP riêng cho trạng thái `category_in_use = true`. | Chờ sinh viên xác nhận |
-| **Q6** | **Mã HTTP và nội dung thông báo lỗi chi tiết:** Cả `README.md` và `api_specification.md` mục 3.4 đều không quy định mã HTTP cụ thể cho từng trường hợp lỗi (ví dụ xóa `:id` không tồn tại trả về `404` hay `200`, thiếu quyền trả về `401` hay `403`, nội dung chuỗi message lỗi là gì). | Nếu cố định cứng chuỗi thông báo lỗi khi chưa có trong SRS sẽ dẫn đến kết luận Fail sai. | **Giả định:** Dùng **trạng thái dữ liệu CSDL** (quan sát qua `GET /api/categories`) kết hợp nhóm mã phản hồi chuẩn REST (`2xx` cho thành công; `401`/`403` cho lỗi xác thực/phân quyền; `400`/`404` cho lỗi dữ liệu/không tìm thấy bản ghi — đối với xóa `:id` không tồn tại thì phải trả về `404` hoặc báo không có bản ghi nào bị xóa) làm Oracle chính. | Chờ sinh viên xác nhận |
+| **Q1** | **Độ dài tối đa (Max length) của Tên danh mục (`name`):** `README.md` dòng 189 chỉ quy định *"Tên danh mục là bắt buộc, không được để trống"* (cận dưới $\ge 1$ ký tự), nhưng `unspecified` đối với cận trên (trong khi FR-15 dòng 195 quy định tên sản phẩm tối đa 255 ký tự). | Nếu không có cận trên, hệ thống có thể chấp nhận chuỗi dài tùy ý (ví dụ hàng nghìn ký tự) gây vỡ giao diện hoặc tốn tài nguyên lưu trữ; đồng thời BVA cần cận trên xác định để áp dụng công thức. | **Giả định:** Áp dụng cận trên chuẩn $255$ ký tự tương đồng với quy chuẩn tên thực thể ở FR-15, tạo miền độ dài đóng $[1, 255]$ với bước $\delta = 1$ ký tự. Khi thiết kế BVA, kiểm tra đầy đủ cận dưới ($0, 1, 2$) và cận trên ($254, 255, 256$). Nếu thực thi tại $256$ ký tự hệ thống vẫn cho phép tạo, sẽ đối chiếu theo câu hỏi mở thay vì tự ý kết luận bug ngoài đặc tả. | Đã xác nhận |
+| **Q2** | **Chuỗi chỉ chứa khoảng trắng (Whitespace-only) và chuẩn hóa khoảng trắng:** Đặc tả ghi *"không được để trống"*, nhưng không nêu rõ chuỗi chỉ gồm dấu cách (`"   "`) có bị coi là để trống không, và khoảng trắng thừa ở hai đầu (`"  Điện tử  "`) có được tự động `trim()` không. | Nếu không `trim()`, người dùng có thể tạo danh mục tên `"   "` (trống trên giao diện) hoặc tạo bản ghi có dấu cách thừa. | **Giả định:** Chuỗi chỉ gồm khoảng trắng (`"   "`) về mặt nghiệp vụ tương đương với để trống và **phải bị từ chối** (`400 Bad Request`, không tạo bản ghi). | Đã xác nhận |
+| **Q3** | **Tính duy nhất (Uniqueness) của Tên danh mục:** `README.md` FR-14 không nêu tên danh mục có bắt buộc duy nhất (unique) hay không (khác với FR-01 nêu email duy nhất và FR-17 nêu mã coupon duy nhất). | Nếu cho phép tạo nhiều danh mục trùng hệt tên (ví dụ hai danh mục cùng tên `"Điện thoại"`), Admin và người dùng sẽ không phân biệt được khi chọn danh mục cho sản phẩm ở FR-15. | **Giả định:** Đưa ca kiểm thử trùng tên danh mục (kể cả trùng chính xác và khác hoa/thường) vào bộ test EP để kiểm tra hành vi thực tế; ghi nhận là điểm mơ hồ đặc tả (`unspecified`) để quan sát phản hồi của SUT. | Đã xác nhận |
+| **Q4** | **Mâu thuẫn đặc tả về thao tác Cập nhật/Sửa (`PUT /api/categories/:id`):** Tiêu đề FR-14 ghi *"Category CRUD"*, FR-12 dòng 177 ghi rõ *"POST/PUT/DELETE /api/products, /api/categories, /api/coupons"*, và `api_specification.md` mục 3.4 dòng 105 định nghĩa endpoint `PUT /api/categories/:id`. Tuy nhiên, mô tả chi tiết FR-14 dòng 188 lại chỉ ghi *"Admin có thể Thêm / Xem / Xóa danh mục"*. | Có sự không nhất quán giữa tài liệu đặc tả nghiệp vụ (`README.md` dòng 188) và đặc tả giao tiếp (`api_specification.md` dòng 105 + `README.md` dòng 177). | **Giả định:** Kiểm thử trọng tâm vào 3 thao tác Thêm (`POST`), Xem (`GET`), Xóa (`DELETE`) trên cả API và UI; đồng thời thiết kế các ca kiểm thử EP cho `PUT /api/categories/:id` (cập nhật hợp lệ, kiểm tra quyền Admin theo FR-12, kiểm tra `name` rỗng và `:id` không tồn tại) để phủ toàn diện hợp đồng API. | Đã xác nhận |
+| **Q5** | **Hành vi khi xóa danh mục đang có sản phẩm tham chiếu (`category_in_use = true`):** FR-14 cho phép Admin xóa danh mục, trong khi FR-15 quy định mỗi sản phẩm bắt buộc thuộc một danh mục có sẵn (`category_id`). Đặc tả không nêu khi xóa danh mục đang chứa sản phẩm thì hệ thống phải chặn xóa (`400`/`409`) hay xử lý thế nào. | Nếu xóa thẳng danh mục đang có sản phẩm mà không kiểm tra ràng buộc khóa ngoại, các sản phẩm đó sẽ rơi vào trạng thái mồ côi (`orphan category_id`), vi phạm FR-15. | **Giả định:** Hệ thống cần từ chối xóa danh mục đang có sản phẩm tham chiếu (`4xx`) HOẶC không được làm hỏng tính toàn vẹn dữ liệu của sản phẩm hiện có. Sẽ thiết kế ca EP riêng cho trạng thái `category_in_use = true`. | Đã xác nhận |
+| **Q6** | **Mã HTTP và nội dung thông báo lỗi chi tiết:** Cả `README.md` và `api_specification.md` mục 3.4 đều không quy định mã HTTP cụ thể cho từng trường hợp lỗi (ví dụ xóa `:id` không tồn tại trả về `404` hay `200`, thiếu quyền trả về `401` hay `403`, nội dung chuỗi message lỗi là gì). | Nếu cố định cứng chuỗi thông báo lỗi khi chưa có trong SRS sẽ dẫn đến kết luận Fail sai. | **Giả định:** Dùng **trạng thái dữ liệu CSDL** (quan sát qua `GET /api/categories`) kết hợp nhóm mã phản hồi chuẩn REST (`2xx` cho thành công; `401`/`403` cho lỗi xác thực/phân quyền; `400`/`404` cho lỗi dữ liệu/không tìm thấy bản ghi — đối với xóa `:id` không tồn tại thì phải trả về `404` hoặc báo không có bản ghi nào bị xóa) làm Oracle chính. | Đã xác nhận |
 
-> **Ghi chú §4 (thời điểm đọc mã nguồn):** ở Bước 1, AI chỉ đọc tài liệu đặc tả `README.md` và hợp đồng `api_specification.md` mục 3.4 để xác định các endpoint (`GET/POST/PUT/DELETE /api/categories`) và tên trường dữ liệu; **tuyệt đối không đọc logic xử lý mã nguồn** backend/frontend (`backend/server.js`, `frontend-admin/...`). Toàn bộ kết quả mong đợi (Expected) được suy dẫn độc lập từ đặc tả nghiệp vụ. Logic mã nguồn chỉ được phép đọc ở Bước 3 sau khi có kết quả thực thi và phát hiện ca Fail.
+> **Ghi chú §4 (thời điểm đọc mã nguồn):** ở Bước 1 và Bước 2, AI chỉ đọc tài liệu đặc tả `README.md` và hợp đồng `api_specification.md` mục 3.4 để xác định các endpoint (`GET/POST/PUT/DELETE /api/categories`) và tên trường dữ liệu; **tuyệt đối không đọc logic xử lý mã nguồn** backend/frontend (`backend/server.js`, `frontend-admin/...`). Toàn bộ kết quả mong đợi (Expected) được suy dẫn độc lập từ đặc tả nghiệp vụ. Logic mã nguồn chỉ được phép đọc ở Bước 3 sau khi có kết quả thực thi và phát hiện ca Fail.
+
+---
+
+## 1. Domain Testing (Phân hoạch tương đương) — FR-14: Quản lý Danh mục (Category CRUD)
+
+**Thành phần kiểm thử:** API (`GET /api/categories`, `POST /api/categories`, `PUT /api/categories/:id`, `DELETE /api/categories/:id`; API hỗ trợ lấy token: `POST /api/login`) + Web Admin UI (`http://localhost:5174`)
+**Nguồn đặc tả:** `README.md` FR-14 (dòng 186–190), FR-12 (dòng 174–180), FR-15 (dòng 197), FR-21–FR-24 (dòng 240–271), SEC-02–SEC-05 (dòng 279–282); `api_specification.md` mục 1.2, 3.4
+**Ngày thiết kế:** 2026-10-15
+
+### Bước 1 — Xác định đầu vào và đầu ra
+
+| Thành phần | Tên | Kiểu | Ràng buộc | Nguồn |
+|---|---|---|---|---|
+| Input | V1 `auth_token` | String (JWT, header `Authorization: Bearer <token>`) | Bắt buộc với `POST`, `PUT`, `DELETE` và Web Admin; Token phải hợp lệ **và** có `role = 'admin'` | README 176–180; SEC-02 279; SEC-03 280 |
+| Input | V2 `name` | String (Body JSON / Form UI) | Bắt buộc, không rỗng; độ dài $[1, 255]$ *(giả định Q1)*; không chỉ gồm khoảng trắng *(Q2)*; không trùng tên *(Q3)*; escape HTML an toàn *(SEC-04)* | README 189, 252, 281; api_spec 104 |
+| Input | V3 `id` | Integer (Path `:id` trên URL) | Bắt buộc khi Xóa (`DELETE`) và Cập nhật (`PUT`); số nguyên dương $\ge 1$ tồn tại trong bảng `categories` | README 188; api_spec 105–106 |
+| Input | V4 `category_in_use` | Trạng thái khóa ngoại (DB `products.category_id`) | Danh mục trống (`false`) được phép xóa; danh mục đang có sản phẩm tham chiếu (`true`) không được làm hỏng tính toàn vẹn sản phẩm *(Q5)* | README 188, 197; api_spec 98, 106 |
+| Output hợp lệ | O1 (`GET`), O2 (`POST`), O3 (`DELETE`), O4 (`PUT`) | Mảng/Đối tượng JSON & UI | `GET`: trả danh sách đầy đủ; `POST`: tạo đúng 1 danh mục mới; `DELETE`: xóa đúng danh mục `:id`, giữ nguyên danh mục khác; `PUT`: cập nhật đúng danh mục `:id` | README 177, 186–189; api_spec 103–106 |
+| Output lỗi | O5 (Phân quyền), O6 (Lỗi `name`), O7 (Lỗi `:id`/FK) | Phản hồi lỗi 4xx | Không có token / token sai (`401`), `role != 'admin'` (`403`), dữ liệu `name` hoặc `:id` không hợp lệ (`400`/`404`/`409`); trạng thái bảng `categories` giữ nguyên | README 176–180, 189, 252; SEC-02, SEC-03 |
+
+**Giải thích:** bốn biến V1–V4 kết hợp với hai biến trạng thái phụ (`category_already_deleted`, `other_categories_state`) bao phủ đầy đủ mọi điều kiện của FR-14 và các điều khoản liên thông bắt buộc (FR-12, FR-15, FR-21–24, SEC-02–05). Vì đặc tả không nêu chuỗi message lỗi cụ thể, Oracle chính được xác định độc lập qua **trạng thái dữ liệu CSDL** (truy vấn `GET /api/categories` trước và sau mỗi thao tác) kết hợp với nhóm mã HTTP chuẩn REST (Q6).
+
+**Phân loại biến: Direct Input và State Input (DB/phiên):**
+
+| Biến / điều kiện | Phân loại | Kiểu | Ràng buộc (SRS) | Giá trị hợp lệ mặc định |
+|---|---|---|---|---|
+| V1 `auth_token` | **State Input** (phiên đăng nhập, header) | JWT (`role`) | Hợp lệ, đúng định dạng `Bearer`, `role = 'admin'` | `token_admin` (`admin@eshop.com`) |
+| V2 `name` (`POST` & `PUT`) | Direct Input (body/UI) | String | $1 \le \text{len} \le 255$, không rỗng, không toàn khoảng trắng | `NAME_NOM = "Thiết bị gia dụng thông minh"` (28 ký tự) |
+| V3 `id` (`DELETE` & `PUT`) | Direct Input (URL `:id`) & **State Input** (DB) | Integer | Số nguyên dương $\ge 1$, tồn tại trong bảng `categories` | `ID_EMPTY` (danh mục mới tạo / `ID_NOM = 3`) |
+| V4 `category_in_use` | **State Input** (DB `products.category_id`) | Boolean | `false` khi xóa danh mục thông thường; `true` khi kiểm tra R5/Q5 | `false` (danh mục không có sản phẩm gắn vào) |
+| `category_already_deleted` | **State Input** (DB sau khi gọi `DELETE` lần 1) | Boolean | Danh mục đã bị xóa không thể xóa thành công lần 2 | `false` (danh mục đang tồn tại) |
+| `other_categories_state` | **State Input** (DB các bản ghi `id != :id`) | Danh sách bản ghi | Các danh mục khác không bị xóa hoặc đổi tên nhầm (R3) | Danh sách các danh mục nền (`N0` bản ghi) |
+
+Các lớp `EC05–EC07` (token của `role = 'user'`), `EC15` (trùng tên danh mục đã có), `EC22` (`category_in_use = true`) và `EC23` (`category_already_deleted = true`) là các lớp của **State Input**; điều kiện tiên quyết trong bảng test case quy định rõ các bước tạo trạng thái tương ứng trước khi gửi request kiểm thử.
+
+### Bước 2 — Xác định các lớp tương đương
+
+**Quy ước:** `token_admin` = JWT hợp lệ của `admin@eshop.com` (`role = 'admin'`); `token_user` = JWT hợp lệ của `test@eshop.com` (`role = 'user'`); `NAME_NOM` = `"Thiết bị gia dụng thông minh"` (28 ký tự); `NAME_UPD` = `"Thiết bị gia dụng cao cấp"` (25 ký tự); `ID_EMPTY` = mã `id` của danh mục hợp lệ không chứa sản phẩm; `ID_IN_USE` = mã `id` của danh mục đang có sản phẩm tham chiếu (ví dụ `id = 1`); `REJ` = bị từ chối (mã HTTP 4xx, trạng thái bảng `categories` không thay đổi).
+
+| EC ID | Yêu cầu | Biến / Đầu ra | Điều kiện | Loại | Giá trị đại diện | Lý do chia |
+|---|---|---|---|---|---|---|
+| EC01 | FR-12; SEC-02, SEC-03 | V1 | Token JWT hợp lệ, đúng định dạng `Bearer <token>` **và** có `role = 'admin'` | Valid | `Bearer <token_admin>` | Điều kiện AND (định dạng + chữ ký + `role = 'admin'`) |
+| EC02 | FR-12; SEC-02 | V1 | Không gửi header `Authorization` khi gọi API thay đổi dữ liệu (`POST`/`DELETE`/`PUT`) | Invalid | (không có header) | Boolean: có/không có header xác thực |
+| EC03 | FR-12; SEC-02 | V1 | Có header nhưng Token không hợp lệ (sai cấu trúc/chữ ký) | Invalid | `Bearer token.gia.mao` | Tách khỏi EC02 vì lỗi chữ ký JWT khác với thiếu header |
+| EC04 | api_spec mục 2, 6 | V1 | Token Admin hợp lệ nhưng header sai định dạng (thiếu tiền tố `Bearer `) | Invalid | `Authorization: <token_admin>` | Định dạng header `Bearer <token>` |
+| EC05 | FR-12 (177–180); SEC-03 | V1 (`POST`) | Token JWT hợp lệ nhưng `role = 'user'` (`test@eshop.com`) gọi `POST /api/categories` | Invalid | `Bearer <token_user>` | Tập giá trị role: `role ∉ {'admin'}` ở thao tác Thêm |
+| EC06 | FR-12 (177–180); SEC-03 | V1 (`DELETE`) | Token JWT hợp lệ nhưng `role = 'user'` gọi `DELETE /api/categories/:id` | Invalid | `Bearer <token_user>` | Đối xứng thao tác Xóa cho SEC-03 (mỗi endpoint kiểm tra quyền riêng) |
+| EC07 | FR-12 (177–180); SEC-03 | V1 (`PUT`) | Token JWT hợp lệ nhưng `role = 'user'` gọi `PUT /api/categories/:id` | Invalid | `Bearer <token_user>` | Đối xứng thao tác Cập nhật cho SEC-03 |
+| EC08 | FR-14 (188–189); Q1 | V2 (`POST`) | Chuỗi văn bản $1 \le \text{độ dài} \le 255$, có tiếng Việt có dấu, chưa tồn tại | Valid | `NAME_NOM` (28 ký tự) | Điều kiện AND (kiểu chuỗi + dải độ dài + duy nhất) |
+| EC09 | FR-14 (189); FR-22 | V2 (`POST`) | Chuỗi rỗng (`name = ""`) khi Thêm mới | Invalid | `""` | Trường bắt buộc (dải độ dài `< 1`) |
+| EC10 | FR-14 (189); api_spec 104 | V2 (`POST`) | Thiếu hẳn khóa `name` trong JSON body (`{}`) khi Thêm mới | Invalid | `{}` | Boolean: có/không có trường `name`; tách khỏi EC09 |
+| EC11 | FR-14 (189); Q2 | V2 (`POST`) | Chuỗi chỉ gồm khoảng trắng (`"     "`) khi Thêm mới | Invalid | `"     "` (5 dấu cách) | Kiểu chuỗi đặc biệt: tương đương để trống về nghiệp vụ (Q2) |
+| EC12 | Q1 | V2 (`POST`) | Độ dài chuỗi $> 255$ ký tự khi Thêm mới | Invalid | `'A'×300` (300 ký tự) | Dải độ dài → lớp trên (cận trên theo giả định Q1) |
+| EC13 | api_spec 104 | V2 (`POST`) | Sai kiểu dữ liệu (không phải chuỗi: số nguyên `12345`) khi Thêm mới | Invalid | `12345` | Boolean/kiểu dữ liệu |
+| EC14 | FR-14 (189) | V2 (`POST`) | Giá trị `null` (`{"name": null}`) khi Thêm mới | Invalid | `null` | Giá trị đặc biệt khác chuỗi rỗng `""` |
+| EC15 | Q3 | V2 (`POST`) | Tên danh mục trùng hệt với danh mục đã tồn tại trong CSDL | Invalid (liên biến/trạng thái) | `NAME_NOM` (gửi tạo lần 2) | Giá trị đơn/tập hợp: `name ∈ existing_names` (Q3) |
+| EC16 | SEC-04 (281); R4 | V2 (`POST`) | Chuỗi có chứa thẻ HTML/script đặc biệt (hợp lệ về độ dài) | Valid (đầu vào) | `<img src=x onerror=alert(1)>` | Đầu vào hợp lệ nhưng đầu ra hiển thị trên UI phải được escape an toàn |
+| EC17 | FR-14 (188); api_spec 106 | V3×V4 (`DELETE`) | `:id` là số nguyên dương $\ge 1$, tồn tại trong CSDL **và** `category_in_use = false` | Valid | `ID_EMPTY` | Điều kiện AND (kiểu nguyên dương + tồn tại + chưa gắn sản phẩm) |
+| EC18 | FR-14 (188); Q6 | V3 (`DELETE`) | `:id` là số nguyên dương nhưng **không tồn tại** trong CSDL | Invalid | `999999` | Tập hợp trạng thái DB: `id ∉ existing_ids` |
+| EC19 | api_spec 106 | V3 (`DELETE`) | `:id = 0` (ngoài miền nguyên dương) | Invalid | `0` | Dải dưới `< 1` (biên số 0) |
+| EC20 | api_spec 106 | V3 (`DELETE`) | `:id < 0` (số nguyên âm) | Invalid | `-5` | Dải âm tách khỏi 0 |
+| EC21 | api_spec 106 | V3 (`DELETE`) | `:id` không phải số nguyên (chuỗi ký tự trên URL path) | Invalid | `"abc"` | Boolean/kiểu dữ liệu của path parameter |
+| EC22 | FR-15 (197); R5; Q5 | V4 (`DELETE`) | Xóa danh mục đang có $\ge 1$ sản phẩm tham chiếu (`category_in_use = true`) | Invalid (liên biến R5) | `ID_IN_USE` (`id = 1`) | Ràng buộc toàn vẹn tham chiếu khóa ngoại giữa sản phẩm và danh mục |
+| EC23 | FR-14 (188); Q6 | V3 (trạng thái) | Gọi `DELETE /api/categories/:id` lần 2 trên cùng `:id` vừa bị xóa thành công (`category_already_deleted = true`) | Invalid (trạng thái) | `ID_EMPTY` (lần 2) | Vòng đời bản ghi: bản ghi đã bị xóa không thể xóa lại thành công |
+| EC24 | FR-12 (177); api_spec 105; Q4 | V3×V2 (`PUT`) | `:id` tồn tại hợp lệ **và** `name` mới hợp lệ khi Cập nhật | Valid | `id = ID_EMPTY`, `name = NAME_UPD` | Đối xứng thao tác Cập nhật (`PUT /api/categories/:id`) theo hợp đồng API |
+| EC25 | FR-14 (189); Q4 | V2 (`PUT`) | `:id` tồn tại hợp lệ nhưng `name` mới rỗng (`""`) khi Cập nhật | Invalid | `id = ID_EMPTY`, `name = ""` | Đối xứng EC09 cho biến `name` ở thao tác `PUT` |
+| EC26 | FR-14 (189); Q2, Q4 | V2 (`PUT`) | `:id` tồn tại hợp lệ nhưng `name` mới chỉ gồm khoảng trắng (`"     "`) khi Cập nhật | Invalid | `id = ID_EMPTY`, `name = "     "` | Đối xứng EC11 cho biến `name` ở thao tác `PUT` |
+| EC27 | api_spec 105; Q4, Q6 | V3 (`PUT`) | `:id` không tồn tại (`999999`) với `name` mới hợp lệ khi Cập nhật | Invalid | `id = 999999`, `name = NAME_UPD` | Đối xứng EC18 cho biến `:id` ở thao tác `PUT` |
+| EC28 | FR-14 (188); api_spec 103 | `GET` | Truy vấn danh sách danh mục `GET /api/categories` | Valid | `GET /api/categories` | Thao tác Xem danh sách trong CRUD |
+| EC29 | O1 | Output (`GET`) | Phản hồi `200 OK` kèm mảng JSON chứa đầy đủ các danh mục hiện có (`id`, `name`) | Output hợp lệ | mảng JSON khớp DB | Lớp đầu ra hợp lệ cho thao tác Xem |
+| EC30 | O2 | Output (`POST`) | Phản hồi `2xx`; tổng số danh mục tăng đúng 1; bản ghi mới có `name` đúng bằng chuỗi đã gửi | Output hợp lệ | `OC-ADD-OK` | Lớp đầu ra hợp lệ cho thao tác Thêm |
+| EC31 | O3; R3 | Output (`DELETE`) | Phản hồi `2xx`; tổng số danh mục giảm đúng 1; `:id` biến mất; các danh mục khác giữ nguyên | Output hợp lệ | `OC-DEL-OK` | Lớp đầu ra hợp lệ cho thao tác Xóa (kèm cô lập bản ghi R3) |
+| EC32 | O4; R3 | Output (`PUT`) | Phản hồi `2xx`; bản ghi `:id` đổi sang `name` mới; các danh mục khác giữ nguyên | Output hợp lệ | `OC-PUT-OK` | Lớp đầu ra hợp lệ cho thao tác Cập nhật |
+| EC33 | O5; R1 | Output (Auth) | Từ chối yêu cầu không đủ quyền (`401`/`403`); trạng thái bảng `categories` không thay đổi | Output lỗi | `REJ-AUTH` + `OC-NO` | Lớp đầu ra lỗi xác thực và phân quyền RBAC |
+| EC34 | O6, O7 | Output (Data) | Từ chối dữ liệu/trạng thái không hợp lệ (`4xx`); trạng thái bảng `categories` không thay đổi | Output lỗi | `REJ-DATA` + `OC-NO` | Lớp đầu ra lỗi dữ liệu đầu vào và ràng buộc |
+| EC35 | FR-12 (176); SEC-03 | UI (Auth) | Chưa đăng nhập hoặc đăng nhập bằng tài khoản `role = 'user'` truy cập Web Admin (`http://localhost:5174`) → bị chặn/yêu cầu đăng nhập Admin | Invalid (UI) | mở Web Admin khi chưa có `token_admin` | Ràng buộc kiểm soát truy cập trên giao diện Web Admin |
+| EC36 | FR-14 (188) | UI (CRUD) | Giao diện Quản lý Danh mục hiển thị danh sách và thực hiện Thêm / Xóa danh mục thành công | Valid (UI) | thao tác Thêm & Xóa trên UI | Ràng buộc chức năng cốt lõi của FR-14 trên Web Admin |
+| EC37 | FR-22 (252) | UI (Form) | Nhãn của trường Tên danh mục (bắt buộc) có ký hiệu dấu `*` bên cạnh | Valid (UI) | quan sát nhãn DOM | Ràng buộc giao diện riêng (FR-22) |
+| EC38 | FR-14 (189); FR-22 | UI (Form) | Để trống ô Tên danh mục trên UI rồi bấm Thêm → bị chặn hoặc báo lỗi, không tạo danh mục rỗng | Invalid (UI) | nhập `""` trên UI | Ràng buộc kiểm tra dữ liệu rỗng trên giao diện |
+| EC39 | FR-22 (255) | UI (Form) | Thông báo lỗi khi nhập không hợp lệ phải xuất hiện **phía trên** nút Submit, không phải bên dưới | Valid (UI) | so sánh tọa độ `bottom(lỗi) ≤ top(nút)` | Ràng buộc vị trí thông báo lỗi (FR-22) |
+| EC40 | FR-21 (245) | UI (Màu sắc) | Nút hành động tích cực (Thêm/Submit) dùng màu xanh dương; nút nguy hiểm (Xóa) dùng màu đỏ | Valid (UI) | kiểm tra `background-color` / class CSS | Ràng buộc nhất quán màu sắc (FR-21) |
+| EC41 | FR-21 (244, 247) | UI (Tiêu chuẩn) | Trang có đúng **một** thẻ `<h1>` mô tả nội dung trang và toàn bộ giao diện dùng tiếng Việt nhất quán | Valid (UI) | đếm thẻ `h1` & kiểm tra văn bản | Ràng buộc tiêu đề và ngôn ngữ (FR-21) |
+| EC42 | FR-23 (260, 262) | UI (Điều hướng) | Thanh điều hướng highlight trang đang chọn và nút đăng xuất có nhãn chính xác là `"Đăng xuất"` (không phải `"Thoát"`) | Valid (UI) | quan sát Navbar/Sidebar | Ràng buộc điều hướng (FR-23) |
+
+**Giải thích:**
+- Đã áp dụng đầy đủ **bốn dạng điều kiện** của bài giảng: *dải giá trị* (độ dài `name` $\in [1, 255]$ $\rightarrow$ lớp dưới `EC09` và lớp trên `EC12`; mã `:id` $\ge 1$ $\rightarrow$ lớp `0` `EC19` và lớp âm `EC20`), *giá trị đơn / tập hợp* (`role = 'admin'` vs `role = 'user'` ở `EC01`, `EC05–EC07`; tên trùng `EC15`; `:id` tồn tại vs không tồn tại `EC17`, `EC18`, `EC27`), *boolean / kiểu dữ liệu* (có/không có header `EC02`, có/không có trường `EC10`, kiểu số `EC13`, `null` `EC14`, chuỗi `"abc"` cho `:id` `EC21`).
+- **Đối xứng biến lặp lại:** Biến `V1 (auth_token)` với `role = 'user'` được kiểm tra đối xứng trên cả 3 thao tác ghi (`POST` → `EC05`, `DELETE` → `EC06`, `PUT` → `EC07`); biến `V2 (name)` và `V3 (:id)` được phân hoạch đối xứng cho cả `POST`/`DELETE` và `PUT` (`EC24–EC27`).
+- **Tách riêng ràng buộc giao diện:** Toàn bộ các yêu cầu giao diện Web Admin (`EC35–EC42`) được tách thành lớp riêng thay vì gộp chung vào một ca duy nhất để truy vết chính xác từng tiêu chuẩn `FR-12`, `FR-21`, `FR-22`, `FR-23`.
+- **Giới hạn đã biết (không tự bịa giá trị):** *Token JWT hết hạn* (`SEC-02`) — đặc tả không nêu thời gian sống của JWT nên không thiết kế ca chờ hết hạn; được ghi nhận là giới hạn đặc tả.
+
+### Bước 3 — Chọn đại diện và tạo test case
+
+**Điều kiện nền và Oracle dùng chung:**
+
+- **P0 (Fixture mặc định):** CSDL SQLite được khôi phục về trạng thái chuẩn trước mỗi ca kiểm thử; tài khoản Admin `admin@eshop.com` / `Admin123!` và User `test@eshop.com` / `Test1234!`. Ghi nhận danh sách danh mục ban đầu `L0` (số lượng `N0`) từ `GET /api/categories`, trong đó `id = 1` là danh mục có sẵn đang gắn sản phẩm (`ID_IN_USE = 1`).
+- **P1:** P0 + đăng nhập Admin (`POST /api/login`) lấy `token_admin` + đăng nhập User (`POST /api/login`) lấy `token_user`.
+- **P2:** P1 + Admin gọi `POST /api/categories` tạo một danh mục tạm chưa gắn sản phẩm (`name = "Danh mục tạm test"`), ghi nhận mã `ID_EMPTY` (và danh sách lúc này có `N1 = N0 + 1` bản ghi).
+- **OC-ADD-OK(name):** Phản hồi HTTP `2xx`; gọi `GET /api/categories` thấy tổng số bản ghi là `N0 + 1`, có **đúng 1 bản ghi mới** với trường `name` khớp chính xác chuỗi đã gửi; toàn bộ `N0` bản ghi cũ giữ nguyên.
+- **OC-DEL-OK(id):** Phản hồi HTTP `2xx`; gọi `GET /api/categories` thấy tổng số bản ghi giảm đúng 1, không còn bản ghi nào có `id` đã xóa; toàn bộ các bản ghi còn lại giữ nguyên (`R3`).
+- **OC-PUT-OK(id, name_new):** Phản hồi HTTP `2xx`; gọi `GET /api/categories` thấy tổng số bản ghi không đổi, bản ghi có `id` đã đổi trường `name` thành `name_new`; các bản ghi khác giữ nguyên (`R3`).
+- **OC-NO:** Gọi `GET /api/categories` thấy danh sách bản ghi (`id`, `name`) **giữ nguyên 100%** so với trước khi gửi request lỗi (không thêm bản ghi rác, không mất bản ghi cũ, không bị sửa tên).
+- **REJ-AUTH:** Phản hồi HTTP `401 Unauthorized` (khi thiếu/sai token) hoặc `403 Forbidden` (khi `role = 'user'`, chấp nhận `401`/`403`) kèm `OC-NO`.
+- **REJ-DATA:** Phản hồi HTTP `4xx` (`400`/`404`/`409`) kèm `OC-NO`.
+
+| TC ID | Kỹ thuật | EC phủ | Thành phần | Điều kiện tiên quyết | Dữ liệu vào | Các bước / Lệnh | Kết quả mong đợi | Nguồn expected |
+|---|---|---|---|---|---|---|---|---|
+| EP-TC01 | EP (valid `GET`) | EC28, EC29 | API | P0 | (không cần body) | `GET /api/categories` | `200 OK`; trả về mảng JSON `L0` gồm các đối tượng có đủ `id` (nguyên dương) và `name` (chuỗi không rỗng) | README 188; api_spec 103 |
+| EP-TC02 | EP (gộp valid `POST`) | EC01, EC08, EC30 | API | P1 | Header `Bearer <token_admin>`; Body `{"name": NAME_NOM}` | `POST /api/categories` rồi kiểm tra `GET /api/categories` | `OC-ADD-OK(NAME_NOM)` | README 177, 188–189; api_spec 104 |
+| EP-TC03 | EP (gộp valid `DELETE`) | EC01, EC17, EC31 | API | P2 (đã có `ID_EMPTY`, `category_in_use = false`) | Header `Bearer <token_admin>`; Path `:id = ID_EMPTY` | `DELETE /api/categories/:ID_EMPTY` rồi kiểm tra `GET /api/categories` | `OC-DEL-OK(ID_EMPTY)` | README 177, 188; api_spec 106 |
+| EP-TC04 | EP (gộp valid `PUT`) | EC01, EC24, EC32 | API | P2 (đã có `ID_EMPTY`) | Header `Bearer <token_admin>`; Path `:id = ID_EMPTY`; Body `{"name": NAME_UPD}` | `PUT /api/categories/:ID_EMPTY` rồi kiểm tra `GET /api/categories` | `OC-PUT-OK(ID_EMPTY, NAME_UPD)` | README 177, 186; api_spec 105; Q4 |
+| EP-TC05 | EP (cô lập) | EC02, EC33 | API | P1 | Không gửi header `Authorization`; Body `{"name": NAME_NOM}` | `POST /api/categories` rồi kiểm tra `OC-NO` | `REJ-AUTH` (`401`); `OC-NO` | README 177–178; SEC-02 (279) |
+| EP-TC06 | EP (cô lập) | EC03, EC33 | API | P1 | Header `Authorization: Bearer token.gia.mao`; Body `{"name": NAME_NOM}` | như trên | `REJ-AUTH` (`401`/`403`); `OC-NO` | README 177–178; SEC-02 (279) |
+| EP-TC07 | EP (cô lập) | EC04, EC33 | API | P1 | Header `Authorization: <token_admin>` (thiếu `Bearer `); Body `{"name": NAME_NOM}` | như trên | `REJ-AUTH` (`401`); `OC-NO` | api_spec mục 2, 6 |
+| EP-TC08 | EP (cô lập RBAC `POST`) | EC05, EC33 | API | P1 | Header `Authorization: Bearer <token_user>` (`role = 'user'`); Body `{"name": NAME_NOM}` | `POST /api/categories` rồi kiểm tra `OC-NO` | `REJ-AUTH` (`403`); `OC-NO` | README 176–180; SEC-03 (280) |
+| EP-TC09 | EP (cô lập RBAC `DELETE`) | EC06, EC33 | API | P2 | Header `Authorization: Bearer <token_user>` (`role = 'user'`); Path `:id = ID_EMPTY` | `DELETE /api/categories/:ID_EMPTY` rồi kiểm tra `OC-NO` | `REJ-AUTH` (`403`); `OC-NO` (`ID_EMPTY` không bị xóa) | README 176–180; SEC-03 (280) |
+| EP-TC10 | EP (cô lập RBAC `PUT`) | EC07, EC33 | API | P2 | Header `Authorization: Bearer <token_user>` (`role = 'user'`); Path `:id = ID_EMPTY`; Body `{"name": NAME_UPD}` | `PUT /api/categories/:ID_EMPTY` rồi kiểm tra `OC-NO` | `REJ-AUTH` (`403`); `OC-NO` | README 176–180; SEC-03 (280) |
+| EP-TC11 | EP (cô lập) | EC09, EC34 | API | P1 | Header `Bearer <token_admin>`; Body `{"name": ""}` | `POST /api/categories` rồi kiểm tra `OC-NO` | `REJ-DATA` (`400`); `OC-NO` | README 189 |
+| EP-TC12 | EP (cô lập) | EC10, EC34 | API | P1 | Header `Bearer <token_admin>`; Body `{}` (thiếu `name`) | như trên | `REJ-DATA` (`400`); `OC-NO` | README 189; api_spec 104 |
+| EP-TC13 | EP (cô lập) | EC11, EC34 | API | P1 | Header `Bearer <token_admin>`; Body `{"name": "     "}` (5 dấu cách) | như trên | `REJ-DATA` (`400`); `OC-NO` | README 189; Q2 |
+| EP-TC14 | EP (cô lập) | EC12, EC34 | API | P1 | Header `Bearer <token_admin>`; Body `{"name": 'A'×300}` (300 ký tự) | như trên | `REJ-DATA` (`400`); `OC-NO` | Q1 (giả định max 255) |
+| EP-TC15 | EP (cô lập) | EC13, EC34 | API | P1 | Header `Bearer <token_admin>`; Body `{"name": 12345}` (kiểu số) | như trên | `REJ-DATA` (`400`); `OC-NO` | api_spec 104 (kiểu chuỗi) |
+| EP-TC16 | EP (cô lập) | EC14, EC34 | API | P1 | Header `Bearer <token_admin>`; Body `{"name": null}` | như trên | `REJ-DATA` (`400`); `OC-NO` | README 189 |
+| EP-TC17 | EP (liên biến Q3) | EC15, EC34 | API | P1 + đã tạo danh mục tên `NAME_NOM` | Header `Bearer <token_admin>`; Body `{"name": NAME_NOM}` (trùng tên đã có) | Gửi `POST /api/categories` lần 2 với cùng `NAME_NOM` rồi kiểm tra `GET /api/categories` | `REJ-DATA` (`400`/`409`); không tạo bản ghi trùng tên thứ hai | Q3 (tính duy nhất tên danh mục) |
+| EP-TC18 | EP (bảo mật hiển thị R4) | EC16, EC30 | API + UI | P1 | Header `Bearer <token_admin>`; Body `{"name": "<img src=x onerror=alert(1)>"}` | (1) `POST /api/categories`; (2) Mở trang Quản lý Danh mục trên Web Admin (`http://localhost:5174`) | (1) Nếu tạo: lưu chuỗi văn bản; (2) Trên UI: hiển thị nguyên văn dạng text, **không** render phần tử `<img>` có `onerror` trong DOM và **không** thực thi `alert(1)` | README 281 (SEC-04) |
+| EP-TC19 | EP (cô lập) | EC18, EC34 | API | P1 | Header `Bearer <token_admin>`; Path `:id = 999999` (không tồn tại) | `DELETE /api/categories/999999` rồi kiểm tra `OC-NO` | `REJ-DATA` (`404`); `OC-NO` | README 188; Q6 |
+| EP-TC20 | EP (cô lập) | EC19, EC34 | API | P1 | Header `Bearer <token_admin>`; Path `:id = 0` | `DELETE /api/categories/0` rồi kiểm tra `OC-NO` | `REJ-DATA` (`400`/`404`); `OC-NO` | api_spec 106; Q6 |
+| EP-TC21 | EP (cô lập) | EC20, EC34 | API | P1 | Header `Bearer <token_admin>`; Path `:id = -5` | `DELETE /api/categories/-5` rồi kiểm tra `OC-NO` | `REJ-DATA` (`400`/`404`); `OC-NO` | api_spec 106; Q6 |
+| EP-TC22 | EP (cô lập) | EC21, EC34 | API | P1 | Header `Bearer <token_admin>`; Path `:id = abc` | `DELETE /api/categories/abc` rồi kiểm tra `OC-NO` | `REJ-DATA` (`400`/`404`); `OC-NO` | api_spec 106; Q6 |
+| EP-TC23 | EP (liên biến R5) | EC22, EC34 | API | P1 (`id = 1` đang có sản phẩm tham chiếu trong bảng `products`) | Header `Bearer <token_admin>`; Path `:id = 1` (`ID_IN_USE`) | `DELETE /api/categories/1` rồi kiểm tra `GET /api/categories` và `GET /api/products` | `REJ-DATA` (`400`/`409`); danh mục `id = 1` không bị xóa trái phép gây mồ côi sản phẩm | README 188, 197; R5; Q5 |
+| EP-TC24 | EP (trạng thái) | EC23, EC34 | API | P2 + đã gọi `DELETE /api/categories/:ID_EMPTY` lần 1 thành công (`OC-DEL-OK`) | Header `Bearer <token_admin>`; Path `:id = ID_EMPTY` (lần 2) | Gọi `DELETE /api/categories/:ID_EMPTY` lần 2 rồi kiểm tra `OC-NO` | `REJ-DATA` (`404`); các danh mục còn lại giữ nguyên | README 188; Q6 |
+| EP-TC25 | EP (cô lập `PUT`) | EC25, EC34 | API | P2 | Header `Bearer <token_admin>`; Path `:id = ID_EMPTY`; Body `{"name": ""}` | `PUT /api/categories/:ID_EMPTY` rồi kiểm tra `OC-NO` | `REJ-DATA` (`400`); tên của `ID_EMPTY` giữ nguyên | README 189; api_spec 105; Q4 |
+| EP-TC26 | EP (cô lập `PUT`) | EC26, EC34 | API | P2 | Header `Bearer <token_admin>`; Path `:id = ID_EMPTY`; Body `{"name": "     "}` | như trên | `REJ-DATA` (`400`); tên của `ID_EMPTY` giữ nguyên | README 189; Q2, Q4 |
+| EP-TC27 | EP (cô lập `PUT`) | EC27, EC34 | API | P1 | Header `Bearer <token_admin>`; Path `:id = 999999`; Body `{"name": NAME_UPD}` | `PUT /api/categories/999999` rồi kiểm tra `OC-NO` | `REJ-DATA` (`404`); `OC-NO` | api_spec 105; Q4, Q6 |
+| EP-TC28 | EP (UI Auth) | EC35 | UI | P0 (chưa đăng nhập hoặc dùng token `test@eshop.com`) | Mở trực tiếp Web Admin (`http://localhost:5174`) và điều hướng tới mục Quản lý Danh mục | Truy cập trang Quản lý Danh mục khi chưa có quyền Admin | Bị chặn truy cập hoặc chuyển hướng về màn hình Đăng nhập Admin; không hiển thị giao diện thêm/xóa danh mục | README 176 (FR-12); SEC-03 |
+| EP-TC29 | EP (UI gộp valid) | EC01, EC08, EC17, EC30, EC31, EC36 | UI | P0 (đăng nhập `admin@eshop.com` trên Web Admin) | `name = NAME_NOM` | Đăng nhập Web Admin → mở Quản lý Danh mục → kiểm tra bảng danh mục → nhập `NAME_NOM` → bấm Thêm → kiểm tra xuất hiện → bấm Xóa dòng vừa tạo | Danh mục mới xuất hiện trong bảng và trong `GET /api/categories`; sau khi bấm Xóa thì biến mất khỏi bảng và CSDL | README 188–189 |
+| EP-TC30 | EP (UI Form `*`) | EC37 | UI | Đã đăng nhập Web Admin, mở trang Quản lý Danh mục | Quan sát nhãn (label) của ô nhập Tên danh mục | Đọc nội dung văn bản của nhãn trường Tên danh mục trên DOM | Nhãn trường Tên danh mục (bắt buộc) có ký hiệu `*` đi kèm | README 252 (FR-22) |
+| EP-TC31 | EP (UI cô lập rỗng) | EC38, EC34 | UI | Đã đăng nhập Web Admin, mở trang Quản lý Danh mục | Ô Tên danh mục để trống (`""`) | Không nhập tên danh mục → bấm nút Thêm/Submit → kiểm tra DOM và `GET /api/categories` | Bị chặn hoặc hiển thị thông báo lỗi; `OC-NO` (không tạo danh mục rỗng) | README 189, 252 |
+| EP-TC32 | EP (UI vị trí lỗi) | EC39 | UI | Như EP-TC31 (khi kích hoạt lỗi form trên UI) | Ô Tên danh mục để trống (`""`) | Kích hoạt thông báo lỗi form → đo tọa độ `boundingBox` của phần tử thông báo lỗi và nút Submit | Thông báo lỗi hiển thị **phía trên** nút Submit (`bottom(lỗi) ≤ top(nút)`) | README 255 (FR-22) |
+| EP-TC33 | EP (UI màu nút) | EC40 | UI | Đã đăng nhập Web Admin, mở trang Quản lý Danh mục | Quan sát nút Thêm/Submit và nút Xóa danh mục | Lấy thuộc tính `background-color` (computed style) của nút Thêm và nút Xóa | Nút Thêm màu xanh dương (`B > R` và `B > G`); nút Xóa màu đỏ (`R > G` và `R > B`) | README 245 (FR-21) |
+| EP-TC34 | EP (UI tiêu chuẩn & điều hướng) | EC41, EC42 | UI | Đã đăng nhập Web Admin, mở trang Quản lý Danh mục | Quan sát toàn trang Quản lý Danh mục và thanh điều hướng | Đếm số lượng thẻ `<h1>`; kiểm tra ngôn ngữ tiếng Việt; kiểm tra class active/highlight của mục Danh mục trên Navbar/Sidebar và nhãn nút `"Đăng xuất"` | Có đúng **1** thẻ `<h1>`; ngôn ngữ tiếng Việt; mục Danh mục được highlight; nút đăng xuất ghi `"Đăng xuất"` (không phải `"Thoát"`) | README 244, 247 (FR-21); 260, 262 (FR-23) |
+
+**Giải thích:**
+- **Ca hợp lệ (gộp):** Có 4 ca API hợp lệ tương ứng 4 phương thức trong hợp đồng (`EP-TC01` cho `GET`, `EP-TC02` cho `POST`, `EP-TC03` cho `DELETE`, `EP-TC04` cho `PUT`) và 1 ca luồng chính trên giao diện Web Admin (`EP-TC29` gộp Thêm & Xóa).
+- **Ca không hợp lệ (cô lập lỗi Single-Fault):** Mọi ca âm từ `EP-TC05` đến `EP-TC27` (API) và `EP-TC28`, `EP-TC31` (UI) chỉ làm sai **đúng một** điều kiện tại một thời điểm (hoặc thiếu/sai token, hoặc sai role, hoặc `name` không hợp lệ, hoặc `:id` không hợp lệ, hoặc vi phạm khóa ngoại), trong khi tất cả các biến còn lại đều được giữ ở giá trị hợp lệ mặc định (`token_admin`, `NAME_NOM`, `ID_EMPTY`, `category_in_use = false`).
+- **Tách riêng các ca giao diện:** Các ca `EP-TC28`–`EP-TC34` kiểm tra độc lập từng quy định giao diện trong `FR-12`, `FR-21`, `FR-22`, `FR-23` để nếu một tiêu chuẩn UI bị vi phạm thì không làm che khuất kết quả của các tiêu chuẩn khác.
+
+### Truy vết EC → Test case (xem thêm Bước 3b bên dưới)
+
+| EC ID | Test case phủ | EC ID | Test case phủ | EC ID | Test case phủ |
+|---|---|---|---|---|---|
+| EC01 | TC02, TC03, TC04, TC29 | EC15 | TC17 | EC29 | TC01 |
+| EC02 | TC05 | EC16 | TC18 | EC30 | TC02, TC18, TC29 |
+| EC03 | TC06 | EC17 | TC03, TC29 | EC31 | TC03, TC29 |
+| EC04 | TC07 | EC18 | TC19 | EC32 | TC04 |
+| EC05 | TC08 | EC19 | TC20 | EC33 | TC05–TC10 |
+| EC06 | TC09 | EC20 | TC21 | EC34 | TC11–TC17, TC19–TC27, TC31 |
+| EC07 | TC10 | EC21 | TC22 | EC35 | TC28 |
+| EC08 | TC02, TC29 | EC22 | TC23 | EC36 | TC29 |
+| EC09 | TC11 | EC23 | TC24 | EC37 | TC30 |
+| EC10 | TC12 | EC24 | TC04 | EC38 | TC31 |
+| EC11 | TC13 | EC25 | TC25 | EC39 | TC32 |
+| EC12 | TC14 | EC26 | TC26 | EC40 | TC33 |
+| EC13 | TC15 | EC27 | TC27 | EC41 | TC34 |
+| EC14 | TC16 | EC28 | TC01 | EC42 | TC34 |
+
+### Bước 3b — Bảng ca sơ bộ (mỗi EC một dòng) và phân tích rút gọn
+
+Theo bài giảng (Slide 17 → 18): trước hết duyệt **100% EC** (`EC01`–`EC42`), mỗi EC một dòng sơ bộ; khi dòng đó kiểm tra một EC invalid thì mọi biến còn lại **bắt buộc hợp lệ** (cô lập lỗi). Sau đó gộp các dòng có cùng input/thao tác và cùng kết quả mong đợi.
+
+| Dòng | EC | Biến / Thành phần | Giá trị kiểm tra | Các biến khác | Kết quả mong đợi sơ bộ | → TC sau rút gọn |
+|---:|---|---|---|---|---|---|
+| 1 | EC01 | V1 (`auth_token`) | `Bearer <token_admin>` | V2, V3, V4 hợp lệ | Thao tác CRUD thành công | **TC02, TC03, TC04, TC29** (gộp) |
+| 2 | EC02 | V1 (`POST`) | Không có header | `name = NAME_NOM` | `REJ-AUTH` | TC05 |
+| 3 | EC03 | V1 (`POST`) | `Bearer token.gia.mao` | `name = NAME_NOM` | `REJ-AUTH` | TC06 |
+| 4 | EC04 | V1 (`POST`) | Thiếu tiền tố `Bearer ` | `name = NAME_NOM` | `REJ-AUTH` | TC07 |
+| 5 | EC05 | V1 (`POST`) | `Bearer <token_user>` | `name = NAME_NOM` | `REJ-AUTH` (`403`) | TC08 |
+| 6 | EC06 | V1 (`DELETE`) | `Bearer <token_user>` | `:id = ID_EMPTY` | `REJ-AUTH` (`403`) | TC09 |
+| 7 | EC07 | V1 (`PUT`) | `Bearer <token_user>` | `:id = ID_EMPTY`, `name = NAME_UPD` | `REJ-AUTH` (`403`) | TC10 |
+| 8 | EC08 | V2 (`POST`) | `NAME_NOM` (28 ký tự) | V1 hợp lệ (`token_admin`) | Tạo danh mục thành công | **TC02, TC29** (gộp) |
+| 9 | EC09 | V2 (`POST`) | `""` | V1 hợp lệ | `REJ-DATA` | TC11 |
+| 10 | EC10 | V2 (`POST`) | `{}` (thiếu `name`) | V1 hợp lệ | `REJ-DATA` | TC12 |
+| 11 | EC11 | V2 (`POST`) | `"     "` (5 dấu cách) | V1 hợp lệ | `REJ-DATA` | TC13 |
+| 12 | EC12 | V2 (`POST`) | `'A'×300` | V1 hợp lệ | `REJ-DATA` | TC14 |
+| 13 | EC13 | V2 (`POST`) | `12345` | V1 hợp lệ | `REJ-DATA` | TC15 |
+| 14 | EC14 | V2 (`POST`) | `null` | V1 hợp lệ | `REJ-DATA` | TC16 |
+| 15 | EC15 | V2 (`POST`) | `NAME_NOM` (lần 2 trùng tên) | V1 hợp lệ | `REJ-DATA` | TC17 |
+| 16 | EC16 | V2 (`POST` + UI) | `<img src=x onerror=alert(1)>` | V1 hợp lệ | Lưu chuỗi; UI escape an toàn | TC18 |
+| 17 | EC17 | V3×V4 (`DELETE`) | `:id = ID_EMPTY`, `in_use = false` | V1 hợp lệ | Xóa danh mục thành công | **TC03, TC29** (gộp) |
+| 18 | EC18 | V3 (`DELETE`) | `:id = 999999` | V1 hợp lệ | `REJ-DATA` (`404`) | TC19 |
+| 19 | EC19 | V3 (`DELETE`) | `:id = 0` | V1 hợp lệ | `REJ-DATA` | TC20 |
+| 20 | EC20 | V3 (`DELETE`) | `:id = -5` | V1 hợp lệ | `REJ-DATA` | TC21 |
+| 21 | EC21 | V3 (`DELETE`) | `:id = "abc"` | V1 hợp lệ | `REJ-DATA` | TC22 |
+| 22 | EC22 | V4 (`DELETE`) | `:id = ID_IN_USE` (`in_use = true`) | V1 hợp lệ | `REJ-DATA` (bảo vệ FK) | TC23 |
+| 23 | EC23 | V3 (`DELETE` lần 2) | `:id = ID_EMPTY` (đã xóa) | V1 hợp lệ | `REJ-DATA` (`404`) | TC24 |
+| 24 | EC24 | V3×V2 (`PUT`) | `:id = ID_EMPTY`, `name = NAME_UPD` | V1 hợp lệ | Cập nhật thành công | **TC04** (gộp) |
+| 25 | EC25 | V2 (`PUT`) | `name = ""` | V1, V3 hợp lệ | `REJ-DATA` | TC25 |
+| 26 | EC26 | V2 (`PUT`) | `name = "     "` | V1, V3 hợp lệ | `REJ-DATA` | TC26 |
+| 27 | EC27 | V3 (`PUT`) | `:id = 999999` | V1, V2 hợp lệ | `REJ-DATA` (`404`) | TC27 |
+| 28 | EC28 | `GET` | `GET /api/categories` | — | Trả danh sách | **TC01** (gộp) |
+| 29 | EC29 | Output (`GET`) | Mảng JSON danh mục | — | `200 OK` + mảng khớp DB | **TC01** (gộp) |
+| 30 | EC30 | Output (`POST`) | Tăng 1 danh mục mới | — | `OC-ADD-OK` | **TC02, TC18, TC29** (gộp) |
+| 31 | EC31 | Output (`DELETE`) | Giảm 1 danh mục, cô lập R3 | — | `OC-DEL-OK` | **TC03, TC29** (gộp) |
+| 32 | EC32 | Output (`PUT`) | Đổi tên đúng `:id`, cô lập R3 | — | `OC-PUT-OK` | **TC04** (gộp) |
+| 33 | EC33 | Output (Auth) | Từ chối xác thực/phân quyền | — | `REJ-AUTH` + `OC-NO` | **TC05–TC10** (gộp) |
+| 34 | EC34 | Output (Data) | Từ chối dữ liệu/ràng buộc | — | `REJ-DATA` + `OC-NO` | **TC11–TC17, TC19–TC27, TC31** (gộp) |
+| 35–42 | EC35–EC42 | UI Web Admin | Xem bảng EC (EC35–EC42) | Các biến khác hợp lệ | Quan sát DOM / Chặn UI | **TC28–TC34** (TC34 gộp EC41, EC42) |
+
+**Phân tích rút gọn:**
+- **Gộp ca hợp lệ:** Dòng 1 (`EC01`), dòng 8 (`EC08`) và dòng 30 (`EC30`) gộp thành **EP-TC02** (thêm danh mục qua API); dòng 1 (`EC01`), dòng 17 (`EC17`) và dòng 31 (`EC31`) gộp thành **EP-TC03** (xóa danh mục qua API); dòng 1 (`EC01`), dòng 24 (`EC24`) và dòng 32 (`EC32`) gộp thành **EP-TC04** (cập nhật danh mục qua API); dòng 28 (`EC28`) và dòng 29 (`EC29`) gộp thành **EP-TC01** (xem danh sách qua API). Trên UI, **EP-TC29** kiểm tra luồng hợp lệ Thêm & Xóa (`EC36`), và **EP-TC34** gộp 2 kiểm tra tĩnh không tương tác trên cùng màn hình (`EC41` tiêu đề/ngôn ngữ và `EC42` thanh điều hướng).
+- **Gộp output ngoại lệ:** `EC33` được phủ chung bởi các ca âm phân quyền (`EP-TC05`–`EP-TC10`); `EC34` được phủ chung bởi các ca âm dữ liệu/ràng buộc (`EP-TC11`–`EP-TC17`, `EP-TC19`–`EP-TC27`, `EP-TC31`).
+- **Giữ nguyên ca âm độc lập:** Mỗi lớp không hợp lệ (`EC02`–`EC07`, `EC09`–`EC15`, `EC18`–`EC23`, `EC25`–`EC27`, `EC35`, `EC38`) được giữ nguyên **1 test case riêng biệt** để đảm bảo nguyên tắc cô lập lỗi (Single-Fault Isolation).
+- **Kết quả:** 42 EC $\rightarrow$ 42 dòng sơ bộ $\rightarrow$ **34 ca kiểm thử EP (`EP-TC01`–`EP-TC34`)**, không có ca trùng lặp.
+
+### Báo cáo độ phủ
+
+- Số điều kiện đã phân tích: 4 biến đầu vào chính (V1–V4) + 2 biến trạng thái phụ (`category_already_deleted`, `other_categories_state`) + 6 ràng buộc nghiệp vụ (R1–R6) + 6 lớp đầu ra (O1–O7) + 8 ràng buộc giao diện Web Admin (FR-12, FR-14, FR-21–23)
+- Lớp EP: **12 hợp lệ (6 API + 6 UI) + 24 không hợp lệ (22 API + 2 UI) + 6 lớp đầu ra = 42**
+- Lớp đã phủ: **42 / 42** (phủ 100% các EC *đã biết*; theo bài giảng không đồng nghĩa chứng minh tuyệt đối mọi hành vi)
+- Số test case EP: **34** (API: 26, API+UI: 1, UI: 7); đã loại trùng: 0
+- Câu hỏi mở / mơ hồ: Q1 (max length 255), Q2 (chuỗi khoảng trắng), Q3 (tính duy nhất tên danh mục), Q4 (thao tác `PUT /api/categories/:id`), Q5 (xóa danh mục đang gắn sản phẩm), Q6 (mã HTTP lỗi) — tất cả đã được sinh viên xác nhận ở Bước 1; phát sinh thêm **Q7, Q8** trong quá trình thiết kế chi tiết (xem bảng dưới).
+
+**Câu hỏi mở phát sinh khi thiết kế (đã được sinh viên xác nhận ở Human Review):**
+
+| Mã | Mô tả | Giả định tạm | Trạng thái |
+|---|---|---|---|
+| **Q7** | **Phản hồi khi `name` sai kiểu dữ liệu (`12345`, `null`) hoặc `:id` không phải số nguyên (`"abc"`):** Nếu backend SQLite tự ép kiểu số `12345` thành chuỗi `"12345"` hoặc trả mã `200 OK` với `changes: 0` khi xóa `:id = "abc"`, đánh giá thế nào? | Theo hợp đồng kiểu dữ liệu JSON (`api_spec` 104–106), `name` phải là chuỗi và `:id` phải là ID hợp lệ đang tồn tại. Nếu hệ thống chấp nhận số `12345` làm tên danh mục hoặc trả `200 OK` khi xóa ID không tồn tại/sai kiểu (`999999`, `0`, `-5`, `"abc"`), ghi nhận là ca `Fail` so với hợp đồng REST chuẩn (Q6). | **Đã xác nhận** |
+| **Q8** | **Xử lý kết quả các ca phụ thuộc giả định cận trên độ dài 255 ký tự (`EP-TC14`, `BV-TC03`, `BV-TC04`, `BV-TC05`):** Do `README.md` FR-14 không nêu trực tiếp con số 255 (mà tham chiếu quy chuẩn tên thực thể từ FR-15 theo Q1), nếu thực thi `EP-TC14` (300 ký tự) hoặc `BV-TC05` (256 ký tự) mà hệ thống vẫn cho tạo thành công thì có tính là bug chính thức không? | Giống nguyên tắc đã áp dụng ở FR-08 (Q8): Cận trên 255 là **giả định kỹ thuật Q1**; kết quả của `EP-TC14` và `BV-TC05` sẽ được ghi nhận trung thực theo Oracle Q1 trong bảng thực thi nhưng được phân loại vào nhóm điểm mơ hồ đặc tả (không tự ý tách thành bug độc lập nếu không gây lỗi hệ thống/UI). | **Đã xác nhận** |
+
+---
+
+## 2. Boundary Value Analysis — FR-14: Quản lý Danh mục (Category CRUD)
+
+**Chế độ BVA:** Robustness ($6n + 1$)
+**Lý do chọn chế độ:** Theo mặc định của skill và yêu cầu bài tập lớn, cần kiểm tra cả các giá trị ngay trên biên hợp lệ (`LB`, `LB+δ`, `UB-δ`, `UB`) lẫn các giá trị sát biên ngoài miền (`LB-δ`, `UB+δ`) — nơi thường xảy ra lỗi thiếu kiểm tra rỗng hoặc sai toán tử so sánh (`>` thay vì `>=`). Tính năng có $n = 2$ biến đầu vào *có thứ tự* độc lập nhau (`B01` độ dài chuỗi `name` khi Thêm mới và `B02` mã định danh số nguyên `:id` khi Xóa), hai biến này thuộc hai thao tác khác nhau và không tương tác toán học nên chế độ **Robustness ($6n + 1 = 13$)** là tối ưu nhất, không cần tổ hợp tích Descartes của Worst-case ($5^2 = 25$) hay Robust Worst-case ($7^2 = 49$).
+**Ngày thiết kế:** 2026-10-15
+
+**So sánh bốn chế độ với $n = 2$ (để chứng minh lựa chọn):**
+
+| Chế độ | Công thức | Số ca lý thuyết | Lý do chọn / loại |
+|---|---|---:|---|
+| Standard | $4n + 1$ | 9 | **Loại:** Thiếu các điểm ngoài miền (`0` ký tự, `256` ký tự, `id = 0`, `id = ID_max + 1`) — đây chính là các điểm biên âm quan trọng nhất để bắt lỗi thiếu validation |
+| **Robustness** | **$6n + 1$** | **13** | **Chọn:** Bao phủ trọn vẹn cả biên hợp lệ và biên ngoài miền theo nguyên tắc cô lập đơn lỗi (Single-Fault) với số lượng ca tối ưu |
+| Worst-case | $5^n$ | 25 | **Loại:** `B01` (độ dài `name` trong `POST`) và `B02` (mã `:id` trong `DELETE`) không tương tác trong cùng một công thức tính toán; nhân tích Descartes không sinh thêm hành vi mới |
+| Robust Worst-case | $7^n$ | 49 | **Loại:** Tương tự Worst-case, chi phí dư thừa mà không tăng khả năng phát hiện lỗi |
+
+**Biến không đưa vào BVA (có lý do, không bỏ sót):**
+
+| Biến | Lý do không có phân vùng có thứ tự |
+|---|---|
+| V1 (`auth_token` / `role`) | Là biến rời rạc định danh trạng thái xác thực và tập vai trò (`admin`, `user`, không có token), không có quan hệ thứ tự số học. Thời hạn sống của JWT không được đặc tả nêu. Đã được phủ đầy đủ bằng EP (`EC01`–`EC07`). |
+| V4 (`category_in_use`) | Là biến trạng thái logic (Boolean: danh mục có hoặc không có sản phẩm tham chiếu), không có ngưỡng số lượng sản phẩm trong đặc tả FR-14. Đã được phủ bằng EP (`EC17`, `EC22`). |
+| Tên danh mục theo thứ tự từ điển | Đặc tả không quy định giới hạn theo bảng chữ cái (`A–Z`); biên của `name` chỉ xét theo **độ dài ký tự** (`B01`). |
+
+### Bước 1 — Xác định phân vùng có thứ tự và các cận
+
+| B ID | Biến | Ràng buộc (trích đặc tả) | LB | UB | Loại cận LB | Loại cận UB | $\delta$ (bước nhỏ nhất) | Nominal | Nguồn |
+|---|---|---|---|---|---|---|---|---|---|
+| **B01** | Độ dài chuỗi `name` (`POST /api/categories`) | Không được để trống ($\ge 1$ ký tự); cận trên giả định $255$ ký tự (Q1) | `1` | `255` *(giả định Q1)* | Đóng | Đóng | `1` ký tự | `28` ký tự (`NAME_NOM`) | README 189; Q1 |
+| **B02** | Mã định danh `:id` (`DELETE /api/categories/:id`) | Số nguyên dương khớp `id` danh mục tồn tại trong CSDL $[1, ID_{\max}]$ (với fixture chuẩn $ID_{\max} = 5$) | `1` | `5` (`ID_max` của fixture) | Đóng | Đóng | `1` đơn vị | `3` (`ID_NOM`) | README 188; api_spec 106 |
+
+**Giải thích:**
+- **Với B01 (Độ dài `name`):** Độ dài chuỗi ký tự luôn là số nguyên không âm nên bước nhỏ nhất $\delta = 1$ ký tự. Yêu cầu *"Tên danh mục là bắt buộc, không được để trống"* tương ứng với độ dài $\ge 1$ (cận dưới $\text{LB} = 1$ là **cận đóng**: $1$ ký tự hợp lệ, $0$ ký tự không hợp lệ). Cận trên $\text{UB} = 255$ (theo Q1) là **cận đóng** ($255$ hợp lệ, $256$ không hợp lệ). Để tránh sai lệch giữa số ký tự và số byte UTF-8 tại các điểm sát biên, các chuỗi kiểm thử biên dùng ký tự ASCII `'A'` lặp lại đúng số lần (`"A"`, `"AB"`, `'A'×254`, `'A'×255`, `'A'×256`).
+- **Với B02 (Mã định danh `:id`):** Khóa chính `:id` trong bảng `categories` là số nguyên dương tự tăng nên bước nhỏ nhất $\delta = 1$ đơn vị. Để đảm bảo **nguyên tắc cô lập lỗi (Single-Fault)** — tức khi thay đổi `:id` qua 7 điểm (`0, 1, 2, 3, 4, 5, 6`) thì biến trạng thái `V4 (category_in_use)` luôn giữ giá trị hợp lệ mặc định là `false` (không bị vướng khóa ngoại của sản phẩm) và mọi điểm biên đều phân biệt rõ ràng — bộ fixture chuẩn `P_BVA_ID` khởi tạo bảng `categories` gồm đúng **5 danh mục độc lập** có `id` liên tiếp từ `1` đến `5` ($\text{LB} = 1$, $\text{LB}+\delta = 2$, $\text{Nominal} = 3$, $\text{UB}-\delta = 4$, $\text{UB} = ID_{\max} = 5$, chưa gắn sản phẩm). Khi đó $\text{LB}-\delta = 0$ và $\text{UB}+\delta = 6$ nằm ngay sát ngoài hai đầu miền hợp lệ $[1, 5]$.
+
+### Bước 2 — Chọn chế độ và điểm cần kiểm tra
+
+| Điểm | Biến | Giá trị | Quan hệ với biên | Hợp lệ? |
+|---|---|---|---|---|
+| P1 | B01 (độ dài `name`) | `0` ký tự (`""`) | $\text{LB} - \delta$ | Không |
+| P2 | B01 (độ dài `name`) | `1` ký tự (`"A"`) | $\text{LB}$ | Có |
+| P3 | B01 (độ dài `name`) | `2` ký tự (`"AB"`) | $\text{LB} + \delta$ | Có |
+| P4 | B01 (độ dài `name`) | `254` ký tự (`'A'×254`) | $\text{UB} - \delta$ | Có |
+| P5 | B01 (độ dài `name`) | `255` ký tự (`'A'×255`) | $\text{UB}$ | Có |
+| P6 | B01 (độ dài `name`) | `256` ký tự (`'A'×256`) | $\text{UB} + \delta$ | Không |
+| P7 | B02 (mã `:id` trong $[1, 5]$) | `0` | $\text{LB} - \delta$ | Không |
+| P8 | B02 (mã `:id` trong $[1, 5]$) | `1` | $\text{LB}$ | Có |
+| P9 | B02 (mã `:id` trong $[1, 5]$) | `2` | $\text{LB} + \delta$ | Có |
+| P10 | B02 (mã `:id` trong $[1, 5]$) | `4` ($ID_{\max} - 1$) | $\text{UB} - \delta$ | Có |
+| P11 | B02 (mã `:id` trong $[1, 5]$) | `5` ($ID_{\max}$) | $\text{UB}$ | Có |
+| P12 | B02 (mã `:id` trong $[1, 5]$) | `6` ($ID_{\max} + 1$) | $\text{UB} + \delta$ | Không |
+| P0 | Cả hai (Nominal) | `28` ký tự (`NAME_NOM`) & `id = 3` (`ID_NOM`) | Nominal | Có |
+
+**Công thức:** $6n + 1 = 6 \times 2 + 1 = \mathbf{13}$ **ca (lý thuyết)**.
+
+**Bảng 13 vector lý thuyết và đối chiếu với ca thực tế:**
+
+| # | Biến thay đổi | Điểm biên | B01 (độ dài `name`) | B02 (mã `:id`) | Kết quả mong đợi | Ca thực tế tương ứng |
+|---:|---|---|---:|---:|---|---|
+| 1 | — | All nominal | 28 | 3 | Hợp lệ | *Tái sử dụng EP-TC02 (`POST` nominal) & EP-TC03 (`DELETE` nominal)* |
+| 2 | B01 | $\text{LB} - \delta$ | 0 | 3 | Không hợp lệ | *Tái sử dụng EP-TC11 (`name = ""`)* |
+| 3 | B01 | $\text{LB}$ | 1 | 3 | Hợp lệ | **BV-TC01** |
+| 4 | B01 | $\text{LB} + \delta$ | 2 | 3 | Hợp lệ | **BV-TC02** |
+| 5 | B01 | $\text{UB} - \delta$ | 254 | 3 | Hợp lệ | **BV-TC03** |
+| 6 | B01 | $\text{UB}$ | 255 | 3 | Hợp lệ | **BV-TC04** |
+| 7 | B01 | $\text{UB} + \delta$ | 256 | 3 | Không hợp lệ | **BV-TC05** |
+| 8 | B02 | $\text{LB} - \delta$ | 28 | 0 | Không hợp lệ | *Tái sử dụng EP-TC20 (`DELETE /api/categories/0`)* |
+| 9 | B02 | $\text{LB}$ | 28 | 1 | Hợp lệ | **BV-TC06** |
+| 10 | B02 | $\text{LB} + \delta$ | 28 | 2 | Hợp lệ | **BV-TC07** |
+| 11 | B02 | $\text{UB} - \delta$ | 28 | 4 | Hợp lệ | **BV-TC08** |
+| 12 | B02 | $\text{UB}$ | 28 | 5 | Hợp lệ | **BV-TC09** |
+| 13 | B02 | $\text{UB} + \delta$ | 28 | 6 | Không hợp lệ | **BV-TC10** |
+
+**Đối chiếu loại trùng (Bước 5 BVA):**
+- 13 vector lý thuyết = **10 ca BVA mới thực tế duy nhất (`BV-TC01`…`BV-TC10`)** + **3 vector tái sử dụng trực tiếp từ EP** (#1 Nominal $\rightarrow$ `EP-TC02`/`EP-TC03`; #2 B01 $\text{LB}-\delta = 0$ ký tự $\rightarrow$ `EP-TC11`; #8 B02 $\text{LB}-\delta = 0$ $\rightarrow$ `EP-TC20`).
+- Không có điểm biên nào bị suy biến hay không tiếp cận được vì cả B01 ($[1, 255]$) và B02 ($[1, 5]$) đều có 2 cận đóng phân biệt với khoảng cách $\ge 4\delta$. Việc tái sử dụng 3 vector đã có ở EP giúp bộ kiểm thử không chạy lặp các ca có cùng input và cùng kết quả mà vẫn bảo toàn 100% độ phủ 13 điểm biên lý thuyết.
+
+### Bước 3 — Test case BVA
+
+**Điều kiện tiên quyết:**
+- Với `BV-TC01`…`BV-TC05` (kiểm tra biên B01 độ dài `name`): dùng điều kiện tiên quyết **P1** (đăng nhập `token_admin`, CSDL sạch `N0` danh mục).
+- Với `BV-TC06`…`BV-TC10` (kiểm tra biên B02 mã `:id`): dùng điều kiện tiên quyết **P_BVA_ID** (đăng nhập `token_admin`, bảng `categories` được khởi tạo sạch gồm đúng 5 danh mục có `id` $\in \{1, 2, 3, 4, 5\}$ và không có sản phẩm tham chiếu để cô lập hoàn toàn biến `:id`).
+
+| TC ID | Chế độ | Biên nhắm tới | Dữ liệu vào | Các bước / Lệnh | Kết quả mong đợi | Nguồn expected |
+|---|---|---|---|---|---|---|
+| BV-TC01 | Robustness | B01 $\text{LB}$ (1 ký tự) | Header `Bearer <token_admin>`; Body `{"name": "A"}` | `POST /api/categories` rồi kiểm tra `GET /api/categories` | `OC-ADD-OK("A")`: 2xx; tạo đúng 1 danh mục mới có `name = "A"` (độ dài 1) | README 189 (không rỗng $\ge 1$) |
+| BV-TC02 | Robustness | B01 $\text{LB} + \delta$ (2 ký tự) | Header `Bearer <token_admin>`; Body `{"name": "AB"}` | như trên | `OC-ADD-OK("AB")`: 2xx; tạo đúng 1 danh mục mới có `name = "AB"` (độ dài 2) | README 189 |
+| BV-TC03 | Robustness | B01 $\text{UB} - \delta$ (254 ký tự) | Header `Bearer <token_admin>`; Body `{"name": 'A'×254}` | như trên | `OC-ADD-OK('A'×254)`: 2xx; tên danh mục lưu đủ 254 ký tự, không bị cắt cụt | Q1 (giả định max 255) |
+| BV-TC04 | Robustness | B01 $\text{UB}$ (255 ký tự) | Header `Bearer <token_admin>`; Body `{"name": 'A'×255}` | như trên | `OC-ADD-OK('A'×255)`: 2xx; tên danh mục lưu đủ 255 ký tự, không bị cắt cụt | Q1 (giả định max 255) |
+| BV-TC05 | Robustness | B01 $\text{UB} + \delta$ (256 ký tự) | Header `Bearer <token_admin>`; Body `{"name": 'A'×256}` | `POST /api/categories` rồi kiểm tra `OC-NO` | `REJ-DATA` (`400`); `OC-NO` (không tạo bản ghi vượt quá 255 ký tự) | Q1, Q8 |
+| BV-TC06 | Robustness | B02 $\text{LB}$ (`id = 1`) | Header `Bearer <token_admin>`; Path `:id = 1` (trên fixture `P_BVA_ID` gồm ID `1..5`) | `DELETE /api/categories/1` rồi kiểm tra `GET /api/categories` | `OC-DEL-OK(1)`: 2xx; bản ghi `id = 1` bị xóa; còn đúng 4 bản ghi `{2, 3, 4, 5}` | README 188; api_spec 106 |
+| BV-TC07 | Robustness | B02 $\text{LB} + \delta$ (`id = 2`) | Header `Bearer <token_admin>`; Path `:id = 2` (trên fixture `P_BVA_ID` gồm ID `1..5`) | `DELETE /api/categories/2` rồi kiểm tra `GET /api/categories` | `OC-DEL-OK(2)`: 2xx; bản ghi `id = 2` bị xóa; còn đúng 4 bản ghi `{1, 3, 4, 5}` | README 188; api_spec 106 |
+| BV-TC08 | Robustness | B02 $\text{UB} - \delta$ (`id = 4` $= ID_{\max}-1$) | Header `Bearer <token_admin>`; Path `:id = 4` (trên fixture `P_BVA_ID` gồm ID `1..5`) | `DELETE /api/categories/4` rồi kiểm tra `GET /api/categories` | `OC-DEL-OK(4)`: 2xx; bản ghi `id = 4` bị xóa; còn đúng 4 bản ghi `{1, 2, 3, 5}` | README 188; api_spec 106 |
+| BV-TC09 | Robustness | B02 $\text{UB}$ (`id = 5` $= ID_{\max}$) | Header `Bearer <token_admin>`; Path `:id = 5` (trên fixture `P_BVA_ID` gồm ID `1..5`) | `DELETE /api/categories/5` rồi kiểm tra `GET /api/categories` | `OC-DEL-OK(5)`: 2xx; bản ghi `id = 5` bị xóa; còn đúng 4 bản ghi `{1, 2, 3, 4}` | README 188; api_spec 106 |
+| BV-TC10 | Robustness | B02 $\text{UB} + \delta$ (`id = 6` $= ID_{\max}+1$) | Header `Bearer <token_admin>`; Path `:id = 6` (ngoài cận trên của fixture `1..5`) | `DELETE /api/categories/6` rồi kiểm tra `OC-NO` | `REJ-DATA` (`404`); `OC-NO` (cả 5 bản ghi `{1, 2, 3, 4, 5}` giữ nguyên) | README 188; api_spec 106; Q6 |
+
+**Tái sử dụng ca EP cho các vector biên trùng input (không chạy lặp):**
+- Vector #1 (All nominal: `len = 28`, `id = 3`) $\rightarrow$ `EP-TC02` & `EP-TC03`.
+- Vector #2 (B01 $\text{LB} - \delta = 0$ ký tự) $\rightarrow$ `EP-TC11`.
+- Vector #8 (B02 $\text{LB} - \delta$: `id = 0`) $\rightarrow$ `EP-TC20`.
+
+**Giải thích:** Kết quả mong đợi (Expected) được tính toán độc lập từ hệ bất đẳng thức của đặc tả:
+- Với `B01`: $1 \le \text{len}(\text{name}) \le 255 \implies$ các độ dài $1, 2, 254, 255$ thuộc đoạn đóng $[1, 255]$ nên hợp lệ (`OC-ADD-OK`); các độ dài $0$ ($< 1$) và $256$ ($> 255$) nằm ngoài đoạn nên bị từ chối (`REJ-DATA`).
+- Với `B02`: $1 \le \text{id} \le 5 \implies$ các giá trị $1, 2, 4, 5$ thuộc tập ID hiện có nên xóa hợp lệ (`OC-DEL-OK`); các giá trị $0$ ($< 1$) và $6$ ($> 5$) nằm ngoài tập ID hiện có nên phải bị từ chối (`REJ-DATA` / `404 Not Found`) và không làm mất bất kỳ danh mục nào trong CSDL.
+
+### Bước 4 — Biên đầu ra
+
+Theo bài giảng (Slide 21) và quy trình `hw02_boundary_value_analysis`, cần xét cả (1) giá trị đầu vào làm **đầu ra** chạm biên định lượng và (2) giá trị đầu ra do hệ thống sinh có ràng buộc độ dài/miền:
+
+| Biên đầu ra | Input / Thao tác gây ra | Test case |
+|---|---|---|
+| **Biên dưới của danh sách đầu ra `GET /api/categories` (0 danh mục — mảng rỗng `[]` & trạng thái Empty State FR-24)** | Admin xóa toàn bộ các danh mục hiện có trong fixture để bảng `categories` về 0 bản ghi, sau đó gọi `GET /api/categories` và mở trang Quản lý Danh mục trên Web Admin | **OB-TC01** *(thiết kế bên dưới)* |
+| **Biên 1 phần tử của danh sách đầu ra `GET /api/categories` (1 danh mục)** | Sau khi bảng trống, thêm 1 danh mục hoặc xóa đến khi còn 1 danh mục | Đã được kiểm tra trong quá trình thiết lập `OB-TC01` |
+| **Giá trị `id` do hệ thống sinh khi `POST /api/categories`** | Thêm danh mục mới | Không có biên độ dài cố định (khác OTP 6 chữ số ở FR-03); `id` là số nguyên tự tăng $\ge 1$, đã được kiểm tra ở `EP-TC02` |
+
+**Bảng test case biên đầu ra (`OB-TC01`):**
+
+| TC ID | Chế độ | Biên đầu ra nhắm tới | Dữ liệu vào | Các bước / Lệnh | Kết quả mong đợi | Nguồn expected |
+|---|---|---|---|---|---|---|
+| **OB-TC01** | Output BVA | Số lượng phần tử đầu ra của `GET /api/categories` chạm biên dưới $\text{LB}_{\text{out}} = 0$ (mảng rỗng `[]` & Empty State trên Web Admin UI) | Fixture có bảng `categories` rỗng (`0` bản ghi); đăng nhập Admin | (1) Gọi `GET /api/categories`; (2) Mở trang Quản lý Danh mục trên Web Admin (`http://localhost:5174`) | (1) API trả `200 OK` với mảng rỗng `[]` (`length = 0`); (2) Giao diện Web Admin không bị crash, hiển thị trạng thái trống (**Empty State**) có icon/hình minh họa và thông báo thân thiện theo đúng FR-24 | README 188, 269 (FR-24); api_spec 103 |
+
+### Bước 5 — Ca bổ sung do sinh viên (sau Human Review)
+
+Qua quá trình trực tiếp thẩm định bảng lớp tương đương (`EC01`–`EC42`) và giá trị biên (`BV-TC01`–`BV-TC10`, `OB-TC01`) do AI thiết kế, em xác nhận cấu trúc phân hoạch, công thức BVA Robustness ($6n+1 = 13$) và các giả định `Q7`, `Q8` là hợp lý. Tuy nhiên, để khắc phục hạn chế của phân tích hộp đen tĩnh (chưa xét kỹ chuẩn hóa chuỗi đầu/cuối, tính phân biệt hoa/thường khi trùng tên, tương thích Unicode/emoji, tấn công SQL Injection và xung đột đồng thời), em chính thức thiết kế và bổ sung thêm **5 test case chuyên sâu (`SR-TC01` đến `SR-TC05`)**.
+
+> **Phân loại phạm vi (theo bài giảng §12.2):** `SR-TC01` và `SR-TC02` thuộc phạm vi EP/BVA mở rộng (lớp chuỗi đặc biệt có khoảng trắng thừa, so khớp hoa/thường và chuỗi Unicode/emoji). `SR-TC03` (SQL Injection — `SEC-05`), `SR-TC04` (Race condition / Double submit) và `SR-TC05` (Tính toàn vẹn liên thông sau khi xóa danh mục đang có sản phẩm giữa Admin và Web người dùng) là **ca phạm vi mở rộng** ngoài EP/BVA thuần túy: được giữ lại vì truy vết trực tiếp tới đặc tả (`README.md` dòng 188, 197, 282) và có sức phát hiện lỗi thực tế cao, nhưng **không tính gộp vào độ phủ EC/biên lý thuyết**.
+
+| TC ID | Câu hỏi rà soát / Lý do bổ sung | Dữ liệu vào | Các bước / Lệnh thực hiện | Kết quả mong đợi (Oracle) | Nguồn expected |
+|---|---|---|---|---|---|
+| **SR-TC01** | **Chuẩn hóa khoảng trắng đầu/cuối (`trim`) và trùng tên khác chữ hoa/thường (Case-insensitivity):** Kiểm tra xem hệ thống có cho phép tạo danh mục trùng tên chỉ bằng cách thêm khoảng trắng hai đầu hoặc đổi chữ hoa/thường không. | Đã có danh mục `"Thiết bị gia dụng thông minh"`; gửi tiếp `name = "  thiết bị gia dụng thông minh  "` | 1. Admin gọi `POST /api/categories` tạo `"Thiết bị gia dụng thông minh"`.<br>2. Gửi tiếp `POST /api/categories` với `{"name": "  thiết bị gia dụng thông minh  "}`.<br>3. Kiểm tra `GET /api/categories`. | Hệ thống tự động `trim()` khoảng trắng thừa ở hai đầu và từ chối tạo bản ghi trùng tên không phân biệt hoa/thường (`400`/`409`), hoặc nếu lưu chuỗi mới thì bắt buộc không được lưu khoảng trắng thừa ở đầu/cuối gây trùng lặp hiển thị. | README dòng 189; Q2, Q3 (Chuẩn hóa & duy nhất tên danh mục) |
+| **SR-TC02** | **Tương thích chuỗi Unicode tổ hợp, ký tự phân cách hợp lệ (`&`, `/`, `-`) và Emoji:** Kiểm tra khả năng lưu trữ UTF-8 và hiển thị tên danh mục đa ngôn ngữ/biểu tượng trên cả API lẫn UI. | `name = "Ẩm thực & Đồ uống 🍜 - Tươi sống (100%)"` | 1. Admin gọi `POST /api/categories` với chuỗi chứa tiếng Việt có dấu, ký tự `&`, `-`, `()` và emoji `🍜`.<br>2. Gọi `GET /api/categories` và mở trang Quản lý Danh mục trên Web Admin. | Tạo thành công (HTTP 2xx); chuỗi tên danh mục được lưu trữ nguyên vẹn 100% trong SQLite và hiển thị đúng ký tự (không bị lỗi font, không biến `&` thành `&amp;` thô trên văn bản hiển thị) trên giao diện Web Admin. | README dòng 188, 244 (FR-21); Tương thích Unicode |
+| **SR-TC03** | **Phòng chống SQL Injection trong trường `name` và tham số `:id` (SEC-05):** Kiểm tra truy vấn CSDL có dùng Parameterized Query hay nối chuỗi trực tiếp gây rò rỉ/phá hủy bảng `categories`. | (a) `POST` với `name = "Điện tử'); DROP TABLE categories; --"`<br>(b) `DELETE /api/categories/1%20OR%201=1` | 1. Admin gửi `POST /api/categories` chứa payload SQLi.<br>2. Admin gửi `DELETE /api/categories/1%20OR%201=1`.<br>3. Kiểm tra `GET /api/categories`. | Hệ thống xử lý tham số an toàn bằng Parameterized Query: không gây lỗi `500 Internal Server Error`, bảng `categories` không bị xóa mất dữ liệu, và lệnh `DELETE` với `1 OR 1=1` tuyệt đối không được xóa toàn bộ các danh mục trong bảng. | README dòng 282 (SEC-05) |
+| **SR-TC04** | **Gửi đồng thời 2 request tạo cùng một danh mục (Double Submit / Race Condition):** Kiểm tra khi Admin bấm đúp nút "Thêm" hoặc gửi 2 request song song có tạo ra 2 danh mục trùng hệt nhau không. | 2 request `POST /api/categories` đồng thời cùng `token_admin` và cùng `{"name": "Danh mục đồng thời"}` | Bắn song song (`Promise.all`) 2 HTTP request `POST /api/categories` cùng tên trong cùng thời điểm mili-giây, sau đó kiểm tra `GET /api/categories`. | Trong CSDL chỉ có **đúng 1 danh mục** mang tên `"Danh mục đồng thời"` được tạo; không sinh ra 2 bản ghi trùng lặp cùng tên. | README dòng 188–189; Q3 (Tính toàn vẹn giao dịch) |
+| **SR-TC05** | **Tính toàn vẹn liên hệ thống sau khi thao tác danh mục (Cross-component Integrity với FR-05/FR-15):** Kiểm tra nếu Admin xóa một danh mục đang có sản phẩm (trong trường hợp backend thiếu chặn khóa ngoại) thì danh sách sản phẩm `GET /api/products` và trang sản phẩm có bị lỗi hay mất liên kết danh mục không. | Danh mục `id = 1` đang có sản phẩm tham chiếu; gọi `DELETE /api/categories/1` rồi kiểm tra `GET /api/products` | 1. Ghi nhận các sản phẩm có `category_id = 1` qua `GET /api/products`.<br>2. Admin gọi `DELETE /api/categories/1`.<br>3. Kiểm tra lại `GET /api/categories` và `GET /api/products`. | Mọi sản phẩm trong `GET /api/products` phải luôn trỏ tới một `category_id` hợp lệ đang tồn tại trong `GET /api/categories` (hệ thống phải chặn xóa `id = 1` ngay từ bước 2 theo R5/FR-15; nếu xóa thành công khiến sản phẩm trỏ tới `category_id` không còn tồn tại thì là lỗi vi phạm toàn vẹn khóa ngoại). | README dòng 188, 197 (FR-14 & FR-15); R5 |
+
+### Tổng kết (báo cáo coverage theo mẫu bài giảng)
+
+```text
+Requirements parsed: FR-14 (README 186–190), FR-12 (174–180), FR-15 (197), FR-21–FR-24 (240–271), SEC-02–SEC-05 (279–282), api_spec 3.4 (102–107)
+BVA mode: Robustness (6n + 1), n = 2 biến có thứ tự (B01 độ dài name, B02 mã định danh :id)
+Theoretical BVA count: 6 × 2 + 1 = 13
+Actual unique BVA tests: 10 (BV-TC01…10) + 3 vector tái sử dụng EP (EP-TC02/03, EP-TC11, EP-TC20) + 1 ca biên đầu ra (OB-TC01)
+Deduplicated test vectors: 3 vector trùng với ca EP đã thiết kế (#1 nominal, #2 B01 LB−δ, #8 B02 LB−δ)
+Unresolved ambiguity/oracle issues: cận trên độ dài name 255 (Q1, Q8); chuỗi khoảng trắng (Q2); tính duy nhất tên (Q3); thao tác PUT (Q4); xóa danh mục đang có sản phẩm (Q5); mã HTTP lỗi (Q6, Q7) — tất cả Q1–Q8 đã được sinh viên xác nhận
+Student Review tests added: 5 (SR-TC01…SR-TC05)
+```
+
+- **Chế độ BVA:** Robustness ($6n + 1$); $n = 2$
+- **Số ca theo công thức lý thuyết:** **13**
+- **Số ca BVA đầu vào mới thực tế duy nhất:** **10** (`BV-TC01` đến `BV-TC10`); **vector biên tái sử dụng ca EP:** **3** (#1, #2, #8)
+- **Số ca BVA biên đầu ra:** **1** (`OB-TC01`)
+- **Số ca bổ sung sinh viên (Human Review):** **5** (`SR-TC01` đến `SR-TC05`)
+- **Vấn đề oracle / mơ hồ:** Toàn bộ `Q1`–`Q8` đã được sinh viên xác nhận; trong đó `EP-TC14` và `BV-TC03`–`BV-TC05` phụ thuộc giả định kỹ thuật `Q1` (cận trên 255 ký tự) nên được theo dõi theo quy tắc `Q8`.
+- **Truy vết biên → Test case:**
+  - `B01` (độ dài `name`): $\text{LB}-\delta (0) \rightarrow \text{EP-TC11}$, $\text{LB} (1) \rightarrow \text{BV-TC01}$, $\text{LB}+\delta (2) \rightarrow \text{BV-TC02}$, $\text{Nominal} (28) \rightarrow \text{EP-TC02}$, $\text{UB}-\delta (254) \rightarrow \text{BV-TC03}$, $\text{UB} (255) \rightarrow \text{BV-TC04}$, $\text{UB}+\delta (256) \rightarrow \text{BV-TC05}$.
+  - `B02` (mã `:id` trong $[1, 5]$): $\text{LB}-\delta (0) \rightarrow \text{EP-TC20}$, $\text{LB} (1) \rightarrow \text{BV-TC06}$, $\text{LB}+\delta (2) \rightarrow \text{BV-TC07}$, $\text{Nominal} (3) \rightarrow \text{EP-TC03}$, $\text{UB}-\delta (4) \rightarrow \text{BV-TC08}$, $\text{UB} (5) \rightarrow \text{BV-TC09}$, $\text{UB}+\delta (6) \rightarrow \text{BV-TC10}$.
+  - Biên đầu ra: $\text{LB}_{\text{out}} (0 \text{ danh mục}) \rightarrow \text{OB-TC01}$.
+
+---
+
+## Tổng hợp số lượng test case FR-14 (đã thiết kế / chưa chạy)
+
+| Nhóm | Thiết kế | Pass | Fail | Blocked | Not run |
+|---|---:|---:|---:|---:|---:|
+| EP (`EP-TC01`…`EP-TC34`) | 34 | 0 | 0 | 0 | 34 |
+| BVA đầu vào (`BV-TC01`…`BV-TC10`) | 10 | 0 | 0 | 0 | 10 |
+| BVA biên đầu ra (`OB-TC01`) | 1 | 0 | 0 | 0 | 1 |
+| Ca bổ sung sinh viên (`SR-TC01`…`SR-TC05`) | 5 | 0 | 0 | 0 | 5 |
+| **Tổng** | **50** | **0** | **0** | **0** | **50** |
+
+*(Ghi chú: Toàn bộ 50 ca kiểm thử đã hoàn tất thiết kế và Human Review, hiện ở trạng thái `Not run` theo đúng quy định §4 và §5. Việc thực thi sẽ được tiến hành ở Bước 3 `/hw02_3_execute_and_report`).*
+
+
 
