@@ -1,0 +1,772 @@
+{
+  "baseUrl": "http://localhost:3000",
+  "results": [
+    {
+      "id": "EP-TC01",
+      "covers": "EC01, EC05, EC08, EC15, EC24, EC25, EC26, EC27",
+      "desc": "Luồng đặt hàng danh định hợp lệ (2 SP trong giỏ, token hợp lệ, địa chỉ hợp lệ, total khớp T)",
+      "kind": "API",
+      "expected": "2xx; OC-OK(T, ADDR_NOM)",
+      "status": "Fail",
+      "reasons": [
+        "OC-OK Thất bại (Vi phạm R2): Giỏ hàng không bị xóa sau khi thanh toán thành công (còn 2 món)"
+      ],
+      "oracleLogs": [
+        "Số đơn hàng sau checkout: 1 (ban đầu: 0)",
+        "Đơn mới nhất: id=1, status=pending, total=58000000",
+        "Số mặt hàng trong giỏ sau checkout: 2"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3OTE4NzM5OTd9.1RUTq4aHsLEZCY-_8drWBLz6UzzXLhy2J0E5_sZH_x0\" } -Body '{\"total_amount\":58000000,\"shipping_address\":\"123 Lê Lợi, Phường Bến Nghé, Quận 1, TP.HCM\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":1}",
+      "executedAt": "2026-10-13T06:46:37.380Z"
+    },
+    {
+      "id": "EP-TC02",
+      "covers": "EC06, EC25",
+      "desc": "Giỏ hàng có sản phẩm với số lượng >= 2 (SP_A x 3)",
+      "kind": "API",
+      "expected": "2xx; OC-OK(3*P_A, ADDR_NOM)",
+      "status": "Fail",
+      "reasons": [
+        "OC-OK Thất bại (Vi phạm R2): Giỏ hàng không bị xóa sau khi thanh toán thành công (còn 1 món)"
+      ],
+      "oracleLogs": [
+        "Số đơn hàng sau checkout: 1 (ban đầu: 0)",
+        "Đơn mới nhất: id=1, status=pending, total=90000000",
+        "Số mặt hàng trong giỏ sau checkout: 1"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3OTE4NzM5OTl9.WdKSvFPdfqlwbEOdK_B1pWo6pdlLE0Jzusq63Ip00Fo\" } -Body '{\"total_amount\":90000000,\"shipping_address\":\"123 Lê Lợi, Phường Bến Nghé, Quận 1, TP.HCM\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":1}",
+      "executedAt": "2026-10-13T06:46:39.043Z"
+    },
+    {
+      "id": "EP-TC03",
+      "covers": "EC02, EC28",
+      "desc": "Không gửi header Authorization khi gọi checkout",
+      "kind": "API",
+      "expected": "REJ (401 theo O2); OC-NO",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Body '{\"total_amount\":200000,\"shipping_address\":\"123 Lê Lợi, Phường Bến Nghé, Quận 1, TP.HCM\"}' -SkipHttpErrorCheck",
+      "actualStatus": 401,
+      "actualBody": "{\"error\":\"Unauthorized\"}",
+      "executedAt": "2026-10-13T06:46:40.807Z"
+    },
+    {
+      "id": "EP-TC04",
+      "covers": "EC03, EC28",
+      "desc": "Header có token nhưng là token giả mạo/chữ ký sai",
+      "kind": "API",
+      "expected": "REJ (4xx); OC-NO",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer token.gia.mao\" } -Body '{\"total_amount\":200000,\"shipping_address\":\"123 Lê Lợi, Phường Bến Nghé, Quận 1, TP.HCM\"}' -SkipHttpErrorCheck",
+      "actualStatus": 403,
+      "actualBody": "{\"error\":\"Forbidden\"}",
+      "executedAt": "2026-10-13T06:46:42.588Z"
+    },
+    {
+      "id": "EP-TC05",
+      "covers": "EC04, EC28",
+      "desc": "Header Authorization thiếu tiền tố \"Bearer \"",
+      "kind": "API",
+      "expected": "REJ (4xx); OC-NO",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3OTE4NzQwMDR9.oqkhis6qnhCHDRXnpcIc2GYd6uCyGjxD_h4zIT3I9Zo\" } -Body '{\"total_amount\":200000,\"shipping_address\":\"123 Lê Lợi, Phường Bến Nghé, Quận 1, TP.HCM\"}' -SkipHttpErrorCheck",
+      "actualStatus": 401,
+      "actualBody": "{\"error\":\"Unauthorized\"}",
+      "executedAt": "2026-10-13T06:46:44.283Z"
+    },
+    {
+      "id": "EP-TC06",
+      "covers": "EC07, EC28",
+      "desc": "Giỏ hàng rỗng (0 sản phẩm) mà gọi checkout",
+      "kind": "API",
+      "expected": "REJ (400 theo Q3); OC-NO",
+      "status": "Fail",
+      "reasons": [
+        "Status 200 không phải 4xx (Hệ thống chấp nhận thanh toán giỏ rỗng!)",
+        "OC-NO Thất bại: Đơn hàng mới vẫn bị tạo dù request không hợp lệ (số đơn: 1, ban đầu: 0)"
+      ],
+      "oracleLogs": [
+        "Số đơn hàng: 1 (ban đầu: 0)",
+        "Số món trong giỏ: 0 (ban đầu: 0)"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3OTE4NzQwMDZ9.74UQ9IvJE7gUIH5Z_KNmODnVsjzgjuqESL8kr7_ihPQ\" } -Body '{\"total_amount\":0,\"shipping_address\":\"123 Lê Lợi, Phường Bến Nghé, Quận 1, TP.HCM\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":1}",
+      "executedAt": "2026-10-13T06:46:46.058Z"
+    },
+    {
+      "id": "EP-TC07",
+      "covers": "EC09, EC28",
+      "desc": "Địa chỉ giao hàng rỗng (\"\")",
+      "kind": "API",
+      "expected": "REJ (4xx); OC-NO",
+      "status": "Fail",
+      "reasons": [
+        "Status 200 không phải mã lỗi 4xx khi để trống địa chỉ",
+        "OC-NO Thất bại: Đơn hàng mới vẫn bị tạo dù request không hợp lệ (số đơn: 1, ban đầu: 0)"
+      ],
+      "oracleLogs": [
+        "Số đơn hàng: 1 (ban đầu: 0)",
+        "Số món trong giỏ: 1 (ban đầu: 1)"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3OTE4NzQwMDd9.A_jQxFKGU3doFTjt1bKByElcsUcgRrq3YopDP1Tb-Es\" } -Body '{\"total_amount\":30000000,\"shipping_address\":\"\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":1}",
+      "executedAt": "2026-10-13T06:46:47.744Z"
+    },
+    {
+      "id": "EP-TC08",
+      "covers": "EC10, EC28",
+      "desc": "Body request thiếu hẳn trường shipping_address",
+      "kind": "API",
+      "expected": "REJ (4xx); OC-NO",
+      "status": "Fail",
+      "reasons": [
+        "Status 200 không phải mã lỗi 4xx khi thiếu trường địa chỉ",
+        "OC-NO Thất bại: Đơn hàng mới vẫn bị tạo dù request không hợp lệ (số đơn: 1, ban đầu: 0)"
+      ],
+      "oracleLogs": [
+        "Số đơn hàng: 1 (ban đầu: 0)",
+        "Số món trong giỏ: 1 (ban đầu: 1)"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3OTE4NzQwMDl9.e1gdhrKnF3oTVQEKU1Zhxi2nbLb3jfBkcstCSsvAJkQ\" } -Body '{\"total_amount\":30000000}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":1}",
+      "executedAt": "2026-10-13T06:46:49.399Z"
+    },
+    {
+      "id": "EP-TC09",
+      "covers": "EC11, EC28",
+      "desc": "Địa chỉ giao hàng vượt quá 255 ký tự (300 ký tự A)",
+      "kind": "API",
+      "expected": "REJ (4xx); OC-NO",
+      "status": "Fail",
+      "reasons": [
+        "Status 200 không từ chối địa chỉ dài 300 ký tự (>255)"
+      ],
+      "oracleLogs": [],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3OTE4NzQwMTB9.Otp_n5u2q6Eeca4HoKlSByspWzN4vR9mM7ZjA1MgTpY\" } -Body '{\"total_amount\":30000000,\"shipping_address\":\"AAAAAAAAAAAAAAAAAAAA…(300 ký tự)\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":1}",
+      "executedAt": "2026-10-13T06:46:50.991Z"
+    },
+    {
+      "id": "EP-TC10",
+      "covers": "EC12, EC28",
+      "desc": "Địa chỉ giao hàng chỉ gồm 5 dấu cách (\"     \")",
+      "kind": "API",
+      "expected": "REJ (4xx); OC-NO",
+      "status": "Fail",
+      "reasons": [
+        "Status 200 không từ chối địa chỉ toàn khoảng trắng",
+        "OC-NO Thất bại: Đơn hàng mới vẫn bị tạo dù request không hợp lệ (số đơn: 1, ban đầu: 0)"
+      ],
+      "oracleLogs": [
+        "Số đơn hàng: 1 (ban đầu: 0)",
+        "Số món trong giỏ: 1 (ban đầu: 1)"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3OTE4NzQwMTJ9.OMOI99WvIgmhCQscCYWlhD7B45zu4FRf2-_IR-n2Ubo\" } -Body '{\"total_amount\":30000000,\"shipping_address\":\"     \"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":1}",
+      "executedAt": "2026-10-13T06:46:52.640Z"
+    },
+    {
+      "id": "EP-TC11",
+      "covers": "EC13, EC28",
+      "desc": "Địa chỉ giao hàng sai kiểu dữ liệu (số nguyên 12345)",
+      "kind": "API",
+      "expected": "REJ (4xx); OC-NO",
+      "status": "Fail",
+      "reasons": [
+        "Status 200 không từ chối địa chỉ sai kiểu (number)"
+      ],
+      "oracleLogs": [],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3OTE4NzQwMTR9.I80RvXtz9QB0wz1LTlPUg_xDMoLF7mIXCpJOd4BIq3A\" } -Body '{\"total_amount\":30000000,\"shipping_address\":12345}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":1}",
+      "executedAt": "2026-10-13T06:46:54.306Z"
+    },
+    {
+      "id": "EP-TC12",
+      "covers": "EC14",
+      "desc": "Địa chỉ chứa thẻ HTML / script: <img src=x onerror=alert(1)> (XSS Injection)",
+      "kind": "API + UI",
+      "expected": "2xx; OC-OK(T); Lưu nguyên văn an toàn không render HTML",
+      "status": "Fail",
+      "reasons": [
+        "OC-OK Thất bại (Vi phạm R2): Giỏ hàng không bị xóa sau khi thanh toán thành công (còn 1 món)"
+      ],
+      "oracleLogs": [
+        "Số đơn hàng sau checkout: 1 (ban đầu: 0)",
+        "Đơn mới nhất: id=1, status=pending, total=30000000",
+        "Số mặt hàng trong giỏ sau checkout: 1"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3OTE4NzQwMTV9.Xnn0e1F9OBgDPgBK1q4e-j_-Id5iif2vdekzcPJ9xCY\" } -Body '{\"total_amount\":30000000,\"shipping_address\":\"<img src=x onerror=alert(1)>\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":1}",
+      "executedAt": "2026-10-13T06:46:55.881Z"
+    },
+    {
+      "id": "EP-TC13",
+      "covers": "EC16, EC24, EC25, EC26, EC27",
+      "desc": "Body không gửi trường total_amount (backend tự tính hoàn toàn)",
+      "kind": "API",
+      "expected": "2xx; OC-OK(T, ADDR_NOM)",
+      "status": "Fail",
+      "reasons": [
+        "OC-OK Thất bại: Tổng tiền đơn hàng lưu trong CSDL là null ₫ (kỳ vọng backend tự tính: 30000000 ₫)",
+        "OC-OK Thất bại (Vi phạm R2): Giỏ hàng không bị xóa sau khi thanh toán thành công (còn 1 món)"
+      ],
+      "oracleLogs": [
+        "Số đơn hàng sau checkout: 1 (ban đầu: 0)",
+        "Đơn mới nhất: id=1, status=pending, total=null",
+        "Số mặt hàng trong giỏ sau checkout: 1"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3OTE4NzQwMTd9.JcQkeCmcWqm9P9HDDV_6SFvkSmknlDYSa9R4EGmyZPw\" } -Body '{\"shipping_address\":\"123 Lê Lợi, Phường Bến Nghé, Quận 1, TP.HCM\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":1}",
+      "executedAt": "2026-10-13T06:46:57.446Z"
+    },
+    {
+      "id": "EP-TC14",
+      "covers": "EC17, EC29",
+      "desc": "Gian lận tổng tiền: Client gửi total_amount = 1 đ (nhỏ hơn tổng thực T)",
+      "kind": "API",
+      "expected": "OC-TOTAL (Lưu đúng T hoặc từ chối; không bao giờ lưu 1 đ)",
+      "status": "Fail",
+      "reasons": [
+        "OC-TOTAL Thất bại (LỖ HỔNG BẢO MẬT): Backend chấp nhận và lưu số tiền gian lận 1 ₫ của client vào CSDL thay vì tổng thực 30000000 ₫!"
+      ],
+      "oracleLogs": [
+        "Đơn được tạo với total_amount: 1"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3OTE4NzQwMTl9.Zh9V20eam2Qa4eu645UyAud9nYBMZBWN11_KCpip5P0\" } -Body '{\"total_amount\":1,\"shipping_address\":\"123 Lê Lợi, Phường Bến Nghé, Quận 1, TP.HCM\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":1}",
+      "executedAt": "2026-10-13T06:46:59.075Z"
+    },
+    {
+      "id": "EP-TC15",
+      "covers": "EC18, EC29",
+      "desc": "Gian lận tổng tiền: Client gửi total_amount = 999999999 đ (lớn hơn T)",
+      "kind": "API",
+      "expected": "OC-TOTAL",
+      "status": "Fail",
+      "reasons": [
+        "OC-TOTAL Thất bại (LỖ HỔNG BẢO MẬT): Backend chấp nhận và lưu số tiền gian lận 999999999 ₫ của client vào CSDL thay vì tổng thực 30000000 ₫!"
+      ],
+      "oracleLogs": [
+        "Đơn được tạo với total_amount: 999999999"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3OTE4NzQwMjB9.aKwo4ooZipJPN2C28wSIE4yRkXeiTqjMAVpIbMWqFD4\" } -Body '{\"total_amount\":999999999,\"shipping_address\":\"123 Lê Lợi, Phường Bến Nghé, Quận 1, TP.HCM\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":1}",
+      "executedAt": "2026-10-13T06:47:00.660Z"
+    },
+    {
+      "id": "EP-TC16",
+      "covers": "EC19, EC29",
+      "desc": "Gian lận tổng tiền: Client gửi total_amount = 0 đ",
+      "kind": "API",
+      "expected": "OC-TOTAL (Không cho phép đơn 0 đ)",
+      "status": "Fail",
+      "reasons": [
+        "OC-TOTAL Thất bại (LỖ HỔNG BẢO MẬT): Backend chấp nhận và lưu số tiền gian lận 0 ₫ của client vào CSDL thay vì tổng thực 30000000 ₫!"
+      ],
+      "oracleLogs": [
+        "Đơn được tạo với total_amount: 0"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3OTE4NzQwMjJ9.uJfH2hC9MVmMee286nuX4C-9FqpBhDrMAJyXTP1CALc\" } -Body '{\"total_amount\":0,\"shipping_address\":\"123 Lê Lợi, Phường Bến Nghé, Quận 1, TP.HCM\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":1}",
+      "executedAt": "2026-10-13T06:47:02.246Z"
+    },
+    {
+      "id": "EP-TC17",
+      "covers": "EC20, EC29",
+      "desc": "Gian lận tổng tiền: Client gửi total_amount = -1 đ (số âm)",
+      "kind": "API",
+      "expected": "OC-TOTAL (Không lưu số âm)",
+      "status": "Fail",
+      "reasons": [
+        "OC-TOTAL Thất bại (LỖ HỔNG BẢO MẬT): Backend chấp nhận và lưu số tiền gian lận -1 ₫ của client vào CSDL thay vì tổng thực 30000000 ₫!"
+      ],
+      "oracleLogs": [
+        "Đơn được tạo với total_amount: -1"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3OTE4NzQwMjN9.0i_NYRsQT72sC_Hl8K5Z7hlQiWt_9c5E-5TYX8TsCxk\" } -Body '{\"total_amount\":-1,\"shipping_address\":\"123 Lê Lợi, Phường Bến Nghé, Quận 1, TP.HCM\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":1}",
+      "executedAt": "2026-10-13T06:47:03.814Z"
+    },
+    {
+      "id": "EP-TC18",
+      "covers": "EC21, EC29",
+      "desc": "Gian lận tổng tiền: total_amount sai kiểu dữ liệu (\"abc\")",
+      "kind": "API",
+      "expected": "OC-TOTAL (Không lưu \"abc\")",
+      "status": "Fail",
+      "reasons": [
+        "OC-TOTAL Thất bại: Tổng tiền abc ₫ không khớp tổng thực 30000000 ₫"
+      ],
+      "oracleLogs": [
+        "Đơn được tạo với total_amount: abc"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3OTE4NzQwMjV9.MpBdP14TyJV7V5aiN0OK7BbWjqhOiRHDqaukmX9MKMk\" } -Body '{\"total_amount\":\"abc\",\"shipping_address\":\"123 Lê Lợi, Phường Bến Nghé, Quận 1, TP.HCM\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":1}",
+      "executedAt": "2026-10-13T06:47:05.577Z"
+    },
+    {
+      "id": "EP-TC19",
+      "covers": "EC22",
+      "desc": "Ràng buộc phân lập R4: User A checkout không làm mất giỏ hàng của User B và không bị trộn hàng",
+      "kind": "API",
+      "expected": "OC-OK cho A; Giỏ hàng của B vẫn giữ nguyên",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "Số món trong giỏ User B sau khi A checkout: 1"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3OTE4NzQwMjd9.DKRQ9ZXec4JNsxpdNcH1F3q1i5NzBef2C7t0NaPJFOw\" } -Body '{\"total_amount\":30000000,\"shipping_address\":\"123 Lê Lợi, Phường Bến Nghé, Quận 1, TP.HCM\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":1}",
+      "executedAt": "2026-10-13T06:47:07.202Z"
+    },
+    {
+      "id": "EP-TC20",
+      "covers": "EC23, EC28",
+      "desc": "Ràng buộc R2: Gọi checkout lần 2 ngay sau khi lần 1 thành công (giỏ đã bị xóa)",
+      "kind": "API",
+      "expected": "REJ (4xx); Số đơn hàng không tăng thêm",
+      "status": "Fail",
+      "reasons": [
+        "Lần checkout 2 không bị từ chối 4xx (status=200) dù giỏ hàng đã phải bị xóa ở lần 1!",
+        "Hệ thống tạo ra 2 đơn hàng thay vì chỉ 1 đơn hợp lệ duy nhất!"
+      ],
+      "oracleLogs": [
+        "Lần checkout 1: status=200",
+        "Lần checkout 2: status=200",
+        "Tổng số đơn hàng tạo ra: 2"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3OTE4NzQwMjh9.79VEKJilid6sJhAxa-APDVcJBfZOGDFEkNJ-VLI69cc\" } -Body '{\"total_amount\":30000000,\"shipping_address\":\"123 Lê Lợi, Phường Bến Nghé, Quận 1, TP.HCM\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":2}",
+      "executedAt": "2026-10-13T06:47:08.842Z"
+    },
+    {
+      "id": "EP-TC21",
+      "covers": "EC30",
+      "desc": "Chưa đăng nhập truy cập trang Thanh toán bị chặn/chuyển hướng",
+      "kind": "UI",
+      "expected": "(Ca UI kiểm thử qua Playwright CLI)",
+      "status": "Not run",
+      "reasons": [
+        "Ca UI kiểm thử qua trình duyệt Playwright CLI"
+      ],
+      "oracleLogs": [],
+      "powershellCommand": "",
+      "actualStatus": null,
+      "actualBody": "",
+      "executedAt": "2026-10-13T06:47:08.843Z"
+    },
+    {
+      "id": "EP-TC22",
+      "covers": "EC01, EC05, EC08, EC15, EC24-27",
+      "desc": "Luồng đặt hàng danh định hợp lệ trên UI",
+      "kind": "UI",
+      "expected": "(Ca UI kiểm thử qua Playwright CLI)",
+      "status": "Not run",
+      "reasons": [
+        "Ca UI kiểm thử qua trình duyệt Playwright CLI"
+      ],
+      "oracleLogs": [],
+      "powershellCommand": "",
+      "actualStatus": null,
+      "actualBody": "",
+      "executedAt": "2026-10-13T06:47:08.843Z"
+    },
+    {
+      "id": "EP-TC23",
+      "covers": "EC31",
+      "desc": "UI hiển thị đầy đủ danh sách sản phẩm đặt mua",
+      "kind": "UI",
+      "expected": "(Ca UI kiểm thử qua Playwright CLI)",
+      "status": "Not run",
+      "reasons": [
+        "Ca UI kiểm thử qua trình duyệt Playwright CLI"
+      ],
+      "oracleLogs": [],
+      "powershellCommand": "",
+      "actualStatus": null,
+      "actualBody": "",
+      "executedAt": "2026-10-13T06:47:08.843Z"
+    },
+    {
+      "id": "EP-TC24",
+      "covers": "EC32",
+      "desc": "UI tổng tiền tự tính, không có ô cho người dùng sửa trực tiếp",
+      "kind": "UI",
+      "expected": "(Ca UI kiểm thử qua Playwright CLI)",
+      "status": "Not run",
+      "reasons": [
+        "Ca UI kiểm thử qua trình duyệt Playwright CLI"
+      ],
+      "oracleLogs": [],
+      "powershellCommand": "",
+      "actualStatus": null,
+      "actualBody": "",
+      "executedAt": "2026-10-13T06:47:08.843Z"
+    },
+    {
+      "id": "EP-TC25",
+      "covers": "EC33",
+      "desc": "Nhãn trường Địa chỉ giao hàng bắt buộc có dấu *",
+      "kind": "UI",
+      "expected": "(Ca UI kiểm thử qua Playwright CLI)",
+      "status": "Not run",
+      "reasons": [
+        "Ca UI kiểm thử qua trình duyệt Playwright CLI"
+      ],
+      "oracleLogs": [],
+      "powershellCommand": "",
+      "actualStatus": null,
+      "actualBody": "",
+      "executedAt": "2026-10-13T06:47:08.843Z"
+    },
+    {
+      "id": "EP-TC26",
+      "covers": "EC34",
+      "desc": "Để trống ô địa chỉ trên UI bấm đặt hàng bị chặn/báo lỗi",
+      "kind": "UI",
+      "expected": "(Ca UI kiểm thử qua Playwright CLI)",
+      "status": "Not run",
+      "reasons": [
+        "Ca UI kiểm thử qua trình duyệt Playwright CLI"
+      ],
+      "oracleLogs": [],
+      "powershellCommand": "",
+      "actualStatus": null,
+      "actualBody": "",
+      "executedAt": "2026-10-13T06:47:08.843Z"
+    },
+    {
+      "id": "EP-TC27",
+      "covers": "EC35",
+      "desc": "Thông báo lỗi trên UI hiển thị phía TRÊN nút submit",
+      "kind": "UI",
+      "expected": "(Ca UI kiểm thử qua Playwright CLI)",
+      "status": "Not run",
+      "reasons": [
+        "Ca UI kiểm thử qua trình duyệt Playwright CLI"
+      ],
+      "oracleLogs": [],
+      "powershellCommand": "",
+      "actualStatus": null,
+      "actualBody": "",
+      "executedAt": "2026-10-13T06:47:08.843Z"
+    },
+    {
+      "id": "EP-TC28",
+      "covers": "EC36",
+      "desc": "Trang Thanh toán có Breadcrumb điều hướng",
+      "kind": "UI",
+      "expected": "(Ca UI kiểm thử qua Playwright CLI)",
+      "status": "Not run",
+      "reasons": [
+        "Ca UI kiểm thử qua trình duyệt Playwright CLI"
+      ],
+      "oracleLogs": [],
+      "powershellCommand": "",
+      "actualStatus": null,
+      "actualBody": "",
+      "executedAt": "2026-10-13T06:47:08.843Z"
+    },
+    {
+      "id": "EP-TC29",
+      "covers": "EC37",
+      "desc": "Trang Thanh toán có đúng một thẻ <h1>",
+      "kind": "UI",
+      "expected": "(Ca UI kiểm thử qua Playwright CLI)",
+      "status": "Not run",
+      "reasons": [
+        "Ca UI kiểm thử qua trình duyệt Playwright CLI"
+      ],
+      "oracleLogs": [],
+      "powershellCommand": "",
+      "actualStatus": null,
+      "actualBody": "",
+      "executedAt": "2026-10-13T06:47:08.843Z"
+    },
+    {
+      "id": "EP-TC30",
+      "covers": "EC38",
+      "desc": "Số tiền có ký hiệu ₫ và phân cách hàng nghìn",
+      "kind": "UI",
+      "expected": "(Ca UI kiểm thử qua Playwright CLI)",
+      "status": "Not run",
+      "reasons": [
+        "Ca UI kiểm thử qua trình duyệt Playwright CLI"
+      ],
+      "oracleLogs": [],
+      "powershellCommand": "",
+      "actualStatus": null,
+      "actualBody": "",
+      "executedAt": "2026-10-13T06:47:08.843Z"
+    },
+    {
+      "id": "EP-TC31",
+      "covers": "EC39",
+      "desc": "Nút xác nhận đặt hàng có màu nền xanh dương",
+      "kind": "UI",
+      "expected": "(Ca UI kiểm thử qua Playwright CLI)",
+      "status": "Not run",
+      "reasons": [
+        "Ca UI kiểm thử qua trình duyệt Playwright CLI"
+      ],
+      "oracleLogs": [],
+      "powershellCommand": "",
+      "actualStatus": null,
+      "actualBody": "",
+      "executedAt": "2026-10-13T06:47:08.843Z"
+    },
+    {
+      "id": "EP-TC32",
+      "covers": "EC40",
+      "desc": "Ô địa chỉ được tự động điền sẵn từ hồ sơ người dùng",
+      "kind": "UI",
+      "expected": "(Ca UI kiểm thử qua Playwright CLI)",
+      "status": "Not run",
+      "reasons": [
+        "Ca UI kiểm thử qua trình duyệt Playwright CLI"
+      ],
+      "oracleLogs": [],
+      "powershellCommand": "",
+      "actualStatus": null,
+      "actualBody": "",
+      "executedAt": "2026-10-13T06:47:08.843Z"
+    },
+    {
+      "id": "BV-TC01",
+      "covers": "B01 LB (1 dòng)",
+      "desc": "BVA B01 LB: Giỏ hàng có đúng 1 dòng sản phẩm (SP_A x 1)",
+      "kind": "API",
+      "expected": "2xx; OC-OK(P_A, ADDR_NOM)",
+      "status": "Fail",
+      "reasons": [
+        "OC-OK Thất bại (Vi phạm R2): Giỏ hàng không bị xóa sau khi thanh toán thành công (còn 1 món)"
+      ],
+      "oracleLogs": [
+        "Số đơn hàng sau checkout: 1 (ban đầu: 0)",
+        "Đơn mới nhất: id=1, status=pending, total=30000000",
+        "Số mặt hàng trong giỏ sau checkout: 1"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3OTE4NzQwMzB9.Z0c-gfXQ6QqDQSkcUTsRjaomqc8j4i8I9eAmVJCqLjM\" } -Body '{\"total_amount\":30000000,\"shipping_address\":\"123 Lê Lợi, Phường Bến Nghé, Quận 1, TP.HCM\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":1}",
+      "executedAt": "2026-10-13T06:47:10.496Z"
+    },
+    {
+      "id": "BV-TC02",
+      "covers": "B02 LB (1 ký tự)",
+      "desc": "BVA B02 LB: Địa chỉ giao hàng có độ dài cận dưới = 1 ký tự (\"A\")",
+      "kind": "API",
+      "expected": "2xx; OC-OK(T, \"A\")",
+      "status": "Fail",
+      "reasons": [
+        "OC-OK Thất bại (Vi phạm R2): Giỏ hàng không bị xóa sau khi thanh toán thành công (còn 1 món)"
+      ],
+      "oracleLogs": [
+        "Số đơn hàng sau checkout: 1 (ban đầu: 0)",
+        "Đơn mới nhất: id=1, status=pending, total=30000000",
+        "Số mặt hàng trong giỏ sau checkout: 1"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3OTE4NzQwMzJ9.y7TW6xRXeevGOwxrJ2MSZH-BqsWV7245vhfUUIQ9Zgc\" } -Body '{\"total_amount\":30000000,\"shipping_address\":\"A\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":1}",
+      "executedAt": "2026-10-13T06:47:12.101Z"
+    },
+    {
+      "id": "BV-TC03",
+      "covers": "B02 LB+δ (2 ký tự)",
+      "desc": "BVA B02 LB+δ: Địa chỉ giao hàng có độ dài = 2 ký tự (\"AB\")",
+      "kind": "API",
+      "expected": "2xx; OC-OK(T, \"AB\")",
+      "status": "Fail",
+      "reasons": [
+        "OC-OK Thất bại (Vi phạm R2): Giỏ hàng không bị xóa sau khi thanh toán thành công (còn 1 món)"
+      ],
+      "oracleLogs": [
+        "Số đơn hàng sau checkout: 1 (ban đầu: 0)",
+        "Đơn mới nhất: id=1, status=pending, total=30000000",
+        "Số mặt hàng trong giỏ sau checkout: 1"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3OTE4NzQwMzN9.zj11MY-FRVZq8W0gjpZBWOpswocewGsV97BiSu0t3d4\" } -Body '{\"total_amount\":30000000,\"shipping_address\":\"AB\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":1}",
+      "executedAt": "2026-10-13T06:47:13.680Z"
+    },
+    {
+      "id": "BV-TC04",
+      "covers": "B02 UB-δ (254 ký tự)",
+      "desc": "BVA B02 UB-δ: Địa chỉ giao hàng dài 254 ký tự (\"A\"*254)",
+      "kind": "API",
+      "expected": "2xx; OC-OK(T, 254 ký tự)",
+      "status": "Fail",
+      "reasons": [
+        "OC-OK Thất bại (Vi phạm R2): Giỏ hàng không bị xóa sau khi thanh toán thành công (còn 1 món)"
+      ],
+      "oracleLogs": [
+        "Số đơn hàng sau checkout: 1 (ban đầu: 0)",
+        "Đơn mới nhất: id=1, status=pending, total=30000000",
+        "Số mặt hàng trong giỏ sau checkout: 1"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3OTE4NzQwMzV9.TASyr9vop8FJgTIrRLNTPyGkyp23DEkp1YDShQFjGmo\" } -Body '{\"total_amount\":30000000,\"shipping_address\":\"AAAAAAAAAAAAAAAAAAAA…(254 ký tự)\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":1}",
+      "executedAt": "2026-10-13T06:47:15.338Z"
+    },
+    {
+      "id": "BV-TC05",
+      "covers": "B02 UB (255 ký tự)",
+      "desc": "BVA B02 UB: Địa chỉ giao hàng đúng cận trên giả định = 255 ký tự",
+      "kind": "API",
+      "expected": "2xx; OC-OK(T, 255 ký tự)",
+      "status": "Fail",
+      "reasons": [
+        "OC-OK Thất bại (Vi phạm R2): Giỏ hàng không bị xóa sau khi thanh toán thành công (còn 1 món)"
+      ],
+      "oracleLogs": [
+        "Số đơn hàng sau checkout: 1 (ban đầu: 0)",
+        "Đơn mới nhất: id=1, status=pending, total=30000000",
+        "Số mặt hàng trong giỏ sau checkout: 1"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3OTE4NzQwMzZ9.eYW9cUr51wX2W35cKbJQFQKfYahgSxBu6sHvuhWlmt8\" } -Body '{\"total_amount\":30000000,\"shipping_address\":\"AAAAAAAAAAAAAAAAAAAA…(255 ký tự)\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":1}",
+      "executedAt": "2026-10-13T06:47:16.929Z"
+    },
+    {
+      "id": "BV-TC06",
+      "covers": "B02 UB+δ (256 ký tự)",
+      "desc": "BVA B02 UB+δ: Địa chỉ giao hàng vượt cận trên = 256 ký tự",
+      "kind": "API",
+      "expected": "REJ (4xx); OC-NO",
+      "status": "Fail",
+      "reasons": [
+        "Status 200 không từ chối địa chỉ 256 ký tự"
+      ],
+      "oracleLogs": [],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3OTE4NzQwMzh9.8PmE8r--aoAbQeBqYmuvGLO_yHz2elE2HErk6CsMRts\" } -Body '{\"total_amount\":30000000,\"shipping_address\":\"AAAAAAAAAAAAAAAAAAAA…(256 ký tự)\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":1}",
+      "executedAt": "2026-10-13T06:47:18.484Z"
+    },
+    {
+      "id": "SR-TC01",
+      "covers": "R1, Toàn vẹn CSDL",
+      "desc": "Sản phẩm trong giỏ bị admin đổi giá trước khi checkout (tự cập nhật theo giá mới)",
+      "kind": "API",
+      "expected": "2xx; Tổng tiền tính theo giá mới trong CSDL",
+      "status": "Fail",
+      "reasons": [
+        "R1 Thất bại: Đơn hàng lưu giá cũ 30000000 thay vì cập nhật theo giá mới 30050000"
+      ],
+      "oracleLogs": [
+        "Giá SP iPhone 15 Pro Max đã đổi: 30000000 -> 30050000",
+        "Tổng tiền đơn hàng thực tế lưu: 30000000"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3OTE4NzQwNDB9.KvJS1T-bscdJLw82C0svoAgntiWD5yXcQsnsc8B5sxw\" } -Body '{\"total_amount\":30000000,\"shipping_address\":\"123 Lê Lợi, Phường Bến Nghé, Quận 1, TP.HCM\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":1}",
+      "executedAt": "2026-10-13T06:47:20.236Z"
+    },
+    {
+      "id": "SR-TC02",
+      "covers": "R2, Race Condition",
+      "desc": "Chống Double Submit: Gửi 2 request checkout đồng thời",
+      "kind": "API",
+      "expected": "Chỉ tạo đúng 1 đơn hàng duy nhất; request thứ hai bị từ chối",
+      "status": "Fail",
+      "reasons": [
+        "Race Condition Thất bại: Cả 2 request đều tạo thành công 2 đơn hàng trùng lặp!"
+      ],
+      "oracleLogs": [
+        "Request 1: 200, Request 2: 200",
+        "Số đơn hàng được tạo: 2"
+      ],
+      "powershellCommand": "",
+      "actualStatus": null,
+      "actualBody": "",
+      "executedAt": "2026-10-13T06:47:21.854Z"
+    },
+    {
+      "id": "SR-TC03",
+      "covers": "FR-08, Unicode & Multiline",
+      "desc": "Địa chỉ chứa ký tự xuống dòng (\\n), tiếng Việt có dấu phức tạp và emoji",
+      "kind": "API",
+      "expected": "2xx; Lưu trữ nguyên vẹn không bị cắt dòng hay lỗi font",
+      "status": "Fail",
+      "reasons": [
+        "OC-OK Thất bại (Vi phạm R2): Giỏ hàng không bị xóa sau khi thanh toán thành công (còn 1 món)"
+      ],
+      "oracleLogs": [
+        "Số đơn hàng sau checkout: 1 (ban đầu: 0)",
+        "Đơn mới nhất: id=1, status=pending, total=30000000",
+        "Số mặt hàng trong giỏ sau checkout: 1"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3OTE4NzQwNDN9.RLu5i9fB_ccbjPTW_HLFDQtCwB7s8B06vgVjkugOlX0\" } -Body '{\"total_amount\":30000000,\"shipping_address\":\"Tầng 5, Tòa nhà Bite…(91 ký tự)\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":1}",
+      "executedAt": "2026-10-13T06:47:23.533Z"
+    },
+    {
+      "id": "SR-TC04",
+      "covers": "SEC-05, SQL Injection",
+      "desc": "Địa chỉ giao hàng chứa payload SQL Injection (\"123 Lê Lợi' OR '1'='1 --\")",
+      "kind": "API",
+      "expected": "Không gây lỗi 500 / SQLite crash; lưu an toàn dưới dạng Parameterized Query",
+      "status": "Fail",
+      "reasons": [
+        "OC-OK Thất bại (Vi phạm R2): Giỏ hàng không bị xóa sau khi thanh toán thành công (còn 1 món)"
+      ],
+      "oracleLogs": [
+        "Số đơn hàng sau checkout: 1 (ban đầu: 0)",
+        "Đơn mới nhất: id=1, status=pending, total=30000000",
+        "Số mặt hàng trong giỏ sau checkout: 1"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3OTE4NzQwNDV9.3XR7i6f2Y7I9vtAymc9zbN-KCuAFW8GfEwk1buRIFCg\" } -Body '{\"total_amount\":30000000,\"shipping_address\":\"123 Lê Lợi' OR '1'='1 --\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":1}",
+      "executedAt": "2026-10-13T06:47:25.123Z"
+    },
+    {
+      "id": "SR-TC05",
+      "covers": "SEC-02, IDOR Access Control",
+      "desc": "User B (tài khoản khác) cố tình xem đơn hàng của User A (GET /api/orders/:id)",
+      "kind": "API",
+      "expected": "REJ (403 Forbidden hoặc 404 Not Found); không để lộ thông tin đơn hàng",
+      "status": "Fail",
+      "reasons": [
+        "SEC-02 Thất bại (LỖ HỔNG IDOR): User B có thể xem toàn bộ đơn hàng của User A mà không bị chặn! (HTTP 200)"
+      ],
+      "oracleLogs": [
+        "User A tạo đơn #ID=1",
+        "User B truy vấn đơn #1: status=200"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/orders/1\" -Method GET -ContentType 'application/json' -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkxODc0MDQ2fQ.r576GxPKEy-c-MTl-Ly6unZCMVCPAEGIHoU2C63EmC8\" } -Body '' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"id\":1,\"user_id\":2,\"total_amount\":30000000,\"status\":\"pending\",\"shipping_address\":\"123 Lê Lợi, Phường Bến Nghé, Quận 1, TP.HCM\",\"created_at\":\"2026-10-…",
+      "executedAt": "2026-10-13T06:47:26.645Z"
+    }
+  ]
+}

@@ -1,0 +1,879 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\node_modules\\@playwright\\test\\cli.js",
+      "test"
+    ],
+    "configFile": "D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\playwright.config.js",
+    "rootDir": "D:/KCPM/eshop-sut/tests/ui-fr08",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/KCPM/eshop-sut/reports/evidence/FR-08/playwright-artifacts/run_ui_1",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "D:/KCPM/eshop-sut/tests/ui-fr08",
+        "testIgnore": [],
+        "testMatch": [
+          "/fr08_ui\\.spec\\.js/"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "D:\\KCPM\\eshop-sut\\reports\\evidence\\FR-08\\playwright-artifacts\\run_ui_1",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "chromium",
+        "testDir": "D:\\KCPM\\eshop-sut\\tests\\ui-fr08",
+        "snapshotDir": "D:\\KCPM\\eshop-sut\\tests\\ui-fr08",
+        "testIgnore": [],
+        "testMatch": {},
+        "timeout": 30000,
+        "use": {
+          "baseURL": "http://localhost:5173",
+          "headless": true,
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "trace": "off",
+          "browserName": "chromium"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "chromium"
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "D:\\KCPM\\eshop-sut\\reports\\evidence\\FR-08\\run_ui_1.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "fr08_ui.spec.js",
+      "file": "fr08_ui.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Kiểm thử Giao diện FR-08 — Thanh toán (Checkout)",
+          "file": "fr08_ui.spec.js",
+          "line": 58,
+          "column": 6,
+          "specs": [
+            {
+              "title": "EP-TC21: Người dùng chưa đăng nhập truy cập trang Checkout bị chặn hoặc chuyển hướng",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 1625,
+                      "error": {
+                        "message": "Error: Người dùng chưa đăng nhập tuyệt đối không được nhìn thấy nút Xác Nhận Đặt Hàng\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
+                        "stack": "Error: Người dùng chưa đăng nhập tuyệt đối không được nhìn thấy nút Xác Nhận Đặt Hàng\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js:89:7",
+                        "location": {
+                          "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js",
+                          "column": 7,
+                          "line": 89
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 87 |\u001b[39m       \u001b[33m!\u001b[39mhasCheckoutBtn\u001b[33m,\u001b[39m\n \u001b[90m 88 |\u001b[39m       \u001b[32m'Người dùng chưa đăng nhập tuyệt đối không được nhìn thấy nút Xác Nhận Đặt Hàng'\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 89 |\u001b[39m     )\u001b[33m.\u001b[39mtoBe(\u001b[36mtrue\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 90 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 91 |\u001b[39m\n \u001b[90m 92 |\u001b[39m   test(\u001b[32m'EP-TC22: Luồng đặt hàng hợp lệ end-to-end trên giao diện'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js",
+                            "column": 7,
+                            "line": 89
+                          },
+                          "message": "Error: Người dùng chưa đăng nhập tuyệt đối không được nhìn thấy nút Xác Nhận Đặt Hàng\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\n  87 |       !hasCheckoutBtn,\n  88 |       'Người dùng chưa đăng nhập tuyệt đối không được nhìn thấy nút Xác Nhận Đặt Hàng'\n> 89 |     ).toBe(true);\n     |       ^\n  90 |   });\n  91 |\n  92 |   test('EP-TC22: Luồng đặt hàng hợp lệ end-to-end trên giao diện', async ({ page }) => {\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js:89:7"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-13T06:49:10.217Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\KCPM\\eshop-sut\\reports\\evidence\\FR-08\\playwright-artifacts\\run_ui_1\\fr08_ui-Kiểm-thử-Giao-diện-83f93-t-bị-chặn-hoặc-chuyển-hướng-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js",
+                        "column": 7,
+                        "line": 89
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "28bf343d3ddd44106f86-fb2d0308fff0642c92d2",
+              "file": "fr08_ui.spec.js",
+              "line": 60,
+              "column": 3
+            },
+            {
+              "title": "EP-TC22: Luồng đặt hàng hợp lệ end-to-end trên giao diện",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 1906,
+                      "error": {
+                        "message": "Error: Trang Checkout bắt buộc phải có ô nhập Địa chỉ giao hàng\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
+                        "stack": "Error: Trang Checkout bắt buộc phải có ô nhập Địa chỉ giao hàng\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js:101:94",
+                        "location": {
+                          "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js",
+                          "column": 94,
+                          "line": 101
+                        },
+                        "snippet": "\u001b[0m \u001b[90m  99 |\u001b[39m     \u001b[36mconst\u001b[39m addressInput \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'input[name=\"shipping_address\"], textarea[name=\"shipping_address\"], input[placeholder*=\"địa chỉ\" i]'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 100 |\u001b[39m     \u001b[36mconst\u001b[39m hasAddressField \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m addressInput\u001b[33m.\u001b[39mcount() \u001b[33m>\u001b[39m \u001b[35m0\u001b[39m\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 101 |\u001b[39m     expect\u001b[33m.\u001b[39msoft(hasAddressField\u001b[33m,\u001b[39m \u001b[32m'Trang Checkout bắt buộc phải có ô nhập Địa chỉ giao hàng'\u001b[39m)\u001b[33m.\u001b[39mtoBe(\u001b[36mtrue\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                                                              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 102 |\u001b[39m\n \u001b[90m 103 |\u001b[39m     \u001b[36mif\u001b[39m (hasAddressField) {\n \u001b[90m 104 |\u001b[39m       \u001b[36mawait\u001b[39m addressInput\u001b[33m.\u001b[39mfirst()\u001b[33m.\u001b[39mfill(\u001b[33mADDR_NOM\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js",
+                            "column": 94,
+                            "line": 101
+                          },
+                          "message": "Error: Trang Checkout bắt buộc phải có ô nhập Địa chỉ giao hàng\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\n   99 |     const addressInput = page.locator('input[name=\"shipping_address\"], textarea[name=\"shipping_address\"], input[placeholder*=\"địa chỉ\" i]');\n  100 |     const hasAddressField = await addressInput.count() > 0;\n> 101 |     expect.soft(hasAddressField, 'Trang Checkout bắt buộc phải có ô nhập Địa chỉ giao hàng').toBe(true);\n      |                                                                                              ^\n  102 |\n  103 |     if (hasAddressField) {\n  104 |       await addressInput.first().fill(ADDR_NOM);\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js:101:94"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js",
+                            "column": 92,
+                            "line": 120
+                          },
+                          "message": "Error: Sau khi thanh toán phải hiển thị thông báo thành công\n\n\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('text=/thành công|cảm ơn/i')\nExpected: visible\nError: strict mode violation: locator('text=/thành công|cảm ơn/i') resolved to 2 elements:\n    1) <h2 class=\"text-3xl text-green-600 font-bold mb-4\">Thanh toán thành công!</h2> aka getByRole('heading', { name: 'Thanh toán thành công!' })\n    2) <p class=\"mb-4\">Cảm ơn bạn đã mua sắm tại EShop.</p> aka getByText('Cảm ơn bạn đã mua sắm tại')\n\nCall log:\n\u001b[2m  - Sau khi thanh toán phải hiển thị thông báo thành công locator('text=/thành công|cảm ơn/i') with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for locator('text=/thành công|cảm ơn/i')\u001b[22m\n\n\n  118 |     // Kiểm tra thông báo thành công\n  119 |     const successMsg = page.locator('text=/thành công|cảm ơn/i');\n> 120 |     await expect.soft(successMsg, 'Sau khi thanh toán phải hiển thị thông báo thành công').toBeVisible();\n      |                                                                                            ^\n  121 |   });\n  122 |\n  123 |   test('EP-TC23: Hiển thị đầy đủ danh sách sản phẩm đặt mua khớp với giỏ hàng', async ({ page }) => {\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js:120:92"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-13T06:49:14.655Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\KCPM\\eshop-sut\\reports\\evidence\\FR-08\\playwright-artifacts\\run_ui_1\\fr08_ui-Kiểm-thử-Giao-diện-e9d38-ệ-end-to-end-trên-giao-diện-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js",
+                        "column": 94,
+                        "line": 101
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "28bf343d3ddd44106f86-499149f411849f0ebae1",
+              "file": "fr08_ui.spec.js",
+              "line": 92,
+              "column": 3
+            },
+            {
+              "title": "EP-TC23: Hiển thị đầy đủ danh sách sản phẩm đặt mua khớp với giỏ hàng",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 846,
+                      "error": {
+                        "message": "Error: Danh sách sản phẩm phải chứa \"iPhone 15 Pro Max\"\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
+                        "stack": "Error: Danh sách sản phẩm phải chứa \"iPhone 15 Pro Max\"\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js:136:75",
+                        "location": {
+                          "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js",
+                          "column": 75,
+                          "line": 136
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 134 |\u001b[39m     \u001b[36mconst\u001b[39m hasProdB \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m`text=${prodB.name}`\u001b[39m)\u001b[33m.\u001b[39mcount() \u001b[33m>\u001b[39m \u001b[35m0\u001b[39m\u001b[33m;\u001b[39m\n \u001b[90m 135 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 136 |\u001b[39m     expect\u001b[33m.\u001b[39msoft(hasProdA\u001b[33m,\u001b[39m \u001b[32m`Danh sách sản phẩm phải chứa \"${prodA.name}\"`\u001b[39m)\u001b[33m.\u001b[39mtoBe(\u001b[36mtrue\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                                           \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 137 |\u001b[39m     expect\u001b[33m.\u001b[39msoft(hasProdB\u001b[33m,\u001b[39m \u001b[32m`Danh sách sản phẩm phải chứa \"${prodB.name}\"`\u001b[39m)\u001b[33m.\u001b[39mtoBe(\u001b[36mtrue\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 138 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 139 |\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js",
+                            "column": 75,
+                            "line": 136
+                          },
+                          "message": "Error: Danh sách sản phẩm phải chứa \"iPhone 15 Pro Max\"\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\n  134 |     const hasProdB = await page.locator(`text=${prodB.name}`).count() > 0;\n  135 |\n> 136 |     expect.soft(hasProdA, `Danh sách sản phẩm phải chứa \"${prodA.name}\"`).toBe(true);\n      |                                                                           ^\n  137 |     expect.soft(hasProdB, `Danh sách sản phẩm phải chứa \"${prodB.name}\"`).toBe(true);\n  138 |   });\n  139 |\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js:136:75"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js",
+                            "column": 75,
+                            "line": 137
+                          },
+                          "message": "Error: Danh sách sản phẩm phải chứa \"Samsung Galaxy S24 Ultra\"\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\n  135 |\n  136 |     expect.soft(hasProdA, `Danh sách sản phẩm phải chứa \"${prodA.name}\"`).toBe(true);\n> 137 |     expect.soft(hasProdB, `Danh sách sản phẩm phải chứa \"${prodB.name}\"`).toBe(true);\n      |                                                                           ^\n  138 |   });\n  139 |\n  140 |   test('EP-TC24: Tổng tiền phải tự động tính và không có ô cho người dùng sửa trực tiếp', async ({ page }) => {\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js:137:75"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-13T06:49:17.589Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\KCPM\\eshop-sut\\reports\\evidence\\FR-08\\playwright-artifacts\\run_ui_1\\fr08_ui-Kiểm-thử-Giao-diện-3167d-m-đặt-mua-khớp-với-giỏ-hàng-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js",
+                        "column": 75,
+                        "line": 136
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "28bf343d3ddd44106f86-f6d8e636c59b1f5d7ab8",
+              "file": "fr08_ui.spec.js",
+              "line": 123,
+              "column": 3
+            },
+            {
+              "title": "EP-TC24: Tổng tiền phải tự động tính và không có ô cho người dùng sửa trực tiếp",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 861,
+                      "error": {
+                        "message": "Error: Tổng tiền không được phép có ô nhập chỉnh sửa trực tiếp (phát hiện 1 ô nhập cho phép sửa)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
+                        "stack": "Error: Tổng tiền không được phép có ô nhập chỉnh sửa trực tiếp (phát hiện 1 ô nhập cho phép sửa)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js:157:7",
+                        "location": {
+                          "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js",
+                          "column": 7,
+                          "line": 157
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 155 |\u001b[39m       editableCount \u001b[33m===\u001b[39m \u001b[35m0\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 156 |\u001b[39m       \u001b[32m`Tổng tiền không được phép có ô nhập chỉnh sửa trực tiếp (phát hiện ${editableCount} ô nhập cho phép sửa)`\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 157 |\u001b[39m     )\u001b[33m.\u001b[39mtoBe(\u001b[36mtrue\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 158 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 159 |\u001b[39m\n \u001b[90m 160 |\u001b[39m   test(\u001b[32m'EP-TC25: Nhãn trường Địa chỉ giao hàng bắt buộc có ký hiệu *'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js",
+                            "column": 7,
+                            "line": 157
+                          },
+                          "message": "Error: Tổng tiền không được phép có ô nhập chỉnh sửa trực tiếp (phát hiện 1 ô nhập cho phép sửa)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\n  155 |       editableCount === 0,\n  156 |       `Tổng tiền không được phép có ô nhập chỉnh sửa trực tiếp (phát hiện ${editableCount} ô nhập cho phép sửa)`\n> 157 |     ).toBe(true);\n      |       ^\n  158 |   });\n  159 |\n  160 |   test('EP-TC25: Nhãn trường Địa chỉ giao hàng bắt buộc có ký hiệu *', async ({ page }) => {\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js:157:7"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-13T06:49:19.672Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\KCPM\\eshop-sut\\reports\\evidence\\FR-08\\playwright-artifacts\\run_ui_1\\fr08_ui-Kiểm-thử-Giao-diện-eef38-ho-người-dùng-sửa-trực-tiếp-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js",
+                        "column": 7,
+                        "line": 157
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "28bf343d3ddd44106f86-ecdd1b4638f526c795d8",
+              "file": "fr08_ui.spec.js",
+              "line": 140,
+              "column": 3
+            },
+            {
+              "title": "EP-TC25: Nhãn trường Địa chỉ giao hàng bắt buộc có ký hiệu *",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 841,
+                      "error": {
+                        "message": "Error: Nhãn trường bắt buộc Địa chỉ giao hàng phải có ký hiệu dấu sao (*)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
+                        "stack": "Error: Nhãn trường bắt buộc Địa chỉ giao hàng phải có ký hiệu dấu sao (*)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js:173:100",
+                        "location": {
+                          "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js",
+                          "column": 100,
+                          "line": 173
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 171 |\u001b[39m     \u001b[36mconst\u001b[39m hasAsterisk \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m labelWithAsterisk\u001b[33m.\u001b[39mcount() \u001b[33m>\u001b[39m \u001b[35m0\u001b[39m\u001b[33m;\u001b[39m\n \u001b[90m 172 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 173 |\u001b[39m     expect\u001b[33m.\u001b[39msoft(hasAsterisk\u001b[33m,\u001b[39m \u001b[32m'Nhãn trường bắt buộc Địa chỉ giao hàng phải có ký hiệu dấu sao (*)'\u001b[39m)\u001b[33m.\u001b[39mtoBe(\u001b[36mtrue\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                                                                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 174 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 175 |\u001b[39m\n \u001b[90m 176 |\u001b[39m   test(\u001b[32m'EP-TC26: Để trống ô địa chỉ trên giao diện bấm đặt hàng bị chặn hoặc báo lỗi'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js",
+                            "column": 100,
+                            "line": 173
+                          },
+                          "message": "Error: Nhãn trường bắt buộc Địa chỉ giao hàng phải có ký hiệu dấu sao (*)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\n  171 |     const hasAsterisk = await labelWithAsterisk.count() > 0;\n  172 |\n> 173 |     expect.soft(hasAsterisk, 'Nhãn trường bắt buộc Địa chỉ giao hàng phải có ký hiệu dấu sao (*)').toBe(true);\n      |                                                                                                    ^\n  174 |   });\n  175 |\n  176 |   test('EP-TC26: Để trống ô địa chỉ trên giao diện bấm đặt hàng bị chặn hoặc báo lỗi', async ({ page }) => {\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js:173:100"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-13T06:49:21.630Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\KCPM\\eshop-sut\\reports\\evidence\\FR-08\\playwright-artifacts\\run_ui_1\\fr08_ui-Kiểm-thử-Giao-diện-1c6c0-o-hàng-bắt-buộc-có-ký-hiệu--chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js",
+                        "column": 100,
+                        "line": 173
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "28bf343d3ddd44106f86-2810d0d4a98a1e481ca2",
+              "file": "fr08_ui.spec.js",
+              "line": 160,
+              "column": 3
+            },
+            {
+              "title": "EP-TC26: Để trống ô địa chỉ trên giao diện bấm đặt hàng bị chặn hoặc báo lỗi",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 5,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 1394,
+                      "error": {
+                        "message": "Error: Để trống địa chỉ giao hàng tuyệt đối không được báo đặt hàng thành công\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
+                        "stack": "Error: Để trống địa chỉ giao hàng tuyệt đối không được báo đặt hàng thành công\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js:198:110",
+                        "location": {
+                          "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js",
+                          "column": 110,
+                          "line": 198
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 196 |\u001b[39m     \u001b[90m// Oracle: Không được hoàn tất đơn hàng, phải hiển thị cảnh báo lỗi hoặc validation HTML5\u001b[39m\n \u001b[90m 197 |\u001b[39m     \u001b[36mconst\u001b[39m successMsg \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'text=/thành công|cảm ơn/i'\u001b[39m)\u001b[33m.\u001b[39mcount()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 198 |\u001b[39m     expect\u001b[33m.\u001b[39msoft(successMsg \u001b[33m===\u001b[39m \u001b[35m0\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'Để trống địa chỉ giao hàng tuyệt đối không được báo đặt hàng thành công'\u001b[39m)\u001b[33m.\u001b[39mtoBe(\u001b[36mtrue\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                                                                              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 199 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 200 |\u001b[39m\n \u001b[90m 201 |\u001b[39m   test(\u001b[32m'EP-TC27: Thông báo lỗi giao diện phải hiển thị phía TRÊN nút submit'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js",
+                            "column": 110,
+                            "line": 198
+                          },
+                          "message": "Error: Để trống địa chỉ giao hàng tuyệt đối không được báo đặt hàng thành công\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\n  196 |     // Oracle: Không được hoàn tất đơn hàng, phải hiển thị cảnh báo lỗi hoặc validation HTML5\n  197 |     const successMsg = await page.locator('text=/thành công|cảm ơn/i').count();\n> 198 |     expect.soft(successMsg === 0, 'Để trống địa chỉ giao hàng tuyệt đối không được báo đặt hàng thành công').toBe(true);\n      |                                                                                                              ^\n  199 |   });\n  200 |\n  201 |   test('EP-TC27: Thông báo lỗi giao diện phải hiển thị phía TRÊN nút submit', async ({ page }) => {\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js:198:110"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-13T06:49:22.996Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\KCPM\\eshop-sut\\reports\\evidence\\FR-08\\playwright-artifacts\\run_ui_1\\fr08_ui-Kiểm-thử-Giao-diện-3ff8f-t-hàng-bị-chặn-hoặc-báo-lỗi-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js",
+                        "column": 110,
+                        "line": 198
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "28bf343d3ddd44106f86-891fd2140a090246a09f",
+              "file": "fr08_ui.spec.js",
+              "line": 176,
+              "column": 3
+            },
+            {
+              "title": "EP-TC27: Thông báo lỗi giao diện phải hiển thị phía TRÊN nút submit",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 6,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1424,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-13T06:49:25.421Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "28bf343d3ddd44106f86-9f57d42ef7f9fef20881",
+              "file": "fr08_ui.spec.js",
+              "line": 201,
+              "column": 3
+            },
+            {
+              "title": "EP-TC28: Trang Thanh toán phải có Breadcrumb điều hướng",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 6,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 848,
+                      "error": {
+                        "message": "Error: Trang Thanh toán bắt buộc phải có Breadcrumb điều hướng theo FR-23 (dòng 263)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
+                        "stack": "Error: Trang Thanh toán bắt buộc phải có Breadcrumb điều hướng theo FR-23 (dòng 263)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js:249:113",
+                        "location": {
+                          "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js",
+                          "column": 113,
+                          "line": 249
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 247 |\u001b[39m     \u001b[36mconst\u001b[39m hasBreadcrumb \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m breadcrumb\u001b[33m.\u001b[39mcount() \u001b[33m>\u001b[39m \u001b[35m0\u001b[39m\u001b[33m;\u001b[39m\n \u001b[90m 248 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 249 |\u001b[39m     expect\u001b[33m.\u001b[39msoft(hasBreadcrumb\u001b[33m,\u001b[39m \u001b[32m'Trang Thanh toán bắt buộc phải có Breadcrumb điều hướng theo FR-23 (dòng 263)'\u001b[39m)\u001b[33m.\u001b[39mtoBe(\u001b[36mtrue\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                                                                                 \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 250 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 251 |\u001b[39m\n \u001b[90m 252 |\u001b[39m   test(\u001b[32m'EP-TC29: Trang Thanh toán phải có đúng một thẻ <h1>'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js",
+                            "column": 113,
+                            "line": 249
+                          },
+                          "message": "Error: Trang Thanh toán bắt buộc phải có Breadcrumb điều hướng theo FR-23 (dòng 263)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\n  247 |     const hasBreadcrumb = await breadcrumb.count() > 0;\n  248 |\n> 249 |     expect.soft(hasBreadcrumb, 'Trang Thanh toán bắt buộc phải có Breadcrumb điều hướng theo FR-23 (dòng 263)').toBe(true);\n      |                                                                                                                 ^\n  250 |   });\n  251 |\n  252 |   test('EP-TC29: Trang Thanh toán phải có đúng một thẻ <h1>', async ({ page }) => {\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js:249:113"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-13T06:49:26.942Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\KCPM\\eshop-sut\\reports\\evidence\\FR-08\\playwright-artifacts\\run_ui_1\\fr08_ui-Kiểm-thử-Giao-diện-2ef47-ải-có-Breadcrumb-điều-hướng-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js",
+                        "column": 113,
+                        "line": 249
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "28bf343d3ddd44106f86-7f5922534b72fb5a84f8",
+              "file": "fr08_ui.spec.js",
+              "line": 236,
+              "column": 3
+            },
+            {
+              "title": "EP-TC29: Trang Thanh toán phải có đúng một thẻ <h1>",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 7,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 828,
+                      "error": {
+                        "message": "Error: Trang Checkout phải có đúng 1 thẻ <h1> (hiện có 0 thẻ <h1>)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
+                        "stack": "Error: Trang Checkout phải có đúng 1 thẻ <h1> (hiện có 0 thẻ <h1>)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js:265:104",
+                        "location": {
+                          "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js",
+                          "column": 104,
+                          "line": 265
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 263 |\u001b[39m     \u001b[36mconst\u001b[39m h1Count \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m h1Elements\u001b[33m.\u001b[39mcount()\u001b[33m;\u001b[39m\n \u001b[90m 264 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 265 |\u001b[39m     expect\u001b[33m.\u001b[39msoft(h1Count \u001b[33m===\u001b[39m \u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[32m`Trang Checkout phải có đúng 1 thẻ <h1> (hiện có ${h1Count} thẻ <h1>)`\u001b[39m)\u001b[33m.\u001b[39mtoBe(\u001b[36mtrue\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                                                                        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 266 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 267 |\u001b[39m\n \u001b[90m 268 |\u001b[39m   test(\u001b[32m'EP-TC30: Định dạng số tiền có ký hiệu ₫ và dấu phân cách hàng nghìn'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js",
+                            "column": 104,
+                            "line": 265
+                          },
+                          "message": "Error: Trang Checkout phải có đúng 1 thẻ <h1> (hiện có 0 thẻ <h1>)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\n  263 |     const h1Count = await h1Elements.count();\n  264 |\n> 265 |     expect.soft(h1Count === 1, `Trang Checkout phải có đúng 1 thẻ <h1> (hiện có ${h1Count} thẻ <h1>)`).toBe(true);\n      |                                                                                                        ^\n  266 |   });\n  267 |\n  268 |   test('EP-TC30: Định dạng số tiền có ký hiệu ₫ và dấu phân cách hàng nghìn', async ({ page }) => {\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js:265:104"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-13T06:49:28.721Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\KCPM\\eshop-sut\\reports\\evidence\\FR-08\\playwright-artifacts\\run_ui_1\\fr08_ui-Kiểm-thử-Giao-diện-87708-án-phải-có-đúng-một-thẻ-h1--chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js",
+                        "column": 104,
+                        "line": 265
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "28bf343d3ddd44106f86-294c3a49d96960186be3",
+              "file": "fr08_ui.spec.js",
+              "line": 252,
+              "column": 3
+            },
+            {
+              "title": "EP-TC30: Định dạng số tiền có ký hiệu ₫ và dấu phân cách hàng nghìn",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 8,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 854,
+                      "error": {
+                        "message": "Error: Số tiền phải có dấu phân cách hàng nghìn (. hoặc ,) theo FR-21\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
+                        "stack": "Error: Số tiền phải có dấu phân cách hàng nghìn (. hoặc ,) theo FR-21\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js:283:106",
+                        "location": {
+                          "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js",
+                          "column": 106,
+                          "line": 283
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 281 |\u001b[39m\n \u001b[90m 282 |\u001b[39m     expect\u001b[33m.\u001b[39msoft(hasDongSymbol\u001b[33m,\u001b[39m \u001b[32m'Giao diện bắt buộc phải có ký hiệu đơn vị tiền tệ \"₫\" theo FR-21'\u001b[39m)\u001b[33m.\u001b[39mtoBe(\u001b[36mtrue\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 283 |\u001b[39m     expect\u001b[33m.\u001b[39msoft(hasThousandsSeparator\u001b[33m,\u001b[39m \u001b[32m'Số tiền phải có dấu phân cách hàng nghìn (. hoặc ,) theo FR-21'\u001b[39m)\u001b[33m.\u001b[39mtoBe(\u001b[36mtrue\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                                                                          \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 284 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 285 |\u001b[39m\n \u001b[90m 286 |\u001b[39m   test(\u001b[32m'EP-TC31: Nút xác nhận đặt hàng có màu nền xanh dương'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js",
+                            "column": 106,
+                            "line": 283
+                          },
+                          "message": "Error: Số tiền phải có dấu phân cách hàng nghìn (. hoặc ,) theo FR-21\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\n  281 |\n  282 |     expect.soft(hasDongSymbol, 'Giao diện bắt buộc phải có ký hiệu đơn vị tiền tệ \"₫\" theo FR-21').toBe(true);\n> 283 |     expect.soft(hasThousandsSeparator, 'Số tiền phải có dấu phân cách hàng nghìn (. hoặc ,) theo FR-21').toBe(true);\n      |                                                                                                          ^\n  284 |   });\n  285 |\n  286 |   test('EP-TC31: Nút xác nhận đặt hàng có màu nền xanh dương', async ({ page }) => {\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js:283:106"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-13T06:49:30.063Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\KCPM\\eshop-sut\\reports\\evidence\\FR-08\\playwright-artifacts\\run_ui_1\\fr08_ui-Kiểm-thử-Giao-diện-76644-và-dấu-phân-cách-hàng-nghìn-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js",
+                        "column": 106,
+                        "line": 283
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "28bf343d3ddd44106f86-74aa11716c3cf2db61d6",
+              "file": "fr08_ui.spec.js",
+              "line": 268,
+              "column": 3
+            },
+            {
+              "title": "EP-TC31: Nút xác nhận đặt hàng có màu nền xanh dương",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 9,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 864,
+                      "error": {
+                        "message": "Error: Nút đặt hàng phải có màu xanh dương theo FR-21 (màu hiện tại: rgb(22, 163, 74))\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
+                        "stack": "Error: Nút đặt hàng phải có màu xanh dương theo FR-21 (màu hiện tại: rgb(22, 163, 74))\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js:307:104",
+                        "location": {
+                          "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js",
+                          "column": 104,
+                          "line": 307
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 305 |\u001b[39m         isBlue \u001b[33m=\u001b[39m b \u001b[33m>\u001b[39m r \u001b[33m&&\u001b[39m b \u001b[33m>\u001b[39m g\u001b[33m;\u001b[39m\n \u001b[90m 306 |\u001b[39m       }\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 307 |\u001b[39m       expect\u001b[33m.\u001b[39msoft(isBlue\u001b[33m,\u001b[39m \u001b[32m`Nút đặt hàng phải có màu xanh dương theo FR-21 (màu hiện tại: ${bgColor})`\u001b[39m)\u001b[33m.\u001b[39mtoBe(\u001b[36mtrue\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                                                                        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 308 |\u001b[39m     }\n \u001b[90m 309 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 310 |\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js",
+                            "column": 104,
+                            "line": 307
+                          },
+                          "message": "Error: Nút đặt hàng phải có màu xanh dương theo FR-21 (màu hiện tại: rgb(22, 163, 74))\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\n  305 |         isBlue = b > r && b > g;\n  306 |       }\n> 307 |       expect.soft(isBlue, `Nút đặt hàng phải có màu xanh dương theo FR-21 (màu hiện tại: ${bgColor})`).toBe(true);\n      |                                                                                                        ^\n  308 |     }\n  309 |   });\n  310 |\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js:307:104"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-13T06:49:32.033Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\KCPM\\eshop-sut\\reports\\evidence\\FR-08\\playwright-artifacts\\run_ui_1\\fr08_ui-Kiểm-thử-Giao-diện-870be--hàng-có-màu-nền-xanh-dương-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js",
+                        "column": 104,
+                        "line": 307
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "28bf343d3ddd44106f86-c13d5b991b6b8b12464e",
+              "file": "fr08_ui.spec.js",
+              "line": 286,
+              "column": 3
+            },
+            {
+              "title": "EP-TC32: Ô địa chỉ được tự động điền sẵn từ hồ sơ người dùng (Q4)",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 10,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 838,
+                      "error": {
+                        "message": "Error: Trang Checkout không có trường địa chỉ giao hàng để kiểm tra tự điền sẵn\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
+                        "stack": "Error: Trang Checkout không có trường địa chỉ giao hàng để kiểm tra tự điền sẵn\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js:338:102",
+                        "location": {
+                          "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js",
+                          "column": 102,
+                          "line": 338
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 336 |\u001b[39m       expect\u001b[33m.\u001b[39msoft(val \u001b[33m===\u001b[39m profileAddress\u001b[33m,\u001b[39m \u001b[32m`Ô địa chỉ phải được tự động điền sẵn \"${profileAddress}\" (hiện tại: \"${val}\")`\u001b[39m)\u001b[33m.\u001b[39mtoBe(\u001b[36mtrue\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 337 |\u001b[39m     } \u001b[36melse\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 338 |\u001b[39m       expect\u001b[33m.\u001b[39msoft(\u001b[36mfalse\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'Trang Checkout không có trường địa chỉ giao hàng để kiểm tra tự điền sẵn'\u001b[39m)\u001b[33m.\u001b[39mtoBe(\u001b[36mtrue\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                                                                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 339 |\u001b[39m     }\n \u001b[90m 340 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 341 |\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js",
+                            "column": 102,
+                            "line": 338
+                          },
+                          "message": "Error: Trang Checkout không có trường địa chỉ giao hàng để kiểm tra tự điền sẵn\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\n  336 |       expect.soft(val === profileAddress, `Ô địa chỉ phải được tự động điền sẵn \"${profileAddress}\" (hiện tại: \"${val}\")`).toBe(true);\n  337 |     } else {\n> 338 |       expect.soft(false, 'Trang Checkout không có trường địa chỉ giao hàng để kiểm tra tự điền sẵn').toBe(true);\n      |                                                                                                      ^\n  339 |     }\n  340 |   });\n  341 |\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js:338:102"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-13T06:49:34.079Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\KCPM\\eshop-sut\\reports\\evidence\\FR-08\\playwright-artifacts\\run_ui_1\\fr08_ui-Kiểm-thử-Giao-diện-c9ec8-sẵn-từ-hồ-sơ-người-dùng-Q4--chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr08\\fr08_ui.spec.js",
+                        "column": 102,
+                        "line": 338
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "28bf343d3ddd44106f86-11acbe95aeaa6694a8e7",
+              "file": "fr08_ui.spec.js",
+              "line": 311,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-13T06:49:09.435Z",
+    "duration": 25983.629,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 11,
+    "flaky": 0
+  }
+}
