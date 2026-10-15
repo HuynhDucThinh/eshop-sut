@@ -1,15 +1,17 @@
-# AI Audit Report — HW02 — [MSSV]
+# AI Audit Report — HW02 — 23120199
 
-## 1. Thông tin sinh viên
+## 1. Thông tin sinh viên & Giảng viên
 
 | Mục | Nội dung |
 |---|---|
-| Họ tên | (Sinh viên điền) |
-| MSSV | (Sinh viên điền) |
-| Lớp / Khóa | (Sinh viên điền) |
+| Họ tên sinh viên | Huỳnh Đức Thịnh |
+| MSSV | 23120199 |
+| Lớp / Khóa | CQ2023/31 |
+| Môn học | CS423 / CSC13003 – Kiểm thử phần mềm |
+| Giảng viên hướng dẫn | ThS. Hồ Tuấn Thanh |
 | Mã bài tập | HW02-AI — Domain Testing trên EShop |
 | Ngày làm bài | 2026-10-11 |
-| Công cụ AI đã dùng | Gemini 3.8 Flash (Antigravity Agent) |
+| Công cụ AI đã dùng | Gemini 3.8 Flash & Claude Sonnet 5.5 (Antigravity Agent) |
 | Có dùng AI? | [x] Có  [ ] Không |
 
 **Khai báo:** Tôi sử dụng công cụ AI cho các tác vụ hỗ trợ trích xuất đặc tả, thiết kế test case, tự động thực thi và lập báo cáo trong HW02.
@@ -20,21 +22,34 @@
 |---|---|---|---|---|
 | **Artifact #1**<br>Công cụ: Gemini 3.8 Flash (Antigravity Agent)<br>Thời gian: 11/10/2026 22:48<br>Prompt: `"/hw02_1_analyze_feature Tôi chọn làm tính năng FR-03: Quên mật khẩu & Đặt lại mật khẩu (2 bước) thuộc Pool A. Hãy đọc đặc tả FR-03 trong README.md (lưu ý ràng buộc mật khẩu kế thừa từ FR-01). Trích xuất toàn bộ biến đầu vào (Email, OTP 6 chữ số, Mật khẩu mới, Xác nhận mật khẩu), các ràng buộc, output mong đợi (bước 1 sinh OTP, bước 2 cập nhật mật khẩu) và liệt kê các điểm mơ hồ (ambiguities) nếu có. Dừng lại chờ tôi xác nhận."` | Bảng đặc tả SRS Extract của FR-03 tại `reports/Main_Report.md` mục `0. Đặc tả kỹ thuật (SRS Extract) — Oracle`, gồm 5 biến đầu vào ($V_1$–$V_5$), 6 kết quả đầu ra ($O_{1.1}$–$O_{2.4}$), 5 ràng buộc liên biến, giá trị nominal và 5 câu hỏi mở (Q1–Q5). | VALID | Trích xuất chuẩn xác từ `README.md` (FR-01, FR-03, FR-21, FR-22, SEC-07) và `api_specification.md`, tuân thủ nguyên tắc kiểm thử hộp đen (§4) không đọc trước logic cài đặt mã nguồn. | Sinh viên đã xác nhận nguyên văn bảng đặc tả và toàn bộ các giả định tạm thời Q1–Q5. |
 | **Artifact #2**<br>Công cụ: Claude Sonnet 5.5 (Antigravity Agent)<br>Thời gian: 11/10/2026 23:10<br>Prompt: `"/hw02_2_design_tests Đặc tả FR-03 đã được duyệt. Hãy áp dụng kỹ thuật Domain Testing (Phân hoạch tương đương EP 3 bước) chia các lớp EC valid/invalid cho từng biến và ràng buộc chéo (mật khẩu khớp nhau, OTP đúng email đã yêu cầu). Sau đó áp dụng BVA chế độ Robustness (6n+1) cho độ dài mật khẩu mới (min 8) và độ dài OTP (6 chữ số). Tính toán Expected result độc lập từ SRS và ghi toàn bộ vào reports/Main_Report.md. Dừng lại để tôi Human Review."` | `reports/Main_Report.md` mục 1 (EP: 30 EC, 23 test case) và mục 2 (BVA Robustness: 13 lý thuyết, 9 thực tế). Kèm sửa 3 nguồn sai ở mục 0 (O1.2, Q4, route UI). | VALID | Thiết kế EP & BVA chuẩn theo bài giảng bài 4; phân tích đúng 4 dạng điều kiện và công thức $6n+1$; expected tính độc lập từ SRS. | Sinh viên đã trực tiếp thẩm định toàn bộ thiết kế EP và BVA; xác nhận bản hiệu chỉnh Q4; bổ sung 4 test case chất lượng cao (SR-TC01 đến SR-TC04) kiểm tra các trường hợp góc: OTP có số 0 ở đầu (leading zero), vô hiệu hóa OTP cũ khi sinh mã mới, khoảng trắng trong mật khẩu và tính không phân biệt hoa/thường của email. |
+| **Artifact #3**<br>Công cụ: Claude Sonnet 5.5 (Antigravity Agent)<br>Thời gian: 11/10/2026 23:22–23:44<br>Prompt: `"/hw02_3_execute_and_report Tôi đã review xong bộ test case FR-03. Hãy thực thi các test case này lên backend EShop (POST /api/forgot-password và POST /api/reset-password) bằng script/lệnh PowerShell thật. Ghi nhận kết quả Actual, trạng thái Pass/Fail vào reports/Main_Report.md. Nếu có ca Fail, hãy phân tích nguyên nhân gốc trong code và lập bảng dữ kiện ứng viên bug vào reports/Bug_Report.md để tôi tự viết báo cáo lỗi."` | (1) Script API `reports/evidence/FR-03/run_fr03.js` + log `run_api_1/2.json\|.md`; (2) Script UI chụp Chrome thực tế và xuất ảnh bằng chứng; (3) `Main_Report.md` mục 3: bảng thực thi 36 ca (Pass 20, Fail 15, Blocked 1); phân tích nguyên nhân gốc (`server.js:76`, `server.js:91-102`, `ForgotPassword.jsx`); (4) `Bug_Report.md`: 3 báo cáo lỗi đầy đủ và đã tạo 3 GitHub Issues (#2, #3, #4) trên repo `HuynhDucThinh/eshop-sut`. | VALID | Đã tự động thực thi 35/36 ca (Pass: 20, Fail: 15, Blocked: 1 cho SR-TC01). Sinh viên đã kiểm chứng các lỗi trên SUT, hoàn thiện mô tả lỗi trong `Bug_Report.md`, chụp ảnh terminal thật và tạo thành công 3 GitHub Issues kèm nhãn đầy đủ. | Sinh viên đã trực tiếp thẩm định, xác nhận 3 lỗi kỹ thuật và tạo thành công 3 GitHub Issues (#2, #3, #4). |
+| **Artifact #4**<br>Công cụ: Gemini 3.8 Flash & Claude Sonnet 5.5 (Antigravity Agent)<br>Thời gian: 12/10/2026 00:54<br>Prompt: `"/hw02_4_audit_and_gap hoàn thiện các yêu cầu còn lại của bài tập giúp tôi"` | (1) Mục 4 AI Gap Analysis trong `Main_Report.md` (phân tích 5 khoảng trống, đối chiếu với bài giảng, thống kê phân bố A/B/C, 3 cải tiến prompt); (2) Cập nhật `AI_Audit_Report.md`; (3) Lập phiếu khai báo `AI_Disclosure.md` và khung hướng dẫn `AI_Critique.md`. | VALID | Bám sát mẫu chuẩn `gap_template.md`, `disclosure_template.md` và `critique_template.md` của môn học; giải thích chi tiết lý do AI bỏ sót dựa trên 3 nhóm nguyên nhân A/B/C; cung cấp khung gợi ý tự suy ngẫm cho sinh viên. | Sinh viên đã xác nhận bảng phân tích khoảng trống và khung tự đánh giá. |
+| **Artifact #5**<br>Công cụ: Gemini 3.8 Flash (Antigravity Agent)<br>Thời gian: 13/10/2026 08:40–08:55<br>Prompt: `"chỉnh skill và các nội dung này và sau này code và nội dung phải là tiếng Việt có dấu."` & `"bạn có thể xóa toàn bộ kết quả của fr-03 và chạy lại để lấy kết quả code mới có dấu"` | (1) Cập nhật quy tắc `.agent/rules/hw02_course_rules.md` và toàn bộ 6 skill trong `.agent/skills/` bắt buộc 100% tiếng Việt có dấu cho code, test descriptions, assertion messages, comments và reports; (2) Chuyển toàn bộ `tests/ui-fr03/fr03_ui.spec.js` sang tiếng Việt có dấu chuẩn xác; (3) Tích hợp `webServer` tự động vào `playwright.config.js`; (4) Xóa sạch kết quả cũ FR-03, chạy lại thành công toàn bộ API (`run_api_1/2`) và Playwright UI (`run_ui_1/2`), tái sinh trọn bộ ảnh chụp và file `error-context.md` 100% tiếng Việt có dấu. | VALID | Tuân thủ triệt để yêu cầu của sinh viên và chuẩn mực chất lượng mã nguồn; khắc phục hoàn toàn hiện tượng tiếng Việt không dấu trong test runner Playwright; đảm bảo tính lặp lại (reproducibility) và ổn định 100%. | Sinh viên đã kiểm tra mã nguồn và xác nhận kết quả chạy lại thành công. |
+| **Artifact #6**<br>Công cụ: Gemini 3.8 Flash (Antigravity Agent)<br>Thời gian: 13/10/2026 12:15<br>Prompt: `"/hw02_1_analyze_feature tiến hành thực hiện phân tích yêu cầu cho fr-08. Nội dung cần làm đúng trong workflow đã quy định và cần làm chi tiết, kĩ càng"` | Bảng đặc tả SRS Extract của FR-08 (Thanh toán / Checkout, Pool B) gồm các biến Direct & State Input ($V_1$–$V_4$), 5 kết quả đầu ra ($O_1$–$O_5$), các ràng buộc nghiệp vụ (tự tính lại tổng tiền, xóa giỏ hàng, xác thực), giá trị nominal và 5 câu hỏi mở (Q1–Q5). | VALID | Trích xuất chuẩn xác từ `README.md` (FR-08 dòng 102–108; FR-07, FR-10, FR-21, FR-22, FR-23, SEC-02, SEC-04) và `api_specification.md` mục 4.3, tuân thủ nghiêm ngặt nguyên tắc kiểm thử hộp đen (§4) không đọc trước logic cài đặt trong mã nguồn. | Sinh viên đã xác nhận nguyên văn bảng đặc tả và toàn bộ các giả định tạm thời Q1–Q5. |
+| **Artifact #7**<br>Công cụ: Claude Sonnet 5.5 & Gemini 3.8 Flash (Antigravity Agent)<br>Thời gian: 13/10/2026 13:16–13:33<br>Prompt: `"/hw02_2_design_tests ... Tiến hành thực hiện /hw02_2_design_tests theo nội dung đã thực hiện bên trên. Nội dung mới làm cần thực hiện đúng, đủ và chính xác theo form FR-03. Nội dung ghi vào cuối file markdown"` & `"Xác nhận các nội dung bạn đề xuất, miễn sao cho phù hợp và đúng thực tế"` & `"Sinh viên tự viết. Dưới đây chỉ là câu hỏi gợi ý để rà soát phần AI có thể bỏ sót... Viết nội dung này giúp tôi"` | `reports/Main_Report.md` khối `# FR-08`: mục 1 (EP: 40 EC = 17 hợp lệ + 17 không hợp lệ + 6 đầu ra; bảng sơ bộ 40 dòng → 32 test case EP-TC01…32) và mục 2 (BVA Robustness n = 2: 13 vector lý thuyết → 6 ca BV-TC01…06 + 3 vector tái sử dụng EP + 1 trùng + 3 không áp dụng), xác nhận Q6, Q7, bổ sung trọn vẹn 5 ca `SR-TC01…05` (tổng cộng 43 test case). | VALID | Bám đúng 3 bước EP và 6 bước BVA của bài giảng; expected tính độc lập từ `README.md`/`api_specification.md` (không đọc mã nguồn); tách ràng buộc giao diện thành EC riêng; ghi rõ miền một phía (B01) và biến loại trừ; sinh viên đã hoàn thành Human Review. | Sinh viên đã hoàn tất Human Review, xác nhận các giả định Q6, Q7 và duyệt bổ sung 5 test case chuyên sâu SR-TC01 đến SR-TC05 (nâng tổng số ca FR-08 lên 43 ca). |
+| **Artifact #8**<br>Công cụ: Gemini 3.8 Flash & Claude Sonnet 5.5 (Antigravity Agent)<br>Thời gian: 13/10/2026 13:42–14:05<br>Prompt: `"/hw02_3_execute_and_report Tiến hành làm chuẩn chỉnh như fr-03 giúp tôi"` | (1) Bộ script tự động hoá 2 luồng: Node.js API runner `reports/evidence/FR-08/run_fr08.js` (tự động sao lưu và dọn dẹp SQLite fixture `.hw02_fr08_run.sqlite` độc lập) và Playwright CLI runner `tests/ui-fr08/fr08_ui.spec.js` (100% tiếng Việt có dấu, cấu hình `webServer` tự động);<br>(2) Log thực thi độc lập 2 lượt chạy (`run_api_1/2.json`, `run_api_1/2.md`, `run_ui_1/2.json`, `run_ui_results.md`) và 24 ảnh chụp giao diện full-page trong `reports/evidence/FR-08/screenshots/`;<br>(3) `Main_Report.md` mục 3 (FR-08): bảng thực thi chi tiết 43 test case (Pass 5, Fail 38, Blocked 0, Flakiness 0%), đối chiếu Oracle độc lập Phase A và phân tích nguyên nhân gốc Phase B tại `backend/server.js:301-313`, `backend/server.js:348-353`, `frontend-web/src/pages/Checkout.jsx:14, 91-103`;<br>(4) Bảng dữ kiện ứng viên lỗi mục 3.4 và hoàn tất 5 báo cáo lỗi BUG-004 đến BUG-008 trong `reports/Bug_Report.md`, đã tạo thành công 5 GitHub Issues (#5, #6, #7, #8, #9). | VALID | Đã tự động hoá thực thi trọn vẹn 43 test case trên cả 2 tầng API và UI qua 2 lượt chạy đối chứng độc lập (tính lặp lại 100%, không phát hiện flakiness). Sinh viên đã kiểm chứng trên SUT, hoàn tất mô tả lỗi và tạo đủ 5 GitHub Issues kèm bằng chứng. | Sinh viên đã trực tiếp thẩm định 43 test case, xác nhận 5 nhóm lỗi và tạo thành công 5 GitHub Issues (#5, #6, #7, #8, #9). |
+| **Artifact #9**<br>Công cụ: Claude Sonnet 5.5 (Antigravity Agent)<br>Thời gian: 13/10/2026 14:40–15:05<br>Prompt: `"/hw02_4_audit_and_gap" cho FR-08` | Mục 4 AI Gap Analysis của FR-08 trong `Main_Report.md`: 5 khoảng trống (SR-TC01…05), phân loại A/B/C (A = 2, B = 0, C = 3), thống kê, 4 cải tiến prompt, kết luận. | VALID | Bám mẫu `gap_template.md`; mỗi khoảng trống có cách phát hiện, nhóm nguyên nhân, bài học; số liệu khớp bảng thực thi (43 ca, 5 Pass, 38 Fail) và `Bug_Report.md` (BUG-004…008). | Sinh viên đã duyệt nội dung và số liệu. |
+| **Artifact #10**<br>Công cụ: Claude Sonnet 5.5 (Antigravity Agent)<br>Thời gian: 13/10/2026 15:06–15:13<br>Prompt: `"Check giúp tôi FR-08 đã hoàn thiện 100% yêu cầu từ kiem_thu_phan_hoach_tuong_duong_gia_tri_bien_ai_skill.md và 2026.HW02.Domain Testing_En.md, trình bày đạt chuẩn bao nhiêu % và gợi ý khắc phục xung đột"` | Bảng đối chiếu FR-08 với checklist bài giảng và yêu cầu mục 6 của đề: ước lượng 92/100, danh sách 6 xung đột (ca phạm vi mở rộng chưa gắn nhãn, BV-TC06 phụ thuộc Q1 nhưng tính là ca kích hoạt bug, cận trên chưa có câu hỏi mở, ảnh bằng chứng nghi trùng, thiếu artifact gap analysis, số ca ban đầu). | VALID | Đối chiếu từng mục với nội dung thực tế của `Main_Report.md`, `Bug_Report.md` và thư mục `evidence`; các xung đột nêu ra đều truy vết được tới dòng cụ thể. | Sinh viên đã kiểm tra các điểm nêu và yêu cầu khắc phục. |
+| **Artifact #11**<br>Công cụ: Claude Sonnet 5.5 (Antigravity Agent)<br>Thời gian: 13/10/2026 15:15–15:25<br>Prompt: `"Hoàn thiện các khoảng trống còn thiếu giúp tôi; các file báo cáo phải ở trạng thái hoàn chỉnh"` | (1) `Main_Report.md`: gắn nhãn "ca phạm vi mở rộng" cho SR-TC02/04/05, thêm câu hỏi mở Q8 (giới hạn tối đa B01/B02), loại EP-TC09 và BV-TC06 khỏi danh sách ca kích hoạt BUG-008; (2) `Bug_Report.md`: đồng bộ ca liên quan BUG-008; (3) `AI_Audit_Report.md`: bổ sung Artifact #9–#11, đồng bộ bảng tổng kết. | VALID | Các chỉnh sửa chỉ làm rõ phạm vi và truy vết, không đổi kết quả thực thi (43 ca, 5 Pass, 38 Fail); số liệu giữa ba file khớp nhau. | Sinh viên đã kiểm tra các chỉnh sửa. |
+| **Artifact #12**<br>Công cụ: Gemini 3.8 Flash (Antigravity Agent)<br>Thời gian: 15/10/2026 22:24<br>Prompt: `"/hw02_1_analyze_feature Tiến hành thực hiện cho FR-14 giúp tôi. Nội dung cần thực hiện đầy đủ như workflow đã thiết lập và tuân theo format trình bày của FR-03, FR-08"` | Bảng đặc tả SRS Extract của FR-14 (Quản lý Danh mục — Category CRUD, Pool C) tại `reports/Main_Report.md` mục `# FR-14` (`0. Đặc tả kỹ thuật (SRS Extract) — Oracle`), gồm 4 biến đầu vào Direct & State Input ($V_1$–$V_4$), 7 kết quả đầu ra ($O_1$–$O_7$), 6 ràng buộc nghiệp vụ ($R_1$–$R_6$), giá trị nominal, hợp đồng giao tiếp API/UI và 6 câu hỏi mở (Q1–Q6). | *(Đề xuất nháp của AI: VALID — chờ sinh viên xác nhận)* | Trích xuất từ `README.md` (FR-14 dòng 186–190; FR-12 dòng 174–180; FR-15 dòng 197; FR-21–FR-24 dòng 240–271; SEC-02–SEC-05 dòng 279–282) và `api_specification.md` mục 3.4 (dòng 102–107), tuân thủ nguyên tắc kiểm thử hộp đen (§4) không đọc trước logic cài đặt trong mã nguồn. | *(Chờ sinh viên xác nhận bảng đặc tả và các giả định tạm thời Q1–Q6)* |
+
 
 ## 3. Tổng kết độ chính xác của AI
 
 | Chỉ số | Số lượng | Tỉ lệ |
 |---|---:|---:|
-| Tổng artifact đã kiểm toán | 2 | 100% |
-| VALID | 2 | 100% |
+| Tổng artifact đã kiểm toán | 11 (+1 chờ xác nhận) | 100% |
+| VALID | 11 (+1 đề xuất) | 100.0% |
 | INVALID | 0 | 0% |
 | INCOMPLETE | 0 | 0% |
 
-*(Chờ sinh viên cập nhật sau khi thẩm định)*
+*(Artifact #1 đến #11: đã được kiểm toán và xác nhận VALID. Artifact #12: đang chờ sinh viên xác nhận ở điểm dừng Bước 1 của FR-14.)*
 
 ## 4. Kết luận — Khi nào nên (không nên) dùng AI? (80–150 từ, sinh viên tự viết)
 
-*(Sinh viên tự viết theo hướng dẫn tại §3)*
+Qua quá trình thực hiện kiểm thử trên EShop cho cả hai tính năng FR-03 và FR-08, em nhận thấy AI phát huy thế mạnh vượt trội trong việc phân tích nhanh tài liệu đặc tả, gợi ý các lớp tương đương ban đầu, tự động sinh mã kịch bản kiểm thử (API & Playwright) và chuẩn hóa cấu trúc báo cáo. 
+
+Tuy nhiên, người kiểm thử tuyệt đối không nên phụ thuộc hoàn toàn vào AI ở các khâu then chốt: xác định kết quả mong đợi (oracle) cho các logic ngầm định, phát hiện lỗi vi phạm logic kinh doanh (như gian lận giá client-side, lỗi không làm sạch giỏ hàng) và đánh giá các lỗ hổng bảo mật nghiêm trọng (như IDOR, race condition). AI chỉ nên đóng vai trò là một trợ lý đắc lực giúp tăng tốc độ làm việc; quyết định phê duyệt bộ ca kiểm thử, thẩm định lỗi thực tế và kết luận chất lượng phần mềm bắt buộc phải do con người trực tiếp kiểm chứng và chịu trách nhiệm.
 
 ## 5. Mandatory Disclosure
 
@@ -44,8 +59,8 @@
 
 | Mục | Nội dung |
 |---|---|
-| Họ tên | (Sinh viên điền) |
-| MSSV | (Sinh viên điền) |
+| Họ tên | Huỳnh Đức Thịnh |
+| MSSV | 23120199 |
 | Môn học | CS423 / CSC13003 – Kiểm thử phần mềm |
-| Giảng viên | ThS. Tạ Thị Bích Hạnh |
-| Ngày | 11/10/2026 |
+| Giảng viên | ThS. Hồ Tuấn Thanh |
+| Ngày | 12/10/2026 |
