@@ -1,0 +1,804 @@
+{
+  "baseUrl": "http://localhost:3000",
+  "results": [
+    {
+      "id": "EP-TC01",
+      "covers": "EC01, EC27",
+      "desc": "Bước 1 hợp lệ; OTP đúng 6 chữ số",
+      "kind": "API",
+      "expected": "200; resetToken khớp ^\\d{6}$",
+      "ambiguous": "",
+      "status": "Fail",
+      "reasons": [
+        "resetToken \"7056\" không khớp ^\\d{6}$ (độ dài 4)"
+      ],
+      "oracleLogs": [],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/forgot-password\" -Method POST -ContentType 'application/json' -Body '{\"email\":\"test@eshop.com\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Mã đặt lại mật khẩu đã được tạo\",\"resetToken\":\"7056\"}",
+      "executedAt": "2026-10-13T01:43:36.729Z"
+    },
+    {
+      "id": "EP-TC02",
+      "covers": "EC01,EC05,EC13,EC15,EC24,EC27,EC29",
+      "desc": "Luồng UI hợp lệ end-to-end",
+      "kind": "UI",
+      "expected": "(Ca UI kiểm thử qua trình duyệt)",
+      "ambiguous": "",
+      "status": "Fail",
+      "reasons": [
+        "Ca UI kiểm thử qua trình duyệt — ghi nhận kết quả từ Playwright / UI runner"
+      ],
+      "oracleLogs": [],
+      "powershellCommand": "",
+      "actualStatus": null,
+      "actualBody": "",
+      "executedAt": "2026-10-13T01:43:36.730Z"
+    },
+    {
+      "id": "EP-TC03",
+      "covers": "EC02, EC28",
+      "desc": "Email sai định dạng",
+      "kind": "API",
+      "expected": "REJ (4xx); không có resetToken",
+      "ambiguous": "",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/forgot-password\" -Method POST -ContentType 'application/json' -Body '{\"email\":\"testeshop.com\"}' -SkipHttpErrorCheck",
+      "actualStatus": 404,
+      "actualBody": "{\"error\":\"User not found\"}",
+      "executedAt": "2026-10-13T01:43:38.397Z"
+    },
+    {
+      "id": "EP-TC04",
+      "covers": "EC03, EC28",
+      "desc": "Email rỗng",
+      "kind": "API",
+      "expected": "REJ (4xx); không có resetToken",
+      "ambiguous": "",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/forgot-password\" -Method POST -ContentType 'application/json' -Body '{\"email\":\"\"}' -SkipHttpErrorCheck",
+      "actualStatus": 404,
+      "actualBody": "{\"error\":\"User not found\"}",
+      "executedAt": "2026-10-13T01:43:40.003Z"
+    },
+    {
+      "id": "EP-TC05",
+      "covers": "EC04, EC28",
+      "desc": "Email chưa đăng ký",
+      "kind": "API",
+      "expected": "REJ (4xx); không có resetToken",
+      "ambiguous": "",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/forgot-password\" -Method POST -ContentType 'application/json' -Body '{\"email\":\"nobody.unregistered@eshop.com\"}' -SkipHttpErrorCheck",
+      "actualStatus": 404,
+      "actualBody": "{\"error\":\"User not found\"}",
+      "executedAt": "2026-10-13T01:43:41.585Z"
+    },
+    {
+      "id": "EP-TC06",
+      "covers": "EC06, EC30",
+      "desc": "OTP độ dài < 6",
+      "kind": "API",
+      "expected": "REJ (4xx); OC-NO",
+      "ambiguous": "",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "OC-NO: login \"Test1234!\" → 200"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/reset-password\" -Method POST -ContentType 'application/json' -Body '{\"email\":\"test@eshop.com\",\"resetToken\":\"123\",\"newPassword\":\"NewPass123!\"}' -SkipHttpErrorCheck",
+      "actualStatus": 400,
+      "actualBody": "{\"error\":\"Invalid token or email\"}",
+      "executedAt": "2026-10-13T01:43:43.209Z"
+    },
+    {
+      "id": "EP-TC07",
+      "covers": "EC07, EC30",
+      "desc": "OTP độ dài > 6",
+      "kind": "API",
+      "expected": "REJ (4xx); OC-NO",
+      "ambiguous": "",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "OC-NO: login \"Test1234!\" → 200"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/reset-password\" -Method POST -ContentType 'application/json' -Body '{\"email\":\"test@eshop.com\",\"resetToken\":\"12345678\",\"newPassword\":\"NewPass123!\"}' -SkipHttpErrorCheck",
+      "actualStatus": 400,
+      "actualBody": "{\"error\":\"Invalid token or email\"}",
+      "executedAt": "2026-10-13T01:43:44.831Z"
+    },
+    {
+      "id": "EP-TC08",
+      "covers": "EC08, EC30",
+      "desc": "OTP có ký tự không phải số",
+      "kind": "API",
+      "expected": "REJ (4xx); OC-NO",
+      "ambiguous": "",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "OC-NO: login \"Test1234!\" → 200"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/reset-password\" -Method POST -ContentType 'application/json' -Body '{\"email\":\"test@eshop.com\",\"resetToken\":\"12ab56\",\"newPassword\":\"NewPass123!\"}' -SkipHttpErrorCheck",
+      "actualStatus": 400,
+      "actualBody": "{\"error\":\"Invalid token or email\"}",
+      "executedAt": "2026-10-13T01:43:46.425Z"
+    },
+    {
+      "id": "EP-TC09",
+      "covers": "EC09, EC30",
+      "desc": "OTP sai giá trị (đổi chữ số cuối)",
+      "kind": "API",
+      "expected": "REJ (4xx); OC-NO",
+      "ambiguous": "",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "OC-NO: login \"Test1234!\" → 200"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/reset-password\" -Method POST -ContentType 'application/json' -Body '{\"email\":\"test@eshop.com\",\"resetToken\":\"1575\",\"newPassword\":\"NewPass123!\"}' -SkipHttpErrorCheck",
+      "actualStatus": 400,
+      "actualBody": "{\"error\":\"Invalid token or email\"}",
+      "executedAt": "2026-10-13T01:43:48.027Z"
+    },
+    {
+      "id": "EP-TC10",
+      "covers": "EC10, EC30",
+      "desc": "OTP rỗng",
+      "kind": "API",
+      "expected": "REJ (4xx); OC-NO",
+      "ambiguous": "",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "OC-NO: login \"Test1234!\" → 200"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/reset-password\" -Method POST -ContentType 'application/json' -Body '{\"email\":\"test@eshop.com\",\"resetToken\":\"\",\"newPassword\":\"NewPass123!\"}' -SkipHttpErrorCheck",
+      "actualStatus": 400,
+      "actualBody": "{\"error\":\"Invalid token or email\"}",
+      "executedAt": "2026-10-13T01:43:49.564Z"
+    },
+    {
+      "id": "EP-TC11",
+      "covers": "EC11, EC30",
+      "desc": "OTP của email khác (admin) dùng cho test@eshop.com",
+      "kind": "API",
+      "expected": "REJ (4xx); OC-NO",
+      "ambiguous": "",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "OC-NO: login \"Test1234!\" → 200"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/reset-password\" -Method POST -ContentType 'application/json' -Body '{\"email\":\"test@eshop.com\",\"resetToken\":\"4762\",\"newPassword\":\"NewPass123!\"}' -SkipHttpErrorCheck",
+      "actualStatus": 400,
+      "actualBody": "{\"error\":\"Invalid token or email\"}",
+      "executedAt": "2026-10-13T01:43:51.050Z"
+    },
+    {
+      "id": "EP-TC12",
+      "covers": "EC12, EC30",
+      "desc": "OTP đã dùng, dùng lại lần 2",
+      "kind": "API",
+      "expected": "REJ (4xx); mật khẩu vẫn NewPass123!",
+      "ambiguous": "",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "login \"NewPass123!\" → 200",
+        "login \"Another456@\" → 401"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/reset-password\" -Method POST -ContentType 'application/json' -Body '{\"email\":\"test@eshop.com\",\"resetToken\":\"9431\",\"newPassword\":\"Another456@\"}' -SkipHttpErrorCheck",
+      "actualStatus": 400,
+      "actualBody": "{\"error\":\"Invalid token or email\"}",
+      "executedAt": "2026-10-13T01:43:52.504Z"
+    },
+    {
+      "id": "EP-TC13",
+      "covers": "EC14, EC30",
+      "desc": "Email bước 2 rỗng",
+      "kind": "API",
+      "expected": "REJ (4xx); OC-NO",
+      "ambiguous": "",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "OC-NO: login \"Test1234!\" → 200"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/reset-password\" -Method POST -ContentType 'application/json' -Body '{\"email\":\"\",\"resetToken\":\"2244\",\"newPassword\":\"NewPass123!\"}' -SkipHttpErrorCheck",
+      "actualStatus": 400,
+      "actualBody": "{\"error\":\"Invalid token or email\"}",
+      "executedAt": "2026-10-13T01:43:54.053Z"
+    },
+    {
+      "id": "EP-TC14",
+      "covers": "EC16, EC30",
+      "desc": "Mật khẩu < 8 ký tự",
+      "kind": "API",
+      "expected": "REJ (4xx); OC-NO",
+      "ambiguous": "",
+      "status": "Fail",
+      "reasons": [
+        "Status 200 không thuộc mã lỗi 4xx",
+        "OC-NO Thất bại: Mật khẩu cũ không đăng nhập được (HTTP 401) → Mật khẩu đã bị đổi!"
+      ],
+      "oracleLogs": [
+        "OC-NO: login \"Test1234!\" → 401"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/reset-password\" -Method POST -ContentType 'application/json' -Body '{\"email\":\"test@eshop.com\",\"resetToken\":\"9251\",\"newPassword\":\"Ab1!\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Password reset successfully\"}",
+      "executedAt": "2026-10-13T01:43:55.643Z"
+    },
+    {
+      "id": "EP-TC15",
+      "covers": "EC17, EC30",
+      "desc": "Mật khẩu > 128 ký tự (200)",
+      "kind": "API",
+      "expected": "REJ (4xx); OC-NO",
+      "ambiguous": "",
+      "status": "Fail",
+      "reasons": [
+        "Status 200 không thuộc mã lỗi 4xx",
+        "OC-NO Thất bại: Mật khẩu cũ không đăng nhập được (HTTP 401) → Mật khẩu đã bị đổi!"
+      ],
+      "oracleLogs": [
+        "OC-NO: login \"Test1234!\" → 401"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/reset-password\" -Method POST -ContentType 'application/json' -Body '{\"email\":\"test@eshop.com\",\"resetToken\":\"6915\",\"newPassword\":\"Aa1!aaaaaaaaaaaaaaaa…(200 ký tự)\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Password reset successfully\"}",
+      "executedAt": "2026-10-13T01:43:57.162Z"
+    },
+    {
+      "id": "EP-TC16",
+      "covers": "EC18, EC30",
+      "desc": "Mật khẩu thiếu chữ hoa",
+      "kind": "API",
+      "expected": "REJ (4xx); OC-NO",
+      "ambiguous": "",
+      "status": "Fail",
+      "reasons": [
+        "Status 200 không thuộc mã lỗi 4xx",
+        "OC-NO Thất bại: Mật khẩu cũ không đăng nhập được (HTTP 401) → Mật khẩu đã bị đổi!"
+      ],
+      "oracleLogs": [
+        "OC-NO: login \"Test1234!\" → 401"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/reset-password\" -Method POST -ContentType 'application/json' -Body '{\"email\":\"test@eshop.com\",\"resetToken\":\"6430\",\"newPassword\":\"newpass123!\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Password reset successfully\"}",
+      "executedAt": "2026-10-13T01:43:58.653Z"
+    },
+    {
+      "id": "EP-TC17",
+      "covers": "EC19, EC30",
+      "desc": "Mật khẩu thiếu chữ thường",
+      "kind": "API",
+      "expected": "REJ (4xx); OC-NO",
+      "ambiguous": "",
+      "status": "Fail",
+      "reasons": [
+        "Status 200 không thuộc mã lỗi 4xx",
+        "OC-NO Thất bại: Mật khẩu cũ không đăng nhập được (HTTP 401) → Mật khẩu đã bị đổi!"
+      ],
+      "oracleLogs": [
+        "OC-NO: login \"Test1234!\" → 401"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/reset-password\" -Method POST -ContentType 'application/json' -Body '{\"email\":\"test@eshop.com\",\"resetToken\":\"5912\",\"newPassword\":\"NEWPASS123!\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Password reset successfully\"}",
+      "executedAt": "2026-10-13T01:44:00.140Z"
+    },
+    {
+      "id": "EP-TC18",
+      "covers": "EC20, EC30",
+      "desc": "Mật khẩu thiếu chữ số",
+      "kind": "API",
+      "expected": "REJ (4xx); OC-NO",
+      "ambiguous": "",
+      "status": "Fail",
+      "reasons": [
+        "Status 200 không thuộc mã lỗi 4xx",
+        "OC-NO Thất bại: Mật khẩu cũ không đăng nhập được (HTTP 401) → Mật khẩu đã bị đổi!"
+      ],
+      "oracleLogs": [
+        "OC-NO: login \"Test1234!\" → 401"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/reset-password\" -Method POST -ContentType 'application/json' -Body '{\"email\":\"test@eshop.com\",\"resetToken\":\"7831\",\"newPassword\":\"NewPass!!!!\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Password reset successfully\"}",
+      "executedAt": "2026-10-13T01:44:01.745Z"
+    },
+    {
+      "id": "EP-TC19",
+      "covers": "EC21, EC30",
+      "desc": "Mật khẩu thiếu ký tự đặc biệt",
+      "kind": "API",
+      "expected": "REJ (4xx); OC-NO",
+      "ambiguous": "",
+      "status": "Fail",
+      "reasons": [
+        "Status 200 không thuộc mã lỗi 4xx",
+        "OC-NO Thất bại: Mật khẩu cũ không đăng nhập được (HTTP 401) → Mật khẩu đã bị đổi!"
+      ],
+      "oracleLogs": [
+        "OC-NO: login \"Test1234!\" → 401"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/reset-password\" -Method POST -ContentType 'application/json' -Body '{\"email\":\"test@eshop.com\",\"resetToken\":\"2500\",\"newPassword\":\"NewPass1234\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Password reset successfully\"}",
+      "executedAt": "2026-10-13T01:44:03.157Z"
+    },
+    {
+      "id": "EP-TC20",
+      "covers": "EC22, EC30",
+      "desc": "Ký tự đặc biệt ngoài tập cho phép (#)",
+      "kind": "API",
+      "expected": "REJ (4xx); OC-NO",
+      "ambiguous": "",
+      "status": "Fail",
+      "reasons": [
+        "Status 200 không thuộc mã lỗi 4xx",
+        "OC-NO Thất bại: Mật khẩu cũ không đăng nhập được (HTTP 401) → Mật khẩu đã bị đổi!"
+      ],
+      "oracleLogs": [
+        "OC-NO: login \"Test1234!\" → 401"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/reset-password\" -Method POST -ContentType 'application/json' -Body '{\"email\":\"test@eshop.com\",\"resetToken\":\"1089\",\"newPassword\":\"NewPass123#\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Password reset successfully\"}",
+      "executedAt": "2026-10-13T01:44:04.878Z"
+    },
+    {
+      "id": "EP-TC21",
+      "covers": "EC23, EC30",
+      "desc": "Mật khẩu rỗng",
+      "kind": "API",
+      "expected": "REJ (4xx); OC-NO",
+      "ambiguous": "",
+      "status": "Fail",
+      "reasons": [
+        "Status 200 không thuộc mã lỗi 4xx",
+        "OC-NO Thất bại: Mật khẩu cũ không đăng nhập được (HTTP 401) → Mật khẩu đã bị đổi!"
+      ],
+      "oracleLogs": [
+        "OC-NO: login \"Test1234!\" → 401"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/reset-password\" -Method POST -ContentType 'application/json' -Body '{\"email\":\"test@eshop.com\",\"resetToken\":\"3739\",\"newPassword\":\"\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Password reset successfully\"}",
+      "executedAt": "2026-10-13T01:44:06.404Z"
+    },
+    {
+      "id": "EP-TC22",
+      "covers": "EC25, EC30",
+      "desc": "UI: xác nhận mật khẩu không khớp",
+      "kind": "UI",
+      "expected": "(Ca UI kiểm thử qua trình duyệt)",
+      "ambiguous": "",
+      "status": "Fail",
+      "reasons": [
+        "Ca UI kiểm thử qua trình duyệt — ghi nhận kết quả từ Playwright / UI runner"
+      ],
+      "oracleLogs": [],
+      "powershellCommand": "",
+      "actualStatus": null,
+      "actualBody": "",
+      "executedAt": "2026-10-13T01:44:06.404Z"
+    },
+    {
+      "id": "EP-TC23",
+      "covers": "EC26, EC30",
+      "desc": "UI: xác nhận mật khẩu rỗng",
+      "kind": "UI",
+      "expected": "(Ca UI kiểm thử qua trình duyệt)",
+      "ambiguous": "",
+      "status": "Fail",
+      "reasons": [
+        "Ca UI kiểm thử qua trình duyệt — ghi nhận kết quả từ Playwright / UI runner"
+      ],
+      "oracleLogs": [],
+      "powershellCommand": "",
+      "actualStatus": null,
+      "actualBody": "",
+      "executedAt": "2026-10-13T01:44:06.404Z"
+    },
+    {
+      "id": "EP-TC24",
+      "covers": "EC31, EC30",
+      "desc": "Email bước 2 sai định dạng",
+      "kind": "API",
+      "expected": "REJ (4xx); OC-NO",
+      "ambiguous": "",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "OC-NO: login \"Test1234!\" → 200"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/reset-password\" -Method POST -ContentType 'application/json' -Body '{\"email\":\"testeshop.com\",\"resetToken\":\"6438\",\"newPassword\":\"NewPass123!\"}' -SkipHttpErrorCheck",
+      "actualStatus": 400,
+      "actualBody": "{\"error\":\"Invalid token or email\"}",
+      "executedAt": "2026-10-13T01:44:07.986Z"
+    },
+    {
+      "id": "EP-TC25",
+      "covers": "EC32, EC30",
+      "desc": "Email bước 2 chưa đăng ký",
+      "kind": "API",
+      "expected": "REJ (4xx); OC-NO",
+      "ambiguous": "",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "OC-NO: login \"Test1234!\" → 200"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/reset-password\" -Method POST -ContentType 'application/json' -Body '{\"email\":\"nobody.unregistered@eshop.com\",\"resetToken\":\"8242\",\"newPassword\":\"NewPass123!\"}' -SkipHttpErrorCheck",
+      "actualStatus": 400,
+      "actualBody": "{\"error\":\"Invalid token or email\"}",
+      "executedAt": "2026-10-13T01:44:09.456Z"
+    },
+    {
+      "id": "EP-TC26",
+      "covers": "EC33, EC30",
+      "desc": "Email bước 2 là tài khoản khác (admin) dùng OTP của test@eshop.com",
+      "kind": "API",
+      "expected": "REJ (4xx); OC-NO",
+      "ambiguous": "",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "OC-NO: login \"Test1234!\" → 200"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/reset-password\" -Method POST -ContentType 'application/json' -Body '{\"email\":\"admin@eshop.com\",\"resetToken\":\"3561\",\"newPassword\":\"NewPass123!\"}' -SkipHttpErrorCheck",
+      "actualStatus": 400,
+      "actualBody": "{\"error\":\"Invalid token or email\"}",
+      "executedAt": "2026-10-13T01:44:10.897Z"
+    },
+    {
+      "id": "EP-TC27",
+      "covers": "EC34, EC30",
+      "desc": "Mật khẩu chỉ gồm khoảng trắng (8 dấu cách)",
+      "kind": "API",
+      "expected": "REJ (4xx); OC-NO",
+      "ambiguous": "",
+      "status": "Fail",
+      "reasons": [
+        "Status 200 không thuộc mã lỗi 4xx",
+        "OC-NO Thất bại: Mật khẩu cũ không đăng nhập được (HTTP 401) → Mật khẩu đã bị đổi!"
+      ],
+      "oracleLogs": [
+        "OC-NO: login \"Test1234!\" → 401"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/reset-password\" -Method POST -ContentType 'application/json' -Body '{\"email\":\"test@eshop.com\",\"resetToken\":\"5816\",\"newPassword\":\"        \"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Password reset successfully\"}",
+      "executedAt": "2026-10-13T01:44:12.351Z"
+    },
+    {
+      "id": "EP-TC28",
+      "covers": "EC09, EC30",
+      "desc": "OTP 6 chữ số nhưng sai (000000)",
+      "kind": "API",
+      "expected": "REJ (4xx); OC-NO",
+      "ambiguous": "",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "OC-NO: login \"Test1234!\" → 200"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/reset-password\" -Method POST -ContentType 'application/json' -Body '{\"email\":\"test@eshop.com\",\"resetToken\":\"000000\",\"newPassword\":\"NewPass123!\"}' -SkipHttpErrorCheck",
+      "actualStatus": 400,
+      "actualBody": "{\"error\":\"Invalid token or email\"}",
+      "executedAt": "2026-10-13T01:44:13.822Z"
+    },
+    {
+      "id": "EP-TC29",
+      "covers": "EC35",
+      "desc": "UI: Kiểm tra chỉ báo bước và nút Quay lại đăng nhập",
+      "kind": "UI",
+      "expected": "(Ca UI kiểm thử qua trình duyệt)",
+      "ambiguous": "",
+      "status": "Fail",
+      "reasons": [
+        "Ca UI kiểm thử qua trình duyệt — ghi nhận kết quả từ Playwright / UI runner"
+      ],
+      "oracleLogs": [],
+      "powershellCommand": "",
+      "actualStatus": null,
+      "actualBody": "",
+      "executedAt": "2026-10-13T01:44:13.822Z"
+    },
+    {
+      "id": "EP-TC30",
+      "covers": "EC36",
+      "desc": "UI: Ô email type=\"email\" chặn submit sai format HTML5",
+      "kind": "UI",
+      "expected": "(Ca UI kiểm thử qua trình duyệt)",
+      "ambiguous": "",
+      "status": "Fail",
+      "reasons": [
+        "Ca UI kiểm thử qua trình duyệt — ghi nhận kết quả từ Playwright / UI runner"
+      ],
+      "oracleLogs": [],
+      "powershellCommand": "",
+      "actualStatus": null,
+      "actualBody": "",
+      "executedAt": "2026-10-13T01:44:13.822Z"
+    },
+    {
+      "id": "EP-TC31",
+      "covers": "EC37",
+      "desc": "UI: Ô mật khẩu và xác nhận có type=\"password\" che ký tự",
+      "kind": "UI",
+      "expected": "(Ca UI kiểm thử qua trình duyệt)",
+      "ambiguous": "",
+      "status": "Fail",
+      "reasons": [
+        "Ca UI kiểm thử qua trình duyệt — ghi nhận kết quả từ Playwright / UI runner"
+      ],
+      "oracleLogs": [],
+      "powershellCommand": "",
+      "actualStatus": null,
+      "actualBody": "",
+      "executedAt": "2026-10-13T01:44:13.822Z"
+    },
+    {
+      "id": "BV-TC01",
+      "covers": "Nominal (P0)",
+      "desc": "Nominal: OTP thật + NewPass123!",
+      "kind": "API",
+      "expected": "2xx; OC-OK",
+      "ambiguous": "",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "OC-OK: login mật khẩu mới → 200",
+        "login mật khẩu cũ → 401"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/reset-password\" -Method POST -ContentType 'application/json' -Body '{\"email\":\"test@eshop.com\",\"resetToken\":\"2023\",\"newPassword\":\"NewPass123!\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Password reset successfully\"}",
+      "executedAt": "2026-10-13T01:44:15.246Z"
+    },
+    {
+      "id": "BV-TC02",
+      "covers": "B01 LB−δ (7)",
+      "desc": "Mật khẩu độ dài 7",
+      "kind": "API",
+      "expected": "REJ (4xx); OC-NO",
+      "ambiguous": "",
+      "status": "Fail",
+      "reasons": [
+        "Status 200 không thuộc mã lỗi 4xx",
+        "OC-NO Thất bại: Mật khẩu cũ không đăng nhập được (HTTP 401) → Mật khẩu đã bị đổi!"
+      ],
+      "oracleLogs": [
+        "OC-NO: login \"Test1234!\" → 401"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/reset-password\" -Method POST -ContentType 'application/json' -Body '{\"email\":\"test@eshop.com\",\"resetToken\":\"2128\",\"newPassword\":\"Abcde1!\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Password reset successfully\"}",
+      "executedAt": "2026-10-13T01:44:16.700Z"
+    },
+    {
+      "id": "BV-TC03",
+      "covers": "B01 LB (8)",
+      "desc": "Mật khẩu độ dài 8",
+      "kind": "API",
+      "expected": "2xx; OC-OK",
+      "ambiguous": "",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "OC-OK: login mật khẩu mới → 200",
+        "login mật khẩu cũ → 401"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/reset-password\" -Method POST -ContentType 'application/json' -Body '{\"email\":\"test@eshop.com\",\"resetToken\":\"3470\",\"newPassword\":\"Abcdef1!\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Password reset successfully\"}",
+      "executedAt": "2026-10-13T01:44:18.147Z"
+    },
+    {
+      "id": "BV-TC04",
+      "covers": "B01 LB+δ (9)",
+      "desc": "Mật khẩu độ dài 9",
+      "kind": "API",
+      "expected": "2xx; OC-OK",
+      "ambiguous": "",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "OC-OK: login mật khẩu mới → 200",
+        "login mật khẩu cũ → 401"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/reset-password\" -Method POST -ContentType 'application/json' -Body '{\"email\":\"test@eshop.com\",\"resetToken\":\"3630\",\"newPassword\":\"Abcdefg1!\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Password reset successfully\"}",
+      "executedAt": "2026-10-13T01:44:19.608Z"
+    },
+    {
+      "id": "BV-TC05",
+      "covers": "B01 UB−δ (127)",
+      "desc": "Mật khẩu độ dài 127",
+      "kind": "API",
+      "expected": "2xx; OC-OK",
+      "ambiguous": "",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "OC-OK: login mật khẩu mới → 200",
+        "login mật khẩu cũ → 401"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/reset-password\" -Method POST -ContentType 'application/json' -Body '{\"email\":\"test@eshop.com\",\"resetToken\":\"3383\",\"newPassword\":\"Aa1!aaaaaaaaaaaaaaaa…(127 ký tự)\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Password reset successfully\"}",
+      "executedAt": "2026-10-13T01:44:21.028Z"
+    },
+    {
+      "id": "BV-TC06",
+      "covers": "B01 UB (128)",
+      "desc": "Mật khẩu độ dài 128",
+      "kind": "API",
+      "expected": "2xx; OC-OK",
+      "ambiguous": "",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "OC-OK: login mật khẩu mới → 200",
+        "login mật khẩu cũ → 401"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/reset-password\" -Method POST -ContentType 'application/json' -Body '{\"email\":\"test@eshop.com\",\"resetToken\":\"1483\",\"newPassword\":\"Aa1!aaaaaaaaaaaaaaaa…(128 ký tự)\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Password reset successfully\"}",
+      "executedAt": "2026-10-13T01:44:22.508Z"
+    },
+    {
+      "id": "BV-TC07",
+      "covers": "B01 UB+δ (129)",
+      "desc": "Mật khẩu độ dài 129",
+      "kind": "API",
+      "expected": "REJ (4xx); OC-NO",
+      "ambiguous": "",
+      "status": "Fail",
+      "reasons": [
+        "Status 200 không thuộc mã lỗi 4xx",
+        "OC-NO Thất bại: Mật khẩu cũ không đăng nhập được (HTTP 401) → Mật khẩu đã bị đổi!"
+      ],
+      "oracleLogs": [
+        "OC-NO: login \"Test1234!\" → 401"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/reset-password\" -Method POST -ContentType 'application/json' -Body '{\"email\":\"test@eshop.com\",\"resetToken\":\"6009\",\"newPassword\":\"Aa1!aaaaaaaaaaaaaaaa…(129 ký tự)\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Password reset successfully\"}",
+      "executedAt": "2026-10-13T01:44:23.936Z"
+    },
+    {
+      "id": "BV-TC08",
+      "covers": "B02 LB−δ/UB−δ (5)",
+      "desc": "OTP độ dài 5",
+      "kind": "API",
+      "expected": "REJ (4xx); OC-NO",
+      "ambiguous": "",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "OC-NO: login \"Test1234!\" → 200"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/reset-password\" -Method POST -ContentType 'application/json' -Body '{\"email\":\"test@eshop.com\",\"resetToken\":\"12345\",\"newPassword\":\"NewPass123!\"}' -SkipHttpErrorCheck",
+      "actualStatus": 400,
+      "actualBody": "{\"error\":\"Invalid token or email\"}",
+      "executedAt": "2026-10-13T01:44:25.425Z"
+    },
+    {
+      "id": "BV-TC09",
+      "covers": "B02 LB+δ/UB+δ (7)",
+      "desc": "OTP độ dài 7",
+      "kind": "API",
+      "expected": "REJ (4xx); OC-NO",
+      "ambiguous": "",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "OC-NO: login \"Test1234!\" → 200"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/reset-password\" -Method POST -ContentType 'application/json' -Body '{\"email\":\"test@eshop.com\",\"resetToken\":\"1234567\",\"newPassword\":\"NewPass123!\"}' -SkipHttpErrorCheck",
+      "actualStatus": 400,
+      "actualBody": "{\"error\":\"Invalid token or email\"}",
+      "executedAt": "2026-10-13T01:44:26.850Z"
+    },
+    {
+      "id": "OB-TC01",
+      "covers": "Biên đầu ra: độ dài OTP",
+      "desc": "Kiểm tra độ dài OTP sinh ra luôn đúng 6 chữ số qua 20 mẫu",
+      "kind": "API",
+      "expected": "Độ dài = 6; khớp ^\\d{6}$ ở mọi lần",
+      "ambiguous": "",
+      "status": "Fail",
+      "reasons": [
+        "Lần 1: OTP \"1086\" có độ dài 4 ≠ 6"
+      ],
+      "oracleLogs": [],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/forgot-password\" -Method POST -ContentType 'application/json' -Body '{\"email\":\"test@eshop.com\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Mã đặt lại mật khẩu đã được tạo\",\"resetToken\":\"1086\"}",
+      "executedAt": "2026-10-13T01:44:28.273Z"
+    },
+    {
+      "id": "SR-TC01",
+      "covers": "Bổ sung: OTP bắt đầu bằng 0",
+      "desc": "OTP do hệ thống cấp có chữ số 0 ở đầu vẫn được chấp nhận",
+      "kind": "API",
+      "expected": "2xx; OC-OK (dùng OTP thật bắt đầu bằng 0)",
+      "ambiguous": "",
+      "status": "Blocked",
+      "reasons": [
+        "Không sinh được OTP bắt đầu bằng 0 sau 100 lần xin mã (SUT chỉ sinh 1000-9999)"
+      ],
+      "oracleLogs": [],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/forgot-password\" -Method POST -ContentType 'application/json' -Body '{\"email\":\"test@eshop.com\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Mã đặt lại mật khẩu đã được tạo\",\"resetToken\":\"1043\"}",
+      "executedAt": "2026-10-13T01:44:30.068Z"
+    },
+    {
+      "id": "SR-TC02",
+      "covers": "Bổ sung: OTP cũ sau khi xin lại",
+      "desc": "Xin OTP lần 2 thì OTP lần 1 bị vô hiệu",
+      "kind": "API",
+      "expected": "REJ (4xx); OC-NO",
+      "ambiguous": "Đặc tả không nêu rõ OTP cũ bị vô hiệu khi xin mã mới",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "OC-NO: login \"Test1234!\" → 200"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/reset-password\" -Method POST -ContentType 'application/json' -Body '{\"email\":\"test@eshop.com\",\"resetToken\":\"7722\",\"newPassword\":\"NewPass123!\"}' -SkipHttpErrorCheck",
+      "actualStatus": 400,
+      "actualBody": "{\"error\":\"Invalid token or email\"}",
+      "executedAt": "2026-10-13T01:44:31.647Z"
+    },
+    {
+      "id": "SR-TC03",
+      "covers": "Bổ sung: mật khẩu có khoảng trắng",
+      "desc": "Mật khẩu \"New Pass123!\" (có dấu cách)",
+      "kind": "API",
+      "expected": "Nhất quán: (2xx và OC-OK) hoặc (4xx và OC-NO)",
+      "ambiguous": "Đặc tả không nêu về khoảng trắng",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "OC-OK: login mật khẩu mới → 200",
+        "login mật khẩu cũ → 401"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/reset-password\" -Method POST -ContentType 'application/json' -Body '{\"email\":\"test@eshop.com\",\"resetToken\":\"6657\",\"newPassword\":\"New Pass123!\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Password reset successfully\"}",
+      "executedAt": "2026-10-13T01:44:33.139Z"
+    },
+    {
+      "id": "SR-TC04",
+      "covers": "Bổ sung: email hoa/thường",
+      "desc": "Xin OTP bằng TEST@ESHOP.COM, reset bằng test@eshop.com",
+      "kind": "API",
+      "expected": "2xx ở cả hai bước; OC-OK",
+      "ambiguous": "Đặc tả không nêu phân biệt hoa/thường của email",
+      "status": "Fail",
+      "reasons": [
+        "Bước 1 với TEST@ESHOP.COM trả về HTTP 404, không có OTP"
+      ],
+      "oracleLogs": [],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/forgot-password\" -Method POST -ContentType 'application/json' -Body '{\"email\":\"TEST@ESHOP.COM\"}' -SkipHttpErrorCheck",
+      "actualStatus": 404,
+      "actualBody": "{\"error\":\"User not found\"}",
+      "executedAt": "2026-10-13T01:44:34.587Z"
+    }
+  ]
+}
