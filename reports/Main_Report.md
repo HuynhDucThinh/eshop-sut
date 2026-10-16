@@ -1,4 +1,89 @@
-# Báo cáo Kiểm thử HW02 — Domain Testing & BVA trên EShop
+<div style="box-sizing: border-box; width: 100%; border: 2.5px solid #0969da; padding: 35px 25px; margin: 0 auto; text-align: center; background-color: #ffffff; min-height: 960px; display: flex; flex-direction: column; justify-content: space-between;">
+
+  <!-- Header Đơn vị đào tạo -->
+  <div>
+    <p style="margin: 0; font-size: 11pt; font-weight: 700; color: #1f2328; text-transform: uppercase; letter-spacing: 0.5px;">
+      ĐẠI HỌC QUỐC GIA THÀNH PHỐ HỒ CHÍ MINH
+    </p>
+    <p style="margin: 4px 0 0 0; font-size: 11.5pt; font-weight: 700; color: #0969da; text-transform: uppercase; letter-spacing: 0.5px;">
+      TRƯỜNG ĐẠI HỌC KHOA HỌC TỰ NHIÊN
+    </p>
+    <p style="margin: 4px 0 0 0; font-size: 10.5pt; font-weight: 600; color: #4b5563; text-transform: uppercase;">
+      KHOA CÔNG NGHỆ THÔNG TIN — BỘ MÔN CÔNG NGHỆ PHẦN MỀM
+    </p>
+    <div style="width: 140px; height: 2px; background-color: #0969da; margin: 15px auto;"></div>
+    <p style="margin: 6px 0 0 0; font-size: 10.5pt; font-weight: 600; color: #374151;">
+      MÔN HỌC: KIỂM THỬ PHẦN MỀM (SOFTWARE TESTING)
+    </p>
+    <p style="margin: 2px 0 0 0; font-size: 9.5pt; color: #6b7280; font-style: italic;">
+      Lớp: CQ2023/31 — Học kỳ I, Năm học 2026–2027
+    </p>
+  </div>
+
+  <!-- Khối Tên Đề tài / Bài tập -->
+  <div style="margin: 35px 0;">
+    <p style="margin: 0 0 10px 0; font-size: 12.5pt; font-weight: 700; color: #4b5563; text-transform: uppercase; letter-spacing: 1.5px;">
+      BÁO CÁO THỰC HÀNH BÀI TẬP 02 (HW02)
+    </p>
+    <div style="border-top: 1.5px solid #e5e7eb; border-bottom: 1.5px solid #e5e7eb; padding: 22px 10px; margin: 10px auto; max-width: 90%;">
+      <h1 style="margin: 0; font-size: 17.5pt; font-weight: 800; color: #0969da; text-transform: uppercase; line-height: 1.35; border: none; padding: 0;">
+        DOMAIN TESTING (EP) &amp; BOUNDARY VALUE ANALYSIS (BVA)
+      </h1>
+      <p style="margin: 12px 0 0 0; font-size: 11pt; font-weight: 500; color: #374151; font-style: italic;">
+        (Kiểm thử Hộp đen trên EShop SUT với Agent Skills, Thực thi Tự động và AI Audit)
+      </p>
+    </div>
+    <p style="margin: 14px 0 0 0; font-size: 9.5pt; color: #6b7280;">
+      Hệ thống thực nghiệm: <strong>eShop SUT</strong> (React.js, Vite Web Admin, Expo Mobile, Express REST API, SQLite)
+    </p>
+  </div>
+
+  <!-- Khối Thông tin Giảng viên & Sinh viên -->
+  <div style="text-align: left; margin: 20px auto; width: 88%; font-size: 10pt; line-height: 1.6;">
+    <table style="width: 100%; border: none; margin: 0; font-size: 10pt;">
+      <tr style="background: none;">
+        <td style="width: 48%; vertical-align: top; border: none; padding: 4px 10px;">
+          <p style="margin: 0 0 6px 0; font-weight: 700; color: #0969da; text-transform: uppercase; font-size: 9.5pt; border-bottom: 1px solid #d1d5db; padding-bottom: 3px;">
+            GIẢNG VIÊN HƯỚNG DẪN:
+          </p>
+          <p style="margin: 3px 0; color: #1f2328;">• <strong>ThS. Hồ Tuấn Thanh</strong></p>
+          <p style="margin: 3px 0; color: #1f2328;">• <strong>ThS. Trần Thị Bích Hạnh</strong></p>
+          <p style="margin: 3px 0; color: #1f2328;">• <strong>ThS. Trương Phước Lộc</strong></p>
+        </td>
+        <td style="width: 4%; border: none;"></td>
+        <td style="width: 48%; vertical-align: top; border: none; padding: 4px 10px;">
+          <p style="margin: 0 0 6px 0; font-weight: 700; color: #0969da; text-transform: uppercase; font-size: 9.5pt; border-bottom: 1px solid #d1d5db; padding-bottom: 3px;">
+            SINH VIÊN THỰC HIỆN:
+          </p>
+          <p style="margin: 3px 0; color: #1f2328;">• Họ và tên: <strong>Huỳnh Đức Thịnh</strong></p>
+          <p style="margin: 3px 0; color: #1f2328;">• MSSV: <strong>23120199</strong></p>
+          <p style="margin: 3px 0; color: #1f2328;">• Lớp: <strong>CQ2023/31</strong></p>
+          <p style="margin: 3px 0; color: #1f2328;">• Nhóm: <strong>Nhóm 10</strong></p>
+        </td>
+      </tr>
+      <tr style="background: none;">
+        <td colspan="3" style="border: none; padding: 12px 10px 4px 10px;">
+          <p style="margin: 0 0 6px 0; font-weight: 700; color: #0969da; text-transform: uppercase; font-size: 9.5pt; border-bottom: 1px solid #d1d5db; padding-bottom: 3px;">
+            DANH SÁCH TÍNH NĂNG THỰC HIỆN (4 POOLS):
+          </p>
+          <p style="margin: 2px 0; color: #1f2328;">1. <strong>Pool A (FR-03)</strong>: Quên mật khẩu &amp; Đặt lại mật khẩu (2 bước)</p>
+          <p style="margin: 2px 0; color: #1f2328;">2. <strong>Pool B (FR-08)</strong>: Thanh toán đơn hàng (Checkout)</p>
+          <p style="margin: 2px 0; color: #1f2328;">3. <strong>Pool C (FR-14)</strong>: Quản lý Danh mục sản phẩm (Category CRUD)</p>
+          <p style="margin: 2px 0; color: #1f2328;">4. <strong>Pool D (FR-20.3)</strong>: Mobile: Thanh toán (Checkout) và Áp mã giảm giá</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Footer Thời gian & Địa điểm -->
+  <div style="margin-top: 20px;">
+    <div style="width: 100px; height: 1px; background-color: #d1d5db; margin: 8px auto;"></div>
+    <p style="margin: 0; font-size: 10pt; font-weight: 600; color: #374151; text-transform: uppercase;">
+      THÀNH PHỐ HỒ CHÍ MINH — THÁNG 10 NĂM 2026
+    </p>
+  </div>
+
+</div>
 
 ## Thông tin sinh viên & Giảng viên
 
@@ -8,9 +93,9 @@
 | **MSSV** | 23120199 |
 | **Lớp / Khóa** | CQ2023/31 |
 | **Môn học** | CS423 / CSC13003 – Kiểm thử phần mềm |
-| **Giảng viên hướng dẫn** | ThS. Hồ Tuấn Thanh |
-| **Danh sách tính năng thực hiện** | 1. **FR-03**: Quên mật khẩu & Đặt lại mật khẩu (2 bước) — Pool A<br>2. **FR-08**: Thanh toán (Checkout) — Pool B<br>3. **FR-14**: Quản lý Danh mục (Category CRUD) — Pool C |
-| **Ngày nộp / hoàn thành** | 15/10/2026 |
+| **Giảng viên hướng dẫn** | ThS. Hồ Tuấn Thanh, ThS. Trần Thị Bích Hạnh, ThS. Trương Phước Lộc |
+| **Danh sách tính năng thực hiện** | 1. **FR-03**: Quên mật khẩu & Đặt lại mật khẩu (2 bước) — Pool A<br>2. **FR-08**: Thanh toán (Checkout) — Pool B<br>3. **FR-14**: Quản lý Danh mục (Category CRUD) — Pool C<br>4. **FR-20.3**: Mobile: Thanh toán (Checkout) và Áp mã giảm giá — Pool D |
+| **Ngày nộp / hoàn thành** | 16/10/2026 |
 
 ---
 
@@ -1291,7 +1376,7 @@ Bộ test ban đầu của AI bao phủ tốt các lớp tương đương, giá 
 | **R3** | **Tính cô lập khi thao tác theo `:id` (Record Isolation)** | Khi xóa (`DELETE /api/categories/:id`) hoặc cập nhật (`PUT /api/categories/:id`) một danh mục, chỉ đúng bản ghi có `id` đó bị tác động; toàn bộ các danh mục khác trong CSDL phải giữ nguyên vẹn. | `README.md`: dòng 188; `api_spec`: dòng 105–106 |
 | **R4** | **Bảo mật chống XSS & SQL Injection (Input Sanitization & Escaping)** | Tên danh mục do người dùng/Admin nhập khi hiển thị trên giao diện Web Admin và Web người dùng phải được escape đúng cách (không dùng `innerHTML` trực tiếp — SEC-04), và mọi câu lệnh CSDL phải dùng Parameterized Query (SEC-05). | `README.md`: dòng 281–282 (`SEC-04`, `SEC-05`) |
 | **R5** | **Toàn vẹn tham chiếu với Sản phẩm (Foreign Key Integrity)** | Sản phẩm trong hệ thống bắt buộc gắn với một danh mục có sẵn (`category_id` — FR-15). Khi xóa một danh mục đang có sản phẩm tham chiếu, hệ thống phải đảm bảo tính toàn vẹn dữ liệu (từ chối xóa hoặc xử lý khóa ngoại an toàn — xem Q5). | `README.md`: dòng 188, 197; `api_spec`: dòng 98 |
-| **R6** | **Tiêu chuẩn Giao diện Web Admin (GUI Standards)** | Trang Quản lý Danh mục trên Web Admin (`http://localhost:5174`) phải tuân thủ: ngôn ngữ 100% tiếng Việt (FR-21); đúng 1 thẻ `<h1>` mô tả trang (FR-21); nút Thêm/Submit màu xanh dương, nút Xóa màu đỏ (FR-21); nhãn trường bắt buộc có dấu `*` (FR-22); thông báo lỗi nằm **trên** nút Submit (FR-22); thanh điều hướng highlight trang đang chọn và nút đăng xuất ghi "Đăng xuất" (FR-23); có xác nhận hoặc xử lý trạng thái trống hợp lý (FR-24). | `README.md`: dòng 242–271 |
+| **R6** | **Tiêu chuẩn Giao diện Web Admin (GUI Standards)** | Trang Quản lý Danh mục trên Web Admin (`http://localhost:5174`) phải tuân thủ: ngôn ngữ 100% tiếng Việt (FR-21); đúng 1 thẻ `<h1>` mô tả trang (FR-21); nút Thêm/Submit màu xanh dương, nút Xóa màu đỏ (FR-21); nhãn trường bắt buộc có dấu `*` (FR-22); thông báo lỗi nằm **trên** nút Submit (FR-22); thanh điều hướng highlight trang đang chọn và nút đăng xuất ghi "Đăng xuất" (FR-23); hiển thị trạng thái trống (Empty State) thân thiện kèm icon/hình minh họa khi danh sách không có dữ liệu (FR-24). *(Lưu ý: Hộp thoại xác nhận tại FR-24 dòng 268 chỉ quy định riêng cho thao tác xóa giỏ hàng, không áp dụng cho danh mục).* | `README.md`: dòng 242–271 |
 
 ### 0.5 Giá trị danh định hợp lệ (Nominal Values)
 
@@ -1322,6 +1407,7 @@ Bộ test ban đầu của AI bao phủ tốt các lớp tương đương, giá 
 | **Q4** | **Mâu thuẫn đặc tả về thao tác Cập nhật/Sửa (`PUT /api/categories/:id`):** Tiêu đề FR-14 ghi *"Category CRUD"*, FR-12 dòng 177 ghi rõ *"POST/PUT/DELETE /api/products, /api/categories, /api/coupons"*, và `api_specification.md` mục 3.4 dòng 105 định nghĩa endpoint `PUT /api/categories/:id`. Tuy nhiên, mô tả chi tiết FR-14 dòng 188 lại chỉ ghi *"Admin có thể Thêm / Xem / Xóa danh mục"*. | Có sự không nhất quán giữa tài liệu đặc tả nghiệp vụ (`README.md` dòng 188) và đặc tả giao tiếp (`api_specification.md` dòng 105 + `README.md` dòng 177). | **Giả định:** Kiểm thử trọng tâm vào 3 thao tác Thêm (`POST`), Xem (`GET`), Xóa (`DELETE`) trên cả API và UI; đồng thời thiết kế các ca kiểm thử EP cho `PUT /api/categories/:id` (cập nhật hợp lệ, kiểm tra quyền Admin theo FR-12, kiểm tra `name` rỗng và `:id` không tồn tại) để phủ toàn diện hợp đồng API. | Đã xác nhận |
 | **Q5** | **Hành vi khi xóa danh mục đang có sản phẩm tham chiếu (`category_in_use = true`):** FR-14 cho phép Admin xóa danh mục, trong khi FR-15 quy định mỗi sản phẩm bắt buộc thuộc một danh mục có sẵn (`category_id`). Đặc tả không nêu khi xóa danh mục đang chứa sản phẩm thì hệ thống phải chặn xóa (`400`/`409`) hay xử lý thế nào. | Nếu xóa thẳng danh mục đang có sản phẩm mà không kiểm tra ràng buộc khóa ngoại, các sản phẩm đó sẽ rơi vào trạng thái mồ côi (`orphan category_id`), vi phạm FR-15. | **Giả định:** Hệ thống cần từ chối xóa danh mục đang có sản phẩm tham chiếu (`4xx`) HOẶC không được làm hỏng tính toàn vẹn dữ liệu của sản phẩm hiện có. Sẽ thiết kế ca EP riêng cho trạng thái `category_in_use = true`. | Đã xác nhận |
 | **Q6** | **Mã HTTP và nội dung thông báo lỗi chi tiết:** Cả `README.md` và `api_specification.md` mục 3.4 đều không quy định mã HTTP cụ thể cho từng trường hợp lỗi (ví dụ xóa `:id` không tồn tại trả về `404` hay `200`, thiếu quyền trả về `401` hay `403`, nội dung chuỗi message lỗi là gì). | Nếu cố định cứng chuỗi thông báo lỗi khi chưa có trong SRS sẽ dẫn đến kết luận Fail sai. | **Giả định:** Dùng **trạng thái dữ liệu CSDL** (quan sát qua `GET /api/categories`) kết hợp nhóm mã phản hồi chuẩn REST (`2xx` cho thành công; `401`/`403` cho lỗi xác thực/phân quyền; `400`/`404` cho lỗi dữ liệu/không tìm thấy bản ghi — đối với xóa `:id` không tồn tại thì phải trả về `404` hoặc báo không có bản ghi nào bị xóa) làm Oracle chính. | Đã xác nhận |
+| **Q9** | **Bản chất và nguồn gốc cận biên của mã định danh `:id` (`B02` trong BVA):** `README.md` không quy định cận trên cho `:id` danh mục. Cận $\text{UB} = ID_{\max} = 5$ trong bảng BVA lấy từ đâu và có phải là cận đặc tả không? | Cận $ID_{\max} = 5$ **không phải là cận đặc tả SRS trực tiếp** mà là **cận kỹ thuật do bộ dữ liệu kiểm thử (test fixture) thiết lập**. CSDL seed data được khởi tạo với đúng 5 danh mục hợp lệ ($id \in [1, 5]$) thỏa mãn nguyên tắc Single-Fault và `category_in_use = false`. Về mặt đặc tả thuần túy, BVA cho FR-14 chỉ có đúng **một biến có thứ tự là B01 (độ dài `name`)**; việc bổ sung `B02` là giải pháp kiểm thử có kiểm soát để khảo sát các điểm biên truy vấn CSDL ($id = 0, 1, 2, 4, 5, 6$). | **Đã xác nhận** |
 
 > **Ghi chú §4 (thời điểm đọc mã nguồn):** ở Bước 1 và Bước 2, AI chỉ đọc tài liệu đặc tả `README.md` và hợp đồng `api_specification.md` mục 3.4 để xác định các endpoint (`GET/POST/PUT/DELETE /api/categories`) và tên trường dữ liệu; **tuyệt đối không đọc logic xử lý mã nguồn** backend/frontend (`backend/server.js`, `frontend-admin/...`). Toàn bộ kết quả mong đợi (Expected) được suy dẫn độc lập từ đặc tả nghiệp vụ. Logic mã nguồn chỉ được phép đọc ở Bước 3 sau khi có kết quả thực thi và phát hiện ca Fail.
 
@@ -1392,7 +1478,7 @@ Các lớp `EC05–EC07` (token của `role = 'user'`), `EC15` (trùng tên danh
 | EC25 | FR-14 (189); Q4 | V2 (`PUT`) | `:id` tồn tại hợp lệ nhưng `name` mới rỗng (`""`) khi Cập nhật | Invalid | `id = ID_EMPTY`, `name = ""` | Đối xứng EC09 cho biến `name` ở thao tác `PUT` |
 | EC26 | FR-14 (189); Q2, Q4 | V2 (`PUT`) | `:id` tồn tại hợp lệ nhưng `name` mới chỉ gồm khoảng trắng (`"     "`) khi Cập nhật | Invalid | `id = ID_EMPTY`, `name = "     "` | Đối xứng EC11 cho biến `name` ở thao tác `PUT` |
 | EC27 | api_spec 105; Q4, Q6 | V3 (`PUT`) | `:id` không tồn tại (`999999`) với `name` mới hợp lệ khi Cập nhật | Invalid | `id = 999999`, `name = NAME_UPD` | Đối xứng EC18 cho biến `:id` ở thao tác `PUT` |
-| EC28 | FR-14 (188); api_spec 103 | `GET` | Truy vấn danh sách danh mục `GET /api/categories` | Valid | `GET /api/categories` | Thao tác Xem danh sách trong CRUD |
+| EC28 | FR-14 (188); api_spec 103 | `GET` (Công khai) | Truy vấn danh sách danh mục `GET /api/categories` không cần token (`Authorization` vắng mặt hoặc rỗng) | Valid | `GET /api/categories` (không gửi token) | Thao tác Xem danh sách công khai trong CRUD (khách vãng lai, user hay admin đều xem được; không yêu cầu đăng nhập) |
 | EC29 | O1 | Output (`GET`) | Phản hồi `200 OK` kèm mảng JSON chứa đầy đủ các danh mục hiện có (`id`, `name`) | Output hợp lệ | mảng JSON khớp DB | Lớp đầu ra hợp lệ cho thao tác Xem |
 | EC30 | O2 | Output (`POST`) | Phản hồi `2xx`; tổng số danh mục tăng đúng 1; bản ghi mới có `name` đúng bằng chuỗi đã gửi | Output hợp lệ | `OC-ADD-OK` | Lớp đầu ra hợp lệ cho thao tác Thêm |
 | EC31 | O3; R3 | Output (`DELETE`) | Phản hồi `2xx`; tổng số danh mục giảm đúng 1; `:id` biến mất; các danh mục khác giữ nguyên | Output hợp lệ | `OC-DEL-OK` | Lớp đầu ra hợp lệ cho thao tác Xóa (kèm cô lập bản ghi R3) |
@@ -1430,7 +1516,7 @@ Các lớp `EC05–EC07` (token của `role = 'user'`), `EC15` (trùng tên danh
 
 | TC ID | Kỹ thuật | EC phủ | Thành phần | Điều kiện tiên quyết | Dữ liệu vào | Các bước / Lệnh | Kết quả mong đợi | Nguồn expected |
 |---|---|---|---|---|---|---|---|---|
-| EP-TC01 | EP (valid `GET`) | EC28, EC29 | API | P0 | (không cần body) | `GET /api/categories` | `200 OK`; trả về mảng JSON `L0` gồm các đối tượng có đủ `id` (nguyên dương) và `name` (chuỗi không rỗng) | README 188; api_spec 103 |
+| EP-TC01 | EP (valid `GET` không cần token) | EC28, EC29 | API | P0 | Không gửi Header `Authorization` (khách vãng lai / anonymous); không body | `GET /api/categories` | `200 OK`; trả về mảng JSON `L0` gồm các đối tượng có đủ `id` (nguyên dương) và `name` (chuỗi không rỗng); không bị chặn đăng nhập | README 188; api_spec 103 |
 | EP-TC02 | EP (gộp valid `POST`) | EC01, EC08, EC30 | API | P1 | Header `Bearer <token_admin>`; Body `{"name": NAME_NOM}` | `POST /api/categories` rồi kiểm tra `GET /api/categories` | `OC-ADD-OK(NAME_NOM)` | README 177, 188–189; api_spec 104 |
 | EP-TC03 | EP (gộp valid `DELETE`) | EC01, EC17, EC31 | API | P2 (đã có `ID_EMPTY`, `category_in_use = false`) | Header `Bearer <token_admin>`; Path `:id = ID_EMPTY` | `DELETE /api/categories/:ID_EMPTY` rồi kiểm tra `GET /api/categories` | `OC-DEL-OK(ID_EMPTY)` | README 177, 188; api_spec 106 |
 | EP-TC04 | EP (gộp valid `PUT`) | EC01, EC24, EC32 | API | P2 (đã có `ID_EMPTY`) | Header `Bearer <token_admin>`; Path `:id = ID_EMPTY`; Body `{"name": NAME_UPD}` | `PUT /api/categories/:ID_EMPTY` rồi kiểm tra `GET /api/categories` | `OC-PUT-OK(ID_EMPTY, NAME_UPD)` | README 177, 186; api_spec 105; Q4 |
@@ -1543,7 +1629,7 @@ Theo bài giảng (Slide 17 → 18): trước hết duyệt **100% EC** (`EC01`�
 - Lớp EP: **12 hợp lệ (6 API + 6 UI) + 24 không hợp lệ (22 API + 2 UI) + 6 lớp đầu ra = 42**
 - Lớp đã phủ: **42 / 42** (phủ 100% các EC *đã biết*; theo bài giảng không đồng nghĩa chứng minh tuyệt đối mọi hành vi)
 - Số test case EP: **34** (API: 26, API+UI: 1, UI: 7); đã loại trùng: 0
-- Câu hỏi mở / mơ hồ: Q1 (max length 255), Q2 (chuỗi khoảng trắng), Q3 (tính duy nhất tên danh mục), Q4 (thao tác `PUT /api/categories/:id`), Q5 (xóa danh mục đang gắn sản phẩm), Q6 (mã HTTP lỗi) — tất cả đã được sinh viên xác nhận ở Bước 1; phát sinh thêm **Q7, Q8** trong quá trình thiết kế chi tiết (xem bảng dưới).
+- Câu hỏi mở / mơ hồ: Q1 (max length 255), Q2 (chuỗi khoảng trắng), Q3 (tính duy nhất tên danh mục), Q4 (thao tác `PUT /api/categories/:id`), Q5 (xóa danh mục đang gắn sản phẩm), Q6 (mã HTTP lỗi) — tất cả đã được sinh viên xác nhận ở Bước 1; phát sinh thêm **Q7, Q8, Q9** trong quá trình thiết kế chi tiết (xem bảng dưới).
 
 **Câu hỏi mở phát sinh khi thiết kế (đã được sinh viên xác nhận ở Human Review):**
 
@@ -1551,6 +1637,7 @@ Theo bài giảng (Slide 17 → 18): trước hết duyệt **100% EC** (`EC01`�
 |---|---|---|---|
 | **Q7** | **Phản hồi khi `name` sai kiểu dữ liệu (`12345`, `null`) hoặc `:id` không phải số nguyên (`"abc"`):** Nếu backend SQLite tự ép kiểu số `12345` thành chuỗi `"12345"` hoặc trả mã `200 OK` với `changes: 0` khi xóa `:id = "abc"`, đánh giá thế nào? | Theo hợp đồng kiểu dữ liệu JSON (`api_spec` 104–106), `name` phải là chuỗi và `:id` phải là ID hợp lệ đang tồn tại. Nếu hệ thống chấp nhận số `12345` làm tên danh mục hoặc trả `200 OK` khi xóa ID không tồn tại/sai kiểu (`999999`, `0`, `-5`, `"abc"`), ghi nhận là ca `Fail` so với hợp đồng REST chuẩn (Q6). | **Đã xác nhận** |
 | **Q8** | **Xử lý kết quả các ca phụ thuộc giả định cận trên độ dài 255 ký tự (`EP-TC14`, `BV-TC03`, `BV-TC04`, `BV-TC05`):** Do `README.md` FR-14 không nêu trực tiếp con số 255 (mà tham chiếu quy chuẩn tên thực thể từ FR-15 theo Q1), nếu thực thi `EP-TC14` (300 ký tự) hoặc `BV-TC05` (256 ký tự) mà hệ thống vẫn cho tạo thành công thì có tính là bug chính thức không? | Giống nguyên tắc đã áp dụng ở FR-08 (Q8): Cận trên 255 là **giả định kỹ thuật Q1**; kết quả của `EP-TC14` và `BV-TC05` sẽ được ghi nhận trung thực theo Oracle Q1 trong bảng thực thi nhưng được phân loại vào nhóm điểm mơ hồ đặc tả (không tự ý tách thành bug độc lập nếu không gây lỗi hệ thống/UI). | **Đã xác nhận** |
+| **Q9** | **Bản chất và nguồn gốc cận biên của mã định danh `:id` (`B02` trong BVA):** `README.md` không quy định cận trên cho `:id` danh mục. Cận $\text{UB} = ID_{\max} = 5$ trong bảng BVA lấy từ đâu và có phải là cận đặc tả không? | Cận $ID_{\max} = 5$ **không phải là cận đặc tả SRS trực tiếp** mà là **cận kỹ thuật do bộ dữ liệu kiểm thử (test fixture) thiết lập**. CSDL seed data được khởi tạo với đúng 5 danh mục hợp lệ ($id \in [1, 5]$) thỏa mãn nguyên tắc Single-Fault và `category_in_use = false`. Về mặt đặc tả thuần túy, BVA cho FR-14 chỉ có đúng **một biến có thứ tự là B01 (độ dài `name`)**; việc bổ sung `B02` là giải pháp kiểm thử có kiểm soát để khảo sát các điểm biên truy vấn CSDL ($id = 0, 1, 2, 4, 5, 6$). | **Đã xác nhận** |
 
 ---
 
@@ -1582,11 +1669,11 @@ Theo bài giảng (Slide 17 → 18): trước hết duyệt **100% EC** (`EC01`�
 | B ID | Biến | Ràng buộc (trích đặc tả) | LB | UB | Loại cận LB | Loại cận UB | $\delta$ (bước nhỏ nhất) | Nominal | Nguồn |
 |---|---|---|---|---|---|---|---|---|---|
 | **B01** | Độ dài chuỗi `name` (`POST /api/categories`) | Không được để trống ($\ge 1$ ký tự); cận trên giả định $255$ ký tự (Q1) | `1` | `255` *(giả định Q1)* | Đóng | Đóng | `1` ký tự | `28` ký tự (`NAME_NOM`) | README 189; Q1 |
-| **B02** | Mã định danh `:id` (`DELETE /api/categories/:id`) | Số nguyên dương khớp `id` danh mục tồn tại trong CSDL $[1, ID_{\max}]$ (với fixture chuẩn $ID_{\max} = 5$) | `1` | `5` (`ID_max` của fixture) | Đóng | Đóng | `1` đơn vị | `3` (`ID_NOM`) | README 188; api_spec 106 |
+| **B02** | Mã định danh `:id` (`DELETE /api/categories/:id`) | Số nguyên dương khớp `id` danh mục tồn tại trong CSDL $[1, ID_{\max}]$ (với fixture chuẩn $ID_{\max} = 5$ theo Q9) | `1` | `5` (`ID_max` của fixture — theo Q9) | Đóng | Đóng | `1` đơn vị | `3` (`ID_NOM`) | README 188; api_spec 106; Q9 |
 
-**Giải thích:**
+**Giải thích & Phân biệt nguồn gốc cận biên (Q9):**
 - **Với B01 (Độ dài `name`):** Độ dài chuỗi ký tự luôn là số nguyên không âm nên bước nhỏ nhất $\delta = 1$ ký tự. Yêu cầu *"Tên danh mục là bắt buộc, không được để trống"* tương ứng với độ dài $\ge 1$ (cận dưới $\text{LB} = 1$ là **cận đóng**: $1$ ký tự hợp lệ, $0$ ký tự không hợp lệ). Cận trên $\text{UB} = 255$ (theo Q1) là **cận đóng** ($255$ hợp lệ, $256$ không hợp lệ). Để tránh sai lệch giữa số ký tự và số byte UTF-8 tại các điểm sát biên, các chuỗi kiểm thử biên dùng ký tự ASCII `'A'` lặp lại đúng số lần (`"A"`, `"AB"`, `'A'×254`, `'A'×255`, `'A'×256`).
-- **Với B02 (Mã định danh `:id`):** Khóa chính `:id` trong bảng `categories` là số nguyên dương tự tăng nên bước nhỏ nhất $\delta = 1$ đơn vị. Để đảm bảo **nguyên tắc cô lập lỗi (Single-Fault)** — tức khi thay đổi `:id` qua 7 điểm (`0, 1, 2, 3, 4, 5, 6`) thì biến trạng thái `V4 (category_in_use)` luôn giữ giá trị hợp lệ mặc định là `false` (không bị vướng khóa ngoại của sản phẩm) và mọi điểm biên đều phân biệt rõ ràng — bộ fixture chuẩn `P_BVA_ID` khởi tạo bảng `categories` gồm đúng **5 danh mục độc lập** có `id` liên tiếp từ `1` đến `5` ($\text{LB} = 1$, $\text{LB}+\delta = 2$, $\text{Nominal} = 3$, $\text{UB}-\delta = 4$, $\text{UB} = ID_{\max} = 5$, chưa gắn sản phẩm). Khi đó $\text{LB}-\delta = 0$ và $\text{UB}+\delta = 6$ nằm ngay sát ngoài hai đầu miền hợp lệ $[1, 5]$.
+- **Với B02 (Mã định danh `:id` — Cận theo fixture Q9, không phải cận đặc tả):** `README.md` không quy định cận trên của `:id`. Khóa chính `:id` trong bảng `categories` là số nguyên dương tự tăng nên bước nhỏ nhất $\delta = 1$ đơn vị. Để đảm bảo **nguyên tắc cô lập lỗi (Single-Fault)** — tức khi thay đổi `:id` qua 7 điểm (`0, 1, 2, 3, 4, 5, 6`) thì biến trạng thái `V4 (category_in_use)` luôn giữ giá trị hợp lệ mặc định là `false` (không bị vướng khóa ngoại của sản phẩm) và mọi điểm biên đều phân biệt rõ ràng — bộ fixture chuẩn `P_BVA_ID` khởi tạo bảng `categories` gồm đúng **5 danh mục độc lập** có `id` liên tiếp từ `1` đến `5` ($\text{LB} = 1$, $\text{LB}+\delta = 2$, $\text{Nominal} = 3$, $\text{UB}-\delta = 4$, $\text{UB} = ID_{\max} = 5$, chưa gắn sản phẩm). Khi đó $\text{LB}-\delta = 0$ và $\text{UB}+\delta = 6$ nằm ngay sát ngoài hai đầu miền hợp lệ $[1, 5]$. **Lưu ý:** Về mặt đặc tả nghiệp vụ thuần túy, BVA cho FR-14 chỉ có duy nhất biến có thứ tự là B01; B02 là cận kỹ thuật do môi trường kiểm thử xác lập theo Q9.
 
 ### Bước 2 — Chọn chế độ và điểm cần kiểm tra
 
@@ -1665,7 +1752,7 @@ Theo bài giảng (Slide 21) và quy trình `hw02_boundary_value_analysis`, cầ
 | Biên đầu ra | Input / Thao tác gây ra | Test case |
 |---|---|---|
 | **Biên dưới của danh sách đầu ra `GET /api/categories` (0 danh mục — mảng rỗng `[]` & trạng thái Empty State FR-24)** | Admin xóa toàn bộ các danh mục hiện có trong fixture để bảng `categories` về 0 bản ghi, sau đó gọi `GET /api/categories` và mở trang Quản lý Danh mục trên Web Admin | **OB-TC01** *(thiết kế bên dưới)* |
-| **Biên 1 phần tử của danh sách đầu ra `GET /api/categories` (1 danh mục)** | Sau khi bảng trống, thêm 1 danh mục hoặc xóa đến khi còn 1 danh mục | Đã được kiểm tra trong quá trình thiết lập `OB-TC01` |
+| **Biên 1 phần tử của danh sách đầu ra `GET /api/categories` (1 danh mục)** | Bảng chỉ có đúng 1 danh mục duy nhất (sau khi tạo danh mục đầu tiên vào bảng trống hoặc xóa còn 1) | Được kiểm tra độc lập tại `EP-TC02` và trong bước nạp lại dữ liệu sau `OB-TC01` |
 | **Giá trị `id` do hệ thống sinh khi `POST /api/categories`** | Thêm danh mục mới | Không có biên độ dài cố định (khác OTP 6 chữ số ở FR-03); `id` là số nguyên tự tăng $\ge 1$, đã được kiểm tra ở `EP-TC02` |
 
 **Bảng test case biên đầu ra (`OB-TC01`):**
@@ -1676,7 +1763,7 @@ Theo bài giảng (Slide 21) và quy trình `hw02_boundary_value_analysis`, cầ
 
 ### Bước 5 — Ca bổ sung do sinh viên (sau Human Review)
 
-Qua quá trình trực tiếp thẩm định bảng lớp tương đương (`EC01`–`EC42`) và giá trị biên (`BV-TC01`–`BV-TC10`, `OB-TC01`) do AI thiết kế, em xác nhận cấu trúc phân hoạch, công thức BVA Robustness ($6n+1 = 13$) và các giả định `Q7`, `Q8` là hợp lý. Tuy nhiên, để khắc phục hạn chế của phân tích hộp đen tĩnh (chưa xét kỹ chuẩn hóa chuỗi đầu/cuối, tính phân biệt hoa/thường khi trùng tên, tương thích Unicode/emoji, tấn công SQL Injection và xung đột đồng thời), em chính thức thiết kế và bổ sung thêm **5 test case chuyên sâu (`SR-TC01` đến `SR-TC05`)**.
+Qua quá trình trực tiếp thẩm định bảng lớp tương đương (`EC01`–`EC42`) và giá trị biên (`BV-TC01`–`BV-TC10`, `OB-TC01`) do AI thiết kế, em nhận thấy phân tích hộp đen tĩnh của AI có những khoảng trống lớn (chưa xét kỹ chuẩn hóa chuỗi đầu/cuối, tính phân biệt hoa/thường khi trùng tên, tương thích Unicode/emoji, tấn công SQL Injection và xung đột đồng thời). Em đã trực tiếp định hướng ý tưởng kiểm thử, chỉ định phạm vi rà soát và yêu cầu AI hỗ trợ soạn thảo chi tiết bảng **5 test case chuyên sâu (`SR-TC01` đến `SR-TC05`)**. Toàn bộ dữ liệu vào, các bước thực thi và Oracle expected của 5 ca này đã được chính em trực tiếp thẩm định, phê duyệt và chịu trách nhiệm học thuật.
 
 > **Phân loại phạm vi (theo bài giảng §12.2):** `SR-TC01` và `SR-TC02` thuộc phạm vi EP/BVA mở rộng (lớp chuỗi đặc biệt có khoảng trắng thừa, so khớp hoa/thường và chuỗi Unicode/emoji). `SR-TC03` (SQL Injection — `SEC-05`), `SR-TC04` (Race condition / Double submit) và `SR-TC05` (Tính toàn vẹn liên thông sau khi xóa danh mục đang có sản phẩm giữa Admin và Web người dùng) là **ca phạm vi mở rộng** ngoài EP/BVA thuần túy: được giữ lại vì truy vết trực tiếp tới đặc tả (`README.md` dòng 188, 197, 282) và có sức phát hiện lỗi thực tế cao, nhưng **không tính gộp vào độ phủ EC/biên lý thuyết**.
 
@@ -1692,11 +1779,11 @@ Qua quá trình trực tiếp thẩm định bảng lớp tương đương (`EC0
 
 ```text
 Requirements parsed: FR-14 (README 186–190), FR-12 (174–180), FR-15 (197), FR-21–FR-24 (240–271), SEC-02–SEC-05 (279–282), api_spec 3.4 (102–107)
-BVA mode: Robustness (6n + 1), n = 2 biến có thứ tự (B01 độ dài name, B02 mã định danh :id)
+BVA mode: Robustness (6n + 1), n = 2 biến có thứ tự (B01 độ dài name thuần đặc tả, B02 mã định danh :id theo fixture Q9)
 Theoretical BVA count: 6 × 2 + 1 = 13
 Actual unique BVA tests: 10 (BV-TC01…10) + 3 vector tái sử dụng EP (EP-TC02/03, EP-TC11, EP-TC20) + 1 ca biên đầu ra (OB-TC01)
 Deduplicated test vectors: 3 vector trùng với ca EP đã thiết kế (#1 nominal, #2 B01 LB−δ, #8 B02 LB−δ)
-Unresolved ambiguity/oracle issues: cận trên độ dài name 255 (Q1, Q8); chuỗi khoảng trắng (Q2); tính duy nhất tên (Q3); thao tác PUT (Q4); xóa danh mục đang có sản phẩm (Q5); mã HTTP lỗi (Q6, Q7) — tất cả Q1–Q8 đã được sinh viên xác nhận
+Unresolved ambiguity/oracle issues: BVA thuần đặc tả SRS chỉ có 1 biến B01; biến B02 là cận fixture [1, 5] (Q9); cận trên độ dài name 255 (Q1, Q8); chuỗi khoảng trắng (Q2); tính duy nhất tên (Q3); thao tác PUT (Q4); xóa danh mục đang có sản phẩm (Q5); mã HTTP lỗi (Q6, Q7) — tất cả Q1–Q9 đã được sinh viên xác nhận
 Student Review tests added: 5 (SR-TC01…SR-TC05)
 ```
 
@@ -1705,10 +1792,10 @@ Student Review tests added: 5 (SR-TC01…SR-TC05)
 - **Số ca BVA đầu vào mới thực tế duy nhất:** **10** (`BV-TC01` đến `BV-TC10`); **vector biên tái sử dụng ca EP:** **3** (#1, #2, #8)
 - **Số ca BVA biên đầu ra:** **1** (`OB-TC01`)
 - **Số ca bổ sung sinh viên (Human Review):** **5** (`SR-TC01` đến `SR-TC05`)
-- **Vấn đề oracle / mơ hồ:** Toàn bộ `Q1`–`Q8` đã được sinh viên xác nhận; trong đó `EP-TC14` và `BV-TC03`–`BV-TC05` phụ thuộc giả định kỹ thuật `Q1` (cận trên 255 ký tự) nên được theo dõi theo quy tắc `Q8`.
+- **Vấn đề oracle / mơ hồ:** Toàn bộ `Q1`–`Q9` đã được sinh viên xác nhận; trong đó ghi rõ BVA thuần đặc tả SRS chỉ có đúng một biến có thứ tự là `B01` (độ dài `name`), còn biến `B02` (`:id`) là cận kỹ thuật do bộ dữ liệu fixture thiết lập theo `Q9` để phục vụ nguyên tắc Single-Fault. Các ca `EP-TC14` và `BV-TC05` phụ thuộc giả định kỹ thuật `Q1` (cận trên 255 ký tự) nên được theo dõi theo quy tắc `Q8`.
 - **Truy vết biên → Test case:**
   - `B01` (độ dài `name`): $\text{LB}-\delta (0) \rightarrow \text{EP-TC11}$, $\text{LB} (1) \rightarrow \text{BV-TC01}$, $\text{LB}+\delta (2) \rightarrow \text{BV-TC02}$, $\text{Nominal} (28) \rightarrow \text{EP-TC02}$, $\text{UB}-\delta (254) \rightarrow \text{BV-TC03}$, $\text{UB} (255) \rightarrow \text{BV-TC04}$, $\text{UB}+\delta (256) \rightarrow \text{BV-TC05}$.
-  - `B02` (mã `:id` trong $[1, 5]$): $\text{LB}-\delta (0) \rightarrow \text{EP-TC20}$, $\text{LB} (1) \rightarrow \text{BV-TC06}$, $\text{LB}+\delta (2) \rightarrow \text{BV-TC07}$, $\text{Nominal} (3) \rightarrow \text{EP-TC03}$, $\text{UB}-\delta (4) \rightarrow \text{BV-TC08}$, $\text{UB} (5) \rightarrow \text{BV-TC09}$, $\text{UB}+\delta (6) \rightarrow \text{BV-TC10}$.
+  - `B02` (mã `:id` trong $[1, 5]$ theo fixture `Q9`): $\text{LB}-\delta (0) \rightarrow \text{EP-TC20}$, $\text{LB} (1) \rightarrow \text{BV-TC06}$, $\text{LB}+\delta (2) \rightarrow \text{BV-TC07}$, $\text{Nominal} (3) \rightarrow \text{EP-TC03}$, $\text{UB}-\delta (4) \rightarrow \text{BV-TC08}$, $\text{UB} (5) \rightarrow \text{BV-TC09}$, $\text{UB}+\delta (6) \rightarrow \text{BV-TC10}$.
   - Biên đầu ra: $\text{LB}_{\text{out}} (0 \text{ danh mục}) \rightarrow \text{OB-TC01}$.
 
 ---
@@ -1812,7 +1899,15 @@ Student Review tests added: 5 (SR-TC01…SR-TC05)
 - **20 ca Pass ổn định:**
   - *API & Bảo mật (18 ca):* `EP-TC01` (`GET /api/categories`), `EP-TC02` (`POST` hợp lệ), `EP-TC03` (`DELETE` hợp lệ), `EP-TC04` (`PUT` hợp lệ), `EP-TC05`–`EP-TC07` (từ chối khi thiếu/sai token JWT), `EP-TC18` (lưu và escape chuỗi XSS an toàn theo `SEC-04`), `BV-TC01`–`BV-TC04` (biên hợp lệ độ dài `name` tại $1, 2, 254, 255$ ký tự), `BV-TC06`–`BV-TC09` (biên hợp lệ mã `:id` tại $1, 2, 4, 5$), `SR-TC02` (Unicode/Emoji trên API & UI), `SR-TC03` (chống SQL Injection bằng Parameterized Query theo `SEC-05`).
   - *Giao diện Web Admin (2 ca):* `EP-TC29` (luồng Thêm và Xóa danh mục hợp lệ trên UI), `EP-TC33` (nút `"Thêm mới"` màu xanh dương và nút `"Xóa"` màu đỏ đúng chuẩn `FR-21`).
-- **30 ca Fail ổn định:** Phát hiện chính xác 5 nhóm lỗi kỹ thuật cốt lõi (từ bảo mật phân quyền RBAC, thiếu kiểm tra rỗng/trùng tên, vi phạm khóa ngoại sản phẩm–danh mục, phản hồi sai mã HTTP `200 OK` khi xóa/sửa `:id` không tồn tại, đến các vi phạm tiêu chuẩn giao diện `FR-21`/`FR-22`/`FR-24`).
+- **30 ca Fail ổn định:** Gồm **28 ca gắn với 5 nhóm lỗi chính thức (`BUG-009` đến `BUG-013`)** + **2 ca câu hỏi mở (`EP-TC14` và `BV-TC05` phụ thuộc giả định kỹ thuật `Q1`/`Q8` về cận trên 255 ký tự)**:
+  - *28 ca gắn 5 lỗi chính thức:*
+    + `BUG-009` (Thiếu kiểm tra quyền Admin RBAC): 4 ca (`EP-TC08`, `EP-TC09`, `EP-TC10`, `EP-TC28`).
+    + `BUG-010` (Thiếu validate trường `name` & cho phép trùng lặp): 11 ca (`EP-TC11`, `EP-TC12`, `EP-TC13`, `EP-TC15`, `EP-TC16`, `EP-TC17`, `EP-TC25`, `EP-TC26`, `EP-TC31`, `SR-TC01`, `SR-TC04`).
+    + `BUG-011` (Xóa danh mục gây mồ côi sản phẩm liên kết): 2 ca (`EP-TC23`, `SR-TC05`).
+    + `BUG-012` (Trả về HTTP 200 OK khi xóa/sửa ID không tồn tại hoặc sai kiểu): 7 ca (`EP-TC19`, `EP-TC20`, `EP-TC21`, `EP-TC22`, `EP-TC24`, `EP-TC27`, `BV-TC10`).
+    + `BUG-013` (Giao diện Web Admin vi phạm chuẩn UI/UX FR-21, FR-22, FR-24): 4 ca (`EP-TC30`, `EP-TC32`, `EP-TC34`, `OB-TC01`).
+  - *2 ca câu hỏi mở theo Q1/Q8 (không tính là bug chính thức):*
+    + `EP-TC14` (chuỗi 300 ký tự) và `BV-TC05` (chuỗi 256 ký tự): Hệ thống backend SQLite chấp nhận tạo danh mục có độ dài vượt quá giả định 255 ký tự. Do `README.md` FR-14 không trực tiếp quy định cận trên (chỉ tham chiếu quy chuẩn thực thể từ FR-15 theo Q1), 2 ca này được ghi nhận trung thực là Fail theo Oracle giả định Q1 nhưng được phân loại vào nhóm câu hỏi mở theo đúng quy tắc Q8, không gán vào bất kỳ bug nào.
 - **0 ca Flaky / 0 ca Blocked.**
 
 ---
@@ -1957,6 +2052,855 @@ Theo quy định môn học, bảng dưới đây tổng hợp các dữ kiện 
 ### 4.5. Kết luận
 
 Bộ kiểm thử ban đầu gồm 45 ca do AI thiết kế cho FR-14 đã bao phủ rất chặt chẽ các lớp tương đương hợp lệ/không hợp lệ, phân quyền RBAC đối xứng trên cả 3 phương thức ghi (`POST`, `PUT`, `DELETE`), 13 vector biên BVA Robustness ($6n+1$), biên đầu ra Empty State (`OB-TC01`) và các tiêu chuẩn giao diện Web Admin (`FR-12`, `FR-21`–`FR-24`). Nhờ vậy, bộ ca của AI đã phát hiện đầy đủ cả 5 nhóm lỗi cốt lõi (`BUG-009`–`BUG-013`). Khoảng trống chỉ xuất hiện ở các kịch bản đòi hỏi sự kết hợp nhiều phép biến đổi chuỗi (`trim` + hoa/thường), tương tác đồng thời (`Promise.all`) và truy vết tác động chéo sang mô-đun sản phẩm (`GET /api/products`). Quá trình Human Review bổ sung 5 ca `SR-TC01`–`SR-TC05` đã lấp đầy trọn vẹn các khoảng trống này và cung cấp bằng chứng kỹ thuật sâu sắc hơn cho báo cáo lỗi.
+
+---
+
+# FR-20.3 — Mobile: Thanh toán (Checkout) và Áp mã giảm giá
+
+## 0. Đặc tả kỹ thuật (SRS Extract) — Oracle
+
+> Nguồn trích xuất: `README.md` (mục 1 dòng 19–25; mục 4: FR-08 dòng 102–109, FR-09 dòng 110–136; mục 5: FR-10 dòng 141–163; mục 7: FR-20 dòng 231–238; mục 8: FR-21, FR-22 dòng 240–257; mục 9: SEC-02, SEC-04, SEC-05 dòng 279–282) và `api_specification.md` (mục 4.1–4.6 dòng 114–148; mục 5.1 dòng 153–164).
+
+### 0.1 Thông tin chung
+
+| Mục | Nội dung |
+|---|---|
+| Tính năng | FR-20.3: Mobile — Thanh toán (Checkout) và Áp mã giảm giá (Coupon) |
+| Pool | Pool D (Phân hệ Mobile React Native kết hợp nghiệp vụ FR-08 Checkout và FR-09 Coupon) |
+| Thành phần kiểm thử | Mobile App (`frontend-mobile`, React Native + Expo) & Backend REST API (`http://localhost:3000`: `POST /api/apply-coupon`, `POST /api/checkout`, `GET/POST /api/cart`, `GET /api/orders/my-orders`, `PUT /api/orders/:id/cancel`) |
+| Nguồn đặc tả | `README.md` (FR-08: dòng 102–109; FR-09: dòng 110–136; FR-10: dòng 141–163; FR-20: dòng 231–238; FR-21–FR-22: dòng 240–257; SEC-02, SEC-04, SEC-05: dòng 279–282), `api_specification.md` (mục 4.1–4.6: dòng 114–148; mục 5.1: dòng 153–164) |
+| Ngày trích | 2026-10-16 |
+| Trạng thái | Chờ xác nhận bởi sinh viên |
+
+### 0.2 Biến đầu vào (Inputs)
+
+| ID | Tên trường / Biến | Phân loại | Kiểu dữ liệu | Bắt buộc | Miền / Cận giá trị | Bước nhỏ nhất $\delta$ | Ràng buộc nghiệp vụ (SRS) | Nguồn đặc tả |
+|---|---|---|---|---|---|---|---|---|
+| **V1** | `auth_token` & `user_id` | State Input (Header / Phiên Mobile) & Direct Input (`user_id` trong body coupon) | String (JWT) & Integer (`user_id`) | Có (C4 & FR-08) | Token JWT hợp lệ của người dùng đang đăng nhập; `user_id` nguyên dương khớp chủ sở hữu phiên | N/A | Chỉ người dùng **đã đăng nhập** (có JWT Token hợp lệ qua header `Authorization: Bearer <token>`) mới được áp mã giảm giá (**Điều kiện C4**) và tiến hành thanh toán (**FR-08**, **SEC-02**). | `README.md`: dòng 104, 119, 235, 279; `api_spec`: dòng 112, 161 |
+| **V2** | `total_amount` & `cart_state` | State Input (Giỏ hàng trong DB) & Direct Input (`total_amount`) | Integer (VNĐ) & Mảng sản phẩm | Có | - Checkout cơ bản: Giỏ có $\ge 1$ SP, `total_amount` $\ge 1\text{ ₫}$<br>- Áp mã **C3**: `total_amount >= min_order_amount`:<br>  + `SAVE10`, `VIP100`: $[300000, +\infty)$ (cận dưới đóng $= 300,000\text{ ₫}$)<br>  + `BIGBUY`: $[500000, +\infty)$ (cận dưới đóng $= 500,000\text{ ₫}$) | $1\text{ ₫}$ (1 đồng) | Tổng tiền đơn hàng tính tự động từ giỏ hàng, người dùng không được sửa trực tiếp trên UI (**FR-08** dòng 105) và Backend phải tự tính lại (**FR-08** dòng 107). Khi áp mã giảm giá, tổng đơn hàng phải $\ge$ `min_order_amount` của mã đó (**Điều kiện C3** dòng 118). | `README.md`: dòng 105–107, 118, 130–136; `api_spec`: dòng 134, 160 |
+| **V3** | `code` (Mã giảm giá) | Direct Input (Body `POST /api/apply-coupon` / Ô nhập Coupon trên Mobile) | String | Bắt buộc khi bấm `"Áp dụng"`; tùy chọn khi Checkout không mã | - Hợp lệ (**C1 & C2**): `{"SAVE10", "BIGBUY", "VIP100"}` (`is_active = 1` và `current_date < expired_at`)<br>- Hết hạn (vi phạm **C2**): `"EXPIRED"` (`expired_at = 2020-01-01`)<br>- Không tồn tại / vô hiệu (vi phạm **C1**): mã ngoài danh sách, rỗng `""`, khoảng trắng `"   "` | N/A (Biến rời rạc theo danh mục mã; nếu tạo mã test theo ngày thì $\delta = 1$ ngày) | Mã phải tồn tại trong CSDL, đang hoạt động (`is_active = 1` — **C1**) và ngày hiện tại phải trước `expired_at` (**C2**). Hiển thị/truy vấn an toàn (**SEC-04**, **SEC-05**). | `README.md`: dòng 112–117, 128–136, 281–282; `api_spec`: dòng 158 |
+| **V4** | `coupon_usage_count` (Số lần user đã dùng mã) | State Input (Lịch sử dùng mã của user trong CSDL) | Integer (Số nguyên không âm) | N/A (Trạng thái CSDL) | **Điều kiện C5** (`usage_count < max_uses_per_user`):<br>- Với `SAVE10`, `BIGBUY` (`max = 1`): Hợp lệ $[0, 0]$; không hợp lệ $\ge 1$<br>- Với `VIP100` (`max = 2`): Hợp lệ đoạn nguyên đóng $[0, 1]$ ($\text{LB}=0, \text{UB}=1$); không hợp lệ $\ge 2$ ($\text{UB}+\delta = 2$) | $1$ lần | Số lần đã sử dụng mã giảm giá này của người dùng hiện tại phải nhỏ hơn nghiêm ngặt (`<`) `max_uses_per_user` (**Điều kiện C5**). | `README.md`: dòng 120, 130–136 |
+| **V5** | `shipping_address` (Địa chỉ giao hàng) | Direct Input (Body `POST /api/checkout` / Ô nhập trên Mobile) | String | Có (khi Đặt hàng / Checkout) | Độ dài: đoạn đóng $[1, 255]$ ký tự *(cận dưới đóng $= 1$ từ tính bắt buộc; cận trên đóng $= 255$ theo giả định Q1)* | $1$ ký tự | Địa chỉ nhận hàng khi đặt mua trên Mobile; bắt buộc nhập (nhãn có dấu `*` theo **FR-22**), không được rỗng hoặc chỉ chứa khoảng trắng; hiển thị an toàn chống XSS (**FR-18**, **SEC-04**). | `README.md`: dòng 104–108, 222, 235, 252, 281; `api_spec`: dòng 135 |
+
+### 0.3 Đầu ra mong đợi (Outputs)
+
+| ID | Thao tác | Điều kiện kích hoạt | Kết quả mong đợi (Expected Output) | Mã HTTP / Thông báo Mobile UI / Trạng thái CSDL | Nguồn đặc tả |
+|---|---|---|---|---|---|
+| **O1** | Áp mã giảm giá hợp lệ (`POST /api/apply-coupon`) | Thỏa mãn đồng thời cả **5 điều kiện C1, C2, C3, C4, C5** (`code` tồn tại & `is_active = 1`, chưa hết hạn, `total_amount >= min_order_amount`, đã đăng nhập JWT hợp lệ, `usage_count < max_uses_per_user`) | Tính chính xác số tiền giảm `discount_amount` và tổng thanh toán sau giảm `final_amount` theo công thức loại mã (`percent` hoặc `fixed`); cập nhật hiển thị trên màn hình Checkout Mobile. | **HTTP 200 OK**; JSON trả về `{"discount_amount": ..., "final_amount": ...}`:<br>- Loại `percent`: $\text{discount\_amount} = \text{total} \times \text{discount\_value} / 100$<br>- Loại `fixed`: $\text{discount\_amount} = \text{discount\_value}$<br>- $\text{final\_amount} = \text{total} - \text{discount\_amount}$ | `README.md`: dòng 112–136; `api_spec`: dòng 154–163 |
+| **O2** | Từ chối mã giảm giá vi phạm 1 trong 5 điều kiện (`C1`–`C5`) | Vi phạm bất kỳ điều kiện nào: **C1** (mã không tồn tại / rỗng / `is_active = 0`), **C2** (mã đã hết hạn như `EXPIRED`), **C3** (`total_amount < min_order_amount`), **C4** (chưa đăng nhập / thiếu hoặc sai JWT Token), hoặc **C5** (`usage_count >= max_uses_per_user`) | Từ chối áp dụng mã giảm giá; không giảm tiền (`discount_amount = 0`, `final_amount = total_amount`); hiển thị thông báo lỗi rõ ràng trên Mobile UI. | - Vi phạm C4 (Auth): **HTTP 401/403**<br>- Vi phạm C1, C2, C3, C5: **HTTP 400 Bad Request / 404 Not Found** (4xx); UI báo lỗi không áp dụng được mã. | `README.md`: dòng 112–121, 255, 279 |
+| **O3** | Thanh toán thành công trên Mobile (`POST /api/checkout`) | Đã đăng nhập (`V1` hợp lệ) + Giỏ hàng có sản phẩm (`V2 > 0`) + Địa chỉ giao hàng `V5` hợp lệ (kèm hoặc không kèm mã giảm giá hợp lệ) | Tạo đơn hàng mới trong CSDL với trạng thái khởi đầu `status = 'pending'` (**FR-10**); Backend tự tính lại tổng tiền chính xác từ giỏ hàng (trừ giảm giá hợp lệ nếu có); **xóa rỗng giỏ hàng** sau khi thanh toán thành công (**FR-08** dòng 108); cập nhật lượt dùng coupon (nếu có); hiển thị thông báo đặt hàng thành công trên Mobile. | **HTTP 200 OK / 201 Created**; `GET /api/cart` trả về mảng rỗng `[]`; đơn hàng mới xuất hiện trong `GET /api/orders/my-orders` với `status = 'pending'`. | `README.md`: dòng 104–108, 147, 235; `api_spec`: dòng 130–140 |
+| **O4** | Từ chối thanh toán không hợp lệ (`POST /api/checkout`) | (a) Chưa đăng nhập / Token không hợp lệ; hoặc (b) Giỏ hàng trống (`0` sản phẩm); hoặc (c) Thiếu / để trống địa chỉ giao hàng `shipping_address`; hoặc (d) Client gửi `total_amount` giả mạo ($\le 0$ hoặc sai lệch giá trị giỏ hàng) | Từ chối tạo đơn hàng (hoặc với trường hợp (d) nếu địa chỉ và giỏ hàng hợp lệ thì Backend phải ghi đè bằng tổng tiền thực tính từ CSDL thay vì nhận số tiền giả mạo của client); giữ nguyên giỏ hàng nếu giao dịch bị từ chối. | - Lỗi xác thực: **HTTP 401/403**<br>- Lỗi dữ liệu / giỏ rỗng: **HTTP 400 Bad Request** (4xx); không sinh đơn hàng rác trong CSDL. | `README.md`: dòng 104–108, 252, 255, 279 |
+| **O5** | Hủy đơn hàng từ Mobile (`PUT /api/orders/:id/cancel`) | Người dùng đã đăng nhập yêu cầu hủy đơn hàng trên Mobile App (**FR-20** dòng 236):<br>- Hợp lệ khi đơn hàng ở trạng thái `pending` hoặc `confirmed`<br>- Không hợp lệ khi đơn hàng đã sang `shipping`, `delivered`, hoặc `canceled` | - Nếu `status` $\in \{\text{'pending'}, \text{'confirmed'}\}$: chuyển trạng thái đơn sang `'canceled'` thành công.<br>- Nếu `status` $\in \{\text{'shipping'}, \text{'delivered'}, \text{'canceled'}\}$: từ chối hủy và trả về thông báo lỗi phù hợp (**FR-10** dòng 160–162). | - Hợp lệ: **HTTP 200 OK**, `status = 'canceled'`<br>- Không hợp lệ: **HTTP 400 Bad Request** (4xx), giữ nguyên `status` hiện tại. | `README.md`: dòng 143–162, 236; `api_spec`: dòng 145–147 |
+
+### 0.4 Năm điều kiện áp mã giảm giá (C1–C5), Công thức tính & Ràng buộc nghiệp vụ
+
+#### A. Bảng đặc tả 5 điều kiện áp dụng Mã giảm giá (`FR-09`, `README.md` dòng 112–136)
+
+Hệ thống chỉ cho phép áp dụng mã giảm giá khi **tất cả 5 điều kiện (`C1` AND `C2` AND `C3` AND `C4` AND `C5`)** cùng thỏa mãn:
+
+| Mã ĐK | Tên điều kiện | Biểu thức logic / Toán học | Loại cận / Biên | Dữ liệu mẫu trong SUT (`README.md` dòng 130–136) | Nguồn |
+|:---:|---|---|---|---|---|
+| **C1** | **Mã tồn tại & Đang hoạt động** | `coupon != null` $\land$ `coupon.is_active == 1` | Tập hợp rời rạc + Boolean | - Có trong DB & hoạt động: `SAVE10`, `BIGBUY`, `VIP100` (và `EXPIRED` tồn tại nhưng hết hạn)<br>- Không tồn tại: `"INVALIDCODE"`, `""`, `"   "` | `README.md`: dòng 116 |
+| **C2** | **Còn hạn sử dụng** | `current_date < expired_at` *(xem Q3 về cận ngày)* | Quan hệ thứ tự thời gian | - Còn hạn (`2099-12-31` > `2026-10-16`): `SAVE10`, `BIGBUY`, `VIP100`<br>- Hết hạn (`2020-01-01` < `2026-10-16`): `EXPIRED` | `README.md`: dòng 117, 132–135 |
+| **C3** | **Đủ ngưỡng đơn hàng tối thiểu** | `total_amount >= min_order_amount` | **Cận dưới ĐÓNG** ($\text{LB} = \text{min\_order\_amount}$, bước $\delta = 1\text{ ₫}$) | - `SAVE10`: $\text{LB} = 300,000\text{ ₫}$ (giảm `10%`)<br>- `BIGBUY`: $\text{LB} = 500,000\text{ ₫}$ (giảm `50,000 ₫`)<br>- `VIP100`: $\text{LB} = 300,000\text{ ₫}$ (giảm `100,000 ₫`)<br>- `EXPIRED`: $\text{LB} = 100,000\text{ ₫}$ (giảm `20%`) | `README.md`: dòng 118, 132–135 |
+| **C4** | **Đã đăng nhập** | Có `Authorization: Bearer <valid_jwt_token>` hợp lệ | Boolean / Trạng thái phiên | User đăng nhập hợp lệ (`test@eshop.com` / `Test1234!`) vs Không gửi token / Token sai | `README.md`: dòng 119, 279 (`SEC-02`) |
+| **C5** | **Chưa dùng hết lượt cho phép** | `user_usage_count < max_uses_per_user` (tương đương số nguyên `user_usage_count <= max_uses_per_user - 1`) | **Cận trên ĐÓNG theo số nguyên** ($\text{UB} = \text{max\_uses\_per\_user} - 1$, $\text{UB}+\delta = \text{max\_uses\_per\_user}$, bước $\delta = 1$ lần) | - `SAVE10`, `BIGBUY`: `max_uses_per_user = 1` (chỉ hợp lệ khi `usage_count = 0`; chạm `1` là bị từ chối)<br>- `VIP100`: `max_uses_per_user = 2` (hợp lệ khi `usage_count` $\in \{0, 1\}$; chạm `2` là bị từ chối) | `README.md`: dòng 120, 132–135 |
+
+#### B. Công thức tính toán độc lập (Oracle Toán học — `README.md` dòng 122–126)
+
+1. **Với mã giảm theo phần trăm (`type = 'percent'`, ví dụ `SAVE10` có `discount_value = 10`):**
+   $$\text{discount\_amount} = \frac{\text{total\_amount} \times \text{discount\_value}}{100}, \quad \text{final\_amount} = \text{total\_amount} - \text{discount\_amount}$$
+   - Ví dụ tại biên $\text{LB} = 300,000\text{ ₫}$ của `SAVE10`: $\text{discount\_amount} = 30,000\text{ ₫}$, $\text{final\_amount} = 270,000\text{ ₫}$.
+   - Ví dụ tại Nominal $500,000\text{ ₫}$ của `SAVE10`: $\text{discount\_amount} = 50,000\text{ ₫}$, $\text{final\_amount} = 450,000\text{ ₫}$.
+2. **Với mã giảm số tiền cố định (`type = 'fixed'`, ví dụ `BIGBUY` giảm `50,000 ₫`, `VIP100` giảm `100,000 ₫`):**
+   $$\text{discount\_amount} = \text{discount\_value}, \quad \text{final\_amount} = \text{total\_amount} - \text{discount\_value}$$
+   - Ví dụ tại biên $\text{LB} = 500,000\text{ ₫}$ của `BIGBUY`: $\text{discount\_amount} = 50,000\text{ ₫}$, $\text{final\_amount} = 450,000\text{ ₫}$.
+   - Ví dụ tại biên $\text{LB} = 300,000\text{ ₫}$ của `VIP100`: $\text{discount\_amount} = 100,000\text{ ₫}$, $\text{final\_amount} = 200,000\text{ ₫}$.
+
+#### C. Bảng ràng buộc liên biến và quy tắc nghiệp vụ (`R1`–`R8`)
+
+| ID | Tên ràng buộc | Mô tả chi tiết | Nguồn đặc tả |
+|---|---|---|---|
+| **R1** | **Tự động tính tổng tiền & Chống sửa giá (Server-side Price Integrity)** | Trên giao diện Mobile, tổng tiền thanh toán phải được tính tự động từ giỏ hàng và **không cho phép người dùng chỉnh sửa trực tiếp**. Ở tầng Backend, API Checkout phải tự tính lại tổng tiền từ giỏ hàng trong CSDL, không chấp nhận giá trị `total_amount` giả mạo do client gửi lên. | `README.md`: dòng 105, 107 |
+| **R2** | **Làm sạch giỏ hàng sau thanh toán (Cart Clearing)** | Sau khi thanh toán thành công trên Mobile/API, toàn bộ sản phẩm trong giỏ hàng của người dùng phải được xóa rỗng. | `README.md`: dòng 108 |
+| **R3** | **Điều kiện đồng thời 5 tiêu chí Coupon (All-5 Coupon Gate)** | Mã giảm giá chỉ được áp dụng khi thỏa mãn đồng thời cả 5 điều kiện `C1`–`C5`. Nếu vi phạm bất kỳ điều kiện nào, hệ thống phải từ chối áp mã và giữ nguyên tổng tiền ban đầu. | `README.md`: dòng 112–121 |
+| **R4** | **Giới hạn số lần dùng mã trên từng người dùng (Per-user Usage Quota — C5)** | Số lần dùng một mã giảm giá được theo dõi riêng cho từng `user_id`. Khi một user đã dùng đủ `max_uses_per_user` lần (1 lần với `SAVE10`/`BIGBUY`, 2 lần với `VIP100`), lần áp dụng tiếp theo của user đó phải bị từ chối, nhưng không ảnh hưởng đến lượt dùng của user khác. | `README.md`: dòng 120, 130–136 |
+| **R5** | **Đồng bộ số tiền sau giảm giữa bước Áp mã và bước Đặt hàng** | Khi người dùng đã áp dụng mã giảm giá hợp lệ trên màn hình Checkout Mobile, số tiền thanh toán cuối cùng lưu vào đơn hàng khi bấm Đặt hàng phải khớp với `final_amount` đã giảm (không bị tính lại theo giá gốc chưa giảm hoặc cho phép áp chồng nhiều lần làm âm tiền). | `README.md`: dòng 105–126, 235 |
+| **R6** | **Tuân thủ State Machine khi tạo và hủy đơn trên Mobile (FR-10 & FR-20)** | Đơn hàng mới đặt phải ở trạng thái `pending`. Trên Mobile, người dùng chỉ được phép hủy đơn hàng của chính mình khi trạng thái đang là `pending` hoặc `confirmed`; tuyệt đối không được hủy khi đơn đã ở trạng thái `shipping`, `delivered` hoặc `canceled`. | `README.md`: dòng 143–162, 236 |
+| **R7** | **Hiển thị đầy đủ danh sách sản phẩm đặt mua & Tiêu chuẩn UI Mobile (FR-08, FR-21, FR-22)** | Màn hình Checkout trên Mobile phải hiển thị danh sách sản phẩm đặt mua, dùng ngôn ngữ tiếng Việt nhất quán, đơn vị tiền tệ `₫` có dấu phân cách hàng nghìn, nhãn trường bắt buộc có dấu `*`, thông báo lỗi nằm phía trên nút Submit, nút hành động tích cực màu xanh dương và nút hủy màu đỏ. | `README.md`: dòng 106, 235, 242–256 |
+| **R8** | **Bảo mật xác thực JWT, chống XSS và SQL Injection (`SEC-02`, `SEC-04`, `SEC-05`)** | Cả `POST /api/apply-coupon` (theo C4) và `POST /api/checkout` (theo FR-08) đều phải kiểm tra JWT Token hợp lệ; dữ liệu `code` và `shipping_address` phải được xử lý bằng Parameterized Query và hiển thị escape an toàn. | `README.md`: dòng 104, 119, 279, 281–282 |
+
+### 0.5 Giá trị danh định hợp lệ (Nominal Values)
+
+| Biến | Giá trị danh định (Nominal) | Lý do lựa chọn |
+|---|---|---|
+| **V1** (`auth_token` / `user_id`) | Token JWT hợp lệ của `test@eshop.com` (`Test1234!`, `user_id = 2`) | Tài khoản người dùng mặc định hợp lệ theo `README.md` dòng 24. |
+| **V2** (`total_amount` / Giỏ hàng) | `500,000 ₫` (hoặc giỏ hàng chứa sản phẩm có tổng tiền $\ge 500,000\text{ ₫}$, ví dụ `600,000 ₫`) | Lớn hơn hoặc bằng ngưỡng tối thiểu của tất cả các mã giảm giá mẫu (`300,000 ₫` và `500,000 ₫`), thuận tiện kiểm thử mọi loại mã. |
+| **V3** (`code`) | `"SAVE10"` (cho loại `percent` 10%) và `"VIP100"` / `"BIGBUY"` (cho loại `fixed`) | Các mã giảm giá mẫu đang hoạt động và còn hạn đến `2099-12-31` theo `README.md` dòng 132–134. |
+| **V4** (`coupon_usage_count`) | `0` lần (người dùng chưa từng sử dụng mã này trước đó) | Thỏa mãn điều kiện `0 < max_uses_per_user` cho mọi mã giảm giá hợp lệ. |
+| **V5** (`shipping_address`) | `"123 Lê Lợi, Phường Bến Thành, Quận 1, TP.HCM"` (44 ký tự) | Chuỗi địa chỉ tiếng Việt có dấu hợp lệ, độ dài nằm an toàn trong đoạn $[1, 255]$ ký tự. |
+
+### 0.6 Cách thức giao tiếp (API Contract & Mobile UI Element)
+
+| Mục | Endpoint Áp mã giảm giá (`POST /api/apply-coupon`) | Endpoint Đặt hàng (`POST /api/checkout`) | Phân hệ Mobile App (`frontend-mobile`) |
+|---|---|---|---|
+| **Đường dẫn / Màn hình** | `http://localhost:3000/api/apply-coupon` | `http://localhost:3000/api/checkout` | Màn hình Giỏ hàng (Cart) & Thanh toán (Checkout) trên ứng dụng React Native / Expo |
+| **Phương thức** | `POST` | `POST` | Thao tác chạm (Tap): Nhập mã giảm giá $\rightarrow$ bấm `"Áp dụng"`; nhập địa chỉ $\rightarrow$ bấm `"Thanh toán"` / `"Đặt hàng"` |
+| **Header xác thực** | `Content-Type: application/json`<br>`Authorization: Bearer <token>` *(theo C4 & SEC-02)* | `Content-Type: application/json`<br>`Authorization: Bearer <token>` *(theo FR-08 & SEC-02)* | Gửi kèm JWT Token đã lưu sau khi đăng nhập trên Mobile App |
+| **Request Body mẫu** | `{"code": "SAVE10", "total_amount": 500000, "user_id": 2}` | `{"total_amount": 450000, "shipping_address": "123 Lê Lợi, Quận 1, TP.HCM"}` | Các thành phần `TextInput` (Mã giảm giá, Địa chỉ giao hàng), `TouchableOpacity` / `Button` (Áp dụng, Thanh toán, Hủy đơn) |
+| **Response kỳ vọng** | `200 OK`: `{"discount_amount": 50000, "final_amount": 450000}` (hoặc `4xx` khi vi phạm C1–C5) | `200 OK`: Tạo đơn hàng mới (`status = 'pending'`), xóa rỗng giỏ hàng (hoặc `4xx` khi vi phạm) | Hiển thị số tiền giảm, tổng tiền cuối cùng (định dạng `₫`), thông báo đặt hàng thành công và làm rỗng giỏ hàng |
+
+### 0.7 Điểm mơ hồ (Ambiguities) & Câu hỏi mở cần xác nhận
+
+| Mã | Vấn đề mơ hồ / Mâu thuẫn trong đặc tả | Phân tích & Rủi ro | Giả định tạm thời đề xuất | Trạng thái |
+|---|---|---|---|---|
+| **Q1** | **Ràng buộc độ dài của Địa chỉ giao hàng (`shipping_address`) và sự hiện diện của ô nhập địa chỉ trên màn hình Checkout Mobile:** `api_specification.md` mục 4.3 (dòng 135) yêu cầu trường `shipping_address`, nhưng `README.md` FR-08 (dòng 102–109) và FR-20 (dòng 231–238) không nêu cận dưới/cận trên độ dài của trường này trên Mobile. | Nếu không xác định cận độ dài, không thể thiết lập biên chuẩn cho `shipping_address`; đồng thời cần kiểm tra xem giao diện Mobile có cung cấp ô nhập địa chỉ giao hàng bắt buộc (kèm dấu `*` theo FR-22) hay không. | **Giả định:** Đồng bộ với chuẩn đã xác nhận ở FR-08: `shipping_address` là trường bắt buộc ($\ge 1$ ký tự, không chỉ chứa khoảng trắng), có cận trên kỹ thuật là $255$ ký tự (miền đóng $[1, 255]$, bước $\delta = 1$ ký tự). Nếu thực thi tại $256$ ký tự hệ thống vẫn cho phép tạo đơn, sẽ ghi nhận theo câu hỏi mở Q1 thay vì tự ý tính là bug độc lập. | Đã xác nhận |
+| **Q2** | **Mâu thuẫn giữa đặc tả bảo mật `C4` (`README.md` dòng 119) và mẫu body `POST /api/apply-coupon` (`api_specification.md` dòng 157–163):** `README.md` dòng 119 quy định rõ điều kiện **C4: "Đã đăng nhập — Người dùng phải có JWT Token hợp lệ"**, nhưng `api_specification.md` mục 5.1 lại không ghi dòng nhắc Header `Authorization: Bearer <token>` mà truyền `"user_id": 1` trong JSON body. | Nếu endpoint `/api/apply-coupon` không kiểm tra Header JWT Token mà chỉ tin vào `user_id` trong body, kẻ tấn công chưa đăng nhập vẫn gọi được API hoặc giả mạo `user_id` của người khác để né giới hạn `max_uses_per_user` (C5). | **Giả định:** Lấy `README.md` dòng 119 (**Điều kiện C4**) và `SEC-02` (dòng 279) làm Oracle chuẩn: `POST /api/apply-coupon` **bắt buộc phải yêu cầu JWT Token hợp lệ** (nếu không gửi token hoặc gửi token giả mạo mà hệ thống vẫn trả `200 OK` thì ghi nhận là Fail vi phạm C4/SEC-02). Đồng thời khi có token hợp lệ, test request sẽ gửi đầy đủ cả Header `Authorization: Bearer <token>` lẫn `user_id` khớp tài khoản để không bị lỗi thiếu tham số. | Đã xác nhận |
+| **Q3** | **Liên kết dữ liệu giữa bước Áp mã giảm giá (`POST /api/apply-coupon`) và bước Đặt hàng (`POST /api/checkout`):** `README.md` FR-08 (dòng 107) yêu cầu *"Backend phải tự tính lại tổng tiền; không chấp nhận giá trị `total_amount` do client gửi lên"*, nhưng `api_specification.md` mục 4.3 (`POST /api/checkout`) chỉ nhận `total_amount` và `shipping_address` mà không có trường `coupon_code`. | Nếu Backend tự tính lại tổng tiền từ giỏ hàng nhưng không nhận `coupon_code` lúc Checkout thì sẽ mất khoản giảm giá; ngược lại nếu Backend chấp nhận luôn `total_amount` do Mobile client gửi lên thì sẽ vi phạm FR-08 dòng 107 (cho phép client gửi số tiền tùy ý hoặc âm). | **Giả định:** Kiểm tra cả hai khía cạnh theo đúng đặc tả: (1) Khi người dùng áp dụng mã hợp lệ trên Mobile rồi bấm Đặt hàng, đơn hàng phải ghi nhận đúng tổng tiền sau giảm `final_amount`; (2) Khi client cố tình gửi `total_amount` gian lận (ví dụ `1 ₫`, `0 ₫`, số âm `-100 ₫`, hoặc lệch với giỏ hàng/mã giảm giá), Backend phải từ chối (`400`) hoặc tự tính lại đúng số tiền hợp lệ từ CSDL. | Đã xác nhận |
+| **Q4** | **Thời điểm tăng bộ đếm lượt dùng (`usage_count`) của điều kiện C5 (`max_uses_per_user`):** `README.md` dòng 120 quy định *"Số lần đã dùng mã này của user < `max_uses_per_user`"*, nhưng không nêu rõ lượt dùng của user được cộng (+1) ngay khi gọi `POST /api/apply-coupon` thành công hay chỉ sau khi hoàn tất `POST /api/checkout`. | Nếu cộng lượt dùng ngay khi gọi `/api/apply-coupon`, người dùng mới thử mã trên màn hình Checkout mà chưa đặt hàng đã bị mất lượt; ngược lại nếu không bao giờ cộng lượt dùng ở cả hai bước thì người dùng có thể dùng mã `SAVE10` (`max = 1`) hoặc `VIP100` (`max = 2`) vô hạn lần. | **Giả định:** Khi kiểm thử điều kiện **C5** (`max_uses_per_user = 1` cho `SAVE10`/`BIGBUY`, `max_uses_per_user = 2` cho `VIP100`), một "lần đã dùng" hoàn chỉnh được tính khi user đã áp dụng mã (và/hoặc hoàn tất thanh toán đơn hàng với mã đó). Sẽ thiết kế test case kiểm tra cả hai kịch bản: gọi `/api/apply-coupon` lặp lại vượt quá `max_uses_per_user` và thanh toán đơn hàng rồi dùng lại mã đó ở đơn tiếp theo để xác minh hệ thống có thực sự kiểm soát `C5` hay không. | Đã xác nhận |
+| **Q5** | **Diễn giải cận của điều kiện C2 ("Ngày hiện tại phải trước `expired_at`") và trạng thái `is_active` của C1:** `README.md` dòng 117 ghi *"Ngày hiện tại phải trước `expired_at`"*, còn dữ liệu mẫu có `expired_at` dạng `YYYY-MM-DD` (`2099-12-31`, `2020-01-01`). Đồng thời dòng 116 nêu điều kiện `is_active = 1`, nhưng `api_specification.md` mục 6.4 (`POST /api/admin/coupons`) không nêu trường `is_active`. | Với 4 mã mẫu có sẵn (`2099-12-31` và `2020-01-01`), khoảng cách thời gian rất xa ngày hiện tại (`2026-10-16`). Nếu muốn kiểm thử sát biên ngày (`hôm qua`, `hôm nay`, `ngày mai`) hoặc trạng thái `is_active = 0`, cần biết có dùng dữ liệu chuẩn bị trong CSDL / API Admin hay chỉ dùng 4 mã mẫu. | **Giả định:** Dùng 4 mã mẫu chuẩn (`SAVE10`, `BIGBUY`, `VIP100`, `EXPIRED`) cho các ca EP và BVA ngưỡng tiền/lượt dùng; ngoài ra trong fixture kiểm thử cô lập (SQLite test DB), có thể khởi tạo thêm bản ghi coupon có `is_active = 0` (để kiểm tra riêng vế thứ hai của **C1**) và các ngày sát biên ngày chạy test (`Yesterday`, `Today`, `Tomorrow` để kiểm tra biên **C2**). | Đã xác nhận |
+| **Q6** | **Tính phân biệt chữ hoa/thường (Case-sensitivity) và khoảng trắng thừa của mã `code`:** Các mã mẫu trong `README.md` đều viết hoa (`SAVE10`, `BIGBUY`, `VIP100`), đặc tả `unspecified` về việc người dùng nhập chữ thường (`"save10"`) hoặc có khoảng trắng đầu/cuối (`" SAVE10 "`). | Người dùng trên bàn phím điện thoại rất dễ gõ `"save10"` hoặc dính dấu cách cuối `"SAVE10 "`. | **Giả định:** Mã hợp lệ chuẩn theo đặc tả là chuỗi viết hoa chính xác (`"SAVE10"`). Các biến thể chữ thường (`"save10"`) và khoảng trắng thừa (`" SAVE10 "`) sẽ được đưa vào ca kiểm thử để kiểm tra hành vi chuẩn hóa thực tế và ghi nhận theo điểm mơ hồ đặc tả. | Đã xác nhận |
+| **Q7** | **Phạm vi và công cụ thực thi kiểm thử cho Phân hệ Mobile (Pool D):** Ứng dụng Mobile (`frontend-mobile`) viết bằng React Native (Expo), sử dụng chung Backend REST API (`http://localhost:3000`). | Cần đảm bảo kiểm thử được cả tầng logic API (`POST /api/apply-coupon`, `POST /api/checkout`, `PUT /api/orders/:id/cancel`) lẫn tầng giao diện người dùng Mobile React Native một cách tự động, lặp lại 2 lần và có ảnh chụp màn hình thật. | **Giả định:** Kết hợp **2 hướng tự động hóa**: (1) **HTTP API Automation** (`run_fr20_3.js` chạy trên SQLite test DB độc lập) để kiểm thử toàn bộ các lớp EP và các điểm biên BVA của `C1`–`C5` & Checkout; và (2) **Playwright UI Automation trên bản dựng Mobile Web / Expo (`frontend-mobile`)** với viewport kích thước điện thoại di động (`390×844` — iPhone 14) để kiểm thử trực quan giao diện Mobile, thao tác nhập mã giảm giá, thanh toán, hủy đơn và chụp ảnh bằng chứng thật. | Đã xác nhận |
+
+> **Xác nhận của sinh viên (Bước 1):** Sinh viên đã kiểm tra bảng đặc tả trích xuất (`0.1`–`0.6`) và đồng ý với toàn bộ các giả định đề xuất `Q1`–`Q7` (đặc biệt: địa chỉ giao hàng không rỗng tối đa $255$ ký tự; giỏ hàng tối thiểu $1$ sản phẩm; ngưỡng áp mã giảm giá tính theo tổng tiền thực tế của giỏ hàng; mã coupon hợp lệ theo 5 điều kiện `C1`–`C5`).
+>
+> **Ghi chú §4 (thời điểm đọc mã nguồn):** ở Bước 1 và Bước 2, AI chỉ đọc tài liệu đặc tả `README.md` và hợp đồng `api_specification.md` (mục 4 & mục 5) để trích xuất các biến đầu vào/đầu ra, 5 điều kiện coupon `C1`–`C5` và công thức tính toán; **tuyệt đối chưa đọc mã nguồn** `frontend-mobile/` hay `backend/server.js`. Toàn bộ kết quả mong đợi (Expected) được suy dẫn độc lập từ đặc tả nghiệp vụ.
+
+---
+
+## 1. Domain Testing — FR-20.3: Mobile: Thanh toán (Checkout) và Áp mã giảm giá
+
+**Tính năng:** FR-20.3 — Mobile: Thanh toán (Checkout) và Áp mã giảm giá (Pool D)  
+**Nguồn đặc tả:** `README.md` (mục 4: FR-08 dòng 102–109, FR-09 dòng 110–136; mục 5: FR-10 dòng 141–163; mục 7: FR-20 dòng 231–238; mục 8: FR-21, FR-22 dòng 240–257; mục 9: SEC-02, SEC-04, SEC-05 dòng 279–282); `docs/api_specification.md` (mục 4.1–4.6 dòng 111–152, mục 5.1 dòng 153–166)  
+**Ngày thiết kế:** 2026-10-16
+
+### Bước 1 — Xác định đầu vào và đầu ra
+
+| Thành phần | Tên | Kiểu | Ràng buộc (trích từ đặc tả) | Nguồn |
+|---|---|---|---|---|
+| Input | V1 `user_token` & `user_id` | String (JWT Header `Authorization: Bearer <token>`) & Integer (`user_id` trong body `apply-coupon`) | Bắt buộc đã đăng nhập hợp lệ cho cả Áp mã giảm giá (**Điều kiện C4**) và Đặt hàng (`FR-08`); `user_id` trong body phải khớp phiên đăng nhập hiện tại | README 104, 119, 236, 279 (SEC-02); api_spec 131, 161; Q2 |
+| Input | V2 `cart_state` & `total_amount` | Mảng mục giỏ hàng (DB) & Number (VNĐ, $\delta = 1\text{ ₫}$) | Giỏ hàng phải có $\ge 1$ sản phẩm hợp lệ ($\text{qty} \in [1, \text{stock}]$); `total_amount` phải dương và khớp tổng giỏ hàng thực tế ($\sum \text{price}_i \times \text{qty}_i$); khi áp mã phải thỏa **Điều kiện C3**: `total_amount >= min_order_amount` ($300,000\text{ ₫}$ với `SAVE10`/`VIP100`; $500,000\text{ ₫}$ với `BIGBUY`) | README 96–98, 104, 107, 118, 130–133; api_spec 135, 160; Q3 |
+| Input | V3 `coupon_code` | String (`code` trong body `POST /api/apply-coupon` / ô nhập mã trên Mobile UI) | Tùy chọn khi Checkout (có thể thanh toán không dùng mã); khi bấm Áp dụng phải thỏa **Điều kiện C1** (tồn tại trong DB **và** `is_active = 1`) và **Điều kiện C2** (`expired_at >= NOW`) | README 114–117, 128–135, 235; api_spec 159; Q5, Q6 |
+| Input | V4 `coupon_usage_count` | Integer (Bộ đếm trạng thái DB của user đối với mã `code`, $\delta = 1$ lần) | Phải thỏa **Điều kiện C5**: `usage_count < max_uses_per_user` (với `SAVE10`, `BIGBUY`: $\text{usage\_count} < 1 \implies 0$; với `VIP100`: $\text{usage\_count} < 2 \implies \{0, 1\}$) | README 120, 130–132; Q4 |
+| Input | V5 `shipping_address` | String (`shipping_address` trong body `POST /api/checkout` / ô nhập địa chỉ trên Mobile UI) | Bắt buộc, không được rỗng ($\ge 1$ ký tự, không chỉ chứa khoảng trắng); độ dài hợp lệ $[1, 255]$ ký tự *(giả định Q1)*; hiển thị an toàn chống XSS (`SEC-04`) | README 105, 236, 252 (FR-22), 281 (SEC-04); api_spec 135; Q1 |
+| Output hợp lệ | O1 (Áp mã thành công), O2 (Tạo đơn hàng `pending`), O3 (Xóa giỏ hàng) | JSON Response & Trạng thái DB / Mobile UI | - **O1 (`apply-coupon`):** `200 OK`, trả về `discount_amount` và `final_amount` tính đúng theo nhánh `'percent'` ($\text{total} \times \frac{\text{val}}{100}$) hoặc `'fixed'` ($\max(0, \text{total} - \text{val})$)<br>- **O2 & O3 (`checkout`):** `200 OK`, tạo đơn hàng mới có `status = 'pending'`, đúng `total_amount` (đã trừ giảm giá nếu có theo Q3), lưu `shipping_address` & `order_items`, đồng thời làm rỗng giỏ hàng (`[]`) | README 105–107, 122–126, 144, 235–236; api_spec 139, 165 |
+| Output lỗi | O4 (Từ chối áp mã), O5 (Từ chối thanh toán) | Phản hồi lỗi HTTP `4xx` & Thông báo lỗi trên Mobile UI | - **O4:** Khi vi phạm bất kỳ điều kiện nào trong `C1`–`C5` $\rightarrow$ trả mã `4xx` (`400`/`401`/`403`/`404`) kèm thông báo lỗi rõ ràng, không giảm tiền sai<br>- **O5:** Khi thiếu xác thực, giỏ hàng trống, địa chỉ không hợp lệ hoặc gian lận tổng tiền $\rightarrow$ trả mã `4xx`, không tạo đơn hàng rác, giữ nguyên giỏ hàng | README 104–108, 114–120, 246 (FR-21), 255 (FR-22), 279 (SEC-02) |
+
+**Giải thích:** Năm nhóm biến đầu vào `V1`–`V5` bao phủ toàn vẹn cả hai thao tác liên thông trên màn hình Giỏ hàng & Thanh toán của phân hệ Mobile (`POST /api/apply-coupon` và `POST /api/checkout`), ánh xạ 1–1 tới **5 điều kiện hợp lệ của mã giảm giá (`C1`–`C5`)**, hai công thức tính giảm giá (`percent` và `fixed`) và các quy tắc toàn vẹn đơn hàng (`FR-08`, `FR-10`).
+
+**Phân loại biến: Direct Input và State Input (DB/phiên):**
+
+| Biến / điều kiện | Phân loại | Kiểu | Ràng buộc (SRS) | Giá trị hợp lệ mặc định (Nominal) |
+|---|---|---|---|---|
+| V1 `user_token` & `user_id` | **State Input** (Header JWT) & **Direct Input** (body `user_id`) | String (JWT) & Integer | Đã đăng nhập hợp lệ (**C4**, `SEC-02`); `user_id` khớp chủ sở hữu token | `token_user` (`test@eshop.com`, `user_id = 2`) |
+| V2a `cart_state` | **State Input** (bảng `cart` & `products.stock` trong DB) | Mảng bản ghi (`product_id`, `quantity`) | Giỏ hàng có $\ge 1$ sản phẩm hợp lệ, $1 \le \text{quantity} \le \text{stock}$ | Giỏ hàng chứa SP chuẩn có tổng tiền thực tế $500,000\text{ ₫}$ (hoặc $600,000\text{ ₫}$ khi test `BIGBUY`) |
+| V2b `total_amount` | **Direct Input** (body JSON) & **State Input** (tổng thực tế từ DB) | Number ($\text{VNĐ}$, $\delta = 1\text{ ₫}$) | $> 0$, khớp tổng giỏ hàng thực tế (`R5`); thỏa **C3**: $\ge 300,000\text{ ₫}$ (`SAVE10`/`VIP100`) hoặc $\ge 500,000\text{ ₫}$ (`BIGBUY`) | `TOTAL_NOM = 500000` ($500,000\text{ ₫}$) cho `SAVE10`/`VIP100`; `600000` ($600,000\text{ ₫}$) cho `BIGBUY` |
+| V3 `coupon_code` | **Direct Input** (body `code` / Mobile TextInput) & **State Input** (bảng `coupons`: `is_active`, `expired_at`) | String | Thỏa **C1** (tồn tại & `is_active = 1`) và **C2** (`expired_at >= NOW`) | `"SAVE10"` (`percent` $10\%$, `min = 300000`, `max_uses = 1`, `expired_at = 2099-12-31`, `is_active = 1`) |
+| V4 `coupon_usage_count` | **State Input** (số lần `user_id` đã dùng mã `code` trong DB) | Integer ($\mathbb{Z}_{\ge 0}$, $\delta = 1$ lần) | Thỏa **C5**: `usage_count < max_uses_per_user` | `usage_count = 0` (chưa dùng lần nào trong fixture sạch) |
+| V5 `shipping_address` | **Direct Input** (body `shipping_address` / Mobile TextInput) | String ($\delta = 1$ ký tự) | Bắt buộc, không rỗng, không toàn khoảng trắng, độ dài $[1, 255]$ ký tự (Q1) | `ADDR_NOM = "123 Lê Lợi, Phường Bến Thành, Quận 1, TP.HCM"` (44 ký tự) |
+
+Các lớp thuộc **State Input** (`EC02`–`EC07`, `EC19`, `EC20`, `EC23`–`EC26`) đều có quy trình thiết lập trạng thái nền (Precondition `P0`–`P4`) rõ ràng trong CSDL SQLite độc lập trước khi kích hoạt request kiểm thử.
+
+### Bước 2 — Xác định các lớp tương đương
+
+**Quy ước:** `token_user` = JWT hợp lệ của `test@eshop.com` (`user_id = 2`); `ADDR_NOM` = `"123 Lê Lợi, Phường Bến Thành, Quận 1, TP.HCM"` (44 ký tự); `TOTAL_NOM = 500000` ($500,000\text{ ₫}$); `REJ-COUPON` = từ chối áp mã giảm giá (mã HTTP `4xx`, không trả mức giảm giá sai); `REJ-CHECKOUT` = từ chối đặt hàng (mã HTTP `4xx`, không sinh đơn hàng mới, giỏ hàng giữ nguyên).
+
+| EC ID | Yêu cầu | Biến / Đầu ra | Điều kiện | Loại | Giá trị đại diện | Lý do chia |
+|---|---|---|---|---|---|---|
+| EC01 | FR-08 (104); FR-09 C4 (119); SEC-02 | V1 (`user_token` & `user_id`) | Đã đăng nhập với Header `Bearer <token_user>` hợp lệ **và** `user_id = 2` khớp chủ sở hữu token | Valid | `Bearer <token_user>`, `user_id = 2` | Điều kiện AND cho **C4** (có JWT hợp lệ + đúng định danh user) |
+| EC02 | FR-09 C4 (119); SEC-02; Q2 | V1 (`apply-coupon`) | Không gửi Header `Authorization` khi gọi `POST /api/apply-coupon` (người dùng chưa đăng nhập) | Invalid | (không có header), `user_id = 2` | Vi phạm trực tiếp **Điều kiện C4** (*"Người dùng phải có JWT Token hợp lệ"*) |
+| EC03 | FR-09 C4 (119); SEC-02; Q2 | V1 (`apply-coupon`) | Gửi Header `Authorization: Bearer token.gia.mao` (sai chữ ký/cấu trúc JWT) khi gọi `POST /api/apply-coupon` | Invalid | `Bearer token.gia.mao`, `user_id = 2` | Tách khỏi EC02: có gửi header nhưng token không hợp lệ (vi phạm **C4**) |
+| EC04 | FR-09 C4 & C5; api_spec 161; Q2 | V1 (`apply-coupon` — `user_id`) | Có token của User 2 nhưng `user_id` trong body bị thiếu (`null`) hoặc mạo danh user khác (`user_id = 1`) | Invalid | `Bearer <token_user>`, `user_id = null` (hoặc `1`) | Ràng buộc liên biến giữa JWT và `user_id` để chống né giới hạn `max_uses_per_user` (**C4/C5**) |
+| EC05 | FR-08 (104); SEC-02 | V1 (`checkout`) | Không gửi Header `Authorization` (hoặc gửi token giả mạo) khi gọi `POST /api/checkout` | Invalid | (không có header) tại `/api/checkout` | Đối xứng biến lặp lại `V1` ở bước Đặt hàng (`POST /api/checkout`) |
+| EC06 | FR-07 (96–98); FR-08 (104, 107) | V2 (`cart_state` & `total_amount`) | Giỏ hàng trong DB có $\ge 1$ sản phẩm hợp lệ ($1 \le \text{qty} \le \text{stock}$) **và** `total_amount` khớp đúng tổng tiền thực tế | Valid | Giỏ hàng có SP tổng $500,000\text{ ₫}$, `total_amount = 500000` | Điều kiện tiên quyết hợp lệ của giỏ hàng và tổng tiền khi thanh toán |
+| EC07 | FR-08 (104) | V2 (`cart_state`) | Giỏ hàng trống ($0$ sản phẩm trong bảng `cart`) khi gọi `POST /api/checkout` | Invalid (State) | `cart = []`, `total_amount = 500000` | Trạng thái giỏ hàng không hợp lệ (`FR-08` yêu cầu có sản phẩm trong giỏ) |
+| EC08 | FR-09 C3 (118, 130, 132) | V2 (`total_amount` — C3 nhóm $300\text{k}$) | Tổng tiền đơn hàng đạt mức tối thiểu của `SAVE10` / `VIP100`: `total_amount >= 300,000 ₫` | Valid | `total_amount = 500000` ($\ge 300,000$) | Dải giá trị hợp lệ thỏa **Điều kiện C3** cho nhóm mã có `min_order_amount = 300,000` |
+| EC09 | FR-09 C3 (118, 130, 132) | V2 (`total_amount` — C3 nhóm $300\text{k}$) | Tổng tiền dương nhưng chưa đạt ngưỡng tối thiểu của `SAVE10` / `VIP100`: $0 < \text{total\_amount} < 300,000\text{ ₫}$ | Invalid | `total_amount = 200000` ($< 300,000$) với `code = "SAVE10"` | Dải dưới ngưỡng `min_order_amount` — cô lập vi phạm **Điều kiện C3** cho `SAVE10` |
+| EC10 | FR-09 C3 (118, 131) | V2 (`total_amount` — C3 nhóm $500\text{k}$) | Tổng tiền đơn hàng đạt mức tối thiểu của `BIGBUY`: `total_amount >= 500,000 ₫` | Valid | `total_amount = 600000` ($\ge 500,000$) | Dải giá trị hợp lệ thỏa **Điều kiện C3** cho mã `BIGBUY` (`min_order_amount = 500,000`) |
+| EC11 | FR-09 C3 (118, 131) | V2 (`total_amount` — C3 nhóm $500\text{k}$) | Tổng tiền nằm trong khoảng $[300,000;\, 500,000)\text{ ₫}$ khi áp mã `BIGBUY` | Invalid | `total_amount = 400000` ($< 500,000$) với `code = "BIGBUY"` | Cô lập vi phạm **Điều kiện C3** riêng cho ngưỡng $500,000\text{ ₫}$ của `BIGBUY` |
+| EC12 | FR-09 C3 (118); api_spec 160 | V2 (`total_amount` tại `apply-coupon`) | `total_amount <= 0` (bằng $0$ hoặc số âm `-100000`) khi gọi `POST /api/apply-coupon` | Invalid | `total_amount = -100000`, `code = "SAVE10"` | Miền số không dương (ngoài miền tiền tệ hợp lệ) |
+| EC13 | FR-08 (107); R5; Q3 | V2 (`total_amount` tại `checkout`) | Client gửi `total_amount` gian lận/sai lệch so với tổng tiền thực tế của giỏ hàng (ví dụ giỏ hàng $500,000\text{ ₫}$ nhưng gửi `total_amount = 1000` hoặc `-50000`) | Invalid (Liên biến R5) | Giỏ hàng $500,000\text{ ₫}$, body `total_amount = 1000` | Kiểm tra quy tắc bảo mật nghiệp vụ `FR-08` dòng 107: Backend không được tin `total_amount` giả mạo từ client |
+| EC14 | FR-09 C1, C2, Công thức `percent` (116–117, 123–124, 130) | V3 (`coupon_code` — `SAVE10`) | Mã `code = "SAVE10"` (tồn tại, `is_active = 1`, `expired_at = 2099-12-31 >= NOW`, loại `'percent'` giảm $10\%$) | Valid | `"SAVE10"` | Tập mã hợp lệ — tách riêng để phủ nhánh công thức phần trăm (`percent`) |
+| EC15 | FR-09 C1, C2, Công thức `fixed` (116–117, 125–126, 131) | V3 (`coupon_code` — `BIGBUY`) | Mã `code = "BIGBUY"` (tồn tại, `is_active = 1`, `expired_at = 2099-12-31 >= NOW`, loại `'fixed'` giảm $50,000\text{ ₫}$, ngưỡng $500\text{k}$) | Valid | `"BIGBUY"` | Tập mã hợp lệ — tách riêng để phủ nhánh công thức cố định (`fixed`) ngưỡng $500,000\text{ ₫}$ |
+| EC16 | FR-09 C1, C2, C5 (116–120, 125–126, 132) | V3 (`coupon_code` — `VIP100`) | Mã `code = "VIP100"` (tồn tại, `is_active = 1`, `expired_at = 2099-12-31 >= NOW`, loại `'fixed'` giảm $100,000\text{ ₫}$, `max_uses_per_user = 2`) | Valid | `"VIP100"` | Tập mã hợp lệ — tách riêng để phủ cấu hình giảm $100,000\text{ ₫}$ và giới hạn $2$ lượt dùng |
+| EC17 | FR-08 (104–106); FR-20.3 (236) | V3 (Không dùng coupon) | Người dùng thực hiện Đặt hàng (`POST /api/checkout`) trực tiếp không áp dụng mã giảm giá | Valid | (không gọi `apply-coupon`, thanh toán nguyên giá) | Nhánh nghiệp vụ thanh toán thông thường không kèm coupon |
+| EC18 | FR-09 C1 (116) | V3 (`coupon_code` — C1 vế 1) | Mã giảm giá **không tồn tại** trong bảng `coupons` (`code ∉ existing_codes`) | Invalid | `"NOTEXIST99"` | Cô lập vi phạm vế thứ nhất của **Điều kiện C1** (mã không tồn tại) |
+| EC19 | FR-09 C1 (116); Q5 | V3 (`coupon_code` — C1 vế 2) | Mã giảm giá có tồn tại trong bảng `coupons` nhưng đang bị vô hiệu hóa (`is_active = 0`) | Invalid (State) | `"INACTIVE10"` (`is_active = 0`, `expired_at = 2099-12-31`, `min = 100000`) | Cô lập vi phạm vế thứ hai của **Điều kiện C1** (`is_active = 0` dù chưa hết hạn và đủ ngưỡng tiền) |
+| EC20 | FR-09 C2 (117, 133) | V3 (`coupon_code` — C2) | Mã giảm giá tồn tại, `is_active = 1`, đủ ngưỡng tiền nhưng **đã hết hạn** (`expired_at < NOW`) | Invalid (State) | `"EXPIRED"` (`expired_at = 2020-01-01`, `min = 100000`, `is_active = 1`) | Cô lập vi phạm **Điều kiện C2** (ngày hiện tại `2026-10-16` đã qua `2020-01-01`) |
+| EC21 | FR-09 C1 (116); api_spec 159 | V3 (`coupon_code` rỗng) | Chuỗi mã giảm giá rỗng (`code = ""`) hoặc thiếu trường `code` trong body | Invalid | `""` | Kiểu chuỗi bắt buộc khi gọi endpoint `/api/apply-coupon` |
+| EC22 | FR-09 C1 (116); Q6 | V3 (`coupon_code` khoảng trắng / sai kiểu) | Chuỗi mã chỉ gồm khoảng trắng (`"     "`) hoặc sai kiểu dữ liệu (`12345` / `null`) | Invalid | `"     "` (5 dấu cách) | Kiểu chuỗi đặc biệt (chỉ chứa khoảng trắng) tách khỏi chuỗi rỗng `""` |
+| EC23 | FR-09 C5 (120, 130–131) | V4 (`coupon_usage_count` — `max = 1`) | Số lần user đã dùng mã `SAVE10` / `BIGBUY` thỏa `usage_count < 1` (tức `usage_count = 0`, lần dùng đầu tiên) | Valid (State) | `usage_count = 0` (với `SAVE10` / `BIGBUY`) | Miền hợp lệ của **Điều kiện C5** cho mã có `max_uses_per_user = 1` |
+| EC24 | FR-09 C5 (120, 130); Q4 | V4 (`coupon_usage_count` — `max = 1`) | User đã dùng mã `SAVE10` đủ $1$ lần (`usage_count = 1 >= 1`), gọi áp dụng lại lần thứ 2 | Invalid (State) | `usage_count = 1` (gọi `SAVE10` lần 2) | Cô lập vi phạm **Điều kiện C5** cho mã có `max_uses_per_user = 1` |
+| EC25 | FR-09 C5 (120, 132) | V4 (`coupon_usage_count` — `max = 2`) | Số lần user đã dùng mã `VIP100` thỏa `usage_count < 2` ở lần dùng thứ hai (`usage_count = 1 < 2`) | Valid (State) | `usage_count = 1` (gọi `VIP100` lần 2) | Kiểm tra miền hợp lệ $\text{usage\_count} \in \{0, 1\}$ của **Điều kiện C5** với `max_uses_per_user = 2` |
+| EC26 | FR-09 C5 (120, 132); Q4 | V4 (`coupon_usage_count` — `max = 2`) | User đã dùng mã `VIP100` đủ $2$ lần (`usage_count = 2 >= 2`), gọi áp dụng lại lần thứ 3 | Invalid (State) | `usage_count = 2` (gọi `VIP100` lần 3) | Cô lập vi phạm **Điều kiện C5** cho mã có `max_uses_per_user = 2` |
+| EC27 | FR-08 (105); FR-20.3 (236); Q1 | V5 (`shipping_address`) | Chuỗi địa chỉ giao hàng không rỗng, có ký tự thực, độ dài $1 \le \text{len} \le 255$ ký tự | Valid | `ADDR_NOM` (44 ký tự) | Dải độ dài hợp lệ $[1, 255]$ của địa chỉ giao hàng |
+| EC28 | FR-08 (105); FR-22 (252) | V5 (`shipping_address` rỗng) | Chuỗi địa chỉ rỗng (`shipping_address = ""`) hoặc thiếu trường `shipping_address` khi gọi `POST /api/checkout` | Invalid | `""` | Trường bắt buộc (dải độ dài $< 1$) |
+| EC29 | FR-08 (105); Q1 | V5 (`shipping_address` khoảng trắng) | Chuỗi địa chỉ chỉ chứa khoảng trắng (`"      "`) khi gọi `POST /api/checkout` | Invalid | `"      "` (6 dấu cách) | Kiểu chuỗi đặc biệt: tương đương bỏ trống địa chỉ giao hàng |
+| EC30 | FR-08 (105); Q1 | V5 (`shipping_address` quá dài) | Độ dài chuỗi địa chỉ $> 255$ ký tự (`'A'×300`, 300 ký tự) khi gọi `POST /api/checkout` | Invalid | `'A'×300` (300 ký tự) | Dải độ dài trên cận $\text{UB} = 255$ (theo giả định Q1) |
+| EC31 | api_spec 135 | V5 (`shipping_address` sai kiểu) | `shipping_address` không phải kiểu chuỗi (số nguyên `12345` hoặc `null`) | Invalid | `12345` | Boolean / kiểu dữ liệu trong JSON body |
+| EC32 | SEC-04 (281) | V5 (`shipping_address` chứa HTML/script) | Chuỗi địa chỉ có độ dài hợp lệ nhưng chứa thẻ `<img src=x onerror=alert(1)>` | Valid (đầu vào) | `"<img src=x onerror=alert(1)> 123 Lê Lợi"` | Đầu vào hợp lệ về độ dài nhưng đầu ra hiển thị phải được escape an toàn (`SEC-04`) |
+| EC33 | O1; FR-09 (123–124) | Output (`apply-coupon` nhánh `percent`) | Phản hồi `200 OK`; `discount_amount = total_amount * discount_value / 100` và `final_amount = total_amount - discount_amount` | Output hợp lệ | `discount_amount = 50000`, `final_amount = 450000` (khi `total = 500000`, `SAVE10`) | Lớp đầu ra hợp lệ cho công thức giảm theo phần trăm (`percent`) |
+| EC34 | O1; FR-09 (125–126) | Output (`apply-coupon` nhánh `fixed`) | Phản hồi `200 OK`; `discount_amount = discount_value` và `final_amount = max(0, total_amount - discount_value)` | Output hợp lệ | `discount = 50000, final = 550000` (`BIGBUY` trên $600\text{k}$); `discount = 100000, final = 400000` (`VIP100` trên $500\text{k}$) | Lớp đầu ra hợp lệ cho công thức giảm số tiền cố định (`fixed`) |
+| EC35 | O2, O3; FR-08 (105–107); FR-10 (144); Q3 | Output (`checkout` thành công) | Phản hồi `200 OK`; tạo đúng 1 đơn hàng mới có `status = 'pending'`, đúng `total_amount` (đã trừ giảm giá nếu có), lưu đúng `shipping_address` & `order_items`; giỏ hàng của user về rỗng `[]` | Output hợp lệ | `OC-CHECKOUT-OK(expected_total, address)` | Lớp đầu ra hợp lệ cho thao tác Đặt hàng và làm rỗng giỏ hàng (`R6`) |
+| EC36 | O4; FR-09 (114–120) | Output (Lỗi `apply-coupon`) | Phản hồi HTTP `4xx` (`400`/`401`/`403`/`404`) khi vi phạm bất kỳ điều kiện nào trong `C1`–`C5`; không trả về mức giảm giá sai | Output lỗi | `REJ-COUPON` (`4xx`) | Lớp đầu ra ngoại lệ cho thao tác Áp mã giảm giá |
+| EC37 | O5; FR-08 (104–108) | Output (Lỗi `checkout`) | Phản hồi HTTP `4xx` (`400`/`401`) khi vi phạm điều kiện thanh toán; số lượng đơn hàng trong bảng `orders` không tăng và giỏ hàng không bị xóa | Output lỗi | `REJ-CHECKOUT` (`4xx` + `OC-ORDER-NO`) | Lớp đầu ra ngoại lệ cho thao tác Đặt hàng |
+| EC38 | FR-20.3 (235–236) | Mobile UI (Luồng chính) | Trên màn hình Giỏ hàng/Thanh toán Mobile (`390×844`): nhập mã `SAVE10` $\rightarrow$ bấm `"Áp dụng"` hiển thị tiền giảm & tổng sau giảm $\rightarrow$ nhập địa chỉ $\rightarrow$ bấm `"Thanh toán"` tạo đơn thành công & làm rỗng giỏ | Valid (UI) | Thao tác trọn luồng Áp mã + Đặt hàng trên Mobile UI | Ràng buộc chức năng cốt lõi của FR-20.3 trên giao diện Mobile |
+| EC39 | FR-20.3 (235); FR-21 (246) | Mobile UI (Mã coupon lỗi) | Nhập mã hết hạn (`EXPIRED`) hoặc không tồn tại trên màn hình Mobile rồi bấm `"Áp dụng"` $\rightarrow$ hiển thị thông báo lỗi tiếng Việt rõ ràng, tổng tiền không giảm | Invalid (UI) | Nhập `"EXPIRED"` trên Mobile UI | Ràng buộc phản hồi lỗi thân thiện trên giao diện Mobile (`FR-21`) |
+| EC40 | FR-22 (252) | Mobile UI (Nhãn bắt buộc `*`) | Trường bắt buộc trên màn hình Thanh toán Mobile (Địa chỉ giao hàng) có ký hiệu dấu `*` đi kèm nhãn | Valid (UI) | Quan sát nhãn trường Địa chỉ giao hàng trên Mobile DOM | Tách riêng ràng buộc giao diện `FR-22` (dấu `*` cho trường bắt buộc) |
+| EC41 | FR-08 (105); FR-22 (252, 255) | Mobile UI (Địa chỉ rỗng & vị trí lỗi) | Để trống ô Địa chỉ giao hàng (`""`) trên màn hình Mobile rồi bấm `"Thanh toán"` $\rightarrow$ bị chặn và hiển thị thông báo lỗi phía trên nút Submit, không tạo đơn hàng | Invalid (UI) | Để trống địa chỉ `""` trên Mobile UI | Tách riêng ràng buộc kiểm tra form rỗng và vị trí thông báo lỗi trên Mobile UI (`FR-22`) |
+| EC42 | FR-21 (244, 245, 247, 248) | Mobile UI (Tiền tệ `₫` & Ngôn ngữ) | Giá tiền, tiền giảm và tổng tiền trên màn hình Giỏ hàng/Thanh toán Mobile có dấu phân cách hàng nghìn kèm ký hiệu `₫` (hoặc `VNĐ`); giao diện dùng tiếng Việt nhất quán | Valid (UI) | Quan sát định dạng tiền tệ & văn bản trên Mobile UI | Tách riêng ràng buộc định dạng tiền tệ và ngôn ngữ giao diện (`FR-21`) |
+
+**Giải thích:**
+- Đã áp dụng đầy đủ **bốn dạng điều kiện** của bài giảng:
+  1. *Dải giá trị (Range)*: `total_amount >= 300,000` (`EC08`, `EC09`), `total_amount >= 500,000` (`EC10`, `EC11`), `total_amount <= 0` (`EC12`); số lần dùng `usage_count < max_uses_per_user` (`EC23`–`EC26`); độ dài `shipping_address` $\in [1, 255]$ (`EC27`, `EC28`, `EC30`); ngày hết hạn `expired_at >= NOW` (`EC14`–`EC16` vs `EC20`).
+  2. *Tập giá trị (Set)*: Tập mã giảm giá hợp lệ `{"SAVE10", "BIGBUY", "VIP100"}` được tách thành 3 lớp riêng (`EC14`, `EC15`, `EC16`) vì mỗi mã đại diện cho một nhánh công thức (`percent` vs `fixed`) hoặc tham số ngưỡng/lượt dùng khác nhau; tập mã không tồn tại (`EC18`).
+  3. *Giá trị đơn / Trạng thái (Single Value / State)*: `is_active = 1` vs `is_active = 0` (`EC19`); `cart_state` có hàng vs rỗng (`EC06`, `EC07`); `total_amount` khớp giỏ hàng vs gian lận (`EC13`).
+  4. *Boolean / Kiểu dữ liệu*: Có/không có JWT Header (`EC02`, `EC05`); kiểu số `12345` cho chuỗi (`EC22`, `EC31`).
+- **Đối xứng biến lặp lại:** Biến xác thực `V1 (user_token)` và biến tổng tiền `V2 (total_amount)` xuất hiện ở cả hai bước (`POST /api/apply-coupon` và `POST /api/checkout`) nên được phân hoạch đối xứng ở cả hai endpoint (`EC02`–`EC04` và `EC05`; `EC08`–`EC12` và `EC13`).
+- **Tách riêng ràng buộc giao diện Mobile:** 5 lớp `EC38`–`EC42` được tách riêng cho tầng Mobile UI (`FR-20.3`, `FR-21`, `FR-22`), đảm bảo truy vết độc lập từng tiêu chuẩn hiển thị.
+
+### Bước 3 — Chọn đại diện và tạo test case
+
+**Điều kiện nền (Preconditions) và Oracle dùng chung:**
+
+- **P0 (Fixture mặc định cô lập):** Trước mỗi ca kiểm thử, CSDL SQLite test được khôi phục về trạng thái chuẩn:
+  - Tài khoản khách hàng chuẩn: `test@eshop.com` / `Test1234!` (`user_id = 2`), đăng nhập qua `POST /api/login` lấy `token_user`.
+  - Bảng `products` có sẵn sản phẩm chuẩn `prod_id = 1` (giá $250,000\text{ ₫}$, `stock = 10`) và `prod_id = 2` (giá $100,000\text{ ₫}$, `stock = 10`).
+  - Bảng `coupons` có 4 mã chuẩn theo `README.md` dòng 128–135 (`SAVE10`, `BIGBUY`, `VIP100`, `EXPIRED`) và thêm 1 mã fixture `"INACTIVE10"` (`discount_type = 'percent'`, `discount_value = 10`, `min_order_amount = 100000`, `expired_at = '2099-12-31'`, `max_uses_per_user = 1`, `is_active = 0`) theo `Q5` để kiểm thử độc lập vế `is_active = 0` của **C1**.
+  - Bộ đếm số lần sử dụng coupon của `user_id = 2` ban đầu bằng `0` cho mọi mã.
+- **P1 (Giỏ hàng chuẩn $500,000\text{ ₫}$):** `P0` + `user_id = 2` có giỏ hàng chứa $2$ sản phẩm `prod_id = 1` ($2 \times 250,000 = 500,000\text{ ₫}$); ghi nhận số lượng đơn hàng ban đầu `N_ord0` của user từ `GET /api/orders`.
+- **P2 (Giỏ hàng chuẩn $600,000\text{ ₫}$ cho `BIGBUY`):** `P0` + `user_id = 2` có giỏ hàng chứa $2 \times \text{prod\_id } 1 + 1 \times \text{prod\_id } 2 = 600,000\text{ ₫}$.
+- **P3 (Giỏ hàng trống $0\text{ ₫}$):** `P0` + giỏ hàng của `user_id = 2` rỗng (`[]`, $0$ sản phẩm).
+- **P4 (`usage_count = k`):** `P1` + `user_id = 2` đã thực hiện áp dụng/thanh toán mã tương ứng đúng $k$ lần trước đó ($k = 1$ hoặc $k = 2$).
+- **OC-COUPON-OK(d_exp, f_exp):** Phản hồi HTTP `200 OK`; JSON trả về có `discount_amount === d_exp` và `final_amount === f_exp`.
+- **OC-CHECKOUT-OK(total_exp, addr_exp):** Phản hồi HTTP `200 OK`; gọi `GET /api/orders` thấy tổng số đơn của user tăng đúng $1$ (`N_ord0 + 1`), đơn hàng mới nhất có `status === 'pending'`, `total_amount === total_exp`, `shipping_address === addr_exp`; đồng thời gọi `GET /api/cart` thấy giỏ hàng đã về rỗng (`length === 0`).
+- **OC-ORDER-NO:** Gọi `GET /api/orders` thấy tổng số đơn của user giữ nguyên là `N_ord0` (không tạo đơn hàng rác) và giỏ hàng không bị xóa mất sản phẩm.
+- **REJ-COUPON:** Phản hồi HTTP `4xx` (`400`/`401`/`403`/`404`), không trả về kết quả giảm giá thành công.
+- **REJ-CHECKOUT:** Phản hồi HTTP `4xx` (`400`/`401`/`403`) kèm `OC-ORDER-NO`.
+
+| TC ID | Kỹ thuật | EC phủ | Thành phần | Điều kiện tiên quyết | Dữ liệu vào | Các bước / Lệnh | Kết quả mong đợi | Nguồn expected |
+|---|---|---|---|---|---|---|---|---|
+| EP-TC01 | EP (gộp valid Checkout không mã) | EC01, EC06, EC17, EC27, EC35 | API | P1 (giỏ $500,000\text{ ₫}$) | Header `Bearer <token_user>`; Body `{"total_amount": 500000, "shipping_address": ADDR_NOM}` | `POST /api/checkout` rồi kiểm tra `GET /api/orders` và `GET /api/cart` | `OC-CHECKOUT-OK(500000, ADDR_NOM)`: `200 OK`, đơn mới `status = 'pending'`, `total_amount = 500000`, giỏ hàng rỗng `[]` | README 104–107, 144, 236; api_spec 131–139 |
+| EP-TC02 | EP (gộp valid `SAVE10` `percent` + Checkout) | EC01, EC08, EC14, EC23, EC33, EC35 | API | P1 (giỏ $500,000\text{ ₫}$, `usage_count(SAVE10) = 0`) | Bước 1: `{"code": "SAVE10", "total_amount": 500000, "user_id": 2}`<br>Bước 2: `{"total_amount": 450000, "shipping_address": ADDR_NOM}` | (1) `POST /api/apply-coupon`; (2) `POST /api/checkout`; (3) Kiểm tra `GET /api/orders` & `GET /api/cart` | (1) `OC-COUPON-OK(50000, 450000)`; (2) `OC-CHECKOUT-OK(450000, ADDR_NOM)` (đơn hàng lưu đúng giá sau giảm $450,000\text{ ₫}$, giỏ hàng rỗng) | README 114–124, 130, 235–236; Q3 |
+| EP-TC03 | EP (gộp valid `BIGBUY` `fixed` $500\text{k}$) | EC01, EC10, EC15, EC23, EC34 | API | P2 (giỏ $600,000\text{ ₫}$, `usage_count(BIGBUY) = 0`) | Header `Bearer <token_user>`; Body `{"code": "BIGBUY", "total_amount": 600000, "user_id": 2}` | `POST /api/apply-coupon` | `OC-COUPON-OK(50000, 550000)` ($\text{discount} = 50,000\text{ ₫}$, $\text{final} = 600,000 - 50,000 = 550,000\text{ ₫}$) | README 114–126, 131; api_spec 153–166 |
+| EP-TC04 | EP (gộp valid `VIP100` `fixed` ở lần dùng thứ 2) | EC01, EC08, EC16, EC25, EC34 | API | P4 (`usage_count(VIP100) = 1 < 2`, giỏ $500,000\text{ ₫}$) | Header `Bearer <token_user>`; Body `{"code": "VIP100", "total_amount": 500000, "user_id": 2}` | Đã dùng `VIP100` 1 lần trước đó $\rightarrow$ gọi `POST /api/apply-coupon` lần thứ 2 | `OC-COUPON-OK(100000, 400000)` ($\text{discount} = 100,000\text{ ₫}$, $\text{final} = 400,000\text{ ₫}$; lần thứ 2 vẫn hợp lệ vì `max_uses_per_user = 2`) | README 120, 125–126, 132 |
+| EP-TC05 | EP (cô lập C4: thiếu token tại `apply-coupon`) | EC02, EC36 | API | P1 | Không gửi Header `Authorization`; Body `{"code": "SAVE10", "total_amount": 500000, "user_id": 2}` | `POST /api/apply-coupon` | `REJ-COUPON` (`401 Unauthorized` — từ chối vì vi phạm điều kiện **C4** chưa đăng nhập) | README 119 (C4), 279 (SEC-02); Q2 |
+| EP-TC06 | EP (cô lập C4: token giả mạo tại `apply-coupon`) | EC03, EC36 | API | P1 | Header `Authorization: Bearer token.gia.mao`; Body `{"code": "SAVE10", "total_amount": 500000, "user_id": 2}` | `POST /api/apply-coupon` | `REJ-COUPON` (`401`/`403` — từ chối vì JWT không hợp lệ theo **C4**) | README 119 (C4), 279 (SEC-02); Q2 |
+| EP-TC07 | EP (cô lập C4/C5: `user_id` thiếu hoặc mạo danh) | EC04, EC36 | API | P1 | Header `Bearer <token_user>` (`user_id = 2`); Body `{"code": "SAVE10", "total_amount": 500000, "user_id": null}` (và kiểm tra `user_id = 1`) | `POST /api/apply-coupon` | `REJ-COUPON` (`400`/`403` — không cho phép bỏ trống `user_id` hoặc mạo danh `user_id` khác với JWT đang đăng nhập) | README 119–120 (C4, C5); api_spec 161; Q2 |
+| EP-TC08 | EP (cô lập V1: thiếu token tại `checkout`) | EC05, EC37 | API | P1 | Không gửi Header `Authorization`; Body `{"total_amount": 500000, "shipping_address": ADDR_NOM}` | `POST /api/checkout` rồi kiểm tra `OC-ORDER-NO` | `REJ-CHECKOUT` (`401 Unauthorized` + `OC-ORDER-NO`) | README 104 (FR-08), 279 (SEC-02) |
+| EP-TC09 | EP (cô lập V2: giỏ hàng trống khi `checkout`) | EC07, EC37 | API | P3 (giỏ hàng trống `[]`) | Header `Bearer <token_user>`; Body `{"total_amount": 500000, "shipping_address": ADDR_NOM}` | `POST /api/checkout` khi giỏ hàng không có sản phẩm nào | `REJ-CHECKOUT` (`400 Bad Request` + `OC-ORDER-NO` — không tạo đơn hàng rỗng 0 sản phẩm) | README 104 (FR-08) |
+| EP-TC10 | EP (cô lập C3: dưới ngưỡng $300\text{k}$ của `SAVE10`) | EC09, EC36 | API | P0 (giỏ $200,000\text{ ₫}$) | Header `Bearer <token_user>`; Body `{"code": "SAVE10", "total_amount": 200000, "user_id": 2}` | `POST /api/apply-coupon` | `REJ-COUPON` (`400 Bad Request` — từ chối vì `200,000 < min_order_amount 300,000`, vi phạm **C3**) | README 118, 130 (C3) |
+| EP-TC11 | EP (cô lập C3: dưới ngưỡng $500\text{k}$ của `BIGBUY`) | EC11, EC36 | API | P0 (giỏ $400,000\text{ ₫}$) | Header `Bearer <token_user>`; Body `{"code": "BIGBUY", "total_amount": 400000, "user_id": 2}` | `POST /api/apply-coupon` | `REJ-COUPON` (`400 Bad Request` — từ chối vì `400,000 < min_order_amount 500,000`, vi phạm **C3**) | README 118, 131 (C3) |
+| EP-TC12 | EP (cô lập V2: `total_amount` âm tại `apply-coupon`) | EC12, EC36 | API | P1 | Header `Bearer <token_user>`; Body `{"code": "SAVE10", "total_amount": -100000, "user_id": 2}` | `POST /api/apply-coupon` | `REJ-COUPON` (`400 Bad Request` — tổng tiền âm không hợp lệ) | README 118 (C3); api_spec 160 |
+| EP-TC13 | EP (cô lập R5: gian lận `total_amount` tại `checkout`) | EC13, EC37 | API | P1 (giỏ hàng thực tế $500,000\text{ ₫}$) | Header `Bearer <token_user>`; Body `{"total_amount": 1000, "shipping_address": ADDR_NOM}` | Gửi `POST /api/checkout` với `total_amount = 1000` (thấp hơn thực tế $500,000\text{ ₫}$) rồi kiểm tra `GET /api/orders` | Bị từ chối `400 Bad Request` (`REJ-CHECKOUT`), hoặc nếu tạo đơn thì `total_amount` lưu trong DB bắt buộc phải là $500,000\text{ ₫}$ do server tự tính lại (tuyệt đối không lưu $1,000\text{ ₫}$) | README 107 (FR-08); R5; Q3 |
+| EP-TC14 | EP (cô lập C1 vế 1: mã không tồn tại) | EC18, EC36 | API | P1 | Header `Bearer <token_user>`; Body `{"code": "NOTEXIST99", "total_amount": 500000, "user_id": 2}` | `POST /api/apply-coupon` | `REJ-COUPON` (`400`/`404` — từ chối vì mã không tồn tại trong hệ thống, vi phạm **C1**) | README 116 (C1) |
+| EP-TC15 | EP (cô lập C1 vế 2: mã có `is_active = 0`) | EC19, EC36 | API | P1 (đã có mã `"INACTIVE10"` với `is_active = 0` trong DB) | Header `Bearer <token_user>`; Body `{"code": "INACTIVE10", "total_amount": 500000, "user_id": 2}` | `POST /api/apply-coupon` | `REJ-COUPON` (`400 Bad Request` — từ chối vì mã có `is_active = 0`, vi phạm **C1**) | README 116 (C1); Q5 |
+| EP-TC16 | EP (cô lập C2: mã đã hết hạn `EXPIRED`) | EC20, EC36 | API | P1 | Header `Bearer <token_user>`; Body `{"code": "EXPIRED", "total_amount": 500000, "user_id": 2}` | `POST /api/apply-coupon` | `REJ-COUPON` (`400 Bad Request` — từ chối vì `expired_at = 2020-01-01 < NOW`, vi phạm **C2**) | README 117, 133 (C2) |
+| EP-TC17 | EP (cô lập V3: mã giảm giá rỗng `""`) | EC21, EC36 | API | P1 | Header `Bearer <token_user>`; Body `{"code": "", "total_amount": 500000, "user_id": 2}` | `POST /api/apply-coupon` | `REJ-COUPON` (`400 Bad Request` — mã giảm giá không được rỗng) | README 116 (C1); api_spec 159 |
+| EP-TC18 | EP (cô lập V3: mã giảm giá toàn khoảng trắng) | EC22, EC36 | API | P1 | Header `Bearer <token_user>`; Body `{"code": "     ", "total_amount": 500000, "user_id": 2}` | `POST /api/apply-coupon` | `REJ-COUPON` (`400 Bad Request`) | README 116 (C1); Q6 |
+| EP-TC19 | EP (cô lập C5: dùng `SAVE10` vượt `max_uses = 1`) | EC24, EC36 | API | P4 (`usage_count(SAVE10) = 1` — user 2 đã dùng `SAVE10` 1 lần) | Header `Bearer <token_user>`; Body `{"code": "SAVE10", "total_amount": 500000, "user_id": 2}` | Sau khi user 2 đã dùng `SAVE10` 1 lần (và đặt hàng), gọi `POST /api/apply-coupon` với `"SAVE10"` lần thứ 2 | `REJ-COUPON` (`400 Bad Request` — từ chối vì số lần dùng `1` không nhỏ hơn `max_uses_per_user = 1`, vi phạm **C5**) | README 120, 130 (C5); Q4 |
+| EP-TC20 | EP (cô lập C5: dùng `VIP100` vượt `max_uses = 2`) | EC26, EC36 | API | P4 (`usage_count(VIP100) = 2` — user 2 đã dùng `VIP100` đủ 2 lần) | Header `Bearer <token_user>`; Body `{"code": "VIP100", "total_amount": 500000, "user_id": 2}` | Sau khi user 2 đã dùng `VIP100` 2 lần, gọi `POST /api/apply-coupon` với `"VIP100"` lần thứ 3 | `REJ-COUPON` (`400 Bad Request` — từ chối vì số lần dùng `2` không nhỏ hơn `max_uses_per_user = 2`, vi phạm **C5**) | README 120, 132 (C5); Q4 |
+| EP-TC21 | EP (cô lập V5: `shipping_address` rỗng `""`) | EC28, EC37 | API | P1 | Header `Bearer <token_user>`; Body `{"total_amount": 500000, "shipping_address": ""}` | `POST /api/checkout` rồi kiểm tra `OC-ORDER-NO` | `REJ-CHECKOUT` (`400 Bad Request` + `OC-ORDER-NO` — không cho phép đặt hàng khi địa chỉ giao hàng rỗng) | README 105 (FR-08), 252 (FR-22); Q1 |
+| EP-TC22 | EP (cô lập V5: `shipping_address` toàn khoảng trắng) | EC29, EC37 | API | P1 | Header `Bearer <token_user>`; Body `{"total_amount": 500000, "shipping_address": "      "}` | `POST /api/checkout` rồi kiểm tra `OC-ORDER-NO` | `REJ-CHECKOUT` (`400 Bad Request` + `OC-ORDER-NO`) | README 105 (FR-08); Q1 |
+| EP-TC23 | EP (cô lập V5: `shipping_address` dài 300 ký tự `> 255`) | EC30, EC37 | API | P1 | Header `Bearer <token_user>`; Body `{"total_amount": 500000, "shipping_address": 'A'×300}` | `POST /api/checkout` rồi kiểm tra `OC-ORDER-NO` | `REJ-CHECKOUT` (`400 Bad Request` + `OC-ORDER-NO` theo giả định cận trên 255 ký tự Q1) | Q1 (giả định max 255) |
+| EP-TC24 | EP (cô lập V5: `shipping_address` sai kiểu dữ liệu số) | EC31, EC37 | API | P1 | Header `Bearer <token_user>`; Body `{"total_amount": 500000, "shipping_address": 12345}` | `POST /api/checkout` rồi kiểm tra `OC-ORDER-NO` | `REJ-CHECKOUT` (`400 Bad Request` + `OC-ORDER-NO`) | api_spec 135 |
+| EP-TC25 | EP (bảo mật hiển thị SEC-04 cho `shipping_address`) | EC32, EC35 | API + UI | P1 | Header `Bearer <token_user>`; Body `{"total_amount": 500000, "shipping_address": "<img src=x onerror=alert(1)> 123 Lê Lợi"}` | (1) `POST /api/checkout`; (2) Xem lịch sử đơn hàng hiển thị địa chỉ giao hàng | (1) Nếu tạo đơn: lưu chuỗi văn bản; (2) Khi hiển thị trên UI: escape dưới dạng văn bản thuần, **không** render thẻ `<img>` thực thi `onerror` | README 281 (SEC-04) |
+| EP-TC26 | EP (Mobile UI gộp luồng hợp lệ Áp mã + Đặt hàng) | EC01, EC06, EC08, EC14, EC27, EC33, EC35, EC38 | Mobile UI | P1 (đăng nhập `test@eshop.com` trên Mobile viewport `390×844`, giỏ hàng có SP tổng $500,000\text{ ₫}$) | Mã giảm giá: `"SAVE10"`; Địa chỉ giao hàng: `ADDR_NOM` | Mở màn hình Giỏ hàng/Thanh toán trên Mobile $\rightarrow$ nhập `"SAVE10"` $\rightarrow$ bấm `"Áp dụng"` $\rightarrow$ kiểm tra hiển thị giảm $50,000\text{ ₫}$ còn $450,000\text{ ₫}$ $\rightarrow$ nhập `ADDR_NOM` $\rightarrow$ bấm `"Thanh toán"` | Giao diện Mobile hiển thị số tiền giảm & tổng tiền sau giảm chính xác; sau khi bấm Thanh toán thông báo thành công, giỏ hàng về trống và đơn hàng lưu trong DB có `total_amount = 450000`, `shipping_address = ADDR_NOM` | README 235–236 (FR-20.3), 104–124 (FR-08, FR-09) |
+| EP-TC27 | EP (Mobile UI cô lập mã hết hạn `EXPIRED`) | EC20, EC36, EC39 | Mobile UI | P1 (màn hình Giỏ hàng/Thanh toán Mobile, giỏ $500,000\text{ ₫}$) | Mã giảm giá: `"EXPIRED"` | Nhập `"EXPIRED"` vào ô mã giảm giá trên màn hình Mobile $\rightarrow$ bấm `"Áp dụng"` | Hiển thị thông báo lỗi rõ ràng bằng tiếng Việt trên màn hình Mobile; tổng tiền thanh toán giữ nguyên $500,000\text{ ₫}$ | README 117 (C2), 235 (FR-20.3), 246 (FR-21) |
+| EP-TC28 | EP (Mobile UI kiểm tra nhãn bắt buộc có dấu `*`) | EC40 | Mobile UI | P1 (mở màn hình Giỏ hàng/Thanh toán Mobile) | Quan sát trường Địa chỉ giao hàng (bắt buộc) trên màn hình Thanh toán Mobile | Kiểm tra sự tồn tại của ô nhập Địa chỉ giao hàng và ký hiệu `*` trên nhãn trường bắt buộc | Màn hình Thanh toán Mobile có ô nhập Địa chỉ giao hàng kèm nhãn có dấu `*` chỉ thị trường bắt buộc | README 105 (FR-08), 252 (FR-22) |
+| EP-TC29 | EP (Mobile UI cô lập địa chỉ rỗng & vị trí lỗi) | EC28, EC37, EC41 | Mobile UI | P1 (mở màn hình Giỏ hàng/Thanh toán Mobile) | Để trống Địa chỉ giao hàng (`""`) | Không nhập địa chỉ giao hàng trên Mobile $\rightarrow$ bấm nút `"Thanh toán"` $\rightarrow$ kiểm tra thông báo lỗi và `GET /api/orders` | Bị chặn không cho đặt hàng; thông báo lỗi hiển thị phía trên nút Submit; `OC-ORDER-NO` (không tạo đơn hàng thiếu địa chỉ) | README 105 (FR-08), 252, 255 (FR-22) |
+| EP-TC30 | EP (Mobile UI kiểm tra định dạng tiền tệ `₫` & ngôn ngữ) | EC42 | Mobile UI | P1 (mở màn hình Giỏ hàng/Thanh toán Mobile) | Quan sát giá sản phẩm, số tiền giảm và tổng tiền trên màn hình Mobile | Kiểm tra chuỗi hiển thị tiền tệ và nhãn nút bấm trên màn hình Giỏ hàng/Thanh toán Mobile | Mọi số tiền hiển thị có dấu phân cách hàng nghìn kèm ký hiệu `₫` (hoặc `VNĐ`, không dùng `$`); toàn bộ nhãn và thông báo dùng tiếng Việt nhất quán | README 247, 248 (FR-21) |
+
+**Giải thích:**
+- **Ca hợp lệ (gộp có kiểm soát):** Thiết kế 4 ca API hợp lệ (`EP-TC01` cho luồng Checkout không mã; `EP-TC02` cho nhánh `SAVE10` `percent` kết hợp Checkout; `EP-TC03` cho nhánh `BIGBUY` `fixed` ngưỡng $500\text{k}$; `EP-TC04` cho nhánh `VIP100` `fixed` ở lần dùng thứ 2 với `max_uses = 2`) và 1 ca luồng chính trên giao diện Mobile (`EP-TC26`).
+- **Ca không hợp lệ (cô lập lỗi Single-Fault 100%):** Toàn bộ 20 ca âm API (`EP-TC05`–`EP-TC24`) và 2 ca âm UI (`EP-TC27`, `EP-TC29`) tuân thủ nghiêm ngặt quy tắc **Single-Fault Isolation**: mỗi ca chỉ vi phạm **đúng 1 điều kiện** (ví dụ: khi kiểm tra `C2` hết hạn ở `EP-TC16` bằng mã `EXPIRED`, thì `C1` `is_active = 1`, `C3` `total_amount = 500000 >= 100000`, `C4` có `token_user` hợp lệ và `C5` `usage_count = 0 < 1` đều hoàn toàn hợp lệ). Nhờ vậy, khi ca kiểm thử trả về lỗi hoặc không trả về lỗi như kỳ vọng, ta xác định được ngay điều kiện nào (`C1`, `C2`, `C3`, `C4`, `C5`, hay `R5`) bị cài đặt thiếu.
+
+### Truy vết EC → Test case (xem thêm Bước 3b bên dưới)
+
+| EC ID | Test case phủ | EC ID | Test case phủ | EC ID | Test case phủ |
+|---|---|---|---|---|---|
+| EC01 | TC01, TC02, TC03, TC04, TC26 | EC15 | TC03 | EC29 | TC22 |
+| EC02 | TC05 | EC16 | TC04 | EC30 | TC23 |
+| EC03 | TC06 | EC17 | TC01 | EC31 | TC24 |
+| EC04 | TC07 | EC18 | TC14 | EC32 | TC25 |
+| EC05 | TC08 | EC19 | TC15 | EC33 | TC02, TC26 |
+| EC06 | TC01, TC26 | EC20 | TC16, TC27 | EC34 | TC03, TC04 |
+| EC07 | TC09 | EC21 | TC17 | EC35 | TC01, TC02, TC25, TC26 |
+| EC08 | TC02, TC04, TC26 | EC22 | TC18 | EC36 | TC05–TC07, TC10–TC12, TC14–TC20, TC27 |
+| EC09 | TC10 | EC23 | TC02, TC03 | EC37 | TC08, TC09, TC13, TC21–TC24, TC29 |
+| EC10 | TC03 | EC24 | TC19 | EC38 | TC26 |
+| EC11 | TC11 | EC25 | TC04 | EC39 | TC27 |
+| EC12 | TC12 | EC26 | TC20 | EC40 | TC28 |
+| EC13 | TC13 | EC27 | TC01, TC02, TC26 | EC41 | TC29 |
+| EC14 | TC02, TC26 | EC28 | TC21, TC29 | EC42 | TC30 |
+
+### Bước 3b — Bảng ca sơ bộ (mỗi EC một dòng) và phân tích rút gọn
+
+Theo bài giảng (Slide 17 → 18): trước hết duyệt **100% EC** (`EC01`–`EC42`), mỗi EC một dòng sơ bộ; khi dòng đó kiểm tra một EC invalid thì mọi biến còn lại **bắt buộc hợp lệ** (cô lập lỗi). Sau đó gộp các dòng hợp lệ có cùng luồng tương tác và kết quả mong đợi.
+
+| Dòng | EC | Biến / Thành phần | Giá trị kiểm tra | Các biến khác (giữ Nominal hợp lệ) | Kết quả mong đợi sơ bộ | → TC sau rút gọn |
+|---:|---|---|---|---|---|---|
+| 1 | EC01 | V1 (`user_token` & `user_id`) | `Bearer <token_user>`, `user_id = 2` | V2, V3, V4, V5 hợp lệ | Áp mã & Thanh toán thành công | **TC01–TC04, TC26** (gộp) |
+| 2 | EC02 | V1 (`apply-coupon`) | Không có header `Authorization` | `code = "SAVE10"`, `total = 500000`, `user_id = 2` | `REJ-COUPON` (`401`) | TC05 |
+| 3 | EC03 | V1 (`apply-coupon`) | `Bearer token.gia.mao` | `code = "SAVE10"`, `total = 500000`, `user_id = 2` | `REJ-COUPON` (`401`/`403`) | TC06 |
+| 4 | EC04 | V1 (`apply-coupon`) | `user_id = null` / mạo danh `1` | `Bearer <token_user>`, `code = "SAVE10"`, `total = 500000` | `REJ-COUPON` (`400`/`403`) | TC07 |
+| 5 | EC05 | V1 (`checkout`) | Không có header `Authorization` | Giỏ $500\text{k}$, `address = ADDR_NOM` | `REJ-CHECKOUT` (`401`) | TC08 |
+| 6 | EC06 | V2 (`cart_state`) | Giỏ $\ge 1$ SP ($500,000\text{ ₫}$) | V1, V5 hợp lệ | Đặt hàng thành công | **TC01, TC26** (gộp) |
+| 7 | EC07 | V2 (`cart_state`) | Giỏ trống (`[]`, 0 SP) | `Bearer <token_user>`, `address = ADDR_NOM` | `REJ-CHECKOUT` (`400`) | TC09 |
+| 8 | EC08 | V2 (`total_amount` — C3 $300\text{k}$) | `total_amount = 500000 >= 300000` | V1, V3 (`SAVE10`/`VIP100`), V4 hợp lệ | Áp mã thành công | **TC02, TC04, TC26** (gộp) |
+| 9 | EC09 | V2 (`total_amount` — C3 $300\text{k}$) | `total_amount = 200000 < 300000` | `Bearer <token_user>`, `code = "SAVE10"`, `user_id = 2` | `REJ-COUPON` (`400`) | TC10 |
+| 10 | EC10 | V2 (`total_amount` — C3 $500\text{k}$) | `total_amount = 600000 >= 500000` | V1, V3 (`BIGBUY`), V4 hợp lệ | Áp mã `BIGBUY` thành công | **TC03** (gộp) |
+| 11 | EC11 | V2 (`total_amount` — C3 $500\text{k}$) | `total_amount = 400000 < 500000` | `Bearer <token_user>`, `code = "BIGBUY"`, `user_id = 2` | `REJ-COUPON` (`400`) | TC11 |
+| 12 | EC12 | V2 (`total_amount` âm) | `total_amount = -100000` | `Bearer <token_user>`, `code = "SAVE10"`, `user_id = 2` | `REJ-COUPON` (`400`) | TC12 |
+| 13 | EC13 | V2 (`total_amount` gian lận) | `total_amount = 1000` (giỏ $500\text{k}$) | `Bearer <token_user>`, `address = ADDR_NOM` | Từ chối `400` hoặc tính lại $500\text{k}$ | TC13 |
+| 14 | EC14 | V3 (`code = "SAVE10"`) | `"SAVE10"` (`percent` $10\%$) | V1, V2 ($500\text{k}$), V4 (`0`) hợp lệ | `OC-COUPON-OK(50000, 450000)` | **TC02, TC26** (gộp) |
+| 15 | EC15 | V3 (`code = "BIGBUY"`) | `"BIGBUY"` (`fixed` $50\text{k}$) | V1, V2 ($600\text{k}$), V4 (`0`) hợp lệ | `OC-COUPON-OK(50000, 550000)` | **TC03** (gộp) |
+| 16 | EC16 | V3 (`code = "VIP100"`) | `"VIP100"` (`fixed` $100\text{k}$) | V1, V2 ($500\text{k}$), V4 (`1`) hợp lệ | `OC-COUPON-OK(100000, 400000)` | **TC04** (gộp) |
+| 17 | EC17 | V3 (Không dùng mã) | Không áp mã giảm giá | V1, V2 ($500\text{k}$), V5 hợp lệ | `OC-CHECKOUT-OK(500000, ADDR_NOM)` | **TC01** (gộp) |
+| 18 | EC18 | V3 (C1 vế 1: không tồn tại) | `code = "NOTEXIST99"` | `Bearer <token_user>`, `total = 500000`, `user_id = 2` | `REJ-COUPON` (`400`/`404`) | TC14 |
+| 19 | EC19 | V3 (C1 vế 2: `is_active = 0`) | `code = "INACTIVE10"` | `Bearer <token_user>`, `total = 500000`, `user_id = 2` | `REJ-COUPON` (`400`) | TC15 |
+| 20 | EC20 | V3 (C2: đã hết hạn) | `code = "EXPIRED"` (`2020-01-01`) | `Bearer <token_user>`, `total = 500000`, `user_id = 2` | `REJ-COUPON` (`400`) | TC16, TC27 |
+| 21 | EC21 | V3 (`code` rỗng) | `code = ""` | `Bearer <token_user>`, `total = 500000`, `user_id = 2` | `REJ-COUPON` (`400`) | TC17 |
+| 22 | EC22 | V3 (`code` khoảng trắng) | `code = "     "` | `Bearer <token_user>`, `total = 500000`, `user_id = 2` | `REJ-COUPON` (`400`) | TC18 |
+| 23 | EC23 | V4 (C5 `usage_count = 0 < 1`) | `usage_count = 0` (`SAVE10`/`BIGBUY`) | V1, V2, V3 hợp lệ | Áp mã lần 1 thành công | **TC02, TC03** (gộp) |
+| 24 | EC24 | V4 (C5 `usage_count = 1 >= 1`) | `usage_count = 1` (`SAVE10` lần 2) | `Bearer <token_user>`, `total = 500000`, `user_id = 2` | `REJ-COUPON` (`400`) | TC19 |
+| 25 | EC25 | V4 (C5 `usage_count = 1 < 2`) | `usage_count = 1` (`VIP100` lần 2) | `Bearer <token_user>`, `total = 500000`, `user_id = 2` | Áp mã lần 2 thành công | **TC04** (gộp) |
+| 26 | EC26 | V4 (C5 `usage_count = 2 >= 2`) | `usage_count = 2` (`VIP100` lần 3) | `Bearer <token_user>`, `total = 500000`, `user_id = 2` | `REJ-COUPON` (`400`) | TC20 |
+| 27 | EC27 | V5 (`shipping_address` hợp lệ) | `ADDR_NOM` (44 ký tự) | V1, V2 hợp lệ | Đặt hàng thành công | **TC01, TC02, TC26** (gộp) |
+| 28 | EC28 | V5 (`shipping_address = ""`) | `""` (0 ký tự) | `Bearer <token_user>`, giỏ $500\text{k}$ | `REJ-CHECKOUT` (`400`) | TC21, TC29 |
+| 29 | EC29 | V5 (`shipping_address` khoảng trắng) | `"      "` (6 dấu cách) | `Bearer <token_user>`, giỏ $500\text{k}$ | `REJ-CHECKOUT` (`400`) | TC22 |
+| 30 | EC30 | V5 (`shipping_address` $> 255$) | `'A'×300` (300 ký tự) | `Bearer <token_user>`, giỏ $500\text{k}$ | `REJ-CHECKOUT` (`400`) | TC23 |
+| 31 | EC31 | V5 (`shipping_address` sai kiểu) | `12345` (kiểu số) | `Bearer <token_user>`, giỏ $500\text{k}$ | `REJ-CHECKOUT` (`400`) | TC24 |
+| 32 | EC32 | V5 (`shipping_address` XSS) | `"<img src=x onerror=alert(1)>..."` | `Bearer <token_user>`, giỏ $500\text{k}$ | Lưu chuỗi; UI escape an toàn | TC25 |
+| 33 | EC33 | Output (`percent` O1) | Giảm $10\%$ (`SAVE10`) | — | `OC-COUPON-OK(50000, 450000)` | **TC02, TC26** (gộp) |
+| 34 | EC34 | Output (`fixed` O1) | Giảm cố định (`BIGBUY`/`VIP100`) | — | `OC-COUPON-OK` | **TC03, TC04** (gộp) |
+| 35 | EC35 | Output (`checkout` O2, O3) | Đơn `pending` + xóa giỏ hàng | — | `OC-CHECKOUT-OK` | **TC01, TC02, TC25, TC26** (gộp) |
+| 36 | EC36 | Output (Lỗi `apply-coupon` O4) | Từ chối áp mã (`4xx`) | — | `REJ-COUPON` | **TC05–TC07, TC10–TC12, TC14–TC20, TC27** (gộp) |
+| 37 | EC37 | Output (Lỗi `checkout` O5) | Từ chối đặt hàng (`4xx` + `OC-ORDER-NO`) | — | `REJ-CHECKOUT` | **TC08, TC09, TC13, TC21–TC24, TC29** (gộp) |
+| 38–42 | EC38–EC42 | Mobile UI (`FR-20.3`, `FR-21`, `FR-22`) | Xem bảng EC (`EC38`–`EC42`) | Các biến khác hợp lệ | Quan sát Mobile DOM & API | **TC26–TC30** (mỗi EC UI 1 ca) |
+
+**Phân tích rút gọn:**
+- **Gộp ca hợp lệ:**
+  - Dòng 1 (`EC01`), dòng 6 (`EC06`), dòng 17 (`EC17`), dòng 27 (`EC27`) và dòng 35 (`EC35`) gộp thành **EP-TC01** (luồng thanh toán hợp lệ không dùng mã giảm giá).
+  - Dòng 1 (`EC01`), dòng 8 (`EC08`), dòng 14 (`EC14`), dòng 23 (`EC23`), dòng 27 (`EC27`), dòng 33 (`EC33`) và dòng 35 (`EC35`) gộp thành **EP-TC02** (luồng áp mã phần trăm `SAVE10` và thanh toán đơn hàng sau giảm giá).
+  - Dòng 1 (`EC01`), dòng 10 (`EC10`), dòng 15 (`EC15`), dòng 23 (`EC23`) và dòng 34 (`EC34`) gộp thành **EP-TC03** (luồng áp mã cố định `BIGBUY` ngưỡng $500,000\text{ ₫}$).
+  - Dòng 1 (`EC01`), dòng 8 (`EC08`), dòng 16 (`EC16`), dòng 25 (`EC25`) và dòng 34 (`EC34`) gộp thành **EP-TC04** (luồng áp mã cố định `VIP100` ở lần dùng thứ 2 với `max_uses_per_user = 2`).
+- **Gộp output ngoại lệ:** `EC36` được phủ chung bởi toàn bộ các ca âm của `/api/apply-coupon`; `EC37` được phủ chung bởi toàn bộ các ca âm của `/api/checkout`.
+- **Giữ nguyên ca âm độc lập:** Toàn bộ 20 lớp không hợp lệ trên API (`EC02`–`EC05`, `EC07`, `EC09`, `EC11`–`EC13`, `EC18`–`EC22`, `EC24`, `EC26`, `EC28`–`EC31`) và 5 lớp giao diện Mobile (`EC38`–`EC42`) được giữ độc lập từng ca để cô lập lỗi tuyệt đối.
+- **Kết quả:** 42 EC $\rightarrow$ 42 dòng sơ bộ $\rightarrow$ **30 ca kiểm thử EP (`EP-TC01`–`EP-TC30`)**, không có ca trùng lặp.
+
+### Báo cáo độ phủ
+
+- Số điều kiện đã phân tích: 5 biến đầu vào chính (`V1`–`V5`) + 5 điều kiện hợp lệ của coupon (`C1`–`C5`) + 2 nhánh công thức tính giảm giá (`percent`, `fixed`) + 8 ràng buộc nghiệp vụ (`R1`–`R8`) + 5 lớp đầu ra (`O1`–`O5`) + 5 ràng buộc giao diện Mobile (`FR-20.3`, `FR-21`, `FR-22`)
+- Lớp EP: **15 hợp lệ (12 API + 3 Mobile UI) + 22 không hợp lệ (20 API + 2 Mobile UI) + 5 lớp đầu ra = 42**
+- Lớp đã phủ: **42 / 42** (phủ 100% các EC *đã biết* theo đặc tả)
+- Số test case EP: **30** (API: 24, API+UI: 1, Mobile UI: 5); đã loại trùng: 0
+- Câu hỏi mở / mơ hồ: `Q1`–`Q7` đã được sinh viên xác nhận ở Bước 1; phát sinh thêm **Q8, Q9** trong quá trình thiết kế chi tiết (xem bảng dưới).
+
+**Câu hỏi mở phát sinh khi thiết kế (đã được sinh viên xác nhận ở Human Review):**
+
+| Mã | Mô tả | Giả định tạm đề xuất | Trạng thái |
+|---|---|---|---|
+| **Q8** | **Xử lý kết quả các ca phụ thuộc giả định cận trên độ dài 255 ký tự của `shipping_address` (`EP-TC23`, `BV-TC08`, `BV-TC09`, `BV-TC10`):** Giống như ở FR-08 và FR-14, con số $255$ ký tự là giả định kỹ thuật `Q1` do `README.md` chỉ nêu trường bắt buộc mà không ghi số ký tự tối đa. Nếu thực thi `EP-TC23` ($300$ ký tự) và `BV-TC10` ($256$ ký tự) mà hệ thống vẫn cho phép tạo đơn hàng thì xử lý thế nào? | Đồng bộ quy tắc với FR-08 và FR-14: kết quả thực thi của `EP-TC23` và `BV-TC10` vẫn được chấm trung thực theo Oracle `Q1` trong bảng thực thi, nhưng được gắn nhãn phụ thuộc câu hỏi mở `Q1`/`Q8` và không tự ý tách thành báo cáo bug độc lập nếu không gây lỗi hệ thống. | **Đã xác nhận** |
+| **Q9** | **Cơ chế truyền địa chỉ giao hàng trên giao diện Mobile (`frontend-mobile`) khi bấm Thanh toán:** Đặc tả API (`api_specification.md` mục 4.3) yêu cầu `shipping_address` khi gọi `POST /api/checkout`, còn `FR-20.3` (dòng 236) mô tả bấm `"Thanh toán"` trên màn hình Giỏ hàng/Checkout Mobile. Nếu giao diện Mobile không thiết kế ô nhập `shipping_address` (hoặc tự gán cứng chuỗi mặc định / gửi thiếu trường này), đánh giá thế nào ở các ca UI `EP-TC26`, `EP-TC28`, `EP-TC29`? | Theo `FR-08` (dòng 105) và `FR-22` (dòng 252), địa chỉ giao hàng là thông tin bắt buộc người mua phải cung cấp khi đặt hàng. Nếu màn hình Checkout trên Mobile thiếu ô nhập địa chỉ giao hàng (khiến người dùng không thể nhập địa chỉ hoặc gửi thiếu `shipping_address` lên API gây lỗi/lưu địa chỉ rỗng), đây là lỗi thiếu trường bắt buộc trên giao diện Mobile và sẽ được ghi nhận đầy đủ bằng chứng ảnh chụp màn hình. | **Đã xác nhận** |
+
+---
+
+## 2. Boundary Value Analysis — FR-20.3: Mobile: Thanh toán (Checkout) và Áp mã giảm giá
+
+**Chế độ BVA:** Robustness ($6n + 1$)  
+**Lý do chọn chế độ:** Theo yêu cầu của bài tập và đặc thù của tính năng Thanh toán kết hợp Áp mã giảm giá, các lỗi sai sót phổ biến nhất của lập trình viên nằm ở việc dùng sai toán tử so sánh tại các ngưỡng định lượng (`>` thay vì `>=` ở điều kiện `C3: total_amount >= min_order_amount`, `<=` thay vì `<` ở điều kiện `C5: usage_count < max_uses_per_user`, hoặc thiếu kiểm tra biên dưới `0` sản phẩm / `0` ký tự địa chỉ). Với $n = 4$ biến có thứ tự (`B01` số lượng sản phẩm trong giỏ, `B02` độ dài địa chỉ giao hàng, `B03` tổng tiền đơn hàng tại ngưỡng `min_order_amount`, `B04` số lần sử dụng mã `coupon_usage_count`), chế độ **Robustness ($6n + 1 = 25$)** bao phủ trọn vẹn cả các điểm biên hợp lệ lẫn các điểm sát biên ngoài miền (`LB - δ`, `UB + δ`) với số lượng ca kiểm thử tối ưu ($25$ vector lý thuyết), trong khi Worst-case ($5^4 = 625$) và Robust Worst-case ($7^4 = 2,401$) làm bùng nổ tổ hợp không cần thiết.  
+**Ngày thiết kế:** 2026-10-16
+
+**So sánh bốn chế độ với $n = 4$ (để chứng minh lựa chọn):**
+
+| Chế độ | Công thức | Số ca lý thuyết | Lý do chọn / loại |
+|---|---|---:|---|
+| Standard | $4n + 1$ | 17 | **Loại:** Không có các điểm ngoài miền (`LB - δ`, `UB + δ`) như $299,999\text{ ₫}$ (dưới ngưỡng `SAVE10` $1\text{ ₫}$), $499,999\text{ ₫}$ (dưới ngưỡng `BIGBUY` $1\text{ ₫}$), số lần dùng chạm mức bị chặn `max_uses_per_user`, hay giỏ hàng $0$ sản phẩm |
+| **Robustness** | **$6n + 1$** | **25** | **Chọn:** Kiểm tra đầy đủ 6 điểm biên (`LB - δ`, `LB`, `LB + δ`, `UB - δ`, `UB`, `UB + δ`) cho từng biến có thứ tự theo giả định đơn lỗi (Single-Fault), bắt chính xác lỗi lệch 1 đơn vị (off-by-one) |
+| Worst-case | $5^n$ | 625 | **Loại:** Độ dài địa chỉ giao hàng (`B02`) và số lần dùng mã (`B04`) không tương tác toán học với nhau; nhân tích Descartes $625$ ca gây dư thừa lớn |
+| Robust Worst-case | $7^n$ | 2,401 | **Loại:** Tương tự Worst-case, số lượng tổ hợp $2,401$ ca quá lớn và vượt quá nhu cầu kiểm thử biên thực tế |
+
+**Biến không đưa vào BVA đầu vào chính (có lý do, không bỏ sót):**
+
+| Biến / Điều kiện | Lý do không đưa vào $n = 4$ biến BVA đầu vào chính |
+|---|---|
+| V1 (`user_token` & `user_id`) | Là biến định danh xác thực và trạng thái đăng nhập (**C4**), không có miền thứ tự liên tục. Đã được phủ trọn vẹn ở EP (`EC01`–`EC05`). |
+| V3 (`coupon_code` — **C1** tồn tại & `is_active`) | Tên mã giảm giá (`"SAVE10"`, `"BIGBUY"`, `"VIP100"`) là tập định danh rời rạc và cờ `is_active` $\in \{0, 1\}$ là biến nhị phân (Boolean), không có khoảng cách biên số học. Đã phủ ở EP (`EC14`–`EC22`). |
+| Ngày hết hạn `expired_at` (**C2**) | Trong dữ liệu mẫu của SUT, `expired_at` cố định ở `2099-12-31` và `2020-01-01`. Biên thời gian sát ngày hiện tại (`Yesterday`, `Today`, `Tomorrow` theo `Q5`) được thiết kế riêng thành ca kiểm thử biên đặc biệt **`OB-TC02`** ở Bước 4 bên dưới để không làm nhiễu vector tiền tệ của 4 mã gốc. |
+| Giá trị giảm giá / `final_amount = max(0, total_amount - discount_value)` | Là đại lượng **đầu ra** phụ thuộc hàm toán học $\max(0, \text{total\_amount} - \text{discount\_value})$; được kiểm thử chuyên sâu tại **Bước 4 — Biên đầu ra (`OB-TC01`)** khi `discount_value >= total_amount` làm `final_amount` chạm đúng biên dưới $0\text{ ₫}$. |
+
+### Bước 1 — Xác định phân vùng có thứ tự và các cận
+
+| B ID | Biến | Ràng buộc (trích đặc tả) | LB | UB | Loại cận LB | Loại cận UB | $\delta$ (bước nhỏ nhất) | Nominal | Nguồn |
+|---|---|---|---|---|---|---|---|---|---|
+| **B01** | Số lượng sản phẩm trong giỏ hàng (`cart_item_qty`) | Giỏ hàng có ít nhất $1$ sản phẩm và không vượt quá tồn kho `stock` của sản phẩm (`stock = 10` cho SP chuẩn) | `1` SP | `10` SP (`stock`) | Đóng | Đóng | `1` sản phẩm | `2` SP ($500,000\text{ ₫}$) | README 96–98 (FR-07), 104 (FR-08) |
+| **B02** | Độ dài chuỗi Địa chỉ giao hàng (`len(shipping_address)`) | Bắt buộc không rỗng ($\ge 1$ ký tự); tối đa $255$ ký tự (theo `Q1`) | `1` ký tự | `255` ký tự *(Q1)* | Đóng | Đóng | `1` ký tự | `44` ký tự (`ADDR_NOM`) | README 105 (FR-08), 252 (FR-22); Q1 |
+| **B03** | Tổng tiền đơn hàng `total_amount` tại ngưỡng `min_order_amount` (**C3**) | `total_amount >= min_order_amount`: mốc ngưỡng dưới $\text{LB}_1 = 300,000\text{ ₫}$ (`SAVE10`/`VIP100`) và mốc ngưỡng trên $\text{LB}_2 = 500,000\text{ ₫}$ (`BIGBUY`) | `300,000` ₫ ($\text{LB}_1$ của `SAVE10`) | `500,000` ₫ ($\text{LB}_2$ của `BIGBUY`) | Đóng ($\ge 300,000$) | Đóng ($\ge 500,000$) | `1` ₫ | `600,000` ₫ | README 118, 130–132 (FR-09 C3) |
+| **B04** | Số lần user đã dùng mã (`coupon_usage_count` — **C5**) | `usage_count < max_uses_per_user`, tức số nguyên $\text{usage\_count} \in [0, \text{max\_uses\_per\_user} - 1]$ (với `VIP100` có `max = 2` $\implies [0, 1]$; với `SAVE10` có `max = 1` $\implies [0, 0]$) | `0` lần | `1` lần (`max - 1` của `VIP100`; hoặc `0` của `SAVE10`) | Đóng ($\ge 0$) | Đóng ($\le \text{max}-1$, cận mở tại `max`) | `1` lần dùng | `0` lần | README 120, 130–132 (FR-09 C5); Q4 |
+
+**Giải thích:**
+- **Với B01 (`cart_item_qty`):** Số lượng sản phẩm là số nguyên dương ($\delta = 1$). Cận dưới $\text{LB} = 1$ (đóng: $1$ SP hợp lệ, $0$ SP là giỏ hàng rỗng không hợp lệ). Cận trên $\text{UB} = 10$ là mức tồn kho `stock = 10` của sản phẩm chuẩn trong fixture (`10` SP hợp lệ, `11` SP vượt tồn kho không hợp lệ).
+- **Với B02 (`len(shipping_address)`):** Bước nhỏ nhất $\delta = 1$ ký tự; đoạn đóng $[1, 255]$ có $\text{LB}-\delta = 0$ (`""`), $\text{LB} = 1$ (`"A"`), $\text{LB}+\delta = 2$ (`"AB"`), $\text{UB}-\delta = 254$ (`'A'×254`), $\text{UB} = 255$ (`'A'×255`), $\text{UB}+\delta = 256$ (`'A'×256`).
+- **Với B03 (`total_amount` so với `min_order_amount` — Điều kiện C3):** Đặc tả `FR-09` không đặt cận trên tối đa cho giá trị đơn hàng (miền một phía ở đầu trên), nhưng quy định **hai mốc ngưỡng `min_order_amount` phân biệt** cho các mã đang hoạt động là $\text{LB}_1 = 300,000\text{ ₫}$ (`SAVE10`, `VIP100`) và $\text{LB}_2 = 500,000\text{ ₫}$ (`BIGBUY`). Do đó, 6 điểm biên của `B03` với bước tiền tệ nhỏ nhất $\delta = 1\text{ ₫}$ được đặt chính xác tại bộ ba điểm quanh ngưỡng $300,000\text{ ₫}$ của `SAVE10` ($299,999\text{ ₫}$; $300,000\text{ ₫}$; $300,001\text{ ₫}$) và bộ ba điểm quanh ngưỡng $500,000\text{ ₫}$ của `BIGBUY` ($499,999\text{ ₫}$; $500,000\text{ ₫}$; $500,001\text{ ₫}$). Cách ánh xạ này giúp kiểm tra triệt để toán tử `>=` tại cả hai ngưỡng tiền tệ của hệ thống.
+- **Với B04 (`coupon_usage_count` — Điều kiện C5):** Điều kiện `usage_count < max_uses_per_user` với số nguyên `usage_count` ($\delta = 1$) tương đương đoạn đóng $[0, \text{max\_uses\_per\_user} - 1]$. Với `VIP100` (`max = 2`), miền hợp lệ là $[0, 1]$ ($\text{LB} = 0, \text{UB} = 1, \text{UB}+\delta = 2$ không hợp lệ; do độ rộng đoạn bằng $1\delta$ nên $\text{LB}+\delta = \text{UB} = 1$ và $\text{UB}-\delta = \text{LB} = 0$). Với `SAVE10` (`max = 1`), miền hợp lệ suy biến $\text{LB} = \text{UB} = 0$ và điểm ngay sát trên biên là $\text{UB}+\delta = 1$ (không hợp lệ). Điểm $\text{LB}-\delta = -1$ lần dùng là **không thể tiếp cận (`unreachable`)** vì bộ đếm lượt dùng trong CSDL không thể âm.
+
+### Bước 2 — Chọn chế độ và điểm cần kiểm tra
+
+| Điểm | Biến | Giá trị | Quan hệ với biên | Hợp lệ? |
+|---|---|---|---|---|
+| P1 | B01 (`cart_item_qty`) | `0` sản phẩm (giỏ rỗng) | $\text{LB} - \delta$ | Không |
+| P2 | B01 (`cart_item_qty`) | `1` sản phẩm ($250,000\text{ ₫}$) | $\text{LB}$ | Có |
+| P3 | B01 (`cart_item_qty`) | `2` sản phẩm ($500,000\text{ ₫}$) | $\text{LB} + \delta$ | Có |
+| P4 | B01 (`cart_item_qty`) | `9` sản phẩm (`stock - 1`) | $\text{UB} - \delta$ | Có |
+| P5 | B01 (`cart_item_qty`) | `10` sản phẩm (`stock`) | $\text{UB}$ | Có |
+| P6 | B01 (`cart_item_qty`) | `11` sản phẩm (`stock + 1`) | $\text{UB} + \delta$ | Không |
+| P7 | B02 (`len(shipping_address)`) | `0` ký tự (`""`) | $\text{LB} - \delta$ | Không |
+| P8 | B02 (`len(shipping_address)`) | `1` ký tự (`"A"`) | $\text{LB}$ | Có |
+| P9 | B02 (`len(shipping_address)`) | `2` ký tự (`"AB"`) | $\text{LB} + \delta$ | Có |
+| P10 | B02 (`len(shipping_address)`) | `254` ký tự (`'A'×254`) | $\text{UB} - \delta$ | Có |
+| P11 | B02 (`len(shipping_address)`) | `255` ký tự (`'A'×255`) | $\text{UB}$ | Có |
+| P12 | B02 (`len(shipping_address)`) | `256` ký tự (`'A'×256`) | $\text{UB} + \delta$ | Không |
+| P13 | B03 (`total_amount` — ngưỡng `SAVE10` $300\text{k}$) | `299,999` ₫ | $\text{LB}_1 - \delta$ | Không (vi phạm C3) |
+| P14 | B03 (`total_amount` — ngưỡng `SAVE10` $300\text{k}$) | `300,000` ₫ | $\text{LB}_1$ | Có (giảm $30,000\text{ ₫}$) |
+| P15 | B03 (`total_amount` — ngưỡng `SAVE10` $300\text{k}$) | `300,001` ₫ | $\text{LB}_1 + \delta$ | Có (giảm $30,000.1\text{ ₫}$) |
+| P16 | B03 (`total_amount` — ngưỡng `BIGBUY` $500\text{k}$) | `499,999` ₫ | $\text{LB}_2 - \delta$ | Không (vi phạm C3 với `BIGBUY`) |
+| P17 | B03 (`total_amount` — ngưỡng `BIGBUY` $500\text{k}$) | `500,000` ₫ | $\text{LB}_2$ | Có (giảm $50,000\text{ ₫}$) |
+| P18 | B03 (`total_amount` — ngưỡng `BIGBUY` $500\text{k}$) | `500,001` ₫ | $\text{LB}_2 + \delta$ | Có (giảm $50,000\text{ ₫}$) |
+| P19 | B04 (`coupon_usage_count` — C5) | `-1` lần dùng | $\text{LB} - \delta$ | Không (`unreachable` / `N/A`) |
+| P20 | B04 (`coupon_usage_count` — `VIP100`) | `0` lần đã dùng (lần dùng thứ 1 trên đơn $300\text{k}$) | $\text{LB}$ | Có (giảm $100,000\text{ ₫}$) |
+| P21 | B04 (`coupon_usage_count` — `VIP100`) | `1` lần đã dùng (lần dùng thứ 2, `max - 1`) | $\text{LB} + \delta = \text{UB}$ | Có (giảm $100,000\text{ ₫}$) |
+| P22 | B04 (`coupon_usage_count` — `VIP100`) | `0` lần đã dùng (`UB - δ` trên đoạn $[0, 1]$) | $\text{UB} - \delta = \text{LB}$ | Có *(trùng P20)* |
+| P23 | B04 (`coupon_usage_count` — `SAVE10`) | `1` lần đã dùng (`UB + δ` của `SAVE10` có `max = 1`) | $\text{UB}_{\text{SAVE10}} + \delta$ | Không (vi phạm C5) |
+| P24 | B04 (`coupon_usage_count` — `VIP100`) | `2` lần đã dùng (`UB + δ` của `VIP100` có `max = 2`) | $\text{UB}_{\text{VIP100}} + \delta$ | Không (vi phạm C5) |
+| P0 | Cả 4 biến (Nominal) | `qty = 2`, `len = 44`, `total = 600,000`, `usage = 0` | Nominal | Có |
+
+**Công thức:** $6n + 1 = 6 \times 4 + 1 = \mathbf{25}$ **vector (lý thuyết)**.
+
+**Bảng 25 vector lý thuyết và đối chiếu với ca thực tế:**
+
+| # | Biến thay đổi | Điểm biên | B01 (`qty`) | B02 (`len(addr)`) | B03 (`total_amount`) | B04 (`usage_count`) | Kết quả mong đợi | Ca thực tế tương ứng |
+|---:|---|---|---:|---:|---:|---:|---|---|
+| 1 | — | All nominal | 2 | 44 | 600,000 | 0 | Hợp lệ | *Tái sử dụng EP-TC02 / EP-TC03* |
+| 2 | B01 | $\text{LB} - \delta$ (`0` SP) | 0 | 44 | 0 | 0 | Không hợp lệ | *Tái sử dụng EP-TC09 (giỏ hàng trống)* |
+| 3 | B01 | $\text{LB}$ (`1` SP) | 1 | 44 | 250,000 | 0 | Hợp lệ | **BV-TC01** |
+| 4 | B01 | $\text{LB} + \delta$ (`2` SP) | 2 | 44 | 500,000 | 0 | Hợp lệ | **BV-TC02** |
+| 5 | B01 | $\text{UB} - \delta$ (`9` SP, `stock = 10`) | 9 | 44 | 2,250,000 | 0 | Hợp lệ | **BV-TC03** |
+| 6 | B01 | $\text{UB}$ (`10` SP `= stock`) | 10 | 44 | 2,500,000 | 0 | Hợp lệ | **BV-TC04** |
+| 7 | B01 | $\text{UB} + \delta$ (`11` SP `> stock`) | 11 | 44 | 2,750,000 | 0 | Không hợp lệ | **BV-TC05** |
+| 8 | B02 | $\text{LB} - \delta$ (`0` ký tự) | 2 | 0 (`""`) | 500,000 | 0 | Không hợp lệ | *Tái sử dụng EP-TC21 (`address = ""`)* |
+| 9 | B02 | $\text{LB}$ (`1` ký tự) | 2 | 1 (`"A"`) | 500,000 | 0 | Hợp lệ | **BV-TC06** |
+| 10 | B02 | $\text{LB} + \delta$ (`2` ký tự) | 2 | 2 (`"AB"`) | 500,000 | 0 | Hợp lệ | **BV-TC07** |
+| 11 | B02 | $\text{UB} - \delta$ (`254` ký tự) | 2 | 254 (`'A'×254`) | 500,000 | 0 | Hợp lệ | **BV-TC08** |
+| 12 | B02 | $\text{UB}$ (`255` ký tự) | 2 | 255 (`'A'×255`) | 500,000 | 0 | Hợp lệ | **BV-TC09** |
+| 13 | B02 | $\text{UB} + \delta$ (`256` ký tự) | 2 | 256 (`'A'×256`) | 500,000 | 0 | Không hợp lệ | **BV-TC10** |
+| 14 | B03 (`SAVE10`) | $\text{LB}_1 - \delta$ (`299,999` ₫) | 2 | 44 | 299,999 | 0 | Không hợp lệ (vi phạm C3) | **BV-TC11** |
+| 15 | B03 (`SAVE10`) | $\text{LB}_1$ (`300,000` ₫) | 2 | 44 | 300,000 | 0 | Hợp lệ (`final = 270,000`) | **BV-TC12** |
+| 16 | B03 (`SAVE10`) | $\text{LB}_1 + \delta$ (`300,001` ₫) | 2 | 44 | 300,001 | 0 | Hợp lệ (`final = 270,000.9`) | **BV-TC13** |
+| 17 | B03 (`BIGBUY`) | $\text{LB}_2 - \delta$ (`499,999` ₫) | 2 | 44 | 499,999 | 0 | Không hợp lệ (vi phạm C3) | **BV-TC14** |
+| 18 | B03 (`BIGBUY`) | $\text{LB}_2$ (`500,000` ₫) | 2 | 44 | 500,000 | 0 | Hợp lệ (`final = 450,000`) | **BV-TC15** |
+| 19 | B03 (`BIGBUY`) | $\text{LB}_2 + \delta$ (`500,001` ₫) | 2 | 44 | 500,001 | 0 | Hợp lệ (`final = 450,001`) | **BV-TC16** |
+| 20 | B04 (`C5`) | $\text{LB} - \delta$ (`-1` lần dùng) | 2 | 44 | 500,000 | -1 | Không thể tiếp cận | *`N/A (unreachable)`: bộ đếm lượt dùng trong DB không thể âm* |
+| 21 | B04 (`VIP100`) | $\text{LB}$ (`0` lần dùng, tại ngưỡng $300\text{k}$) | 2 | 44 | 300,000 | 0 | Hợp lệ (`final = 200,000`) | **BV-TC17** |
+| 22 | B04 (`VIP100`) | $\text{LB} + \delta = \text{UB}$ (`1` lần dùng) | 2 | 44 | 500,000 | 1 | Hợp lệ (`final = 400,000`) | *Tái sử dụng EP-TC04 (`VIP100` tại `usage = 1`)* |
+| 23 | B04 (`VIP100`) | $\text{UB} - \delta = \text{LB}$ (`0` lần dùng) | 2 | 44 | 300,000 | 0 | Hợp lệ | *Trùng nội bộ với Vector #21 (`BV-TC17`) do đoạn $[0, 1]$ có độ rộng $1\delta$* |
+| 24 | B04 (`SAVE10`) | $\text{UB}_{\text{SAVE10}} + \delta$ (`1` lần dùng) | 2 | 44 | 500,000 | 1 | Không hợp lệ (vi phạm C5) | *Tái sử dụng EP-TC19 (`SAVE10` tại `usage = 1`)* |
+| 25 | B04 (`VIP100`) | $\text{UB}_{\text{VIP100}} + \delta$ (`2` lần dùng) | 2 | 44 | 500,000 | 2 | Không hợp lệ (vi phạm C5) | *Tái sử dụng EP-TC20 (`VIP100` tại `usage = 2`)* |
+
+**Đối chiếu loại trùng (Bước 5 BVA):**
+- Tổng số vector theo công thức lý thuyết ($6n + 1$ với $n = 4$): **25 vector**.
+- Trong 25 vector lý thuyết:
+  - **17 ca BVA đầu vào mới thực tế duy nhất (`BV-TC01` đến `BV-TC17`)**.
+  - **6 vector tái sử dụng trực tiếp từ các ca EP đã thiết kế** (#1 All nominal $\rightarrow$ `EP-TC02`/`EP-TC03`; #2 `qty = 0` $\rightarrow$ `EP-TC09`; #8 `len(addr) = 0` $\rightarrow$ `EP-TC21`; #22 `VIP100 usage = 1` $\rightarrow$ `EP-TC04`; #24 `SAVE10 usage = 1` $\rightarrow$ `EP-TC19`; #25 `VIP100 usage = 2` $\rightarrow$ `EP-TC20`).
+  - **1 vector trùng nội bộ** (#23 trùng #21 do đoạn nguyên $[0, 1]$ có $\text{UB} - \delta = 1 - 1 = 0 = \text{LB}$).
+  - **1 vector không thể tiếp cận (`unreachable`)** (#20 `usage_count = -1`).
+- Kiểm tra đẳng thức: $17\text{ (ca mới)} + 6\text{ (tái sử dụng EP)} + 1\text{ (trùng nội bộ)} + 1\text{ (unreachable)} = \mathbf{25}$ **vector lý thuyết** (khớp 100%).
+
+### Bước 3 — Test case BVA
+
+| TC ID | Chế độ | Biên nhắm tới | Dữ liệu vào | Các bước / Lệnh | Kết quả mong đợi | Nguồn expected |
+|---|---|---|---|---|---|---|
+| BV-TC01 | Robustness | B01 $\text{LB}$ (`qty = 1` SP) | Header `Bearer <token_user>`; Giỏ hàng có đúng `1` SP `prod_id = 1` ($250,000\text{ ₫}$); Body `{"total_amount": 250000, "shipping_address": ADDR_NOM}` | Thêm `1` SP vào giỏ $\rightarrow$ gọi `POST /api/checkout` $\rightarrow$ kiểm tra `GET /api/orders` & `GET /api/cart` | `OC-CHECKOUT-OK(250000, ADDR_NOM)`: `200 OK`; tạo đơn hàng `status = 'pending'`, `total_amount = 250000`; giỏ hàng rỗng `[]` | README 96, 104–107 |
+| BV-TC02 | Robustness | B01 $\text{LB} + \delta$ (`qty = 2` SP) | Header `Bearer <token_user>`; Giỏ hàng có `2` SP `prod_id = 1` ($500,000\text{ ₫}$); Body `{"total_amount": 500000, "shipping_address": ADDR_NOM}` | Thêm `2` SP vào giỏ $\rightarrow$ gọi `POST /api/checkout` $\rightarrow$ kiểm tra `GET /api/orders` & `GET /api/cart` | `OC-CHECKOUT-OK(500000, ADDR_NOM)`: `200 OK`; tạo đơn hàng `total_amount = 500000`; giỏ hàng rỗng `[]` | README 96, 104–107 |
+| BV-TC03 | Robustness | B01 $\text{UB} - \delta$ (`qty = 9` SP, `stock = 10`) | Header `Bearer <token_user>`; Sản phẩm `prod_id = 1` có `stock = 10`; thêm `quantity = 9` ($2,250,000\text{ ₫}$); `shipping_address = ADDR_NOM` | Gọi `POST /api/cart` với `quantity = 9` $\rightarrow$ gọi `POST /api/checkout` với `total_amount = 2250000` | Thêm vào giỏ và thanh toán thành công (`OC-CHECKOUT-OK(2250000, ADDR_NOM)`) | README 96–98 (FR-07), 104–107 (FR-08) |
+| BV-TC04 | Robustness | B01 $\text{UB}$ (`qty = 10` SP `= stock`) | Header `Bearer <token_user>`; Sản phẩm `prod_id = 1` có `stock = 10`; thêm `quantity = 10` ($2,500,000\text{ ₫}$); `shipping_address = ADDR_NOM` | Gọi `POST /api/cart` với `quantity = 10` (chạm đúng tồn kho) $\rightarrow$ gọi `POST /api/checkout` với `total_amount = 2500000` | Thêm vào giỏ và thanh toán thành công (`OC-CHECKOUT-OK(2500000, ADDR_NOM)`) | README 96–98 (FR-07), 104–107 (FR-08) |
+| BV-TC05 | Robustness | B01 $\text{UB} + \delta$ (`qty = 11` SP `> stock`) | Header `Bearer <token_user>`; Sản phẩm `prod_id = 1` có `stock = 10`; yêu cầu `quantity = 11` ($2,750,000\text{ ₫}$) | Gọi `POST /api/cart` với `quantity = 11` (vượt tồn kho 1 đơn vị) và/hoặc `POST /api/checkout` khi số lượng trong giỏ vượt `stock` | Hệ thống từ chối (`400 Bad Request`), không cho phép mua số lượng `11 > stock (10)` | README 98 (FR-07), 104 (FR-08) |
+| BV-TC06 | Robustness | B02 $\text{LB}$ (`len(shipping_address) = 1` ký tự) | Header `Bearer <token_user>`; Giỏ $500,000\text{ ₫}$; Body `{"total_amount": 500000, "shipping_address": "A"}` | `POST /api/checkout` rồi kiểm tra `GET /api/orders` | `OC-CHECKOUT-OK(500000, "A")`: `200 OK`; đơn hàng lưu `shipping_address = "A"` (độ dài 1) | README 105 (FR-08); Q1 |
+| BV-TC07 | Robustness | B02 $\text{LB} + \delta$ (`len(shipping_address) = 2` ký tự) | Header `Bearer <token_user>`; Giỏ $500,000\text{ ₫}$; Body `{"total_amount": 500000, "shipping_address": "AB"}` | `POST /api/checkout` rồi kiểm tra `GET /api/orders` | `OC-CHECKOUT-OK(500000, "AB")`: `200 OK`; đơn hàng lưu `shipping_address = "AB"` (độ dài 2) | README 105 (FR-08); Q1 |
+| BV-TC08 | Robustness | B02 $\text{UB} - \delta$ (`len(shipping_address) = 254` ký tự) | Header `Bearer <token_user>`; Giỏ $500,000\text{ ₫}$; Body `{"total_amount": 500000, "shipping_address": 'A'×254}` | `POST /api/checkout` rồi kiểm tra `GET /api/orders` | `OC-CHECKOUT-OK(500000, 'A'×254)`: `200 OK`; lưu đủ 254 ký tự không bị cắt cụt | Q1, Q8 (giả định max 255) |
+| BV-TC09 | Robustness | B02 $\text{UB}$ (`len(shipping_address) = 255` ký tự) | Header `Bearer <token_user>`; Giỏ $500,000\text{ ₫}$; Body `{"total_amount": 500000, "shipping_address": 'A'×255}` | `POST /api/checkout` rồi kiểm tra `GET /api/orders` | `OC-CHECKOUT-OK(500000, 'A'×255)`: `200 OK`; lưu đủ 255 ký tự không bị cắt cụt | Q1, Q8 (giả định max 255) |
+| BV-TC10 | Robustness | B02 $\text{UB} + \delta$ (`len(shipping_address) = 256` ký tự) | Header `Bearer <token_user>`; Giỏ $500,000\text{ ₫}$; Body `{"total_amount": 500000, "shipping_address": 'A'×256}` | `POST /api/checkout` rồi kiểm tra `OC-ORDER-NO` | `REJ-CHECKOUT` (`400 Bad Request` + `OC-ORDER-NO` — từ chối địa chỉ vượt quá 255 ký tự theo Q1) | Q1, Q8 (giả định max 255) |
+| BV-TC11 | Robustness | B03 $\text{LB}_1 - \delta$ (`total_amount = 299,999` ₫ với `SAVE10`) | Header `Bearer <token_user>`; Body `{"code": "SAVE10", "total_amount": 299999, "user_id": 2}` | `POST /api/apply-coupon` | `REJ-COUPON` (`400 Bad Request` — từ chối vì $299,999 < 300,000$, vi phạm **C3** đúng $1\text{ ₫}$) | README 118, 130 (FR-09 C3) |
+| BV-TC12 | Robustness | B03 $\text{LB}_1$ (`total_amount = 300,000` ₫ với `SAVE10`) | Header `Bearer <token_user>`; Body `{"code": "SAVE10", "total_amount": 300000, "user_id": 2}` | `POST /api/apply-coupon` | `OC-COUPON-OK(30000, 270000)` ($\text{discount} = 300,000 \times 10\% = 30,000\text{ ₫}$; $\text{final} = 270,000\text{ ₫}$ — bắt lỗi nếu code dùng `>` thay vì `>=`) | README 118, 123–124, 130 (FR-09 C3) |
+| BV-TC13 | Robustness | B03 $\text{LB}_1 + \delta$ (`total_amount = 300,001` ₫ với `SAVE10`) | Header `Bearer <token_user>`; Body `{"code": "SAVE10", "total_amount": 300001, "user_id": 2}` | `POST /api/apply-coupon` | `OC-COUPON-OK(30000.1, 270000.9)` ($\text{discount} = 30,000.1\text{ ₫}$; $\text{final} = 270,000.9\text{ ₫}$) | README 118, 123–124, 130 (FR-09 C3) |
+| BV-TC14 | Robustness | B03 $\text{LB}_2 - \delta$ (`total_amount = 499,999` ₫ với `BIGBUY`) | Header `Bearer <token_user>`; Body `{"code": "BIGBUY", "total_amount": 499999, "user_id": 2}` | `POST /api/apply-coupon` | `REJ-COUPON` (`400 Bad Request` — từ chối vì $499,999 < 500,000$, vi phạm **C3** đúng $1\text{ ₫}$) | README 118, 131 (FR-09 C3) |
+| BV-TC15 | Robustness | B03 $\text{LB}_2$ (`total_amount = 500,000` ₫ với `BIGBUY`) | Header `Bearer <token_user>`; Body `{"code": "BIGBUY", "total_amount": 500000, "user_id": 2}` | `POST /api/apply-coupon` | `OC-COUPON-OK(50000, 450000)` ($\text{discount} = 50,000\text{ ₫}$; $\text{final} = 500,000 - 50,000 = 450,000\text{ ₫}$ — bắt lỗi nếu dùng `>` thay vì `>=`) | README 118, 125–126, 131 (FR-09 C3) |
+| BV-TC16 | Robustness | B03 $\text{LB}_2 + \delta$ (`total_amount = 500,001` ₫ với `BIGBUY`) | Header `Bearer <token_user>`; Body `{"code": "BIGBUY", "total_amount": 500001, "user_id": 2}` | `POST /api/apply-coupon` | `OC-COUPON-OK(50000, 450001)` ($\text{discount} = 50,000\text{ ₫}$; $\text{final} = 500,001 - 50,000 = 450,001\text{ ₫}$) | README 118, 125–126, 131 (FR-09 C3) |
+| BV-TC17 | Robustness | B04 $\text{LB}$ (`usage_count = 0`) & B03 $\text{LB}_1$ (`300,000` ₫) với `VIP100` | Header `Bearer <token_user>`; `usage_count(VIP100) = 0`; Body `{"code": "VIP100", "total_amount": 300000, "user_id": 2}` | `POST /api/apply-coupon` với `VIP100` lần đầu tiên ngay tại ngưỡng tối thiểu $300,000\text{ ₫}$ | `OC-COUPON-OK(100000, 200000)` ($\text{discount} = 100,000\text{ ₫}$; $\text{final} = 300,000 - 100,000 = 200,000\text{ ₫}$) | README 118, 120, 125–126, 132 |
+
+**Giải thích tính toán độc lập (Bước 4 BVA):**
+- Với `BV-TC12` (`SAVE10`, `percent`, `discount_value = 10`, `total_amount = 300,000`):
+  $$\text{discount\_amount} = 300,000 \times \frac{10}{100} = 30,000\text{ ₫}, \quad \text{final\_amount} = 300,000 - 30,000 = 270,000\text{ ₫}$$
+- Với `BV-TC15` (`BIGBUY`, `fixed`, `discount_value = 50,000`, `total_amount = 500,000`):
+  $$\text{discount\_amount} = 50,000\text{ ₫}, \quad \text{final\_amount} = \max(0,\, 500,000 - 50,000) = 450,000\text{ ₫}$$
+- Với `BV-TC17` (`VIP100`, `fixed`, `discount_value = 100,000`, `total_amount = 300,000`, `usage_count = 0 < 2`):
+  $$\text{discount\_amount} = 100,000\text{ ₫}, \quad \text{final\_amount} = \max(0,\, 300,000 - 100,000) = 200,000\text{ ₫}$$
+
+### Bước 4 — Biên đầu ra và biên thời gian đặc biệt
+
+Theo bài giảng (Slide 21) và `hw02_boundary_value_analysis`, ta xét quan hệ hàm đầu vào $\rightarrow$ đầu ra $\text{final\_amount} = \max(0, \text{total\_amount} - \text{discount\_value})$ (có cận dưới đầu ra $\text{LB}_{\text{out}} = 0\text{ ₫}$) và biên ngày hết hạn `expired_at` của điều kiện **C2** (theo `Q5`):
+
+| Biên đầu ra / Biên đặc biệt | Input / Thao tác gây ra | Test case |
+|---|---|---|
+| **Biên dưới của đầu ra `final_amount` ($\text{LB}_{\text{out}} = 0\text{ ₫}$) trong công thức `fixed`: $\text{final\_amount} = \max(0, \text{total\_amount} - \text{discount\_value})$** | Áp dụng một mã giảm giá loại `'fixed'` có `discount_value >= total_amount` (ví dụ mã fixture `"FREE350"` có `type = 'fixed'`, `discount_value = 350,000`, `min_order_amount = 200,000`, `is_active = 1`, `expired_at = '2099-12-31'`) lên đơn hàng `total_amount = 300,000 ₫` | **OB-TC01** *(thiết kế bên dưới)* |
+| **Biên thời gian hết hạn của điều kiện C2 (`expired_at` sát ngày hiện tại `NOW`: $\text{Yesterday} = \text{NOW} - 1\text{ ngày}$ vs $\text{Tomorrow} = \text{NOW} + 1\text{ ngày}$, theo `Q5`)** | Khởi tạo trong SQLite fixture 2 mã kiểm thử sát biên ngày chạy test: `"EXP_YESTERDAY"` (`expired_at` = hôm qua) và `"EXP_TOMORROW"` (`expired_at` = ngày mai), rồi gọi `POST /api/apply-coupon` | **OB-TC02** *(thiết kế bên dưới)* |
+
+**Bảng test case biên đầu ra & biên thời gian (`OB-TC01`–`OB-TC02`):**
+
+| TC ID | Chế độ | Biên nhắm tới | Dữ liệu vào | Các bước / Lệnh | Kết quả mong đợi | Nguồn expected |
+|---|---|---|---|---|---|---|
+| **OB-TC01** | Output BVA | Đầu ra `final_amount` chạm biên dưới $\text{LB}_{\text{out}} = 0\text{ ₫}$ khi `discount_value (350,000) > total_amount (300,000)` | Header `Bearer <token_user>`; Mã fixture `"FREE350"` (`fixed`, `discount_value = 350000`, `min_order_amount = 200000`, `is_active = 1`); Body `{"code": "FREE350", "total_amount": 300000, "user_id": 2}` | Gọi `POST /api/apply-coupon` với `"FREE350"` trên đơn hàng $300,000\text{ ₫}$ | `200 OK`; `final_amount === 0` ($\max(0, 300000 - 350000) = 0\text{ ₫}$), **tuyệt đối không trả về số tiền âm `-50,000 ₫`** | README 126 (`final_amount = max(0, total_amount - discount_value)`) |
+| **OB-TC02** | Date BVA (C2) | Biên ngày hết hạn `expired_at` sát ngày hiện tại: Hôm qua ($\text{LB}_{\text{date}} - 1\text{ ngày}$) và Ngày mai ($\text{LB}_{\text{date}} + 1\text{ ngày}$) | Header `Bearer <token_user>`; `total_amount = 500000`; (a) `code = "EXP_YESTERDAY"` (`expired_at` = hôm qua); (b) `code = "EXP_TOMORROW"` (`expired_at` = ngày mai) | (1) Gọi `POST /api/apply-coupon` với `"EXP_YESTERDAY"`; (2) Gọi `POST /api/apply-coupon` với `"EXP_TOMORROW"` | (1) `"EXP_YESTERDAY"` bị từ chối `400 Bad Request` (vi phạm **C2**); (2) `"EXP_TOMORROW"` thành công `200 OK` (`OC-COUPON-OK`) | README 117 (FR-09 C2); Q5 |
+
+### Bước 5 — Ca bổ sung do sinh viên (sau Human Review)
+
+Qua quá trình trực tiếp thẩm định bảng lớp tương đương (`EC01`–`EC42`) và giá trị biên (`BV-TC01`–`BV-TC17`, `OB-TC01`–`OB-TC02`) do AI thiết kế, em xác nhận cấu trúc phân hoạch, công thức BVA Robustness ($6n+1 = 25$) và các giả định `Q8`, `Q9` là hợp lý. Tuy nhiên, để khắc phục hạn chế của phân tích hộp đen tĩnh (chưa xét kỹ chuẩn hóa chuỗi mã giảm giá đầu/cuối và hoa/thường trên bàn phím điện thoại, thao tác hủy đơn hàng `pending` liên thông `FR-20.3`/`FR-10`, tấn công SQL Injection qua mã giảm giá, xung đột đồng thời khi bấm đúp Áp mã/Thanh toán và tính toàn vẹn tồn kho `stock` sau khi đặt hàng), em đã trực tiếp định hướng ý tưởng kiểm thử, chỉ định phạm vi rà soát và yêu cầu AI hỗ trợ soạn thảo chi tiết bảng **5 test case chuyên sâu (`SR-TC01` đến `SR-TC05`)**. Toàn bộ dữ liệu vào, các bước thực thi và Oracle expected của 5 ca này đã được chính em trực tiếp thẩm định, phê duyệt và chịu trách nhiệm học thuật.
+
+> **Phân loại phạm vi (theo bài giảng §12.2):** `SR-TC01` và `SR-TC02` thuộc phạm vi EP/BVA mở rộng và luồng nghiệp vụ liên thông trực tiếp của `FR-20.3` (chuẩn hóa chuỗi mã giảm giá chữ thường/khoảng trắng thừa `Q6` và thao tác Hủy đơn hàng ở trạng thái `pending` theo `README.md` dòng 145, 237). `SR-TC03` (SQL Injection — `SEC-05`), `SR-TC04` (Race condition / Double submit khi áp mã `max_uses = 1` và thanh toán) và `SR-TC05` (Tính toàn vẹn khấu trừ tồn kho `stock` liên thông `FR-07`/`FR-08`) là **ca phạm vi mở rộng** ngoài EP/BVA thuần túy: được giữ lại vì truy vết trực tiếp tới đặc tả (`README.md` dòng 98, 104, 120, 282) và có sức phát hiện lỗi thực tế cao, nhưng **không tính gộp vào độ phủ EC/biên lý thuyết**.
+
+| TC ID | Câu hỏi rà soát / Lý do bổ sung | Dữ liệu vào | Các bước / Lệnh thực hiện | Kết quả mong đợi (Oracle) | Nguồn expected |
+|---|---|---|---|---|---|
+| **SR-TC01** | **Chuẩn hóa khoảng trắng đầu/cuối (`trim`) và tính phân biệt chữ hoa/thường (`Case-sensitivity`) của mã giảm giá trên bàn phím Mobile (Q6):** Kiểm tra khi người dùng gõ `"save10"` (chữ thường) hoặc `"  SAVE10  "` (dư khoảng trắng hai đầu) trên điện thoại thì hệ thống xử lý nhất quán hay từ chối. | Header `Bearer <token_user>`; `total_amount = 500000`, `user_id = 2`; (a) `code = "save10"`; (b) `code = "  SAVE10  "` | 1. Gửi `POST /api/apply-coupon` với `code = "save10"`.<br>2. Gửi `POST /api/apply-coupon` với `code = "  SAVE10  "`. | Theo quy ước đối sánh mã chuẩn xác (`Q6`), hệ thống phải xử lý nhất quán (hoặc từ chối `400`/`404` nếu yêu cầu khớp chuỗi viết hoa tuyệt đối `"SAVE10"`, hoặc tự động `trim().toUpperCase()` để áp dụng giảm $50,000\text{ ₫}$ mà không gây lỗi `500`). | README dòng 116, 130 (FR-09 C1); Q6 |
+| **SR-TC02** | **Luồng Hủy đơn hàng ở trạng thái `pending` trên Mobile và chặn hủy đơn trái phép (FR-20.3 dòng 237 & FR-10 dòng 145–146):** Kiểm tra sau khi đặt hàng thành công (`status = 'pending'`), người dùng hủy đơn hợp lệ (`PUT /api/orders/:id/cancel`), đồng thời hệ thống phải chặn hủy lại đơn đã `cancelled`/`delivered` hoặc hủy đơn của người dùng khác (IDOR). | Đơn hàng mới tạo `order_id` (`status = 'pending'`) của `user_id = 2`; token của user khác hoặc gọi hủy lần 2 | 1. User 2 đặt hàng thành công nhận `order_id` (`status = 'pending'`).<br>2. User khác (hoặc không có token) gọi `PUT /api/orders/:order_id/cancel` (kiểm tra chống IDOR/Auth).<br>3. User 2 gọi `PUT /api/orders/:order_id/cancel` lần 1 (hợp lệ) rồi gọi tiếp lần 2 khi đơn đã `cancelled`. | Bước 2 bị từ chối (`401`/`403`); Bước 3 lần 1 thành công (`200 OK`, đơn chuyển sang `status = 'cancelled'`), nhưng lần 2 (khi trạng thái không còn là `pending`) bắt buộc phải bị từ chối (`400 Bad Request`). | README dòng 145–146 (FR-10), 237 (FR-20.3), 279 (SEC-02); api_spec 150 |
+| **SR-TC03** | **Phòng chống SQL Injection trong trường `code` tại `/api/apply-coupon` và `shipping_address` tại `/api/checkout` (SEC-05)** *(Ca phạm vi mở rộng)*: Kiểm tra truy vấn CSDL có dùng Parameterized Query hay bị bypass điều kiện `C1`–`C5` khi chèn chuỗi SQLi. | (a) `POST /api/apply-coupon` với `code = "NOTEXIST' OR '1'='1"`<br>(b) `POST /api/checkout` với `shipping_address = "123 Lê Lợi'); DROP TABLE orders; --"` | 1. Gửi `POST /api/apply-coupon` chứa payload SQLi `"NOTEXIST' OR '1'='1"`.<br>2. Gửi `POST /api/checkout` chứa payload SQLi trong `shipping_address`.<br>3. Kiểm tra bảng `coupons` và `orders`. | (1) `apply-coupon` bắt buộc trả `400`/`404` (`REJ-COUPON`), tuyệt đối không bị đánh lừa bởi `'1'='1'` để trả về mã giảm giá hợp lệ;<br>(2) Hệ thống xử lý tham số an toàn bằng Parameterized Query, không trả lỗi `500` và bảng `orders` không bị phá hủy. | README dòng 116 (C1), 282 (SEC-05) |
+| **SR-TC04** | **Xung đột đồng thời (Race Condition / Double Submit) khi bấm đúp Áp mã `SAVE10` (`max_uses = 1`) và bấm đúp Thanh toán** *(Ca phạm vi mở rộng)*: Kiểm tra khi 2 request gửi song song trong cùng mili-giây có làm vượt giới hạn `max_uses_per_user = 1` (C5) hoặc tạo 2 đơn hàng trùng từ 1 giỏ hàng không. | 2 request `POST /api/apply-coupon` song song với `SAVE10` (`max_uses = 1`) và 2 request `POST /api/checkout` song song trên cùng giỏ hàng $500,000\text{ ₫}$ | 1. Bắn đồng thời (`Promise.all`) 2 request `POST /api/apply-coupon` (`SAVE10`).<br>2. Bắn đồng thời (`Promise.all`) 2 request `POST /api/checkout` trên cùng 1 giỏ hàng của `user_id = 2`.<br>3. Kiểm tra `GET /api/orders/my-orders`. | (1) Mã `SAVE10` (`max_uses_per_user = 1`) chỉ được phép sử dụng thành công tối đa **1 lần**;<br>(2) Từ 1 giỏ hàng duy nhất chỉ được tạo ra **đúng 1 đơn hàng** (request thứ hai phải bị chặn vì giỏ hàng đã được thanh toán/làm rỗng). | README dòng 106 (FR-08), 120 (FR-09 C5); Q4 |
+| **SR-TC05** | **Tính toàn vẹn khấu trừ tồn kho (`stock`) của sản phẩm sau khi Đặt hàng thành công (Cross-component Integrity với FR-07 & FR-08)** *(Ca phạm vi mở rộng)*: Kiểm tra sau khi người dùng thanh toán thành công $2$ sản phẩm `prod_id = 1` (`stock` ban đầu $= 10$), số lượng tồn kho `stock` trong CSDL có giảm tương ứng xuống $8$ để ngăn bán vượt tồn kho ở đơn tiếp theo không. | Sản phẩm `prod_id = 1` có `stock = 10`; đặt mua `quantity = 2` qua `POST /api/checkout` | 1. Kiểm tra `GET /api/products/1` ghi nhận `stock_before = 10`.<br>2. Thêm $2$ SP `prod_id = 1` vào giỏ và gọi `POST /api/checkout` thành công.<br>3. Kiểm tra lại `GET /api/products/1` ghi nhận `stock_after`. | Tồn kho của sản phẩm `prod_id = 1` sau khi đặt hàng thành công phải được cập nhật giảm đúng số lượng đã mua (`stock_after = 10 - 2 = 8`); nếu `stock_after` vẫn giữ nguyên hoặc thiếu cột `stock` thì người dùng có thể đặt liên tiếp nhiều đơn vượt quá tổng tồn kho thực tế. | README dòng 98 (FR-07), 104–106 (FR-08) |
+
+### Tổng kết (báo cáo coverage theo mẫu bài giảng)
+
+```text
+Requirements parsed: FR-20.3 (README 231–238), FR-08 (102–109), FR-09 (110–136), FR-10 (141–163), FR-21–FR-22 (240–257), SEC-02/04/05 (279–282), api_spec 4.1–4.6 & 5.1
+BVA mode: Robustness (6n + 1), n = 4 biến có thứ tự (B01 cart_item_qty, B02 len(shipping_address), B03 total_amount vs min_order_amount, B04 coupon_usage_count)
+Theoretical BVA count: 6 × 4 + 1 = 25
+Actual unique BVA tests: 17 (BV-TC01…17) + 6 vector tái sử dụng EP + 1 vector trùng nội bộ + 1 vector unreachable + 2 ca biên đầu ra/thời gian (OB-TC01, OB-TC02)
+Deduplicated test vectors: 6 vector trùng với ca EP đã thiết kế (#1, #2, #8, #22, #24, #25) + 1 vector trùng nội bộ (#23) + 1 vector unreachable (#20)
+Unresolved ambiguity/oracle issues: Toàn bộ Q1–Q9 đã được sinh viên xác nhận (EP-TC23 và BV-TC08..10 phụ thuộc giả định cận trên 255 ký tự Q1/Q8)
+Student Review tests added: 5 (SR-TC01…SR-TC05)
+```
+
+- **Chế độ BVA:** Robustness ($6n + 1$); $n = 4$
+- **Số ca theo công thức lý thuyết:** **25**
+- **Số ca BVA đầu vào mới thực tế duy nhất:** **17** (`BV-TC01` đến `BV-TC17`); **vector biên tái sử dụng ca EP:** **6** (#1, #2, #8, #22, #24, #25); **trùng nội bộ:** **1** (#23); **không thể tiếp cận (`unreachable`):** **1** (#20)
+- **Số ca BVA biên đầu ra & biên thời gian:** **2** (`OB-TC01`, `OB-TC02`)
+- **Số ca bổ sung sinh viên (Human Review):** **5** (`SR-TC01` đến `SR-TC05`)
+- **Vấn đề oracle / mơ hồ:** Toàn bộ `Q1`–`Q9` đã được sinh viên xác nhận; trong đó `EP-TC23` và `BV-TC08`–`BV-TC10` phụ thuộc giả định kỹ thuật `Q1` (cận trên 255 ký tự của `shipping_address`) nên được theo dõi theo quy tắc `Q8`.
+- **Truy vết biên → Test case:**
+  - `B01` (`cart_item_qty` $\in [1, 10]$): $\text{LB}-\delta (0) \rightarrow \text{EP-TC09}$, $\text{LB} (1) \rightarrow \text{BV-TC01}$, $\text{LB}+\delta (2) \rightarrow \text{BV-TC02}$, $\text{UB}-\delta (9) \rightarrow \text{BV-TC03}$, $\text{UB} (10) \rightarrow \text{BV-TC04}$, $\text{UB}+\delta (11) \rightarrow \text{BV-TC05}$.
+  - `B02` (`len(shipping_address)` $\in [1, 255]$): $\text{LB}-\delta (0) \rightarrow \text{EP-TC21}$, $\text{LB} (1) \rightarrow \text{BV-TC06}$, $\text{LB}+\delta (2) \rightarrow \text{BV-TC07}$, $\text{Nominal} (44) \rightarrow \text{EP-TC01}$, $\text{UB}-\delta (254) \rightarrow \text{BV-TC08}$, $\text{UB} (255) \rightarrow \text{BV-TC09}$, $\text{UB}+\delta (256) \rightarrow \text{BV-TC10}$.
+  - `B03` (`total_amount` tại ngưỡng `C3` $300\text{k}$ & $500\text{k}$): $\text{LB}_1-\delta (299,999) \rightarrow \text{BV-TC11}$, $\text{LB}_1 (300,000) \rightarrow \text{BV-TC12}$, $\text{LB}_1+\delta (300,001) \rightarrow \text{BV-TC13}$, $\text{LB}_2-\delta (499,999) \rightarrow \text{BV-TC14}$, $\text{LB}_2 (500,000) \rightarrow \text{BV-TC15}$, $\text{LB}_2+\delta (500,001) \rightarrow \text{BV-TC16}$, $\text{Nominal} (600,000) \rightarrow \text{EP-TC03}$.
+  - `B04` (`coupon_usage_count` $\in [0, \text{max}-1]$): $\text{LB}-\delta (-1) \rightarrow \text{N/A (unreachable)}$, $\text{LB} (0) \rightarrow \text{BV-TC17}$, $\text{LB}+\delta = \text{UB} (1 \text{ với VIP100}) \rightarrow \text{EP-TC04}$, $\text{UB}_{\text{SAVE10}}+\delta (1) \rightarrow \text{EP-TC19}$, $\text{UB}_{\text{VIP100}}+\delta (2) \rightarrow \text{EP-TC20}$.
+  - Biên đầu ra & thời gian: $\text{LB}_{\text{out}} (\text{final\_amount} = 0\text{ ₫}) \rightarrow \text{OB-TC01}$; $\text{Biên ngày C2} (\text{Yesterday/Tomorrow}) \rightarrow \text{OB-TC02}$.
+
+---
+
+## Tổng hợp số lượng test case FR-20.3 (đã thiết kế / đã chạy)
+
+| Nhóm | Thiết kế | Pass | Fail | Blocked | Not run |
+|---|---:|---:|---:|---:|---:|
+| EP (`EP-TC01`…`EP-TC30`) | 30 | 14 | 16 | 0 | 0 |
+| BVA đầu vào (`BV-TC01`…`BV-TC17`) | 17 | 3 | 14 | 0 | 0 |
+| BVA biên đầu ra & thời gian (`OB-TC01`…`OB-TC02`) | 2 | 1 | 1 | 0 | 0 |
+| Ca bổ sung sinh viên (`SR-TC01`…`SR-TC05`) | 5 | 3 | 2 | 0 | 0 |
+| **Tổng** | **54** | **21** | **33** | **0** | **0** |
+
+---
+
+## 3. Thực thi test — FR-20.3: Mobile: Thanh toán (Checkout) và Áp mã giảm giá
+
+**Ngày chạy:** 2026-10-16  
+**Công cụ tự động hóa 2 hướng:**
+- **Hướng 1 (HTTP API Automation):** [reports/evidence/FR-20.3/run_fr20_3.js](file:///d:/KCPM/eshop-sut/reports/evidence/FR-20.3/run_fr20_3.js) (Node.js fetch runner) kiểm thử trực tiếp trên `http://localhost:3000` (`POST /api/apply-coupon`, `POST /api/checkout`, `POST /api/coupon-usage`, `GET /api/orders/my-orders`, `GET /api/cart`, `PUT /api/orders/:id/cancel`).
+- **Hướng 2 (Playwright CLI Mobile UI Automation):** `@playwright/test` v1.64.0 (Chromium Headless, viewport điện thoại `390×844`) tại [tests/ui-fr20_3/fr20_3_ui.spec.js](file:///d:/KCPM/eshop-sut/tests/ui-fr20_3/fr20_3_ui.spec.js) chạy trực tiếp mã nguồn thật [frontend-mobile/App.js](file:///d:/KCPM/eshop-sut/frontend-mobile/App.js) trên cổng `http://localhost:5175`.
+
+**Log dữ liệu thực thi & Bằng chứng:**
+- Log API thô: [reports/evidence/FR-20.3/run_api_1.json](file:///d:/KCPM/eshop-sut/reports/evidence/FR-20.3/run_api_1.json) & [run_api_1.md](file:///d:/KCPM/eshop-sut/reports/evidence/FR-20.3/run_api_1.md) (Lần 1); [run_api_2.json](file:///d:/KCPM/eshop-sut/reports/evidence/FR-20.3/run_api_2.json) & [run_api_2.md](file:///d:/KCPM/eshop-sut/reports/evidence/FR-20.3/run_api_2.md) (Lần 2).
+- Log UI Playwright: [reports/evidence/FR-20.3/run_ui_1.json](file:///d:/KCPM/eshop-sut/reports/evidence/FR-20.3/run_ui_1.json), [run_ui_2.json](file:///d:/KCPM/eshop-sut/reports/evidence/FR-20.3/run_ui_2.json) & [run_ui_results.md](file:///d:/KCPM/eshop-sut/reports/evidence/FR-20.3/run_ui_results.md).
+- Thư mục ảnh chụp màn hình bằng chứng Mobile (`390×844`): [reports/evidence/FR-20.3/screenshots/](file:///d:/KCPM/eshop-sut/reports/evidence/FR-20.3/screenshots/).
+
+**Môi trường nền P0 / Reset:**
+- Mỗi ca API được chạy trên cơ sở dữ liệu SQLite sạch độc lập (`DB_PATH=backend/.hw02_fr20_3_run.sqlite`), tiến trình backend được khởi động lại sạch sẽ trước mỗi ca kiểm thử để làm rỗng hoàn toàn biến giỏ hàng trong RAM (`userCarts`) và làm sạch bảng `orders`, `coupon_usage` (Clean DB Fixture).
+- Các ca UI chạy trên CSDL cô lập riêng (`DB_PATH=backend/.hw02_fr20_3_ui.sqlite`) và được xóa dọn sau khi hoàn tất; CSDL chính `backend/database.sqlite` tuyệt đối không bị ảnh hưởng.
+
+### 3.1 Bảng thực thi chi tiết 54 test case
+
+| TC ID | Mô tả ca kiểm thử | Lệnh chạy thật (bước chính) | Kết quả mong đợi (Oracle Đặc tả) | Kết quả thực tế (Lần 1) | Lần 2 | Trạng thái | Bug ID ứng viên |
+|---|---|---|---|---|---|:---:|---|
+| **EP-TC01** | Đặt hàng hợp lệ không dùng mã giảm giá (giỏ 500,000 ₫, địa chỉ chuẩn 44 ký tự) | `Invoke-WebRequest -Uri "http://localhost:3000/api/checkout" -Method POST -ContentType 'application/json' -Headers @{ Authorization = "Bearer <JWT_TOKEN>" } -Body '{"total_amount":500000,"shipping_address":"123 Lê Lợi, Phường Bến Thành, Quận 1, TP.HCM"}' -SkipHttpErrorCheck` | `OC-CHECKOUT-OK(500000, ADDR_NOM)`: HTTP 200, tạo đơn `status="pending"`, `total_amount=500000`, xóa rỗng giỏ hàng (`FR-08` dòng 106, `R6`) | HTTP 200: `{"message":"Checkout successful","orderId":1}` \| Đơn hàng: 0 -> 1 (`status=pending`, `total=500000`); **nhưng giỏ hàng sau checkout vẫn còn 1 mục (không được xóa rỗng)!** | Giống Lần 1 | **Fail** | BUG-018 (Không xóa giỏ hàng sau khi thanh toán `R6`) |
+| **EP-TC02** | Áp mã `SAVE10` (`percent` 10%) hợp lệ trên đơn 500,000 ₫ rồi tiến hành Đặt hàng liên thông (`Q3`) | `POST /api/apply-coupon` với `{"code":"SAVE10","total_amount":500000,"user_id":2}` rồi gọi `POST /api/checkout` | Bước 1: `OC-COUPON-OK(50000, 450000)`; Bước 2: `OC-CHECKOUT-OK(450000, ADDR_NOM)`, xóa rỗng giỏ hàng (`FR-09`, `FR-08`) | HTTP 200 \| **`apply-coupon` trả về `discount_amount = -4,500,000 ₫` và `final_amount = 5,000,000 ₫` (tăng gấp 10 lần giá gốc)!** Sau checkout giỏ hàng vẫn còn 1 mục | Giống Lần 1 | **Fail** | BUG-014 (Sai công thức giảm giá `percent`), BUG-018 |
+| **EP-TC03** | Áp mã `BIGBUY` (`fixed` 50,000 ₫, ngưỡng 500,000 ₫) hợp lệ trên đơn 600,000 ₫ | `Invoke-WebRequest -Uri "http://localhost:3000/api/apply-coupon" -Method POST -ContentType 'application/json' -Headers @{ Authorization = "Bearer <JWT_TOKEN>" } -Body '{"code":"BIGBUY","total_amount":600000,"user_id":2}' -SkipHttpErrorCheck` | `OC-COUPON-OK(50000, 550000)`: HTTP 200, `discount_amount=50000`, `final_amount=550000` (`FR-09` dòng 125–126, 131) | HTTP 200: `{"success":true,"coupon_id":2,"discount_amount":50000,"final_amount":550000,"message":"Áp dụng thành công! Giảm 50,000 ₫"}` \| Khớp 100% | Giống Lần 1 | **Pass** |  |
+| **EP-TC04** | Áp mã `VIP100` (`fixed` 100,000 ₫, `max_uses_per_user = 2`) ở lần sử dụng thứ 2 (`usage_count = 1 < 2`) | Ghi nhận 1 lượt dùng `VIP100` trong `coupon_usage`, sau đó gửi `POST /api/apply-coupon` lần 2 với `{"code":"VIP100","total_amount":500000,"user_id":2}` | `OC-COUPON-OK(100000, 400000)`: HTTP 200, lần dùng thứ 2 vẫn hợp lệ vì `max_uses_per_user = 2` (`FR-09` dòng 120, 132) | HTTP 200: `{"success":true,"coupon_id":3,"discount_amount":100000,"final_amount":400000,"message":"Áp dụng thành công! Giảm 100,000 ₫"}` | Giống Lần 1 | **Pass** |  |
+| **EP-TC05** | Gọi `POST /api/apply-coupon` khi chưa đăng nhập (không gửi Header `Authorization`) — vi phạm **C4** | `Invoke-WebRequest -Uri "http://localhost:3000/api/apply-coupon" -Method POST -ContentType 'application/json' -Body '{"code":"SAVE10","total_amount":500000,"user_id":2}' -SkipHttpErrorCheck` | `REJ-COUPON` (`401 Unauthorized`): Bắt buộc có JWT Token hợp lệ theo điều kiện **C4** (`README` dòng 119, `SEC-02`, `Q2`) | HTTP 200: `{"success":true,"coupon_id":1,"discount_amount":-4500000,"final_amount":5000000}` \| **Không có JWT Token nhưng vẫn cho phép áp mã thành công (HTTP 200)!** | Giống Lần 1 | **Fail** | BUG-016 (Thiếu xác thực JWT `C4` & lỗ hổng IDOR tại `/api/apply-coupon`) |
+| **EP-TC06** | Gọi `POST /api/apply-coupon` với Header `Authorization: Bearer token.gia.mao` — vi phạm **C4** | `Invoke-WebRequest -Uri "http://localhost:3000/api/apply-coupon" -Method POST -ContentType 'application/json' -Headers @{ Authorization = "Bearer token.gia.mao" } -Body '{"code":"SAVE10","total_amount":500000,"user_id":2}' -SkipHttpErrorCheck` | `REJ-COUPON` (`401`/`403`): Từ chối JWT Token giả mạo theo điều kiện **C4** (`README` dòng 119, `SEC-02`, `Q2`) | HTTP 200: `{"success":true,"coupon_id":1,...}` \| **Gửi JWT giả mạo nhưng `/api/apply-coupon` vẫn trả HTTP 200!** | Giống Lần 1 | **Fail** | BUG-016 (Thiếu xác thực JWT `C4` tại `/api/apply-coupon`) |
+| **EP-TC07** | Gọi `POST /api/apply-coupon` khi `user_id = null` hoặc mạo danh `user_id = 1` khác với chủ sở hữu JWT (`user_id = 2`) | Gửi `POST /api/apply-coupon` với `{"code":"SAVE10","total_amount":500000,"user_id":null}` và `{"user_id":1}` | `REJ-COUPON` (`400`/`403`): Từ chối khi thiếu `user_id` hoặc mạo danh `user_id` của người khác (`C4`, `C5`, `Q2`) | HTTP 200 \| **Khi `user_id = null` hệ thống bỏ qua luôn kiểm tra `coupon_usage` (`C5`); khi mạo danh `user_id = 1` vẫn trả HTTP 200!** | Giống Lần 1 | **Fail** | BUG-016 (Bỏ qua kiểm tra `C5` khi `user_id=null` & IDOR) |
+| **EP-TC08** | Gọi `POST /api/checkout` khi không gửi Header `Authorization` | `Invoke-WebRequest -Uri "http://localhost:3000/api/checkout" -Method POST -ContentType 'application/json' -Body '{"total_amount":500000,"shipping_address":"..."}' -SkipHttpErrorCheck` | `REJ-CHECKOUT` (`401 Unauthorized` + `OC-ORDER-NO`) (`FR-08` dòng 104, `SEC-02`) | HTTP 401: `{"error":"Unauthorized"}` \| Đơn hàng: 0 -> 0; Giỏ hàng: 1 -> 1 | Giống Lần 1 | **Pass** |  |
+| **EP-TC09** | Gọi `POST /api/checkout` khi giỏ hàng trống (`0` sản phẩm) | `Invoke-WebRequest -Uri "http://localhost:3000/api/checkout" -Method POST -ContentType 'application/json' -Headers @{ Authorization = "Bearer <JWT_TOKEN>" } -Body '{"total_amount":500000,"shipping_address":"..."}' -SkipHttpErrorCheck` | `REJ-CHECKOUT` (`400 Bad Request` + `OC-ORDER-NO`): Không cho phép tạo đơn hàng khi giỏ hàng rỗng (`FR-08` dòng 104) | HTTP 200: `{"message":"Checkout successful","orderId":1}` \| **Giỏ hàng trống (0 SP) nhưng vẫn tạo đơn hàng rác trong DB!** | Giống Lần 1 | **Fail** | BUG-018 (Cho phép đặt hàng khi giỏ hàng rỗng) |
+| **EP-TC10** | Áp mã `SAVE10` khi tổng tiền đơn hàng chưa đạt mức tối thiểu (`total_amount = 200,000 < 300,000 ₫`) — vi phạm **C3** | `Invoke-WebRequest -Uri "http://localhost:3000/api/apply-coupon" -Method POST -ContentType 'application/json' -Body '{"code":"SAVE10","total_amount":200000,"user_id":2}' -SkipHttpErrorCheck` | `REJ-COUPON` (`400 Bad Request`): Từ chối vì $200,000 < 300,000$ (`FR-09` C3 dòng 118, 130) | HTTP 400: `{"error":"Đơn hàng chưa đủ giá trị tối thiểu 300,000 ₫ để áp dụng mã này"}` | Giống Lần 1 | **Pass** |  |
+| **EP-TC11** | Áp mã `BIGBUY` khi tổng tiền đơn hàng chưa đạt ngưỡng 500,000 ₫ (`total_amount = 400,000 < 500,000 ₫`) — vi phạm **C3** | `Invoke-WebRequest -Uri "http://localhost:3000/api/apply-coupon" -Method POST -ContentType 'application/json' -Body '{"code":"BIGBUY","total_amount":400000,"user_id":2}' -SkipHttpErrorCheck` | `REJ-COUPON` (`400 Bad Request`): Từ chối vì $400,000 < 500,000$ (`FR-09` C3 dòng 118, 131) | HTTP 400: `{"error":"Đơn hàng chưa đủ giá trị tối thiểu 500,000 ₫ để áp dụng mã này"}` | Giống Lần 1 | **Pass** |  |
+| **EP-TC12** | Áp mã `SAVE10` với `total_amount` âm (`-100,000 ₫`) | `Invoke-WebRequest -Uri "http://localhost:3000/api/apply-coupon" -Method POST -ContentType 'application/json' -Body '{"code":"SAVE10","total_amount":-100000,"user_id":2}' -SkipHttpErrorCheck` | `REJ-COUPON` (`400 Bad Request`): Tổng tiền âm không hợp lệ (`FR-09` C3 dòng 118) | HTTP 400: `{"error":"Đơn hàng chưa đủ giá trị tối thiểu 300,000 ₫ để áp dụng mã này"}` | Giống Lần 1 | **Pass** |  |
+| **EP-TC13** | Client gửi `total_amount = 1,000 ₫` gian lận khi giỏ hàng thực tế là 500,000 ₫ tại `POST /api/checkout` (vi phạm **R5**) | `Invoke-WebRequest -Uri "http://localhost:3000/api/checkout" -Method POST -ContentType 'application/json' -Headers @{ Authorization = "Bearer <JWT_TOKEN>" } -Body '{"total_amount":1000,"shipping_address":"..."}' -SkipHttpErrorCheck` | Từ chối `400 Bad Request` hoặc Backend tự tính lại đúng `500,000 ₫` từ giỏ hàng; tuyệt đối không lưu đơn `1,000 ₫` (`FR-08` dòng 107) | HTTP 200: `{"message":"Checkout successful","orderId":1}` \| **Backend lưu nguyên xi `total_amount = 1000 ₫` gian lận từ client thay vì tự tính lại `500,000 ₫`!** | Giống Lần 1 | **Fail** | BUG-018 (Lỗ hổng sửa giá `total_amount` từ client `R5`) |
+| **EP-TC14** | Áp mã giảm giá không tồn tại trong hệ thống (`code = "NOTEXIST99"`) — vi phạm **C1** vế 1 | `Invoke-WebRequest -Uri "http://localhost:3000/api/apply-coupon" -Method POST -ContentType 'application/json' -Body '{"code":"NOTEXIST99","total_amount":500000,"user_id":2}' -SkipHttpErrorCheck` | `REJ-COUPON` (`400`/`404`): Từ chối vì mã không tồn tại (`FR-09` C1 dòng 116) | HTTP 404: `{"error":"Mã giảm giá không tồn tại hoặc đã bị vô hiệu hóa"}` | Giống Lần 1 | **Pass** |  |
+| **EP-TC15** | Áp mã giảm giá tồn tại nhưng đang bị vô hiệu hóa (`code = "INACTIVE10"`, `is_active = 0`) — vi phạm **C1** vế 2 | `Invoke-WebRequest -Uri "http://localhost:3000/api/apply-coupon" -Method POST -ContentType 'application/json' -Body '{"code":"INACTIVE10","total_amount":500000,"user_id":2}' -SkipHttpErrorCheck` | `REJ-COUPON` (`400`/`404`): Từ chối vì mã có `is_active = 0` (`FR-09` C1 dòng 116, `Q5`) | HTTP 404: `{"error":"Mã giảm giá không tồn tại hoặc đã bị vô hiệu hóa"}` | Giống Lần 1 | **Pass** |  |
+| **EP-TC16** | Áp mã giảm giá đã hết hạn (`code = "EXPIRED"`, `expired_at = 2020-01-01 < NOW`) — vi phạm **C2** | `Invoke-WebRequest -Uri "http://localhost:3000/api/apply-coupon" -Method POST -ContentType 'application/json' -Body '{"code":"EXPIRED","total_amount":500000,"user_id":2}' -SkipHttpErrorCheck` | `REJ-COUPON` (`400 Bad Request`): Từ chối vì mã đã hết hạn theo điều kiện **C2** (`FR-09` dòng 117, 133) | HTTP 400: `{"error":"Mã giảm giá đã hết hạn"}` | Giống Lần 1 | **Pass** |  |
+| **EP-TC17** | Áp mã giảm giá rỗng (`code = ""`) | `Invoke-WebRequest -Uri "http://localhost:3000/api/apply-coupon" -Method POST -ContentType 'application/json' -Body '{"code":"","total_amount":500000,"user_id":2}' -SkipHttpErrorCheck` | `REJ-COUPON` (`400 Bad Request`): Mã giảm giá rỗng phải bị từ chối (`FR-09` C1) | HTTP 400: `{"error":"Vui lòng nhập mã giảm giá"}` | Giống Lần 1 | **Pass** |  |
+| **EP-TC18** | Áp mã giảm giá chỉ gồm khoảng trắng (`code = "     "`) | `Invoke-WebRequest -Uri "http://localhost:3000/api/apply-coupon" -Method POST -ContentType 'application/json' -Body '{"code":"     ","total_amount":500000,"user_id":2}' -SkipHttpErrorCheck` | `REJ-COUPON` (`400`/`404`): Chuỗi khoảng trắng phải bị từ chối (`FR-09` C1, `Q6`) | HTTP 404: `{"error":"Mã giảm giá không tồn tại hoặc đã bị vô hiệu hóa"}` | Giống Lần 1 | **Pass** |  |
+| **EP-TC19** | Áp mã `SAVE10` lần thứ 2 sau khi cùng user đã dùng 1 lần (vượt `max_uses_per_user = 1`) — vi phạm **C5** | Sau khi ghi nhận 1 lượt dùng `SAVE10` trong `coupon_usage`, gọi `POST /api/apply-coupon` lần 2 với `SAVE10` | `REJ-COUPON` (`400 Bad Request`): Từ chối vì `usage_count = 1 >= max_uses_per_user (1)` theo điều kiện **C5** (`README` dòng 120, 130, `Q4`) | HTTP 400: `{"error":"Bạn đã sử dụng mã này 1 lần (đã đạt giới hạn)"}` | Giống Lần 1 | **Pass** |  |
+| **EP-TC20** | Áp mã `VIP100` lần thứ 3 sau khi cùng user đã dùng đủ 2 lần (vượt `max_uses_per_user = 2`) — vi phạm **C5** | Sau khi ghi nhận 2 lượt dùng `VIP100` trong `coupon_usage`, gọi `POST /api/apply-coupon` lần 3 với `VIP100` | `REJ-COUPON` (`400 Bad Request`): Từ chối vì `usage_count = 2 >= max_uses_per_user (2)` theo điều kiện **C5** (`README` dòng 120, 132, `Q4`) | HTTP 400: `{"error":"Bạn đã sử dụng mã này 2 lần (đã đạt giới hạn)"}` | Giống Lần 1 | **Pass** |  |
+| **EP-TC21** | Đặt hàng với `shipping_address` rỗng (`""`) tại `POST /api/checkout` | `Invoke-WebRequest -Uri "http://localhost:3000/api/checkout" -Method POST -ContentType 'application/json' -Headers @{ Authorization = "Bearer <JWT_TOKEN>" } -Body '{"total_amount":500000,"shipping_address":""}' -SkipHttpErrorCheck` | `REJ-CHECKOUT` (`400 Bad Request` + `OC-ORDER-NO`): Địa chỉ giao hàng bắt buộc không được rỗng (`FR-08` dòng 105, `FR-22`) | HTTP 200: `{"message":"Checkout successful","orderId":1}` \| **Địa chỉ rỗng `""` vẫn tạo đơn hàng thành công trong DB!** | Giống Lần 1 | **Fail** | BUG-017 (Thiếu kiểm tra hợp lệ `shipping_address` trên API & Mobile) |
+| **EP-TC22** | Đặt hàng với `shipping_address` chỉ chứa khoảng trắng (`"      "`) tại `POST /api/checkout` | `Invoke-WebRequest -Uri "http://localhost:3000/api/checkout" -Method POST -ContentType 'application/json' -Headers @{ Authorization = "Bearer <JWT_TOKEN>" } -Body '{"total_amount":500000,"shipping_address":"      "}' -SkipHttpErrorCheck` | `REJ-CHECKOUT` (`400 Bad Request` + `OC-ORDER-NO`): Không chấp nhận địa chỉ toàn khoảng trắng (`FR-08` dòng 105, `Q1`) | HTTP 200: `{"message":"Checkout successful","orderId":1}` \| **Địa chỉ toàn khoảng trắng vẫn tạo đơn hàng thành công!** | Giống Lần 1 | **Fail** | BUG-017 (Thiếu kiểm tra hợp lệ `shipping_address`) |
+| **EP-TC23** | Đặt hàng với `shipping_address` dài 300 ký tự (`> 255` ký tự theo `Q1`/`Q8`) | `Invoke-WebRequest -Uri "http://localhost:3000/api/checkout" -Method POST -ContentType 'application/json' -Headers @{ Authorization = "Bearer <JWT_TOKEN>" } -Body '{"total_amount":500000,"shipping_address":"AAAA...(300 ký tự)"}' -SkipHttpErrorCheck` | `REJ-CHECKOUT` (`400 Bad Request` + `OC-ORDER-NO`) theo giả định cận trên 255 ký tự (`Q1`, `Q8`) | HTTP 200: `{"message":"Checkout successful","orderId":1}` \| Chấp nhận địa chỉ 300 ký tự (Đơn hàng: 0 -> 1) | Giống Lần 1 | **Fail** | — *(Câu hỏi mở Q1/Q8)* |
+| **EP-TC24** | Đặt hàng với `shipping_address` sai kiểu dữ liệu (số nguyên `12345`) | `Invoke-WebRequest -Uri "http://localhost:3000/api/checkout" -Method POST -ContentType 'application/json' -Headers @{ Authorization = "Bearer <JWT_TOKEN>" } -Body '{"total_amount":500000,"shipping_address":12345}' -SkipHttpErrorCheck` | `REJ-CHECKOUT` (`400 Bad Request` + `OC-ORDER-NO`) (`api_spec` dòng 135) | HTTP 200: `{"message":"Checkout successful","orderId":1}` \| **Chấp nhận kiểu số nguyên `12345` cho `shipping_address`!** | Giống Lần 1 | **Fail** | BUG-017 (Thiếu kiểm tra kiểu dữ liệu `shipping_address`) |
+| **EP-TC25** | Đặt hàng với `shipping_address` chứa chuỗi HTML/script `"<img src=x onerror=alert(1)> 123 Lê Lợi"` (`SEC-04`) | `POST /api/checkout` với chuỗi XSS và mở màn hình `Hồ sơ & Lịch sử đơn hàng` trên Playwright Mobile (`390×844`) | Lưu chuỗi văn bản, xóa rỗng giỏ hàng (`R6`); trên UI hiển thị an toàn không thực thi script (`SEC-04`) | HTTP 200 \| Trên UI Mobile escape an toàn (`xssTriggered = false`), **nhưng ở tầng API sau khi đặt hàng không xóa rỗng giỏ hàng (còn 1 mục, vi phạm `R6`)!** | Giống Lần 1 | **Fail** | BUG-018 (Không xóa rỗng giỏ hàng sau khi thanh toán `R6`) |
+| **EP-TC26** | Luồng Áp mã `SAVE10` và Đặt hàng hợp lệ trên màn hình Giỏ hàng/Thanh toán Mobile (`390×844`) | Playwright (`390×844`) đăng nhập `test@eshop.com` $\rightarrow$ thêm 2 SP `#1` ($500,000\text{ ₫}$) $\rightarrow$ mở Checkout $\rightarrow$ nhập `SAVE10` bấm `"Áp dụng"` | Hiển thị `Tiết kiệm: 50,000 ₫` và `Thành tiền / Tổng thanh toán: 450,000 ₫`; có ô nhập địa chỉ và đặt hàng thành công (`FR-20.3`) | **Hiển thị `"Tiết kiệm: -4,500,000 ₫"` và `"Thành tiền: 5,000,000 ₫"` (`Tổng thanh toán: 5,000,000 ₫`)!** Đồng thời Mobile App không gửi Header `Authorization` khi gọi `/api/apply-coupon` | Giống Lần 1 | **Fail** | BUG-014 (Sai công thức `percent` trên Mobile & API), BUG-016 |
+| **EP-TC27** | Nhập mã hết hạn `EXPIRED` trên màn hình Mobile (`390×844`) rồi bấm `"Áp dụng"` | Playwright (`390×844`) mở màn hình Checkout Mobile $\rightarrow$ nhập `EXPIRED` $\rightarrow$ bấm `"Áp dụng"` | Hiển thị thông báo lỗi rõ ràng bằng tiếng Việt trên màn hình Mobile; tổng tiền giữ nguyên $500,000\text{ ₫}$ (`FR-20.3`, `FR-21`) | Hiển thị thông báo lỗi chữ đỏ `"Mã giảm giá đã hết hạn"`; `Tổng thanh toán: 500,000 ₫` giữ nguyên | Giống Lần 1 | **Pass** |  |
+| **EP-TC28** | Kiểm tra sự tồn tại của ô nhập Địa chỉ giao hàng và ký hiệu dấu `*` bắt buộc trên màn hình Thanh toán Mobile | Playwright (`390×844`) kiểm tra DOM màn hình `Xác Nhận Đơn Hàng` (`renderCheckout` trong `frontend-mobile/App.js`) | Màn hình Thanh toán Mobile có ô nhập Địa chỉ giao hàng kèm nhãn dấu `*` bắt buộc (`FR-08` dòng 105, `FR-22` dòng 252) | **Trên màn hình `Xác Nhận Đơn Hàng` Mobile: số nhãn `"Địa chỉ giao hàng"` = `0`, số ký hiệu `"*"` bắt buộc = `0` (hoàn toàn thiếu ô nhập địa chỉ)!** | Giống Lần 1 | **Fail** | BUG-017 (Màn hình Checkout Mobile thiếu ô `shipping_address`), BUG-019 |
+| **EP-TC29** | Để trống Địa chỉ giao hàng trên màn hình Mobile rồi bấm `"Xác Nhận Thanh Toán"` | Playwright (`390×844`) mở màn hình Checkout Mobile $\rightarrow$ bấm `"Xác Nhận Thanh Toán"` và bắt gói tin `POST /api/checkout` | Bị chặn không cho đặt hàng; thông báo lỗi hiển thị phía trên nút Submit; không tạo đơn thiếu địa chỉ (`FR-08`, `FR-22`) | **Bấm `"Xác Nhận Thanh Toán"` khi không có địa chỉ vẫn báo `"Thanh toán thành công!"`; payload gửi đi không có trường `shipping_address`, lưu `shipping_address = NULL` trong DB!** | Giống Lần 1 | **Fail** | BUG-017 (Mobile & Backend cho phép đặt hàng không có `shipping_address`) |
+| **EP-TC30** | Kiểm tra định dạng tiền tệ `₫` (dấu phân cách hàng nghìn) và ngôn ngữ tiếng Việt nhất quán trên màn hình Mobile | Playwright (`390×844`) kiểm tra màn hình Đăng nhập và ô `Tổng tiền thanh toán (VND):` trên màn hình Checkout Mobile | Số tiền có dấu phân cách hàng nghìn kèm ký hiệu `₫`; ngôn ngữ tiếng Việt nhất quán không lẫn tiếng Anh (`FR-21` dòng 244, 248) | **Ô `Tổng tiền thanh toán (VND):` hiển thị số thô `"500000"` (thiếu dấu phân cách hàng nghìn và thiếu ký hiệu `₫`); màn hình Đăng nhập trộn tiếng Anh (`"Username"`, `"Sign In"`)!** | Giống Lần 1 | **Fail** | BUG-019 (Mobile UI sai định dạng tiền tệ & trộn tiếng Anh `FR-21`) |
+| **BV-TC01** | BVA B01 $\text{LB}$: Thanh toán giỏ hàng tại biên dưới số lượng sản phẩm `qty = 1` SP ($250,000\text{ ₫}$) | Thêm 1 SP `#1` vào giỏ rồi gọi `POST /api/checkout` với `{"total_amount":250000,"shipping_address":"..."}` | `OC-CHECKOUT-OK(250000, ADDR_NOM)`: HTTP 200, tạo đơn `total_amount=250000`, xóa rỗng giỏ hàng (`R6`) | HTTP 200: `{"message":"Checkout successful","orderId":1}` \| Tạo đơn `total=250000`, **nhưng giỏ hàng sau checkout vẫn còn 1 mục!** | Giống Lần 1 | **Fail** | BUG-018 (Không xóa rỗng giỏ hàng sau khi thanh toán `R6`) |
+| **BV-TC02** | BVA B01 $\text{LB}+\delta$: Thanh toán giỏ hàng tại sát biên dưới số lượng sản phẩm `qty = 2` SP ($500,000\text{ ₫}$) | Thêm 2 SP `#1` vào giỏ rồi gọi `POST /api/checkout` với `{"total_amount":500000,"shipping_address":"..."}` | `OC-CHECKOUT-OK(500000, ADDR_NOM)`: HTTP 200, tạo đơn `total_amount=500000`, xóa rỗng giỏ hàng (`R6`) | HTTP 200: `{"message":"Checkout successful","orderId":1}` \| Tạo đơn `total=500000`, **nhưng giỏ hàng sau checkout vẫn còn 1 mục!** | Giống Lần 1 | **Fail** | BUG-018 (Không xóa rỗng giỏ hàng sau khi thanh toán `R6`) |
+| **BV-TC03** | BVA B01 $\text{UB}-\delta$: Thanh toán số lượng sản phẩm tại sát biên trên tồn kho `qty = 9` SP ($2,250,000\text{ ₫}$) | Thêm 9 SP `#1` vào giỏ rồi gọi `POST /api/checkout` với `{"total_amount":2250000,"shipping_address":"..."}` | `OC-CHECKOUT-OK(2250000, ADDR_NOM)`: HTTP 200, tạo đơn `total_amount=2250000`, xóa rỗng giỏ hàng (`R6`) | HTTP 200: `{"message":"Checkout successful","orderId":1}` \| Tạo đơn `total=2250000`, **nhưng giỏ hàng sau checkout vẫn còn 1 mục!** | Giống Lần 1 | **Fail** | BUG-018 (Không xóa rỗng giỏ hàng sau khi thanh toán `R6`) |
+| **BV-TC04** | BVA B01 $\text{UB}$: Thanh toán số lượng sản phẩm chạm đúng biên trên tồn kho `qty = 10` SP ($2,500,000\text{ ₫}$) | Thêm 10 SP `#1` vào giỏ rồi gọi `POST /api/checkout` với `{"total_amount":2500000,"shipping_address":"..."}` | `OC-CHECKOUT-OK(2500000, ADDR_NOM)`: HTTP 200, tạo đơn `total_amount=2500000`, xóa rỗng giỏ hàng (`R6`) | HTTP 200: `{"message":"Checkout successful","orderId":1}` \| Tạo đơn `total=2500000`, **nhưng giỏ hàng sau checkout vẫn còn 1 mục!** | Giống Lần 1 | **Fail** | BUG-018 (Không xóa rỗng giỏ hàng sau khi thanh toán `R6`) |
+| **BV-TC05** | BVA B01 $\text{UB}+\delta$: Thêm vào giỏ và thanh toán số lượng vượt biên trên tồn kho `qty = 11` SP (`> stock = 10`) | Gửi `POST /api/cart` với `quantity = 11` và `POST /api/checkout` với `total_amount = 2750000` | Từ chối `400 Bad Request` khi thêm vào giỏ hoặc khi thanh toán vượt tồn kho (`FR-07` dòng 98, `FR-08` dòng 104) | HTTP 200 \| **`POST /api/cart` (HTTP 200) và `POST /api/checkout` (HTTP 200) đều cho phép đặt mua `quantity = 11` vượt quá tồn kho!** | Giống Lần 1 | **Fail** | BUG-018 (Thiếu kiểm tra tồn kho `stock` khi thêm giỏ & thanh toán) |
+| **BV-TC06** | BVA B02 $\text{LB}$: Đặt hàng với địa chỉ giao hàng tại biên dưới độ dài `len = 1` ký tự (`"A"`) | `POST /api/checkout` với `{"total_amount":500000,"shipping_address":"A"}` | `OC-CHECKOUT-OK(500000, "A")`: HTTP 200, lưu địa chỉ `"A"`, xóa rỗng giỏ hàng (`FR-08` dòng 105, `Q1`) | HTTP 200 \| Lưu địa chỉ `"A"` (`addrLen=1`), **nhưng giỏ hàng sau checkout vẫn còn 1 mục (vi phạm `R6`)!** | Giống Lần 1 | **Fail** | BUG-018 (Không xóa rỗng giỏ hàng sau khi thanh toán `R6`) |
+| **BV-TC07** | BVA B02 $\text{LB}+\delta$: Đặt hàng với địa chỉ giao hàng tại sát biên dưới độ dài `len = 2` ký tự (`"AB"`) | `POST /api/checkout` với `{"total_amount":500000,"shipping_address":"AB"}` | `OC-CHECKOUT-OK(500000, "AB")`: HTTP 200, lưu địa chỉ `"AB"`, xóa rỗng giỏ hàng (`FR-08` dòng 105, `Q1`) | HTTP 200 \| Lưu địa chỉ `"AB"` (`addrLen=2`), **nhưng giỏ hàng sau checkout vẫn còn 1 mục (vi phạm `R6`)!** | Giống Lần 1 | **Fail** | BUG-018 (Không xóa rỗng giỏ hàng sau khi thanh toán `R6`) |
+| **BV-TC08** | BVA B02 $\text{UB}-\delta$: Đặt hàng với địa chỉ giao hàng tại sát biên trên độ dài `len = 254` ký tự (`"A"×254`) | `POST /api/checkout` với `{"total_amount":500000,"shipping_address":"A"×254}` | `OC-CHECKOUT-OK(500000, "A"×254)`: HTTP 200, lưu đủ 254 ký tự, xóa rỗng giỏ hàng (`Q1`, `Q8`) | HTTP 200 \| Lưu đủ 254 ký tự (`addrLen=254`), **nhưng giỏ hàng sau checkout vẫn còn 1 mục (vi phạm `R6`)!** | Giống Lần 1 | **Fail** | BUG-018 (Không xóa rỗng giỏ hàng sau khi thanh toán `R6`) |
+| **BV-TC09** | BVA B02 $\text{UB}$: Đặt hàng với địa chỉ giao hàng tại biên trên độ dài `len = 255` ký tự (`"A"×255`) | `POST /api/checkout` với `{"total_amount":500000,"shipping_address":"A"×255}` | `OC-CHECKOUT-OK(500000, "A"×255)`: HTTP 200, lưu đủ 255 ký tự, xóa rỗng giỏ hàng (`Q1`, `Q8`) | HTTP 200 \| Lưu đủ 255 ký tự (`addrLen=255`), **nhưng giỏ hàng sau checkout vẫn còn 1 mục (vi phạm `R6`)!** | Giống Lần 1 | **Fail** | BUG-018 (Không xóa rỗng giỏ hàng sau khi thanh toán `R6`) |
+| **BV-TC10** | BVA B02 $\text{UB}+\delta$: Đặt hàng với địa chỉ giao hàng vượt biên trên độ dài `len = 256` ký tự (`"A"×256`) | `POST /api/checkout` với `{"total_amount":500000,"shipping_address":"A"×256}` | `REJ-CHECKOUT` (`400 Bad Request` + `OC-ORDER-NO`) theo giả định cận trên 255 ký tự (`Q1`, `Q8`) | HTTP 200: `{"message":"Checkout successful","orderId":1}` \| Chấp nhận địa chỉ 256 ký tự (Đơn hàng: 0 -> 1) | Giống Lần 1 | **Fail** | — *(Câu hỏi mở Q1/Q8)* |
+| **BV-TC11** | BVA B03 $\text{LB}_1-\delta$: Áp mã `SAVE10` tại điểm sát dưới ngưỡng tối thiểu `total_amount = 299,999 ₫` | `POST /api/apply-coupon` với `{"code":"SAVE10","total_amount":299999,"user_id":2}` | `REJ-COUPON` (`400 Bad Request`): Từ chối vì $299,999 < 300,000$ (`FR-09` C3 dòng 118, 130) | HTTP 400: `{"error":"Đơn hàng chưa đủ giá trị tối thiểu 300,000 ₫ để áp dụng mã này"}` | Giống Lần 1 | **Pass** |  |
+| **BV-TC12** | BVA B03 $\text{LB}_1$: Áp mã `SAVE10` chạm đúng biên dưới ngưỡng tối thiểu `total_amount = 300,000 ₫` | `POST /api/apply-coupon` với `{"code":"SAVE10","total_amount":300000,"user_id":2}` | `OC-COUPON-OK(30000, 270000)`: HTTP 200, `discount_amount=30000`, `final_amount=270000` (`FR-09` C3 dòng 118, 130) | HTTP 400: `{"error":"Đơn hàng chưa đủ giá trị tối thiểu 300,000 ₫ để áp dụng mã này"}` \| **Đơn hàng đúng bằng 300,000 ₫ vẫn bị từ chối do code dùng `>` thay vì `>=`!** | Giống Lần 1 | **Fail** | BUG-015 (Lỗi toán tử biên `>` thay vì `>=` tại điều kiện `C3`) |
+| **BV-TC13** | BVA B03 $\text{LB}_1+\delta$: Áp mã `SAVE10` tại điểm sát trên ngưỡng tối thiểu `total_amount = 300,001 ₫` | `POST /api/apply-coupon` với `{"code":"SAVE10","total_amount":300001,"user_id":2}` | `OC-COUPON-OK(30000.1, 270000.9)`: HTTP 200, `discount_amount=30000.1`, `final_amount=270000.9` (`FR-09` C3) | HTTP 200: `{"success":true,"coupon_id":1,"discount_amount":-2700009,"final_amount":3000010}` \| **Sai công thức `percent` làm `discount_amount = -2,700,009 ₫` và `final_amount = 3,000,010 ₫`!** | Giống Lần 1 | **Fail** | BUG-014 (Sai công thức tính giảm giá `percent`) |
+| **BV-TC14** | BVA B03 $\text{LB}_2-\delta$: Áp mã `BIGBUY` tại điểm sát dưới ngưỡng tối thiểu `total_amount = 499,999 ₫` | `POST /api/apply-coupon` với `{"code":"BIGBUY","total_amount":499999,"user_id":2}` | `REJ-COUPON` (`400 Bad Request`): Từ chối vì $499,999 < 500,000$ (`FR-09` C3 dòng 118, 131) | HTTP 400: `{"error":"Đơn hàng chưa đủ giá trị tối thiểu 500,000 ₫ để áp dụng mã này"}` | Giống Lần 1 | **Pass** |  |
+| **BV-TC15** | BVA B03 $\text{LB}_2$: Áp mã `BIGBUY` chạm đúng biên dưới ngưỡng tối thiểu `total_amount = 500,000 ₫` | `POST /api/apply-coupon` với `{"code":"BIGBUY","total_amount":500000,"user_id":2}` | `OC-COUPON-OK(50000, 450000)`: HTTP 200, `discount_amount=50000`, `final_amount=450000` (`FR-09` C3 dòng 118, 131) | HTTP 400: `{"error":"Đơn hàng chưa đủ giá trị tối thiểu 500,000 ₫ để áp dụng mã này"}` \| **Đơn hàng đúng bằng 500,000 ₫ vẫn bị từ chối do lỗi toán tử `>` thay vì `>=`!** | Giống Lần 1 | **Fail** | BUG-015 (Lỗi toán tử biên `>` thay vì `>=` tại điều kiện `C3`) |
+| **BV-TC16** | BVA B03 $\text{LB}_2+\delta$: Áp mã `BIGBUY` tại điểm sát trên ngưỡng tối thiểu `total_amount = 500,001 ₫` | `POST /api/apply-coupon` với `{"code":"BIGBUY","total_amount":500001,"user_id":2}` | `OC-COUPON-OK(50000, 450001)`: HTTP 200, `discount_amount=50000`, `final_amount=450001` (`FR-09` C3) | HTTP 200: `{"success":true,"coupon_id":2,"discount_amount":50000,"final_amount":450001,"message":"Áp dụng thành công! Giảm 50,000 ₫"}` | Giống Lần 1 | **Pass** |  |
+| **BV-TC17** | BVA B04 $\text{LB}$ (`usage_count = 0`) & B03 $\text{LB}_1$ (`300,000 ₫`) với `VIP100` | `POST /api/apply-coupon` với `{"code":"VIP100","total_amount":300000,"user_id":2}` | `OC-COUPON-OK(100000, 200000)`: HTTP 200, `discount_amount=100000`, `final_amount=200000` (`FR-09` dòng 118, 120, 132) | HTTP 400: `{"error":"Đơn hàng chưa đủ giá trị tối thiểu 300,000 ₫ để áp dụng mã này"}` \| **Bị từ chối tại đúng biên 300,000 ₫ do lỗi toán tử `>` thay vì `>=`!** | Giống Lần 1 | **Fail** | BUG-015 (Lỗi toán tử biên `>` thay vì `>=` tại điều kiện `C3`) |
+| **OB-TC01** | Output BVA $\text{LB}_{\text{out}} = 0$: Áp mã `FREE350` (`fixed` $350,000\text{ ₫}$) trên đơn $300,000\text{ ₫}$ | `POST /api/apply-coupon` với `{"code":"FREE350","total_amount":300000,"user_id":2}` | HTTP 200; `final_amount = max(0, 300000 - 350000) = 0 ₫` (tuyệt đối không trả về số âm `-50,000 ₫`) (`README` dòng 126) | HTTP 200: `{"success":true,"coupon_id":5,"discount_amount":350000,"final_amount":-50000}` \| **Thiếu hàm chặn dưới `Math.max(0, ...)` nên trả về `final_amount = -50,000 ₫` (số tiền âm)!** | Giống Lần 1 | **Fail** | BUG-014 (Thiếu chặn dưới `max(0, ...)` khiến `final_amount` bị âm) |
+| **OB-TC02** | Date BVA (`C2`): Áp mã tại biên ngày hết hạn `EXP_YESTERDAY` (hôm qua) và `EXP_TOMORROW` (ngày mai) | Gọi `POST /api/apply-coupon` với `EXP_YESTERDAY` và `EXP_TOMORROW` trên đơn $500,000\text{ ₫}$ | `EXP_YESTERDAY` $\rightarrow$ `400 Bad Request`; `EXP_TOMORROW` $\rightarrow$ `200 OK` (`FR-09` C2 dòng 117, `Q5`) | `EXP_YESTERDAY` trả HTTP 400 (`"Mã giảm giá đã hết hạn"`); `EXP_TOMORROW` trả HTTP 200 OK | Giống Lần 1 | **Pass** |  |
+| **SR-TC01** | Chuẩn hóa chuỗi mã giảm giá chữ thường `"save10"` và dư khoảng trắng `"  SAVE10  "` (`Q6`) | Gửi `POST /api/apply-coupon` với `code = "save10"` và `code = "  SAVE10  "` | Xử lý nhất quán (từ chối `400`/`404` nếu đối sánh viết hoa nghiêm ngặt theo `Q6`, không lỗi `500`) | HTTP 404: `{"error":"Mã giảm giá không tồn tại hoặc đã bị vô hiệu hóa"}` cho cả `"save10"` và `"  SAVE10  "` (không lỗi 500) | Giống Lần 1 | **Pass** |  |
+| **SR-TC02** | Luồng Hủy đơn hàng ở trạng thái `pending` trên Mobile & chặn không token / hủy lặp (`FR-20.3` dòng 237, `FR-10` dòng 145–146) | Tạo đơn `pending`, sau đó gọi `PUT /api/orders/:id/cancel`: (1) không token, (2) hủy lần 1, (3) hủy lần 2 khi đã `canceled` | Không có token $\rightarrow$ `401`; Hủy lần 1 khi `pending` $\rightarrow$ `200 OK`; Hủy lần 2 khi đã `canceled` $\rightarrow$ `400 Bad Request` | Không token $\rightarrow$ HTTP 401; Hủy lần 1 (`pending`) $\rightarrow$ HTTP 200; Hủy lần 2 (đã `canceled`) $\rightarrow$ HTTP 400 (`"Cannot cancel this order."`) | Giống Lần 1 | **Pass** |  |
+| **SR-TC03** | *(Ca phạm vi mở rộng)* Phòng chống SQL Injection trong `code` coupon và `shipping_address` (`SEC-05`) | Gửi `"NOTEXIST' OR '1'='1"` vào `/api/apply-coupon` và `"123 Lê Lợi'); DROP TABLE orders; --"` vào `/api/checkout` | `apply-coupon` trả `400`/`404` (không bị bypass bởi `OR 1=1`); `checkout` dùng Parameterized Query không mất bảng `orders` (`SEC-05`) | `SQLi apply-coupon` $\rightarrow$ HTTP 404; `SQLi checkout` $\rightarrow$ HTTP 200; Bảng `orders` vẫn hoạt động bình thường | Giống Lần 1 | **Pass** |  |
+| **SR-TC04** | *(Ca phạm vi mở rộng)* Xung đột đồng thời (Race Condition / Double Submit) khi áp mã `SAVE10` và bấm Thanh toán song song | Bắn đồng thời (`Promise.all`) 2 request `POST /api/apply-coupon` (`SAVE10`, `max_uses=1`) và 2 request `POST /api/checkout` trên cùng 1 giỏ hàng | `SAVE10` chỉ được dùng tối đa 1 lần; từ 1 giỏ hàng chỉ được tạo đúng 1 đơn hàng | **Cả 2 request `apply-coupon` `SAVE10` đồng thời đều trả HTTP 200 OK; 2 request `checkout` đồng thời sinh ra 2 đơn hàng trùng lặp từ 1 giỏ hàng!** | Giống Lần 1 | **Fail** | BUG-016 (Không khóa lượt dùng coupon nguyên tử), BUG-018 (Double Submit tạo 2 đơn trùng) |
+| **SR-TC05** | *(Ca phạm vi mở rộng)* Tính toàn vẹn khấu trừ tồn kho `stock` của sản phẩm sau khi Đặt hàng thành công (`FR-07` & `FR-08`) | Kiểm tra `GET /api/products/1` trước và sau khi đặt mua 2 sản phẩm `prod_id = 1` qua `POST /api/checkout` | `stock_after = stock_before - quantity = 10 - 2 = 8` (ngăn chặn bán vượt tồn kho ở các đơn tiếp theo) | HTTP 200 \| **Bảng `products` thiếu cột `stock` (`GET /api/products/1` trả về `stock = undefined`) và `POST /api/checkout` không kiểm tra hay khấu trừ tồn kho sau khi đặt mua!** | Giống Lần 1 | **Fail** | BUG-018 (Thiếu cột `stock` & không khấu trừ tồn kho sau khi đặt hàng) |
+
+---
+
+### 3.2 Tổng kết thực thi
+
+| Chỉ số | Lần 1 (`run_api_1` & `run_ui_1`) | Lần 2 (`run_api_2` & `run_ui_2`) |
+|---|---:|---:|
+| **Tổng số test case đã thiết kế** | **54** | **54** |
+| **Pass** | **21** (38.9%) | **21** (38.9%) |
+| **Fail** | **33** (61.1%) | **33** (61.1%) |
+| **Blocked** | **0** (0%) | **0** (0%) |
+| **Not run** | **0** (0%) | **0** (0%) |
+
+**Độ ổn định (Flakiness Verification):** 100% test case cho kết quả nhất quán tuyệt đối giữa Lần 1 và Lần 2:
+- **21 ca Pass ổn định:**
+  - *API & Bảo mật (20 ca):* `EP-TC03` (`BIGBUY` hợp lệ trên đơn 600k), `EP-TC04` (`VIP100` lần dùng thứ 2 hợp lệ), `EP-TC08` (chặn `401` khi gọi `/api/checkout` không có JWT), `EP-TC10` & `EP-TC11` (từ chối khi chưa đủ `min_order_amount`), `EP-TC12` (từ chối `total_amount` âm), `EP-TC14` (từ chối mã không tồn tại), `EP-TC15` (từ chối mã `is_active = 0`), `EP-TC16` (từ chối mã `EXPIRED`), `EP-TC17` & `EP-TC18` (từ chối mã rỗng/khoảng trắng), `EP-TC19` & `EP-TC20` (từ chối khi vượt `max_uses_per_user` sau khi đã ghi nhận trong `coupon_usage`), `BV-TC11` ($299,999\text{ ₫}$ với `SAVE10`), `BV-TC14` ($499,999\text{ ₫}$ với `BIGBUY`), `BV-TC16` ($500,001\text{ ₫}$ với `BIGBUY`), `OB-TC02` (biên ngày hết hạn hôm qua/ngày mai), `SR-TC01` (đối sánh mã hoa/thường & khoảng trắng nhất quán), `SR-TC02` (luồng hủy đơn `pending` và chặn hủy lặp), `SR-TC03` (chống SQL Injection bằng Parameterized Query theo `SEC-05`).
+  - *Giao diện Mobile UI (1 ca):* `EP-TC27` (hiển thị đúng thông báo lỗi tiếng Việt `"Mã giảm giá đã hết hạn"` và giữ nguyên tổng tiền $500,000\text{ ₫}$ trên màn hình `390×844`).
+- **33 ca Fail ổn định:** Gồm **31 ca gắn với 6 nhóm lỗi chính thức (`BUG-014` đến `BUG-019`)** + **2 ca câu hỏi mở (`EP-TC23` và `BV-TC10` phụ thuộc giả định kỹ thuật `Q1`/`Q8` về cận trên 255 ký tự của `shipping_address`)**:
+  - *31 ca gắn 6 lỗi chính thức:*
+    + `BUG-014` (Sai công thức tính giảm giá `percent` làm tổng tiền tăng gấp 10 lần và thiếu chặn dưới `Math.max(0, ...)` làm `final_amount` bị âm): 4 ca (`EP-TC02`, `EP-TC26`, `BV-TC13`, `OB-TC01`).
+    + `BUG-015` (Lỗi toán tử biên `>` thay vì `>=` khi kiểm tra `total_amount >= min_order_amount` tại điều kiện `C3`): 3 ca (`BV-TC12`, `BV-TC15`, `BV-TC17`).
+    + `BUG-016` (Thiếu xác thực JWT `C4` tại `/api/apply-coupon`, bỏ qua kiểm tra `C5` khi `user_id = null`, cho phép mạo danh `user_id` IDOR và không ghi nhận `coupon_usage` nguyên tử): 5 ca (`EP-TC05`, `EP-TC06`, `EP-TC07`, `EP-TC26`, `SR-TC04`).
+    + `BUG-017` (Màn hình Checkout Mobile hoàn toàn thiếu ô nhập `shipping_address` và không gửi `shipping_address`; Backend `/api/checkout` không kiểm tra `shipping_address` rỗng/khoảng trắng/sai kiểu): 5 ca (`EP-TC21`, `EP-TC22`, `EP-TC24`, `EP-TC28`, `EP-TC29`).
+    + `BUG-018` (Backend `/api/checkout` không xóa rỗng giỏ hàng sau khi thanh toán `R6`, cho phép đặt hàng khi giỏ rỗng, chấp nhận `total_amount` gian lận từ client `R5`, cắt mất sản phẩm cuối khi giỏ Mobile có `> 1` món, và thiếu cột/khấu trừ tồn kho `stock`): 16 ca (`EP-TC01`, `EP-TC02`, `EP-TC09`, `EP-TC13`, `EP-TC25`, `BV-TC01`–`BV-TC09`, `SR-TC04`, `SR-TC05`).
+    + `BUG-019` (Ứng dụng Mobile hardcode địa chỉ IP LAN tĩnh `192.168.10.13:3000`, ô tổng tiền hiển thị số thô `500000` thiếu dấu phân cách hàng nghìn & ký hiệu `₫`, và màn hình Đăng nhập pha trộn tiếng Anh `"Username"`/`"Sign In"` vi phạm `FR-21`, `FR-22`): 2 ca (`EP-TC28`, `EP-TC30`).
+    *(Lưu ý: Một số ca kiểm thử liên thông như `EP-TC02`, `EP-TC26`, `EP-TC28`, `SR-TC04` đồng thời phát hiện nhiều hơn 1 lỗi nên tổng số ca Fail duy nhất của 6 nhóm lỗi là 31 ca).*
+  - *2 ca câu hỏi mở theo Q1/Q8 (không tính là bug chính thức):*
+    + `EP-TC23` (địa chỉ dài 300 ký tự) và `BV-TC10` (địa chỉ dài 256 ký tự): Hệ thống backend SQLite chấp nhận lưu `shipping_address` vượt quá giả định 255 ký tự. Do `README.md` FR-08 không trực tiếp quy định cận trên độ dài chuỗi địa chỉ, 2 ca này được ghi nhận trung thực là Fail theo Oracle giả định `Q1` nhưng được phân loại vào nhóm câu hỏi mở theo đúng quy tắc `Q8`, không gán vào bất kỳ bug nào.
+- **0 ca Flaky / 0 ca Blocked.**
+
+---
+
+### 3.3 Phân tích ca Fail (giai đoạn B — được đọc mã nguồn sau khi Fail, quy định §4)
+
+Sau khi toàn bộ 54 ca kiểm thử đã thực thi thực tế và ghi nhận 33 ca Fail ổn định qua 2 lần chạy độc lập, theo đúng quy định kiểm thử hộp đen (§4), chúng tôi tiến hành mở mã nguồn SUT ([backend/server.js](file:///d:/KCPM/eshop-sut/backend/server.js), [backend/database.js](file:///d:/KCPM/eshop-sut/backend/database.js) và [frontend-mobile/App.js](file:///d:/KCPM/eshop-sut/frontend-mobile/App.js)) để xác định nguyên nhân gốc rễ (`file:line`):
+
+#### 1. Lỗi công thức tính giảm giá phần trăm (`percent`) làm đội tổng tiền lên gấp 10 lần và thiếu chặn dưới `Math.max(0, ...)` cho loại `fixed` (`FR-09`)
+- **Tệp:** [backend/server.js](file:///d:/KCPM/eshop-sut/backend/server.js#L401-L430).
+- **Đoạn mã gây lỗi trong `backend/server.js` (dòng 401–415 & 421–430):**
+  ```javascript
+  let discount_amount = 0;
+  if (coupon.type === "percent") {
+    discount_amount = Math.floor(
+      total_amount * (1 - coupon.discount_value),
+    );
+  } else {
+    discount_amount = coupon.discount_value;
+  }
+
+  const final_amount = total_amount - discount_amount;
+  ```
+- **Nguyên nhân gốc:**
+  - Đối với mã loại `'percent'` (như `SAVE10` có `discount_value = 10`), đặc tả `README.md` dòng 123–124 quy định: $\text{discount\_amount} = \text{total\_amount} \times (\text{discount\_value} / 100)$. Tuy nhiên lập trình viên viết sai công thức thành `total_amount * (1 - coupon.discount_value)`. Khi `total_amount = 500,000` và `discount_value = 10`, hệ thống tính `discount_amount = 500,000 * (1 - 10) = -4,500,000 ₫` và `final_amount = 500,000 - (-4,500,000) = 5,000,000 ₫` (tăng giá đơn hàng lên gấp 10 lần!) (`EP-TC02`, `EP-TC26`, `BV-TC13`).
+  - Đối với mã loại `'fixed'`, đặc tả `README.md` dòng 126 quy định: $\text{final\_amount} = \max(0, \text{total\_amount} - \text{discount\_value})$. Tuy nhiên dòng 410 và 429 chỉ viết `const final_amount = total_amount - discount_amount` mà không có `Math.max(0, ...)`, khiến `OB-TC01` (`discount_value = 350,000 > total_amount = 300,000`) trả về số tiền thanh toán âm `-50,000 ₫`.
+
+#### 2. Lỗi toán tử biên `>` thay vì `>=` khi kiểm tra điều kiện giá trị đơn hàng tối thiểu `C3` (`FR-09`)
+- **Tệp:** [backend/server.js](file:///d:/KCPM/eshop-sut/backend/server.js#L383).
+- **Đoạn mã gây lỗi trong `backend/server.js` (dòng 383 & 438–442):**
+  ```javascript
+  if (total_amount > coupon.min_order_amount) {
+    // ...
+  } else {
+    return res.status(400).json({
+      error: `Đơn hàng chưa đủ giá trị tối thiểu ${coupon.min_order_amount.toLocaleString()} ₫ để áp dụng mã này`,
+    });
+  }
+  ```
+- **Nguyên nhân gốc:**
+  - Đặc tả `README.md` dòng 118 (**C3**) quy định rõ: *"Tổng tiền đơn hàng phải đạt mức tối thiểu (`total_amount >= min_order_amount`)"*. Lập trình viên dùng toán tử so sánh ngặt `>` thay vì `>=` ở dòng 383, dẫn đến mọi đơn hàng có tổng tiền **chạm đúng điểm biên ngưỡng tối thiểu** (`300,000 ₫` với `SAVE10`/`VIP100` tại `BV-TC12`, `BV-TC17` và `500,000 ₫` với `BIGBUY` tại `BV-TC15`) đều bị từ chối oan với lỗi `400 Bad Request`.
+
+#### 3. Lỗ hổng thiếu xác thực JWT (`C4`), bỏ qua kiểm tra lượt dùng (`C5`) khi `user_id = null` và IDOR tại `POST /api/apply-coupon` (`FR-09`, `SEC-02`)
+- **Tệp:** [backend/server.js](file:///d:/KCPM/eshop-sut/backend/server.js#L367-L437) và [frontend-mobile/App.js](file:///d:/KCPM/eshop-sut/frontend-mobile/App.js#L362-L370).
+- **Đoạn mã gây lỗi trong `backend/server.js` (dòng 367 & 390–425) và `frontend-mobile/App.js` (dòng 362–370):**
+  ```javascript
+  // backend/server.js:367 & 390-421
+  app.post("/api/apply-coupon", (req, res) => {
+    const { code, total_amount, user_id } = req.body;
+    // ...
+    if (user_id) {
+      db.get("SELECT COUNT(*) as usage_count FROM coupon_usage WHERE coupon_id = ? AND user_id = ?", ...);
+    } else {
+      // Bỏ qua hoàn toàn kiểm tra coupon_usage (C5)!
+    }
+  });
+
+  // frontend-mobile/App.js:362-370
+  const res = await fetch(`${API_URL}/apply-coupon`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" }, // Không gửi Header Authorization!
+    body: JSON.stringify({ code: couponCode, total_amount: Number(editableTotal), user_id: user?.id }),
+  });
+  ```
+- **Nguyên nhân gốc:**
+  - Route `app.post("/api/apply-coupon", ...)` hoàn toàn không gắn middleware `authenticateToken`, vi phạm trực tiếp điều kiện **C4** (`README.md` dòng 119: *"Người dùng phải đã đăng nhập (có JWT token hợp lệ)"*) và `SEC-02` (`EP-TC05`, `EP-TC06`). Ở phía Mobile (`frontend-mobile/App.js:362-364`), hàm `handleApplyCoupon` cũng không đính kèm header `Authorization: Bearer ${token}`.
+  - Nguy hiểm hơn, backend đọc `user_id` trực tiếp từ `req.body` thay vì `req.user.id`: nếu client truyền `user_id: null` hoặc bỏ trống, câu lệnh rẽ nhánh `if (user_id) { ... } else { ... }` tại dòng 390–420 sẽ nhảy vào nhánh `else` và **bỏ qua hoàn toàn việc kiểm tra giới hạn số lần sử dụng `max_uses_per_user` (C5)** (`EP-TC07`); hoặc nếu client truyền `user_id` của người khác (`user_id: 1`), hệ thống không đối chiếu với chủ sở hữu token (IDOR). Ngoài ra, `/api/apply-coupon` không khóa/ghi nhận lượt dùng nguyên tử mà phụ thuộc vào việc client tự nguyện gọi thêm `POST /api/coupon-usage` sau khi checkout (`SR-TC04`).
+
+#### 4. Lỗi màn hình Checkout Mobile thiếu hoàn toàn trường `Địa chỉ giao hàng` và Backend `/api/checkout` không kiểm tra `shipping_address` (`FR-08`, `FR-20.3`, `FR-22`)
+- **Tệp:** [frontend-mobile/App.js](file:///d:/KCPM/eshop-sut/frontend-mobile/App.js#L380-L408), [frontend-mobile/App.js](file:///d:/KCPM/eshop-sut/frontend-mobile/App.js#L659-L757) và [backend/server.js](file:///d:/KCPM/eshop-sut/backend/server.js#L301-L313).
+- **Đoạn mã gây lỗi trong `frontend-mobile/App.js` (dòng 386–398) và `backend/server.js` (dòng 301–313):**
+  ```javascript
+  // frontend-mobile/App.js:386-398
+  const res = await fetch(`${API_URL}/checkout`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      items: cart.length > 1 ? cart.slice(0, -1) : cart,
+      total_amount: finalTotal,
+    }), // Không gửi shipping_address!
+  });
+
+  // backend/server.js:301-313
+  app.post("/api/checkout", authenticateToken, (req, res) => {
+    const userId = req.user.id;
+    const { total_amount, shipping_address } = req.body;
+    db.run(
+      "INSERT INTO orders (user_id, total_amount, status, shipping_address) VALUES (?, ?, ?, ?)",
+      [userId, total_amount, "pending", shipping_address],
+      ...
+    );
+  });
+  ```
+- **Nguyên nhân gốc:**
+  - Trên giao diện Mobile (`frontend-mobile/App.js:659-757`), hàm `renderCheckout()` chỉ hiển thị danh sách sản phẩm, ô tổng tiền, ô mã giảm giá và nút `"Xác Nhận Thanh Toán"` mà **hoàn toàn không render ô nhập `Địa chỉ giao hàng` cũng như nhãn dấu `*` bắt buộc** (`EP-TC28`). Khi người dùng bấm `"Xác Nhận Thanh Toán"`, hàm `handleConfirmCheckout()` (dòng 386–398) gửi request `POST /api/checkout` mà **không truyền trường `shipping_address`** trong body (`EP-TC29`).
+  - Ở tầng Backend (`backend/server.js:301-313`), handler `POST /api/checkout` không kiểm tra `typeof shipping_address === 'string'` hay `shipping_address.trim().length > 0`, nên chấp nhận cả `shipping_address = undefined/null` (từ Mobile App), chuỗi rỗng `""` (`EP-TC21`), toàn khoảng trắng `"      "` (`EP-TC22`) và số nguyên `12345` (`EP-TC24`).
+
+#### 5. Lỗi Backend `/api/checkout` không xóa giỏ hàng (`R6`), cho phép thanh toán giỏ rỗng, tin tưởng `total_amount` từ client (`R5`), Mobile cắt mất sản phẩm cuối và thiếu quản lý tồn kho `stock` (`FR-07`, `FR-08`, `FR-20.3`)
+- **Tệp:** [backend/server.js](file:///d:/KCPM/eshop-sut/backend/server.js#L288-L313), [backend/database.js](file:///d:/KCPM/eshop-sut/backend/database.js#L66-L73) và [frontend-mobile/App.js](file:///d:/KCPM/eshop-sut/frontend-mobile/App.js#L392-L394).
+- **Nguyên nhân gốc:**
+  - Tại `backend/server.js:301-313`, `POST /api/checkout` chỉ thực hiện duy nhất câu lệnh `INSERT INTO orders ...` mà:
+    1. **Không làm rỗng giỏ hàng `userCarts[userId] = []`** sau khi tạo đơn thành công, vi phạm trực tiếp `FR-08` dòng 106 (`R6`) làm Fail toàn bộ các ca kiểm tra hậu điều kiện giỏ hàng (`EP-TC01`, `EP-TC02`, `EP-TC25`, `BV-TC01`–`BV-TC04`, `BV-TC06`–`BV-TC09`).
+    2. **Không kiểm tra giỏ hàng có sản phẩm hay không**, cho phép tạo đơn hàng khi giỏ hàng rỗng `0` sản phẩm (`EP-TC09`) và tạo 2 đơn hàng trùng lặp khi bấm đúp (`SR-TC04`).
+    3. **Không tự tính lại `total_amount` từ đơn giá sản phẩm thực tế trên server** mà lưu thẳng `req.body.total_amount` do client gửi lên, vi phạm nghiêm trọng quy tắc bảo mật giá `FR-08` dòng 107 (`R5`, `EP-TC13`).
+    4. Trong `backend/database.js:66-73`, bảng `products` thậm chí không khai báo cột `stock`, và cả `/api/cart` lẫn `/api/checkout` đều không kiểm tra hay khấu trừ tồn kho (`BV-TC05`, `SR-TC05`).
+  - Ngoài ra, trên Mobile (`frontend-mobile/App.js:393`), khi giỏ hàng có từ 2 mặt hàng trở lên, biểu thức `items: cart.length > 1 ? cart.slice(0, -1) : cart` cố tình cắt bỏ mặt hàng cuối cùng khỏi danh sách thanh toán, và ở `renderCart` (dòng 618–621) khi người dùng sửa số lượng trong giỏ thì code lại tự cộng thêm `+ 1` (`parsed + 1`).
+
+#### 6. Lỗi cấu hình cứng IP LAN `192.168.10.13:3000`, định dạng tiền tệ không nhất quán và pha trộn tiếng Anh trên Mobile UI (`FR-20.3`, `FR-21`, `FR-22`)
+- **Tệp:** [frontend-mobile/App.js](file:///d:/KCPM/eshop-sut/frontend-mobile/App.js#L16), [frontend-mobile/App.js](file:///d:/KCPM/eshop-sut/frontend-mobile/App.js#L684-L690) và [frontend-mobile/App.js](file:///d:/KCPM/eshop-sut/frontend-mobile/App.js#L763-L784).
+- **Nguyên nhân gốc:**
+  - Tại `frontend-mobile/App.js:16`, hằng số `const API_URL = "http://192.168.10.13:3000/api"` bị gán cứng vào một địa chỉ IP LAN cá nhân, khiến ứng dụng Mobile mất kết nối hoàn toàn nếu chạy trên máy/mạng khác không có IP `192.168.10.13`.
+  - Tại `frontend-mobile/App.js:684-690`, ô hiển thị tổng tiền trên màn hình Checkout dùng nhãn `"Tổng tiền thanh toán (VND):"` và truyền `value={String(cartTotal)}` (`"500000"`) thay vì `formatMoney(cartTotal)` (`"500,000 ₫"`), vi phạm quy chuẩn định dạng tiền tệ thống nhất có dấu phân cách hàng nghìn và ký hiệu `₫` (`FR-21` dòng 248, `EP-TC30`).
+  - Tại `frontend-mobile/App.js:763, 783`, màn hình Đăng nhập Mobile sử dụng nhãn `"Username"` và nút `"Sign In"` bằng tiếng Anh trộn lẫn với `"Đăng Nhập"`, `"Mật khẩu"`, `"Quên mật khẩu?"`, vi phạm `FR-21` dòng 244 (`EP-TC30`).
+
+---
+
+### 3.4 Bảng dữ kiện ứng viên bug (chuẩn bị cho Bug_Report.md)
+
+Theo quy định môn học, bảng dưới đây tổng hợp các dữ kiện kỹ thuật khách quan của 6 nhóm lỗi Fail ổn định trên SUT đối với **FR-20.3** (đánh mã tiếp nối từ `BUG-014` đến `BUG-019`) để sinh viên trực tiếp sử dụng khi hoàn thiện báo cáo lỗi trong [reports/Bug_Report.md](file:///d:/KCPM/eshop-sut/reports/Bug_Report.md):
+
+| Bug ID ứng viên | Tên nhóm lỗi kỹ thuật | Mức độ nghiêm trọng | Các test case kích hoạt lỗi | Tệp & Dòng mã nguồn (Root Cause) | Dữ liệu đầu vào tái hiện | Lệnh tái hiện kiểm thử (cURL / PowerShell) |
+|---|---|---|---|---|---|---|
+| **BUG-014** | Sai công thức tính giảm giá theo phần trăm (`percent`: dùng `1 - discount_value` làm tổng tiền đội lên gấp 10 lần) và thiếu hàm chặn dưới `Math.max(0, ...)` cho mã `fixed` khiến `final_amount` bị âm (`FR-09`, `FR-20.3`) | **Critical** (Nghiệp vụ cốt lõi) | `EP-TC02`, `EP-TC26`, `BV-TC13`, `OB-TC01` | `backend/server.js:401-415, 421-430` | Gọi `POST /api/apply-coupon` với `{"code":"SAVE10","total_amount":500000,"user_id":2}` hoặc áp mã `SAVE10` trên màn hình Checkout Mobile (`390×844`) | `Invoke-WebRequest -Uri "http://localhost:3000/api/apply-coupon" -Method POST -ContentType 'application/json' -Body '{"code":"SAVE10","total_amount":500000,"user_id":2}' -SkipHttpErrorCheck` |
+| **BUG-015** | Lỗi toán tử biên `>` thay vì `>=` khi kiểm tra điều kiện giá trị đơn hàng tối thiểu `C3` (`total_amount >= min_order_amount`), từ chối sai các đơn hàng chạm đúng ngưỡng `300,000 ₫` và `500,000 ₫` (`FR-09`) | **High** (Sai biên nghiệp vụ) | `BV-TC12`, `BV-TC15`, `BV-TC17` | `backend/server.js:383, 438-442` | Gọi `POST /api/apply-coupon` với `SAVE10`/`VIP100` tại `total_amount = 300000` hoặc `BIGBUY` tại `total_amount = 500000` | `Invoke-WebRequest -Uri "http://localhost:3000/api/apply-coupon" -Method POST -ContentType 'application/json' -Body '{"code":"SAVE10","total_amount":300000,"user_id":2}' -SkipHttpErrorCheck` |
+| **BUG-016** | Lỗ hổng bảo mật thiếu xác thực JWT (`C4`) tại `POST /api/apply-coupon`, bỏ qua kiểm tra giới hạn lượt dùng (`C5`) khi `user_id = null`, cho phép mạo danh `user_id` (IDOR) và không khóa lượt dùng nguyên tử (`FR-09`, `SEC-02`) | **Critical** (Bảo mật & Toàn vẹn) | `EP-TC05`, `EP-TC06`, `EP-TC07`, `EP-TC26`, `SR-TC04` | `backend/server.js:367, 390-437`<br>`frontend-mobile/App.js:362-370` | Gọi `POST /api/apply-coupon` không có Header `Authorization` hoặc truyền `"user_id": null` / `"user_id": 1` | `Invoke-WebRequest -Uri "http://localhost:3000/api/apply-coupon" -Method POST -ContentType 'application/json' -Body '{"code":"SAVE10","total_amount":500000,"user_id":null}' -SkipHttpErrorCheck` |
+| **BUG-017** | Màn hình Thanh toán Mobile hoàn toàn thiếu ô nhập `Địa chỉ giao hàng` và không gửi `shipping_address`; Backend `POST /api/checkout` chấp nhận địa chỉ rỗng, toàn khoảng trắng, `null` hoặc sai kiểu dữ liệu (`FR-08`, `FR-20.3`, `FR-22`) | **High** (Nghiệp vụ & Dữ liệu) | `EP-TC21`, `EP-TC22`, `EP-TC24`, `EP-TC28`, `EP-TC29` *(EP-TC23 và BV-TC10 phụ thuộc giả định Q1/Q8 nên được ghi là câu hỏi mở, không tính là ca kích hoạt)* | `frontend-mobile/App.js:386-398, 659-757`<br>`backend/server.js:301-313` | Bấm `"Xác Nhận Thanh Toán"` trên màn hình Mobile Checkout hoặc gọi `POST /api/checkout` với `"shipping_address": ""` | `Invoke-WebRequest -Uri "http://localhost:3000/api/checkout" -Method POST -ContentType 'application/json' -Headers @{ Authorization = "Bearer <JWT_TOKEN>" } -Body '{"total_amount":500000,"shipping_address":""}' -SkipHttpErrorCheck` |
+| **BUG-018** | Backend `POST /api/checkout` không xóa rỗng giỏ hàng sau khi đặt hàng (`R6`), cho phép đặt hàng khi giỏ rỗng, chấp nhận `total_amount` gian lận từ client (`R5`), Mobile cắt bỏ sản phẩm cuối khi giỏ có `> 1` món, và thiếu cột/khấu trừ tồn kho `stock` (`FR-07`, `FR-08`, `FR-20.3`) | **Critical** (Logic & Bảo mật giá) | `EP-TC01`, `EP-TC02`, `EP-TC09`, `EP-TC13`, `EP-TC25`, `BV-TC01`–`BV-TC09`, `SR-TC04`, `SR-TC05` | `backend/server.js:288-313`<br>`backend/database.js:66-73`<br>`frontend-mobile/App.js:392-394, 618-621` | Gọi `POST /api/checkout` với `"total_amount": 1000` trên giỏ hàng $500,000\text{ ₫}$ hoặc kiểm tra `GET /api/cart` sau khi checkout | `Invoke-WebRequest -Uri "http://localhost:3000/api/checkout" -Method POST -ContentType 'application/json' -Headers @{ Authorization = "Bearer <JWT_TOKEN>" } -Body '{"total_amount":1000,"shipping_address":"123 Lê Lợi"}' -SkipHttpErrorCheck` |
+| **BUG-019** | Giao diện Mobile EShop cấu hình cứng IP LAN `192.168.10.13:3000`, ô tổng tiền hiển thị số thô `500000` với nhãn `(VND)` thiếu dấu phân cách hàng nghìn & ký hiệu `₫`, và màn hình Đăng nhập trộn tiếng Anh `"Username"`/`"Sign In"` (`FR-20.3`, `FR-21`, `FR-22`) | **Medium** (UI/UX & Cấu hình Mobile) | `EP-TC28`, `EP-TC30` | `frontend-mobile/App.js:16, 684-690, 763-784` | Mở màn hình Đăng nhập và màn hình `Xác Nhận Đơn Hàng` trên ứng dụng Mobile (`390×844`) | Mở `frontend-mobile/App.js` trên thiết bị/trình duyệt `390×844` $\rightarrow$ quan sát `API_URL = "http://192.168.10.13:3000/api"`, ô `Tổng tiền thanh toán (VND): 500000` và nút `"Sign In"`. |
+
+---
+
+## 4. AI Gap Analysis — FR-20.3: Mobile: Thanh toán (Checkout) và Áp mã giảm giá
+
+### 4.1. Cách phát hiện khoảng trống
+
+- **So sánh bộ test case ban đầu với bộ sau Human Review:** Bộ AI sinh ban đầu có **49 ca duy nhất**, gồm 30 ca EP (`EP-TC01`–`EP-TC30`), 17 ca BVA đầu vào mới (`BV-TC01`–`BV-TC17`, kết hợp 6 vector tái sử dụng từ EP, 1 vector trùng nội bộ và 1 vector không thể tiếp cận) và 2 ca BVA biên đầu ra & thời gian (`OB-TC01`–`OB-TC02`). Sau Human Review, sinh viên bổ sung **5 ca chuyên sâu (`SR-TC01`–`SR-TC05`)**, nâng tổng số ca kiểm thử của FR-20.3 lên **54 ca**.
+- **So sánh bug thực tế với phạm vi AI dự đoán:** Bộ 49 ca của AI đã bao phủ và phát hiện trực tiếp cả 6 nhóm lỗi chính của FR-20.3 (`BUG-014` đến `BUG-019`: sai công thức `percent` làm tổng tiền đội lên gấp 10 lần và thiếu `Math.max(0, ...)` cho `fixed`; lệch biên Off-by-one `>` thay vì `>=` ở điều kiện `C3`; thiếu xác thực JWT `C4` và bỏ qua kiểm tra `coupon_usage` `C5` khi `user_id = null`; thiếu hoàn toàn ô nhập `Địa chỉ giao hàng` trên Mobile UI và thiếu kiểm tra hợp lệ ở Backend; không xóa giỏ hàng `R6` và tin tưởng `total_amount` giả mạo `R5`; cấu hình cứng IP LAN và lỗi định dạng tiền tệ/ngôn ngữ). Tuy nhiên, 2 ca `SR-TC04` và `SR-TC05` do sinh viên bổ sung đã phát hiện thêm **2 khía cạnh lỗi chiều sâu** của `BUG-016` và `BUG-018` mà bộ AI ban đầu chưa bao quát:
+  - `SR-TC04`: Lỗi xung đột đồng thời (Race Condition / Double Submit) và thiếu ghi nhận lượt dùng nguyên tử (`INSERT INTO coupon_usage` gắn với giao dịch đặt hàng), khiến việc bắn song song 2 request `POST /api/apply-coupon` (`SAVE10`, `max_uses = 1`) và 2 request `POST /api/checkout` đều thành công cả 2 lần, vượt giới hạn `C5` và tạo ra 2 đơn hàng trùng lặp từ cùng 1 giỏ hàng.
+  - `SR-TC05`: Lỗi toàn vẹn dữ liệu liên thành phần giữa Đặt hàng (`POST /api/checkout`) và Danh mục Sản phẩm (`GET /api/products/:id` — `FR-07`/`FR-08`): bảng `products` hoàn toàn không có cột `stock` và không khấu trừ tồn kho sau khi đặt hàng thành công (`BV-TC05` chỉ kiểm tra cận trên `qty = 11` lúc thêm vào giỏ, còn `SR-TC05` đối chiếu trạng thái trước/sau thanh toán trên endpoint sản phẩm và chứng minh tồn kho không được quản lý/khấu trừ).
+- **Đối chiếu bài giảng và đặc tả:** Rà soát toàn bộ các lớp đầu ra (`EC33`–`EC37`), biên ngoài miền (`qty = 0`, `qty = 11`, `len = 0`, `len = 256`, `299,999 ₫`, `499,999 ₫`, `usage_count = 1` với `SAVE10` và `usage_count = 2` với `VIP100`), biên đầu ra & thời gian (`OB-TC01` chạm sàn `final_amount = 0 ₫`, `OB-TC02` sát biên ngày `Yesterday`/`Tomorrow`), chế độ BVA Robustness ($6n+1 = 25$ với $n=4$) và số học số âm (`EP-TC12` với `total_amount = -100,000 ₫`, đồng thời bắt được lỗi trả về số âm `discount_amount = -4,500,000 ₫` ở `EP-TC02`/`EP-TC26` và `final_amount = -50,000 ₫` ở `OB-TC01`). Bộ AI ban đầu đã đáp ứng trọn vẹn các tiêu chí hình thức của bài giảng Bài 4; các khoảng trống còn lại tập trung ở chuẩn hóa biến thể chuỗi trên bàn phím Mobile, luồng hủy đơn hàng hậu thanh toán, tương tác đồng thời và kiểm tra toàn vẹn tồn kho liên endpoint.
+
+### 4.2. Bảng khoảng trống
+
+| STT | Test case / Bug AI bỏ sót | Cách phát hiện | Nhóm (A/B/C) | Vì sao AI bỏ sót | Bài học / Cải tiến prompt |
+|---|---|---|---|---|---|
+| 1 | `SR-TC01`: chuẩn hóa khoảng trắng đầu/cuối (`"  SAVE10  "`) và chữ hoa/thường (`"save10"`) của mã giảm giá trên bàn phím Mobile (`Q6`) | Sinh viên rà soát hành vi tự động thêm dấu cách hoặc gõ chữ thường trên bàn phím ảo điện thoại và đối chiếu giả định `Q6` | **B** (Giới hạn công cụ AI) | AI chia lớp tương đương đơn chiều (`EC14` là chuỗi chuẩn `"SAVE10"`, `EC22` là chuỗi chỉ chứa khoảng trắng `"     "`), nhưng chưa tự động tổ hợp khoảng trắng bao quanh đầu/cuối hoặc biến thể chữ thường của một mã hợp lệ. | Yêu cầu AI khi kiểm thử các trường mã định danh/coupon trên thiết bị di động phải luôn sinh thêm ca kiểm tra `trim()` khoảng trắng hai đầu và biến thể chữ thường (`case-sensitivity`). |
+| 2 | `SR-TC02`: luồng Hủy đơn hàng ở trạng thái `pending` trên Mobile (`PUT /api/orders/:id/cancel`), chặn hủy lặp lần 2 và chống hủy đơn người khác (`FR-20.3` dòng 237, `FR-10`) | Sinh viên đối chiếu đầy đủ mô tả `FR-20.3` (`README.md` dòng 236–237) và máy trạng thái đơn hàng `FR-10` (dòng 145–146) | **A** (Chất lượng prompt) | Prompt ở Bước 2 nhấn mạnh vào 5 điều kiện coupon `C1`–`C5` và các biến của thao tác Áp mã + Đặt hàng, nên AI tập trung toàn bộ 49 ca vào `/api/apply-coupon` và `/api/checkout` mà chưa tách ca riêng cho thao tác hậu kiểm `PUT /api/orders/:id/cancel`. | Trong prompt thiết kế EP/BVA cho tính năng tích hợp nhiều bước, nêu rõ toàn bộ các endpoint trong vòng đời giao dịch (Áp mã $\rightarrow$ Đặt hàng $\rightarrow$ Hủy đơn `pending`). |
+| 3 | `SR-TC03`: phòng chống SQL Injection trong trường `code` tại `/api/apply-coupon` và `shipping_address` tại `/api/checkout` (`SEC-05`) | Sinh viên đối chiếu mục 9 `README.md` (`SEC-05` dòng 282) với truy vấn `SELECT * FROM coupons WHERE code = ?` và `INSERT INTO orders` | **A** (Chất lượng prompt) | Ở bước thiết kế EP/BVA thuần túy, AI ưu tiên `SEC-02` (xác thực JWT/IDOR ở `EC02`–`EC05`) và `SEC-04` (XSS ở `EC32`) nên chưa tách riêng test case kiểm chứng Parameterized Query cho `SEC-05`. | Yêu cầu AI lập ma trận truy vết đầy đủ các điều khoản bảo mật (`SEC-01`–`SEC-07`) áp dụng cho mọi trường chuỗi đầu vào. |
+| 4 | `SR-TC04` (khía cạnh Race Condition & đứt gãy trạng thái `coupon_usage` của `BUG-016` và `BUG-018`): bắn song song 2 request `apply-coupon` (`SAVE10`) và 2 request `checkout` làm vượt giới hạn `C5` và tạo 2 đơn hàng trùng | Sinh viên rà soát thao tác chạm đúp (Double Tap) trên màn hình Mobile và kiểm tra tính nguyên tử giữa bước áp mã và bước đặt hàng | **C** (Độ phức tạp tính năng) | `EP-TC19` và `EP-TC20` của AI chỉ kiểm tra khi bảng `coupon_usage` đã có sẵn bản ghi từ trước (State Input tĩnh). Phân tích hộp đen từng request rời rạc không phát hiện được việc `/api/checkout` không ghi nhận lượt dùng vào `coupon_usage` và không khóa giỏ hàng khi 2 request chạy đồng thời (`Promise.all`). | Yêu cầu AI bổ sung kịch bản kiểm thử đồng thời (`Promise.all`) và kịch bản chuỗi giao dịch liên tiếp (Áp mã $\rightarrow$ Đặt hàng lần 1 $\rightarrow$ Áp lại mã đó ở lần 2) cho mọi tài nguyên có giới hạn lượt dùng (`max_uses_per_user`). |
+| 5 | `SR-TC05` (khía cạnh toàn vẹn khấu trừ tồn kho `stock` liên thành phần của `BUG-018`): kiểm tra `GET /api/products/1` trước và sau khi thanh toán phát hiện thiếu quản lý/khấu trừ `stock` | Sinh viên mở rộng phạm vi Oracle từ bảng `orders`/`cart` sang endpoint sản phẩm `GET /api/products/:id` (`FR-07`/`FR-08`) | **C** (Độ phức tạp tính năng) | Trong `BV-TC05`, AI đã thiết kế ca biên `qty = 11 > stock (10)`, nhưng Oracle của AI chỉ dừng ở phản hồi của `/api/cart` và `/api/checkout`, chưa đối chiếu chéo sang trạng thái thực thể sản phẩm tại `GET /api/products/1` sau khi đặt hàng thành công. | Với luồng Đặt hàng – Thanh toán, yêu cầu AI thiết lập Oracle liên endpoint để kiểm tra đồng thời cả 3 trạng thái sau giao dịch: Đơn hàng mới (`orders`), Giỏ hàng rỗng (`cart`) và Tồn kho sản phẩm giảm tương ứng (`products.stock`). |
+
+*Chú giải: **A** — chất lượng prompt · **B** — giới hạn công cụ AI · **C** — độ phức tạp của tính năng.*
+
+### 4.3. Thống kê
+
+- **Số ca AI sinh ban đầu:** 49 ca duy nhất (30 EP + 17 BVA đầu vào mới + 2 BVA biên đầu ra/thời gian).
+- **Số ca sinh viên bổ sung sau Human Review:** 5 ca (`SR-TC01`–`SR-TC05`), tương đương 9,26% tổng bộ 54 ca.
+- **Tổng số ca đã thực thi:** 54 ca; 21 Pass (38,9%), 33 Fail (61,1% — gồm 31 ca kích hoạt 6 nhóm bug và 2 ca câu hỏi mở `Q1`/`Q8` là `EP-TC23`, `BV-TC10`), 0 Blocked, 0 Not run; hai lần chạy độc lập trên cả API và Mobile UI cho kết quả nhất quán 100% (0% flakiness).
+- **Số nhóm ứng viên bug của FR-20.3:** 6 nhóm (`BUG-014`–`BUG-019`).
+- **Bug / Khía cạnh lỗi do Human Review phát hiện thêm:** Cả 6 nhóm lỗi chính đều đã được bộ 49 ca của AI phát hiện, trong đó 2 ca `SR-TC04` và `SR-TC05` của sinh viên phát hiện thêm 2 cơ chế lỗi chiều sâu (xung đột đồng thời Double Tap & thiếu ghi nhận `coupon_usage` nguyên tử trong `BUG-016`/`BUG-018`, và thiếu cột/khấu trừ tồn kho `stock` trên endpoint sản phẩm trong `BUG-018`).
+- **Phân bố nguyên nhân của 5 khoảng trống:** A = 2, B = 1, C = 2.
+
+### 4.4. Cải tiến prompt cho lần sau
+
+1. **Yêu cầu kiểm thử chuỗi giao dịch khép kín cho giới hạn lượt dùng (`max_uses_per_user` — C5):** Không chỉ kiểm tra trạng thái `coupon_usage` giả lập sẵn trong DB, mà phải yêu cầu kịch bản thực hiện trọn vòng đời: Áp mã $\rightarrow$ Đặt hàng thành công $\rightarrow$ Thử áp dụng lại cùng mã đó để xác minh hệ thống có thực sự ghi nhận lượt dùng hay không.
+2. **Yêu cầu kiểm thử đồng thời (Double Tap / Concurrency) trên Mobile:** Với các nút hành động quan trọng trên Mobile (`"Áp dụng"`, `"Xác Nhận Thanh Toán"`), luôn yêu cầu kịch bản gửi 2 request song song (`Promise.all`) để phát hiện lỗi vượt hạn mức coupon và tạo đơn hàng trùng lặp.
+3. **Yêu cầu thiết lập Oracle liên endpoint cho bài toán Giỏ hàng – Đơn hàng – Tồn kho:** Sau khi `POST /api/checkout` trả về `200 OK`, bắt buộc kiểm tra đồng thời `GET /api/orders/my-orders`, `GET /api/cart` và `GET /api/products/:id` (`stock`).
+4. **Nêu rõ đầy đủ các thao tác hậu kiểm và chuẩn hóa bàn phím di động trong prompt:** Đưa rõ yêu cầu kiểm tra thao tác Hủy đơn hàng `pending` (`PUT /api/orders/:id/cancel`), chuẩn hóa `trim()`/chữ thường trên bàn phím Mobile và kiểm tra Parameterized Query (`SEC-05`).
+
+### 4.5. Kết luận
+
+Bộ kiểm thử ban đầu gồm 49 ca do AI thiết kế cho FR-20.3 đã bao phủ toàn diện 5 điều kiện áp mã giảm giá (`C1`–`C5`), hai nhánh công thức toán học (`percent` và `fixed`), 25 vector biên BVA Robustness ($6n+1$ với $n=4$), biên đầu ra chặn dưới `0 ₫` (`OB-TC01`), biên thời gian `expired_at` (`OB-TC02`) và 5 lớp giao diện Mobile React Native (`390×844`). Nhờ tính toán Oracle độc lập từ đặc tả (không đọc mã nguồn ở giai đoạn thiết kế), bộ ca kiểm thử đã phát hiện chính xác 6 nhóm lỗi nghiêm trọng (`BUG-014`–`BUG-019`), nổi bật là lỗi công thức `percent` làm tổng tiền đội lên gấp 10 lần (`5,000,000 ₫`) và lỗi lệch biên `>` thay vì `>=` tại ngưỡng `min_order_amount`. Quá trình Human Review bổ sung 5 ca `SR-TC01`–`SR-TC05` đã hoàn thiện thêm các góc khuất về tương tác đồng thời, vòng đời hủy đơn và tính toàn vẹn tồn kho liên thành phần.
+
+---
+
+## Mandatory Disclosure (Cam kết bắt buộc theo quy định môn học)
+
+"Toàn bộ bảng đặc tả kỹ thuật và khung test case ban đầu của bốn tính năng (FR-03, FR-08, FR-14, FR-20.3) được hỗ trợ tạo bởi Gemini 3.8 Flash và Claude Sonnet 5.5 (Antigravity Agent); tôi đã trực tiếp xem xét, đối chiếu độc lập với tài liệu đặc tả `README.md` và `api_specification.md` của SUT, xác nhận các giả định nghiệp vụ, trực tiếp thực hiện Human Review để bổ sung các ca kiểm thử biên/bảo mật/đồng thời (`SR-TC`), kiểm chứng thực tế trên hệ thống và chịu trách nhiệm học thuật hoàn toàn đối với toàn bộ sản phẩm nộp. AI Audit Report chi tiết được lưu trữ tại `reports/AI_Audit_Report.md`. Tôi xác nhận không dùng AI để tạo bất kỳ sản phẩm nào thuộc nhóm bị cấm theo quy định môn học."
+
+
+
 
 
 
