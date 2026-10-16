@@ -130,6 +130,15 @@ test.describe('Kiểm thử Giao diện Web Admin FR-14 — Quản lý Danh mụ
     await page.waitForLoadState('networkidle');
     await openCategoriesTab(page);
 
+    // Hiển thị thông tin phiên đăng nhập người dùng thường (test@eshop.com, role=user) để ảnh bằng chứng phân biệt rõ với tài khoản admin
+    await page.evaluate(({ user }) => {
+      const info = document.createElement('div');
+      info.id = 'user-auth-badge';
+      info.style.cssText = 'background:#1f2937; color:#f87171; border-bottom:2px solid #ef4444; padding:8px 16px; font-family:monospace; font-size:13px; font-weight:bold;';
+      info.innerText = `[EP-TC28 UI Auth Test] Đăng nhập: ${user.email} | Vai trò: ${user.role} | Lỗi: Vẫn mở được màn hình Quản lý Danh mục Admin`;
+      document.body.prepend(info);
+    }, { user: userLoginData.user });
+
     const screenshotPath = path.join(SCREENSHOT_DIR, `${RUN_NAME}_EP-TC28.png`);
     await page.screenshot({ path: screenshotPath, fullPage: true });
 
@@ -191,8 +200,19 @@ test.describe('Kiểm thử Giao diện Web Admin FR-14 — Quản lý Danh mụ
   test('EP-TC30: Nhãn của trường Tên danh mục bắt buộc phải có ký hiệu dấu *', async ({ page, request }) => {
     await loginAdminAndOpenCategories(page, request);
 
+    const catInputForFocus = page.locator('input[placeholder*="Tên danh mục" i], input[type="text"]').first();
+    if (await catInputForFocus.count() > 0) {
+      await catInputForFocus.focus();
+    }
+
     const screenshotPath = path.join(SCREENSHOT_DIR, `${RUN_NAME}_EP-TC30.png`);
     await page.screenshot({ path: screenshotPath, fullPage: true });
+
+    // Lưu riêng ảnh vùng form cho BUG-013_form.png (không bị trùng với bất kỳ ảnh nào khác)
+    const formLocator = page.locator('form').first();
+    if (await formLocator.count() > 0) {
+      await formLocator.screenshot({ path: path.join(EVIDENCE_DIR, 'BUG-013_form.png') });
+    }
 
     // Kiểm tra nhãn <label> hoặc văn bản quanh ô nhập có dấu * theo FR-22 (dòng 252)
     const labels = page.locator('label');
@@ -281,11 +301,15 @@ test.describe('Kiểm thử Giao diện Web Admin FR-14 — Quản lý Danh mụ
   test('EP-TC33: Nút Thêm dùng màu xanh dương và nút Xóa dùng màu đỏ theo chuẩn FR-21', async ({ page, request }) => {
     await loginAdminAndOpenCategories(page, request);
 
+    const delBtn = page.locator('table button:has-text("Xóa")').first();
+    if (await delBtn.count() > 0) {
+      await delBtn.focus();
+    }
+
     const screenshotPath = path.join(SCREENSHOT_DIR, `${RUN_NAME}_EP-TC33.png`);
     await page.screenshot({ path: screenshotPath, fullPage: true });
 
     const addBtn = page.locator('button:has-text("Thêm mới"), form button').first();
-    const delBtn = page.locator('table button:has-text("Xóa")').first();
 
     await expect.soft(addBtn, 'Phải tìm thấy nút Thêm mới').toBeVisible();
     await expect.soft(delBtn, 'Phải tìm thấy nút Xóa').toBeVisible();
@@ -313,6 +337,11 @@ test.describe('Kiểm thử Giao diện Web Admin FR-14 — Quản lý Danh mụ
 
   test('EP-TC34: Trang có đúng 1 thẻ <h1>, ngôn ngữ tiếng Việt nhất quán, highlight mục Danh mục và nút "Đăng xuất"', async ({ page, request }) => {
     await loginAdminAndOpenCategories(page, request);
+
+    const logoutItem = page.locator('li:has-text("Đăng xuất"), button:has-text("Đăng xuất")').first();
+    if (await logoutItem.count() > 0) {
+      await logoutItem.hover();
+    }
 
     const screenshotPath = path.join(SCREENSHOT_DIR, `${RUN_NAME}_EP-TC34.png`);
     await page.screenshot({ path: screenshotPath, fullPage: true });
@@ -405,6 +434,9 @@ test.describe('Kiểm thử Giao diện Web Admin FR-14 — Quản lý Danh mụ
 
     const screenshotPath = path.join(SCREENSHOT_DIR, `${RUN_NAME}_OB-TC01.png`);
     await page.screenshot({ path: screenshotPath, fullPage: true });
+
+    // Lưu ảnh minh chứng bảng trống thiếu Empty State cho BUG-013.png
+    await page.screenshot({ path: path.join(EVIDENCE_DIR, 'BUG-013.png'), fullPage: true });
 
     // Kiểm tra Empty State theo FR-24 (dòng 269): phải có thông báo thân thiện và icon/hình minh họa khi danh sách trống
     const emptyStateMsg = await page.locator('text=/trống|chưa có danh mục|không có danh mục|empty/i').count();

@@ -15,7 +15,7 @@
       "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method GET -SkipHttpErrorCheck",
       "actualStatus": 200,
       "actualBody": "[{\"id\":1,\"name\":\"Điện thoại\"},{\"id\":2,\"name\":\"Laptop\"},{\"id\":3,\"name\":\"Phụ kiện\"}]",
-      "executedAt": "2026-10-15T15:58:10.496Z"
+      "executedAt": "2026-10-16T16:12:25.431Z"
     },
     {
       "id": "EP-TC02",
@@ -29,10 +29,10 @@
         "Số danh mục: trước=3, sau=4",
         "Bản ghi mới: id=4, len(name)=28"
       ],
-      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDc5ODkyfQ.eORt-0oOLNxmmfa1UnCyK9w6eCV4lUl0ix5grDEMqWc\" } -ContentType 'application/json' -Body '{\"name\":\"Thiết bị gia dụng thông minh\"}' -SkipHttpErrorCheck",
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMTY3MTQ3fQ.fkiwO_PGBr8I_E-MPMoxgozR2G2HzZCQlYOpDkuWEyY\" } -ContentType 'application/json' -Body '{\"name\":\"Thiết bị gia dụng thông minh\"}' -SkipHttpErrorCheck",
       "actualStatus": 200,
       "actualBody": "{\"message\":\"Category created\",\"id\":4}",
-      "executedAt": "2026-10-15T15:58:12.831Z"
+      "executedAt": "2026-10-16T16:12:27.854Z"
     },
     {
       "id": "EP-TC03",
@@ -45,10 +45,10 @@
       "oracleLogs": [
         "Số danh mục: trước=4, sau=3"
       ],
-      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/4\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDc5ODk1fQ.LRyg_StoATdKswQE9gPqTxT2SCIm1Nt5eMjCcCBRmHM\" } -SkipHttpErrorCheck",
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/4\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMTY3MTUwfQ.o7KKGmWmqpb_VP0U8iLziuTc6TZZIroBK7FyBuGfGKg\" } -SkipHttpErrorCheck",
       "actualStatus": 200,
       "actualBody": "{\"message\":\"Category deleted\"}",
-      "executedAt": "2026-10-15T15:58:15.292Z"
+      "executedAt": "2026-10-16T16:12:30.340Z"
     },
     {
       "id": "EP-TC04",
@@ -62,10 +62,10 @@
         "Số danh mục: trước=4, sau=4",
         "Danh mục id=4 sau PUT: name=\"Thiết bị gia dụng cao cấp\""
       ],
-      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/4\" -Method PUT -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDc5ODk3fQ.utP2bDEHQqJgxGQdHW7TRkLjSz-Yep6tuB7qp8c-rz4\" } -ContentType 'application/json' -Body '{\"name\":\"Thiết bị gia dụng cao cấp\"}' -SkipHttpErrorCheck",
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/4\" -Method PUT -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMTY3MTUyfQ.zGG9iYOukkbVMI0fT2umq0MmqYriHsF5VlkKBPD1MKQ\" } -ContentType 'application/json' -Body '{\"name\":\"Thiết bị gia dụng cao cấp\"}' -SkipHttpErrorCheck",
       "actualStatus": 200,
       "actualBody": "{\"message\":\"Category updated\"}",
-      "executedAt": "2026-10-15T15:58:17.839Z"
+      "executedAt": "2026-10-16T16:12:32.777Z"
     },
     {
       "id": "EP-TC05",
@@ -81,7 +81,7 @@
       "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -ContentType 'application/json' -Body '{\"name\":\"Thiết bị gia dụng thông minh\"}' -SkipHttpErrorCheck",
       "actualStatus": 401,
       "actualBody": "{\"error\":\"Unauthorized\"}",
-      "executedAt": "2026-10-15T15:58:20.238Z"
+      "executedAt": "2026-10-16T16:12:35.188Z"
     },
     {
       "id": "EP-TC06",
@@ -97,7 +97,7 @@
       "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer token.gia.mao\" } -ContentType 'application/json' -Body '{\"name\":\"Thiết bị gia dụng thông minh\"}' -SkipHttpErrorCheck",
       "actualStatus": 403,
       "actualBody": "{\"error\":\"Forbidden\"}",
-      "executedAt": "2026-10-15T15:58:22.836Z"
+      "executedAt": "2026-10-16T16:12:37.591Z"
     },
     {
       "id": "EP-TC07",
@@ -110,10 +110,10 @@
       "oracleLogs": [
         "Số danh mục: trước=3, sau=3"
       ],
-      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDc5OTA1fQ.G9wZ0uHHIcST7DhQi_mFNIwh7CobWUXNYNulYyiEsYc\" } -ContentType 'application/json' -Body '{\"name\":\"Thiết bị gia dụng thông minh\"}' -SkipHttpErrorCheck",
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMTY3MTU5fQ.qy7TLA1hmDR3FeRftvLoY8aM0CQM4058GAcIvOYslH0\" } -ContentType 'application/json' -Body '{\"name\":\"Thiết bị gia dụng thông minh\"}' -SkipHttpErrorCheck",
       "actualStatus": 401,
       "actualBody": "{\"error\":\"Unauthorized\"}",
-      "executedAt": "2026-10-15T15:58:25.219Z"
+      "executedAt": "2026-10-16T16:12:39.910Z"
     },
     {
       "id": "EP-TC08",
@@ -129,10 +129,10 @@
       "oracleLogs": [
         "Số danh mục: trước=3, sau=4"
       ],
-      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3OTIwNzk5MDd9.1KRGiW-yW2rEZMQw5L7YrPuTW13Zs-Lvep_-O5LADAs\" } -ContentType 'application/json' -Body '{\"name\":\"Thiết bị gia dụng thông minh\"}' -SkipHttpErrorCheck",
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3OTIxNjcxNjJ9.gN152cygYcMfa8IEQqwt0tNvqcqOyyfGS30AOfqTbOk\" } -ContentType 'application/json' -Body '{\"name\":\"Thiết bị gia dụng thông minh\"}' -SkipHttpErrorCheck",
       "actualStatus": 200,
       "actualBody": "{\"message\":\"Category created\",\"id\":4}",
-      "executedAt": "2026-10-15T15:58:27.600Z"
+      "executedAt": "2026-10-16T16:12:42.209Z"
     },
     {
       "id": "EP-TC09",
@@ -148,10 +148,10 @@
       "oracleLogs": [
         "Số danh mục: trước=4, sau=3"
       ],
-      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/4\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3OTIwNzk5MDl9.3ZsXHObayYg1d578rRoVPvMgm9KhP4N4v673nvmFr2M\" } -SkipHttpErrorCheck",
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/4\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3OTIxNjcxNjR9.LZdRcHpYkqfyvSQokpG_OC0bvY_K3gKGkGxT_yXab5k\" } -SkipHttpErrorCheck",
       "actualStatus": 200,
       "actualBody": "{\"message\":\"Category deleted\"}",
-      "executedAt": "2026-10-15T15:58:29.970Z"
+      "executedAt": "2026-10-16T16:12:44.615Z"
     },
     {
       "id": "EP-TC10",
@@ -167,10 +167,10 @@
       "oracleLogs": [
         "Số danh mục: trước=4, sau=4"
       ],
-      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/4\" -Method PUT -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3OTIwNzk5MTJ9.WT4hyASawNt7uPOEJlwjRus5biOXa32eEF14ITEV2Ts\" } -ContentType 'application/json' -Body '{\"name\":\"Thiết bị gia dụng cao cấp\"}' -SkipHttpErrorCheck",
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/4\" -Method PUT -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3OTIxNjcxNjZ9.sywnlOvMQj3VMkGNOIiKmsRKpJAQD0cORsHTYSZiGCI\" } -ContentType 'application/json' -Body '{\"name\":\"Thiết bị gia dụng cao cấp\"}' -SkipHttpErrorCheck",
       "actualStatus": 200,
       "actualBody": "{\"message\":\"Category updated\"}",
-      "executedAt": "2026-10-15T15:58:32.199Z"
+      "executedAt": "2026-10-16T16:12:46.900Z"
     },
     {
       "id": "EP-TC11",
@@ -186,10 +186,10 @@
       "oracleLogs": [
         "Số danh mục: trước=3, sau=4"
       ],
-      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDc5OTE0fQ.4OeploFQUqmo9MZCTldOlViSDsLZ2OFAo4J7oJh3Il4\" } -ContentType 'application/json' -Body '{\"name\":\"\"}' -SkipHttpErrorCheck",
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMTY3MTY5fQ.KRAnPA-NIyJqMlizTKAmcWSdUHoL4GLzjy2fezLPJHc\" } -ContentType 'application/json' -Body '{\"name\":\"\"}' -SkipHttpErrorCheck",
       "actualStatus": 200,
       "actualBody": "{\"message\":\"Category created\",\"id\":4}",
-      "executedAt": "2026-10-15T15:58:34.496Z"
+      "executedAt": "2026-10-16T16:12:49.108Z"
     },
     {
       "id": "EP-TC12",
@@ -205,10 +205,10 @@
       "oracleLogs": [
         "Số danh mục: trước=3, sau=4"
       ],
-      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDc5OTE2fQ.jUdTCiZ6LLJKp5Vh_EO2p2DfrAagZ0p7bGT2wAmWTgU\" } -ContentType 'application/json' -Body '{}' -SkipHttpErrorCheck",
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMTY3MTcxfQ.-iwKbTBshUYjmySbH0D0YGSF8pB3HwT-bY_edifYPw0\" } -ContentType 'application/json' -Body '{}' -SkipHttpErrorCheck",
       "actualStatus": 200,
       "actualBody": "{\"message\":\"Category created\",\"id\":4}",
-      "executedAt": "2026-10-15T15:58:36.717Z"
+      "executedAt": "2026-10-16T16:12:51.480Z"
     },
     {
       "id": "EP-TC13",
@@ -224,10 +224,10 @@
       "oracleLogs": [
         "Số danh mục: trước=3, sau=4"
       ],
-      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDc5OTE4fQ.gE56gmFX8x0GghLDRlltSDwZDTUkIGv0Q2N57R0Fa1w\" } -ContentType 'application/json' -Body '{\"name\":\"     \"}' -SkipHttpErrorCheck",
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMTY3MTczfQ.v_5TJJ5pyzctGwdF3fsmGokWH1eX_VeM_emVfQPoPrs\" } -ContentType 'application/json' -Body '{\"name\":\"     \"}' -SkipHttpErrorCheck",
       "actualStatus": 200,
       "actualBody": "{\"message\":\"Category created\",\"id\":4}",
-      "executedAt": "2026-10-15T15:58:38.965Z"
+      "executedAt": "2026-10-16T16:12:53.931Z"
     },
     {
       "id": "EP-TC14",
@@ -243,10 +243,10 @@
       "oracleLogs": [
         "Số danh mục: trước=3, sau=4"
       ],
-      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDc5OTIxfQ.Ie9zYeUc4BRLv0FHQTV2TBd84dqTH-A88maI0o41EWk\" } -ContentType 'application/json' -Body '{\"name\":\"AAAAAAAAAAAAAAAAAAAA…(300 ký tự)\"}' -SkipHttpErrorCheck",
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMTY3MTc2fQ.wU6ip1P1w6ccDzYPdlv2YtE3wVHvnkObbPxSJPOaKN8\" } -ContentType 'application/json' -Body '{\"name\":\"AAAAAAAAAAAAAAAAAAAA…(300 ký tự)\"}' -SkipHttpErrorCheck",
       "actualStatus": 200,
       "actualBody": "{\"message\":\"Category created\",\"id\":4}",
-      "executedAt": "2026-10-15T15:58:41.241Z"
+      "executedAt": "2026-10-16T16:12:56.371Z"
     },
     {
       "id": "EP-TC15",
@@ -262,10 +262,10 @@
       "oracleLogs": [
         "Số danh mục: trước=3, sau=4"
       ],
-      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDc5OTIzfQ.CJCSb_sSbanOXNo9zKDh8cxvYwTonORU6oteGAu37tA\" } -ContentType 'application/json' -Body '{\"name\":12345}' -SkipHttpErrorCheck",
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMTY3MTc4fQ.yk5Txgs1MpXM2dYDqxKEuD8MgwQ8pL-LoSZJE0Nmj2k\" } -ContentType 'application/json' -Body '{\"name\":12345}' -SkipHttpErrorCheck",
       "actualStatus": 200,
       "actualBody": "{\"message\":\"Category created\",\"id\":4}",
-      "executedAt": "2026-10-15T15:58:43.622Z"
+      "executedAt": "2026-10-16T16:12:58.737Z"
     },
     {
       "id": "EP-TC16",
@@ -281,10 +281,10 @@
       "oracleLogs": [
         "Số danh mục: trước=3, sau=4"
       ],
-      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDc5OTI1fQ.1SzNWhJ1HvIdfsKyKBEwLoHdzonQ8G1HCjNJeENJiEo\" } -ContentType 'application/json' -Body '{\"name\":null}' -SkipHttpErrorCheck",
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMTY3MTgxfQ.KnnsK6dk71EaDNlOE0jhR8rc8FaN334H6peWZYW-vxo\" } -ContentType 'application/json' -Body '{\"name\":null}' -SkipHttpErrorCheck",
       "actualStatus": 200,
       "actualBody": "{\"message\":\"Category created\",\"id\":4}",
-      "executedAt": "2026-10-15T15:58:45.735Z"
+      "executedAt": "2026-10-16T16:13:01.179Z"
     },
     {
       "id": "EP-TC17",
@@ -300,10 +300,10 @@
       "oracleLogs": [
         "Số danh mục: trước=4, sau=5"
       ],
-      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDc5OTI4fQ.KTA8PQWrOfTVChVhQWHabH0ETKCckcSNtABXLmK7FdI\" } -ContentType 'application/json' -Body '{\"name\":\"Thiết bị gia dụng thông minh\"}' -SkipHttpErrorCheck",
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMTY3MTgzfQ.vpQDyArFXTus6SZLkcTf3EIrT2g34Lsiu5IWRAYDYuo\" } -ContentType 'application/json' -Body '{\"name\":\"Thiết bị gia dụng thông minh\"}' -SkipHttpErrorCheck",
       "actualStatus": 200,
       "actualBody": "{\"message\":\"Category created\",\"id\":5}",
-      "executedAt": "2026-10-15T15:58:48.049Z"
+      "executedAt": "2026-10-16T16:13:03.729Z"
     },
     {
       "id": "EP-TC18",
@@ -318,10 +318,10 @@
         "Bản ghi mới: id=4, len(name)=28",
         "Phần UI (escape DOM không thực thi onerror) được kiểm chứng bổ sung trong fr14_ui.spec.js"
       ],
-      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDc5OTMwfQ.lJEDEU56BmOyWkX6rVObXeDJpsPe7hM6h8TSTksyKNs\" } -ContentType 'application/json' -Body '{\"name\":\"<img src=x onerror=alert(1)>\"}' -SkipHttpErrorCheck",
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMTY3MTg2fQ.fg-6UHMylVjhwStSFuZQIkKnTHAouFbo57Ku39NdNH0\" } -ContentType 'application/json' -Body '{\"name\":\"<img src=x onerror=alert(1)>\"}' -SkipHttpErrorCheck",
       "actualStatus": 200,
       "actualBody": "{\"message\":\"Category created\",\"id\":4}",
-      "executedAt": "2026-10-15T15:58:50.506Z"
+      "executedAt": "2026-10-16T16:13:06.057Z"
     },
     {
       "id": "EP-TC19",
@@ -336,10 +336,10 @@
       "oracleLogs": [
         "Số danh mục: trước=3, sau=3"
       ],
-      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/999999\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDc5OTMyfQ.NL7t7_KbJX7iUIyV5SWZDzV8s5QQ22vKok86CEuIWYw\" } -SkipHttpErrorCheck",
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/999999\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMTY3MTg4fQ.h52oLiuDlQvTbzMMlcAg97Ku9WrwIE3jifxIhJ_HuiA\" } -SkipHttpErrorCheck",
       "actualStatus": 200,
       "actualBody": "{\"message\":\"Category deleted\"}",
-      "executedAt": "2026-10-15T15:58:52.903Z"
+      "executedAt": "2026-10-16T16:13:08.320Z"
     },
     {
       "id": "EP-TC20",
@@ -354,10 +354,10 @@
       "oracleLogs": [
         "Số danh mục: trước=3, sau=3"
       ],
-      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/0\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDc5OTM1fQ._3DTbGAfCxEYk-6q0bi95cBGxyHCW_9fkg5NwDWHuco\" } -SkipHttpErrorCheck",
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/0\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMTY3MTkwfQ.02J5lL2I4lxH8p-3ho57Qaaugzh0KfCALn5n4cNXNYw\" } -SkipHttpErrorCheck",
       "actualStatus": 200,
       "actualBody": "{\"message\":\"Category deleted\"}",
-      "executedAt": "2026-10-15T15:58:55.486Z"
+      "executedAt": "2026-10-16T16:13:10.714Z"
     },
     {
       "id": "EP-TC21",
@@ -372,10 +372,10 @@
       "oracleLogs": [
         "Số danh mục: trước=3, sau=3"
       ],
-      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/-5\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDc5OTM4fQ.R9-sLXhapkI8e2OLeE3FrWRm9ZH-wPoMYUizC5e-OTg\" } -SkipHttpErrorCheck",
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/-5\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMTY3MTkzfQ.cE8BFFMSEZwu5x9sXOu8oQeTnD-zjdCCjJdV8uUyTzM\" } -SkipHttpErrorCheck",
       "actualStatus": 200,
       "actualBody": "{\"message\":\"Category deleted\"}",
-      "executedAt": "2026-10-15T15:58:58.379Z"
+      "executedAt": "2026-10-16T16:13:13.515Z"
     },
     {
       "id": "EP-TC22",
@@ -390,10 +390,10 @@
       "oracleLogs": [
         "Số danh mục: trước=3, sau=3"
       ],
-      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/abc\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDc5OTQxfQ.b1pH8Sl_1rWIR1T8wbdaz1HGEue-MbtjYDgimsRiA1Y\" } -SkipHttpErrorCheck",
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/abc\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMTY3MTk1fQ.Upu6YyIPBbJS3JER8w5FFd16i6XXfSzU019sDzb_tzU\" } -SkipHttpErrorCheck",
       "actualStatus": 200,
       "actualBody": "{\"message\":\"Category deleted\"}",
-      "executedAt": "2026-10-15T15:59:01.166Z"
+      "executedAt": "2026-10-16T16:13:16.000Z"
     },
     {
       "id": "EP-TC23",
@@ -410,10 +410,10 @@
         "Số sản phẩm đang gắn với category_id=1 trước khi xóa: 2",
         "Số danh mục: trước=3, sau=2"
       ],
-      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/1\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDc5OTQzfQ.vzGBe-dd4GBxuYEkshNVrSJa-7E8-0VV-eGjXy6jyg4\" } -SkipHttpErrorCheck",
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/1\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMTY3MTk4fQ.fzIEtwVI7ULxBE3vPOTAo6eWQBQotyK_Pdew013bWn4\" } -SkipHttpErrorCheck",
       "actualStatus": 200,
       "actualBody": "{\"message\":\"Category deleted\"}",
-      "executedAt": "2026-10-15T15:59:03.772Z"
+      "executedAt": "2026-10-16T16:13:18.569Z"
     },
     {
       "id": "EP-TC24",
@@ -428,10 +428,10 @@
       "oracleLogs": [
         "Số danh mục: trước=3, sau=3"
       ],
-      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/4\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDc5OTQ2fQ.jiQNtR9RogLKfv3zQxPdSdfX0TEr-BRSpAfAjV8mAiI\" } -SkipHttpErrorCheck",
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/4\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMTY3MjAxfQ.71D0iBBO32BCOtmOt0Z_XJVKLPf5mQUlx7_rtvWqSsw\" } -SkipHttpErrorCheck",
       "actualStatus": 200,
       "actualBody": "{\"message\":\"Category deleted\"}",
-      "executedAt": "2026-10-15T15:59:06.178Z"
+      "executedAt": "2026-10-16T16:13:21.149Z"
     },
     {
       "id": "EP-TC25",
@@ -447,10 +447,10 @@
       "oracleLogs": [
         "Số danh mục: trước=4, sau=4"
       ],
-      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/4\" -Method PUT -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDc5OTQ4fQ.LosbxzmBAMtRewnfZui1aSVfhG81zB6yRkVbPSWWM4I\" } -ContentType 'application/json' -Body '{\"name\":\"\"}' -SkipHttpErrorCheck",
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/4\" -Method PUT -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMTY3MjAzfQ.3jMe8rIBLWl0c91H49wqvLZKUTfWVQkoJe7fsQEVM3g\" } -ContentType 'application/json' -Body '{\"name\":\"\"}' -SkipHttpErrorCheck",
       "actualStatus": 200,
       "actualBody": "{\"message\":\"Category updated\"}",
-      "executedAt": "2026-10-15T15:59:08.550Z"
+      "executedAt": "2026-10-16T16:13:23.595Z"
     },
     {
       "id": "EP-TC26",
@@ -466,10 +466,10 @@
       "oracleLogs": [
         "Số danh mục: trước=4, sau=4"
       ],
-      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/4\" -Method PUT -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDc5OTUwfQ.F2zEOmsBCyBNQ3-fUaCdMhQSaKayif-_4qh6DjhyT-o\" } -ContentType 'application/json' -Body '{\"name\":\"     \"}' -SkipHttpErrorCheck",
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/4\" -Method PUT -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMTY3MjA2fQ.MlJ7Y3Q0yS0F_SZqUHYUlEbSnA9YWociZD_HFaLAc3U\" } -ContentType 'application/json' -Body '{\"name\":\"     \"}' -SkipHttpErrorCheck",
       "actualStatus": 200,
       "actualBody": "{\"message\":\"Category updated\"}",
-      "executedAt": "2026-10-15T15:59:10.977Z"
+      "executedAt": "2026-10-16T16:13:26.016Z"
     },
     {
       "id": "EP-TC27",
@@ -484,10 +484,10 @@
       "oracleLogs": [
         "Số danh mục: trước=3, sau=3"
       ],
-      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/999999\" -Method PUT -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDc5OTUzfQ.NQhG2qlTFhyTYNRxDsWqFHMYMI3Gvl5izzSGQ3RNWe0\" } -ContentType 'application/json' -Body '{\"name\":\"Thiết bị gia dụng cao cấp\"}' -SkipHttpErrorCheck",
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/999999\" -Method PUT -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMTY3MjA4fQ.PqPdBvxqTUicaCPs6OQz5DuqR25P6RJXEWfU4nkU2m0\" } -ContentType 'application/json' -Body '{\"name\":\"Thiết bị gia dụng cao cấp\"}' -SkipHttpErrorCheck",
       "actualStatus": 200,
       "actualBody": "{\"message\":\"Category updated\"}",
-      "executedAt": "2026-10-15T15:59:13.548Z"
+      "executedAt": "2026-10-16T16:13:28.345Z"
     },
     {
       "id": "EP-TC28",
@@ -503,7 +503,7 @@
       "powershellCommand": "",
       "actualStatus": null,
       "actualBody": "",
-      "executedAt": "2026-10-15T15:59:13.548Z"
+      "executedAt": "2026-10-16T16:13:28.345Z"
     },
     {
       "id": "EP-TC29",
@@ -519,7 +519,7 @@
       "powershellCommand": "",
       "actualStatus": null,
       "actualBody": "",
-      "executedAt": "2026-10-15T15:59:13.548Z"
+      "executedAt": "2026-10-16T16:13:28.345Z"
     },
     {
       "id": "EP-TC30",
@@ -535,7 +535,7 @@
       "powershellCommand": "",
       "actualStatus": null,
       "actualBody": "",
-      "executedAt": "2026-10-15T15:59:13.548Z"
+      "executedAt": "2026-10-16T16:13:28.345Z"
     },
     {
       "id": "EP-TC31",
@@ -551,7 +551,7 @@
       "powershellCommand": "",
       "actualStatus": null,
       "actualBody": "",
-      "executedAt": "2026-10-15T15:59:13.548Z"
+      "executedAt": "2026-10-16T16:13:28.345Z"
     },
     {
       "id": "EP-TC32",
@@ -567,7 +567,7 @@
       "powershellCommand": "",
       "actualStatus": null,
       "actualBody": "",
-      "executedAt": "2026-10-15T15:59:13.548Z"
+      "executedAt": "2026-10-16T16:13:28.345Z"
     },
     {
       "id": "EP-TC33",
@@ -583,7 +583,7 @@
       "powershellCommand": "",
       "actualStatus": null,
       "actualBody": "",
-      "executedAt": "2026-10-15T15:59:13.548Z"
+      "executedAt": "2026-10-16T16:13:28.345Z"
     },
     {
       "id": "EP-TC34",
@@ -599,7 +599,7 @@
       "powershellCommand": "",
       "actualStatus": null,
       "actualBody": "",
-      "executedAt": "2026-10-15T15:59:13.548Z"
+      "executedAt": "2026-10-16T16:13:28.345Z"
     },
     {
       "id": "BV-TC01",
@@ -613,10 +613,10 @@
         "Số danh mục: trước=3, sau=4",
         "Bản ghi mới: id=4, len(name)=1"
       ],
-      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDc5OTU2fQ.ml3vQA8EFzTrzUcQa6g0jTbf-gbo8wbLeTubnh-l8wo\" } -ContentType 'application/json' -Body '{\"name\":\"A\"}' -SkipHttpErrorCheck",
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMTY3MjEwfQ.nryJ64nobcBmO28EhAxU2KDt0xaPJgZUO3UIDmrWXeE\" } -ContentType 'application/json' -Body '{\"name\":\"A\"}' -SkipHttpErrorCheck",
       "actualStatus": 200,
       "actualBody": "{\"message\":\"Category created\",\"id\":4}",
-      "executedAt": "2026-10-15T15:59:16.057Z"
+      "executedAt": "2026-10-16T16:13:30.632Z"
     },
     {
       "id": "BV-TC02",
@@ -630,10 +630,10 @@
         "Số danh mục: trước=3, sau=4",
         "Bản ghi mới: id=4, len(name)=2"
       ],
-      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDc5OTU4fQ.eG_g-UJWGlrrL6bBWgTJVdckssQPOP-wGv2-px0EMJY\" } -ContentType 'application/json' -Body '{\"name\":\"AB\"}' -SkipHttpErrorCheck",
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMTY3MjEyfQ.XMUZsgKGkd6-doJUFhQ8ns1wvf8qVum1lnhUoV0XDu8\" } -ContentType 'application/json' -Body '{\"name\":\"AB\"}' -SkipHttpErrorCheck",
       "actualStatus": 200,
       "actualBody": "{\"message\":\"Category created\",\"id\":4}",
-      "executedAt": "2026-10-15T15:59:18.951Z"
+      "executedAt": "2026-10-16T16:13:32.990Z"
     },
     {
       "id": "BV-TC03",
@@ -647,10 +647,10 @@
         "Số danh mục: trước=3, sau=4",
         "Bản ghi mới: id=4, len(name)=254"
       ],
-      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDc5OTYxfQ.wjKTISAwR4AJ1HLoFxOzEa4nX8vbdxW-OnuqMTBxRyE\" } -ContentType 'application/json' -Body '{\"name\":\"AAAAAAAAAAAAAAAAAAAA…(254 ký tự)\"}' -SkipHttpErrorCheck",
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMTY3MjE1fQ.twS4GYzT034IM5j3HlO6nj7ljCo1oxrQPL270vTX6Ns\" } -ContentType 'application/json' -Body '{\"name\":\"AAAAAAAAAAAAAAAAAAAA…(254 ký tự)\"}' -SkipHttpErrorCheck",
       "actualStatus": 200,
       "actualBody": "{\"message\":\"Category created\",\"id\":4}",
-      "executedAt": "2026-10-15T15:59:21.410Z"
+      "executedAt": "2026-10-16T16:13:35.432Z"
     },
     {
       "id": "BV-TC04",
@@ -664,10 +664,10 @@
         "Số danh mục: trước=3, sau=4",
         "Bản ghi mới: id=4, len(name)=255"
       ],
-      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDc5OTYzfQ.9K6iWIU1AAgN0JS8FF2TSUsTT5hihIH-UsdtDP-KSAE\" } -ContentType 'application/json' -Body '{\"name\":\"AAAAAAAAAAAAAAAAAAAA…(255 ký tự)\"}' -SkipHttpErrorCheck",
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMTY3MjE3fQ.cnBT4i0oWEPXq8BqlH5vY884cJsrbQc0NKThJ8aqt8g\" } -ContentType 'application/json' -Body '{\"name\":\"AAAAAAAAAAAAAAAAAAAA…(255 ký tự)\"}' -SkipHttpErrorCheck",
       "actualStatus": 200,
       "actualBody": "{\"message\":\"Category created\",\"id\":4}",
-      "executedAt": "2026-10-15T15:59:23.793Z"
+      "executedAt": "2026-10-16T16:13:37.817Z"
     },
     {
       "id": "BV-TC05",
@@ -683,10 +683,10 @@
       "oracleLogs": [
         "Số danh mục: trước=3, sau=4"
       ],
-      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDc5OTY2fQ.en9u3_TYkau2vn4i3Qouk8KAgAZI5cV41RCFAvLlE6E\" } -ContentType 'application/json' -Body '{\"name\":\"AAAAAAAAAAAAAAAAAAAA…(256 ký tự)\"}' -SkipHttpErrorCheck",
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMTY3MjIwfQ.syKjhJqNg3M_hRn7PSdr__VXONaLiSk4n3PgLbMswHE\" } -ContentType 'application/json' -Body '{\"name\":\"AAAAAAAAAAAAAAAAAAAA…(256 ký tự)\"}' -SkipHttpErrorCheck",
       "actualStatus": 200,
       "actualBody": "{\"message\":\"Category created\",\"id\":4}",
-      "executedAt": "2026-10-15T15:59:26.160Z"
+      "executedAt": "2026-10-16T16:13:40.180Z"
     },
     {
       "id": "BV-TC06",
@@ -699,10 +699,10 @@
       "oracleLogs": [
         "Số danh mục: trước=5, sau=4"
       ],
-      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/1\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDc5OTY4fQ.Ndli4jcKWdrtTmRQqj9JX-cKf1mkl-bIbAOjMhvykno\" } -SkipHttpErrorCheck",
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/1\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMTY3MjIyfQ.ata4oEs9jsuMVrKJoAKd5UhZydL0VWYgWaFl-Xg1uAg\" } -SkipHttpErrorCheck",
       "actualStatus": 200,
       "actualBody": "{\"message\":\"Category deleted\"}",
-      "executedAt": "2026-10-15T15:59:28.578Z"
+      "executedAt": "2026-10-16T16:13:42.666Z"
     },
     {
       "id": "BV-TC07",
@@ -715,10 +715,10 @@
       "oracleLogs": [
         "Số danh mục: trước=5, sau=4"
       ],
-      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/2\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDc5OTcxfQ.PgofZQB8TwTnam81u2PqDsi-W934MRCq8vaBRwgC9nY\" } -SkipHttpErrorCheck",
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/2\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMTY3MjI1fQ.cbeSuB9ZFWUwj1iKw5RBjEhdDKO4wX1Epg6fKbRsD00\" } -SkipHttpErrorCheck",
       "actualStatus": 200,
       "actualBody": "{\"message\":\"Category deleted\"}",
-      "executedAt": "2026-10-15T15:59:31.188Z"
+      "executedAt": "2026-10-16T16:13:45.109Z"
     },
     {
       "id": "BV-TC08",
@@ -731,10 +731,10 @@
       "oracleLogs": [
         "Số danh mục: trước=5, sau=4"
       ],
-      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/4\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDc5OTczfQ.oTxH2Uc6AkGrXe1IYfG15Ff2-ZyCJxgbNgwwssC0iIA\" } -SkipHttpErrorCheck",
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/4\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMTY3MjI3fQ.xctQkx4PAkaci2IjYUO-BznEYI_6XL2zr5zdjzxEBcg\" } -SkipHttpErrorCheck",
       "actualStatus": 200,
       "actualBody": "{\"message\":\"Category deleted\"}",
-      "executedAt": "2026-10-15T15:59:33.661Z"
+      "executedAt": "2026-10-16T16:13:47.506Z"
     },
     {
       "id": "BV-TC09",
@@ -747,10 +747,10 @@
       "oracleLogs": [
         "Số danh mục: trước=5, sau=4"
       ],
-      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/5\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDc5OTc2fQ.GIakLCHcLRJ0CWHp-2xZqmyyEstFlEKxJttoDAui4AY\" } -SkipHttpErrorCheck",
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/5\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMTY3MjMwfQ.Tubw71i21_S7tqhSj-nGkPF3Sq6Zn5TGkaM3OZPfiSw\" } -SkipHttpErrorCheck",
       "actualStatus": 200,
       "actualBody": "{\"message\":\"Category deleted\"}",
-      "executedAt": "2026-10-15T15:59:36.072Z"
+      "executedAt": "2026-10-16T16:13:50.095Z"
     },
     {
       "id": "BV-TC10",
@@ -765,10 +765,10 @@
       "oracleLogs": [
         "Số danh mục: trước=5, sau=5"
       ],
-      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/6\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDc5OTc4fQ.wlDEZhHWTHVdZEw7k8O6tyrvxzJlYMq-ysODBPThkfM\" } -SkipHttpErrorCheck",
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/6\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMTY3MjMyfQ.qHXMvDyw6362Uob0uDjtAVhz7tIJxglgt4u9pelpIMQ\" } -SkipHttpErrorCheck",
       "actualStatus": 200,
       "actualBody": "{\"message\":\"Category deleted\"}",
-      "executedAt": "2026-10-15T15:59:38.599Z"
+      "executedAt": "2026-10-16T16:13:52.465Z"
     },
     {
       "id": "OB-TC01",
@@ -785,7 +785,7 @@
       "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method GET -SkipHttpErrorCheck",
       "actualStatus": 200,
       "actualBody": "[]",
-      "executedAt": "2026-10-15T15:59:41.051Z"
+      "executedAt": "2026-10-16T16:13:54.847Z"
     },
     {
       "id": "SR-TC01",
@@ -801,10 +801,10 @@
       "oracleLogs": [
         "Số danh mục: trước=4, sau=5"
       ],
-      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDc5OTgzfQ.nd9eoKB_2aL0NEXM_BNj4xC-eF_MQahSksHbziV-ZFg\" } -ContentType 'application/json' -Body '{\"name\":\"  thiết bị gia dụng thông minh  \"}' -SkipHttpErrorCheck",
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMTY3MjM3fQ.a13taP6vJu9guIC-tGU3LNwxRvGMINXoAq3SiVU5F2g\" } -ContentType 'application/json' -Body '{\"name\":\"  thiết bị gia dụng thông minh  \"}' -SkipHttpErrorCheck",
       "actualStatus": 200,
       "actualBody": "{\"message\":\"Category created\",\"id\":5}",
-      "executedAt": "2026-10-15T15:59:43.395Z"
+      "executedAt": "2026-10-16T16:13:57.282Z"
     },
     {
       "id": "SR-TC02",
@@ -818,10 +818,10 @@
         "Số danh mục: trước=3, sau=4",
         "Bản ghi mới: id=4, len(name)=39"
       ],
-      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDc5OTg1fQ.NI5TRw_VkqV3OMcQrieFCW6VolBsjfa_oPceGvBncC0\" } -ContentType 'application/json' -Body '{\"name\":\"Ẩm thực & Đồ uống 🍜 - Tươi sống (100%)\"}' -SkipHttpErrorCheck",
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMTY3MjM5fQ.NcQwl-BqaNFaVlCL1mzT7NqhaTCiF1AxZgEeFvesKeQ\" } -ContentType 'application/json' -Body '{\"name\":\"Ẩm thực & Đồ uống 🍜 - Tươi sống (100%)\"}' -SkipHttpErrorCheck",
       "actualStatus": 200,
       "actualBody": "{\"message\":\"Category created\",\"id\":4}",
-      "executedAt": "2026-10-15T15:59:45.822Z"
+      "executedAt": "2026-10-16T16:13:59.617Z"
     },
     {
       "id": "SR-TC03",
@@ -834,10 +834,10 @@
       "oracleLogs": [
         "Sau SQLi POST (200) & DELETE (200): còn 4 danh mục"
       ],
-      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/1%20OR%201=1\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDc5OTg4fQ.NOeBbbj0q7j_fQwUOUllZhm1W7bRt5d8FyuvRgUb-ZM\" } -SkipHttpErrorCheck",
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/1%20OR%201=1\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMTY3MjQyfQ.aZraK5lbftENZv0NgxMp0HsFQBG-M-bHdU11Xx8N6_8\" } -SkipHttpErrorCheck",
       "actualStatus": 200,
       "actualBody": "{\"message\":\"Category deleted\"}",
-      "executedAt": "2026-10-15T15:59:48.431Z"
+      "executedAt": "2026-10-16T16:14:02.223Z"
     },
     {
       "id": "SR-TC04",
@@ -852,10 +852,10 @@
       "oracleLogs": [
         "Kết quả 2 request đồng thời: status=[200, 200], số bản ghi \"Danh mục đồng thời\"=2"
       ],
-      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDc5OTkwfQ.Vq2HNYd6SP3HWuR9XQIwBtj6CrBoItukgFXA2NBwU8I\" } -ContentType 'application/json' -Body '{\"name\":\"Danh mục đồng thời\"}' -SkipHttpErrorCheck",
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMTY3MjQ1fQ.JENzHNzQQ7jVpQXuyU9I1GGmSnb9OB1rw8m8j7-GRp4\" } -ContentType 'application/json' -Body '{\"name\":\"Danh mục đồng thời\"}' -SkipHttpErrorCheck",
       "actualStatus": 200,
       "actualBody": "{\"message\":\"Category created\",\"id\":5}",
-      "executedAt": "2026-10-15T15:59:50.889Z"
+      "executedAt": "2026-10-16T16:14:05.157Z"
     },
     {
       "id": "SR-TC05",
@@ -871,10 +871,10 @@
         "Trước khi xóa id=1: có 2 sản phẩm thuộc category_id=1",
         "Sau DELETE /api/categories/1 (HTTP 200): số sản phẩm mồ côi danh mục=2"
       ],
-      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/1\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDc5OTkzfQ.hjw6AEFJ-QY3jqgWNYlVSIqrOC3wd67yVtbvYU91WQw\" } -SkipHttpErrorCheck",
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/1\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMTY3MjQ3fQ.VwrJn4V2RmhhePH8zBkxS1ve_wYoz6vKm7U5qvfGaxE\" } -SkipHttpErrorCheck",
       "actualStatus": 200,
       "actualBody": "{\"message\":\"Category deleted\"}",
-      "executedAt": "2026-10-15T15:59:53.528Z"
+      "executedAt": "2026-10-16T16:14:07.712Z"
     }
   ]
 }

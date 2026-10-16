@@ -1,4 +1,4 @@
-<!-- Sinh tự động bởi run_fr14.js lúc 2026-10-15T15:59:55.846Z -->
+<!-- Sinh tự động bởi run_fr14.js lúc 2026-10-16T16:14:10.066Z -->
 **Tổng:** 50 · **Pass:** 19 · **Fail:** 24 · **Blocked:** 0 · **Not run (UI):** 7
 
 | TC ID | Mong đợi | Thực tế | Trạng thái | Ghi chú / Lý do |
