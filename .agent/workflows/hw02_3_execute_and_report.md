@@ -17,9 +17,9 @@ skills:
 
 ## Các bước
 
-1. **Chuẩn bị** `cases.json` từ bảng test case (mẫu `scripts/cases.sample.json`).
-2. **Reset trạng thái** nếu nhóm ca có trạng thái (khóa tài khoản, giỏ hàng, import). **Hỏi sinh viên đồng ý** trước khi chạy `reset_state.ps1` vì lệnh xóa dữ liệu.
-3. **Chạy test API** bằng `scripts/run_cases.js`. Test UI chạy bằng trình duyệt tự động, ghi lại từng bước.
+1. **Chuẩn bị** `cases.json` từ bảng test case (mẫu `.agent/skills/hw02_test_executor/scripts/cases.sample.json`).
+2. **Reset trạng thái** nếu nhóm ca có trạng thái (khóa tài khoản, giỏ hàng, import). Ưu tiên chạy backend trên **CSDL tạm** (biến `DB_PATH`). **Hỏi sinh viên đồng ý** trước khi chạy `.agent/skills/hw02_test_executor/scripts/reset_state.ps1` vì lệnh xóa dữ liệu.
+3. **Chạy test API** bằng `.agent/skills/hw02_test_executor/scripts/run_cases.js`. Test UI chạy bằng Playwright (mẫu `playwright_ui_template.spec.js`), ghi lại từng bước.
 4. **Chạy lại các ca Fail** ít nhất một lần để loại trừ lỗi môi trường.
 5. **Ghi** kết quả vào bảng thực thi trong `Main_Report.md`: lệnh thật, expected, actual, trạng thái.
 6. **Với mỗi ca Fail ổn định:**

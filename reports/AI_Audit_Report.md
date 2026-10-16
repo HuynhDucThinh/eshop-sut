@@ -14,7 +14,7 @@
 | Công cụ AI đã dùng | Gemini 3.8 Flash & Claude Sonnet 5.5 (Antigravity Agent) |
 | Có dùng AI? | [x] Có  [ ] Không |
 
-**Khai báo:** Tôi sử dụng công cụ AI cho các tác vụ hỗ trợ trích xuất đặc tả, thiết kế test case, tự động thực thi và lập báo cáo trong HW02.
+**Khai báo:** Em sử dụng công cụ AI cho các tác vụ hỗ trợ trích xuất đặc tả, thiết kế test case, tự động thực thi và lập báo cáo trong HW02.
 
 ## 2. Bảng kiểm toán (mỗi sản phẩm AI một dòng)
 
@@ -60,7 +60,7 @@ Tuy nhiên, người kiểm thử không nên phụ thuộc vào AI ở các kh�
 
 ## 5. Mandatory Disclosure
 
-"Toàn bộ bảng đặc tả kỹ thuật và khung test case ban đầu được hỗ trợ tạo bởi Gemini 3.8 Flash; tôi đã xem xét, đối chiếu với tài liệu README của SUT và trực tiếp xác nhận các giả định nghiệp vụ, bổ sung các ca kiểm thử biên. AI Audit Report chi tiết được lưu trữ trong báo cáo này. Tôi xác nhận không dùng AI để tạo bất kỳ sản phẩm nào thuộc nhóm bị cấm theo quy định môn học."
+"Toàn bộ bảng đặc tả kỹ thuật và khung test case ban đầu được hỗ trợ tạo bởi Gemini 3.8 Flash; em đã xem xét, đối chiếu với tài liệu README của SUT và trực tiếp xác nhận các giả định nghiệp vụ, bổ sung các ca kiểm thử biên. AI Audit Report chi tiết được lưu trữ trong báo cáo này. Em xác nhận không dùng AI để tạo bất kỳ sản phẩm nào thuộc nhóm bị cấm theo quy định môn học."
 
 ## Chữ ký
 

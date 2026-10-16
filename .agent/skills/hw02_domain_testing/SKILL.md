@@ -19,7 +19,7 @@ description: Áp dụng kỹ thuật Domain Testing (Phân hoạch tương đư�
 3. Chỉ một biến/điều kiện ở lớp **không hợp lệ** trong mỗi ca âm, các biến khác để hợp lệ, để biết nguyên nhân lỗi.
 4. **Không bỏ lớp đầu ra** (output partition).
 5. Không tự bịa luật. Thiếu thông tin: ghi `unspecified` và hỏi.
-6. **100% Tiếng Việt có dấu**: Toàn bộ mô tả ca kiểm thử, tên lớp tương đương, kết quả mong đợi và giải thích kỹ thuật phải viết bằng tiếng Việt có dấu chuẩn mực.
+6. **Ngôn ngữ:** tiếng Việt có dấu theo `rules/hw02_course_rules.md` §5.
 
 ## Quy trình ba bước (bắt buộc ghi trong báo cáo)
 

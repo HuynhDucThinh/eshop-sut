@@ -1,0 +1,611 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\node_modules\\@playwright\\test\\cli.js",
+      "test"
+    ],
+    "configFile": "D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\playwright.config.js",
+    "rootDir": "D:/KCPM/eshop-sut/tests/ui-fr03",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/KCPM/eshop-sut/reports/evidence/FR-03/playwright-artifacts/run_ui_2",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "D:/KCPM/eshop-sut/tests/ui-fr03",
+        "testIgnore": [],
+        "testMatch": [
+          "/fr03_ui\\.spec\\.js/"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "D:\\KCPM\\eshop-sut\\reports\\evidence\\FR-03\\playwright-artifacts\\run_ui_2",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "chromium",
+        "testDir": "D:\\KCPM\\eshop-sut\\tests\\ui-fr03",
+        "snapshotDir": "D:\\KCPM\\eshop-sut\\tests\\ui-fr03",
+        "testIgnore": [],
+        "testMatch": {},
+        "timeout": 30000,
+        "use": {
+          "baseURL": "http://localhost:5173",
+          "headless": true,
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "trace": "off",
+          "browserName": "chromium"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "chromium"
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "D:\\KCPM\\eshop-sut\\reports\\evidence\\FR-03\\run_ui_2.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "fr03_ui.spec.js",
+      "file": "fr03_ui.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "FR-03 UI: Quên mật khẩu & Đặt lại mật khẩu",
+          "file": "fr03_ui.spec.js",
+          "line": 130,
+          "column": 6,
+          "specs": [
+            {
+              "title": "EP-TC02 UI: Luồng hợp lệ end-to-end có chỉ báo bước và đặt lại thành công",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 3463,
+                      "error": {
+                        "message": "Error: Phải hiện chỉ báo \"Bước 1 / 2\" ở bước 1\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
+                        "stack": "Error: Phải hiện chỉ báo \"Bước 1 / 2\" ở bước 1\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js:153:96",
+                        "location": {
+                          "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js",
+                          "column": 96,
+                          "line": 153
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 151 |\u001b[39m     \u001b[36mawait\u001b[39m forgot\u001b[33m.\u001b[39mopen()\u001b[33m;\u001b[39m\n \u001b[90m 152 |\u001b[39m     observations\u001b[33m.\u001b[39mstep1IndicatorVisible \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m forgot\u001b[33m.\u001b[39mstepOneIndicator\u001b[33m.\u001b[39misVisible()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 153 |\u001b[39m     expect\u001b[33m.\u001b[39msoft(observations\u001b[33m.\u001b[39mstep1IndicatorVisible\u001b[33m,\u001b[39m \u001b[32m'Phải hiện chỉ báo \"Bước 1 / 2\" ở bước 1'\u001b[39m)\u001b[33m.\u001b[39mtoBe(\u001b[36mtrue\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                                                                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 154 |\u001b[39m\n \u001b[90m 155 |\u001b[39m     \u001b[36mawait\u001b[39m forgot\u001b[33m.\u001b[39mrequestOtpFor(\u001b[33mACCOUNT\u001b[39m\u001b[33m.\u001b[39memail)\u001b[33m;\u001b[39m\n \u001b[90m 156 |\u001b[39m     \u001b[36mawait\u001b[39m forgot\u001b[33m.\u001b[39motpInput\u001b[33m.\u001b[39mwaitFor({ state\u001b[33m:\u001b[39m \u001b[32m'visible'\u001b[39m\u001b[33m,\u001b[39m timeout\u001b[33m:\u001b[39m \u001b[35m5000\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js",
+                            "column": 96,
+                            "line": 153
+                          },
+                          "message": "Error: Phải hiện chỉ báo \"Bước 1 / 2\" ở bước 1\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\n  151 |     await forgot.open();\n  152 |     observations.step1IndicatorVisible = await forgot.stepOneIndicator.isVisible();\n> 153 |     expect.soft(observations.step1IndicatorVisible, 'Phải hiện chỉ báo \"Bước 1 / 2\" ở bước 1').toBe(true);\n      |                                                                                                ^\n  154 |\n  155 |     await forgot.requestOtpFor(ACCOUNT.email);\n  156 |     await forgot.otpInput.waitFor({ state: 'visible', timeout: 5000 });\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js:153:96"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js",
+                            "column": 96,
+                            "line": 159
+                          },
+                          "message": "Error: Phải hiện chỉ báo \"Bước 2 / 2\" ở bước 2\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\n  157 |\n  158 |     observations.step2IndicatorVisible = await forgot.stepTwoIndicator.isVisible();\n> 159 |     expect.soft(observations.step2IndicatorVisible, 'Phải hiện chỉ báo \"Bước 2 / 2\" ở bước 2').toBe(true);\n      |                                                                                                ^\n  160 |\n  161 |     const displayedOtp = await forgot.readDisplayedOtp();\n  162 |     observations.displayedOtp = displayedOtp;\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js:159:96"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js",
+                            "column": 73,
+                            "line": 163
+                          },
+                          "message": "Error: Mã OTP hiển thị phải gồm đúng 6 chữ số\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoMatch\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected pattern: \u001b[32m/^\\d{6}$/\u001b[39m\nReceived string:  \u001b[31m\"1436\"\u001b[39m\n\n  161 |     const displayedOtp = await forgot.readDisplayedOtp();\n  162 |     observations.displayedOtp = displayedOtp;\n> 163 |     expect.soft(displayedOtp, 'Mã OTP hiển thị phải gồm đúng 6 chữ số').toMatch(/^\\d{6}$/);\n      |                                                                         ^\n  164 |\n  165 |     await forgot.otpInput.fill(displayedOtp);\n  166 |     await forgot.newPasswordInput.fill(NEW_PASSWORD);\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js:163:73"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js",
+                            "column": 94,
+                            "line": 168
+                          },
+                          "message": "Error: Form Bước 2 phải có ô Xác nhận mật khẩu\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\n  166 |     await forgot.newPasswordInput.fill(NEW_PASSWORD);\n  167 |     observations.confirmFieldPresent = await forgot.hasConfirmPasswordField();\n> 168 |     expect.soft(observations.confirmFieldPresent, 'Form Bước 2 phải có ô Xác nhận mật khẩu').toBe(true);\n      |                                                                                              ^\n  169 |     if (observations.confirmFieldPresent) await forgot.confirmPasswordInput.fill(NEW_PASSWORD);\n  170 |\n  171 |     await forgot.submitResetButton.click();\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js:168:94"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js",
+                            "column": 88,
+                            "line": 176
+                          },
+                          "message": "Error: Đặt lại thành công phải chuyển hướng về trang Đăng nhập\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoMatch\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected pattern: \u001b[32m/\\/login/\u001b[39m\nReceived string:  \u001b[31m\"http://localhost:5173/forgot-password\"\u001b[39m\n\n  174 |     observations.finalUrl = page.url();\n  175 |     observations.dialogMessages = forgot.dialogMessages;\n> 176 |     expect.soft(page.url(), 'Đặt lại thành công phải chuyển hướng về trang Đăng nhập').toMatch(/\\/login/);\n      |                                                                                        ^\n  177 |\n  178 |     observations.loginWithNewPasswordStatus = await loginStatus(request, ACCOUNT.email, NEW_PASSWORD);\n  179 |     expect\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js:176:88"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js",
+                            "column": 8,
+                            "line": 181
+                          },
+                          "message": "Error: OC-OK: Đăng nhập bằng mật khẩu mới phải thành công (HTTP 200)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m200\u001b[39m\nReceived: \u001b[31m401\u001b[39m\n\n  179 |     expect\n  180 |       .soft(observations.loginWithNewPasswordStatus, 'OC-OK: Đăng nhập bằng mật khẩu mới phải thành công (HTTP 200)')\n> 181 |       .toBe(200);\n      |        ^\n  182 |\n  183 |     await attachObservations(testInfo, observations);\n  184 |   });\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js:181:8"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-16T17:44:29.848Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "observations",
+                          "contentType": "application/json",
+                          "body": "ewogICJzdGVwMUluZGljYXRvclZpc2libGUiOiBmYWxzZSwKICAic3RlcDJJbmRpY2F0b3JWaXNpYmxlIjogZmFsc2UsCiAgImRpc3BsYXllZE90cCI6ICIxNDM2IiwKICAiY29uZmlybUZpZWxkUHJlc2VudCI6IGZhbHNlLAogICJmaW5hbFVybCI6ICJodHRwOi8vbG9jYWxob3N0OjUxNzMvZm9yZ290LXBhc3N3b3JkIiwKICAiZGlhbG9nTWVzc2FnZXMiOiBbCiAgICAiTeG6rXQga2jhuql1IHF1w6EgeeG6v3UhIFBo4bqjaSBkw6BpIHThu5FpIHRoaeG7g3UgOCBrw70gdOG7sSwgZ+G7k20gY2jhu68gaG9hLCBjaOG7ryB0aMaw4budbmcsIHPhu5EgdsOgIEvDnSBU4buwIMSQ4bq2QyBCSeG7hlQuIgogIF0sCiAgImxvZ2luV2l0aE5ld1Bhc3N3b3JkU3RhdHVzIjogNDAxCn0="
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\KCPM\\eshop-sut\\reports\\evidence\\FR-03\\playwright-artifacts\\run_ui_2\\fr03_ui-FR-03-UI-Quên-mật--a65cb--bước-và-đặt-lại-thành-công-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js",
+                        "column": 96,
+                        "line": 153
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "9ae64af1a14d8fb4a573-e58d9202dbcd236e94a6",
+              "file": "fr03_ui.spec.js",
+              "line": 144,
+              "column": 3
+            },
+            {
+              "title": "EP-TC22 UI: Xác nhận mật khẩu không khớp thì báo lỗi và không đổi mật khẩu",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 329,
+                      "error": {
+                        "message": "Error: Form Bước 2 phải có ô Xác nhận mật khẩu để nhập giá trị không khớp\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
+                        "stack": "Error: Form Bước 2 phải có ô Xác nhận mật khẩu để nhập giá trị không khớp\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js:196:116",
+                        "location": {
+                          "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js",
+                          "column": 116,
+                          "line": 196
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 194 |\u001b[39m     observations\u001b[33m.\u001b[39mconfirmFieldPresent \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m forgot\u001b[33m.\u001b[39mhasConfirmPasswordField()\u001b[33m;\u001b[39m\n \u001b[90m 195 |\u001b[39m     \u001b[36mawait\u001b[39m attachObservations(testInfo\u001b[33m,\u001b[39m observations)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 196 |\u001b[39m     expect(observations\u001b[33m.\u001b[39mconfirmFieldPresent\u001b[33m,\u001b[39m \u001b[32m'Form Bước 2 phải có ô Xác nhận mật khẩu để nhập giá trị không khớp'\u001b[39m)\u001b[33m.\u001b[39mtoBe(\u001b[36mtrue\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                                                                                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 197 |\u001b[39m\n \u001b[90m 198 |\u001b[39m     \u001b[36mawait\u001b[39m forgot\u001b[33m.\u001b[39motpInput\u001b[33m.\u001b[39mfill(\u001b[36mawait\u001b[39m forgot\u001b[33m.\u001b[39mreadDisplayedOtp())\u001b[33m;\u001b[39m\n \u001b[90m 199 |\u001b[39m     \u001b[36mawait\u001b[39m forgot\u001b[33m.\u001b[39mnewPasswordInput\u001b[33m.\u001b[39mfill(\u001b[33mNEW_PASSWORD\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js",
+                            "column": 116,
+                            "line": 196
+                          },
+                          "message": "Error: Form Bước 2 phải có ô Xác nhận mật khẩu để nhập giá trị không khớp\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\n  194 |     observations.confirmFieldPresent = await forgot.hasConfirmPasswordField();\n  195 |     await attachObservations(testInfo, observations);\n> 196 |     expect(observations.confirmFieldPresent, 'Form Bước 2 phải có ô Xác nhận mật khẩu để nhập giá trị không khớp').toBe(true);\n      |                                                                                                                    ^\n  197 |\n  198 |     await forgot.otpInput.fill(await forgot.readDisplayedOtp());\n  199 |     await forgot.newPasswordInput.fill(NEW_PASSWORD);\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js:196:116"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-16T17:44:33.824Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "observations",
+                          "contentType": "application/json",
+                          "body": "ewogICJjb25maXJtRmllbGRQcmVzZW50IjogZmFsc2UKfQ=="
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\KCPM\\eshop-sut\\reports\\evidence\\FR-03\\playwright-artifacts\\run_ui_2\\fr03_ui-FR-03-UI-Quên-mật--25972-o-lỗi-và-không-đổi-mật-khẩu-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js",
+                        "column": 116,
+                        "line": 196
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "9ae64af1a14d8fb4a573-404b2f8c338726ea5bb4",
+              "file": "fr03_ui.spec.js",
+              "line": 186,
+              "column": 3
+            },
+            {
+              "title": "EP-TC23 UI: Xác nhận mật khẩu để trống thì báo lỗi và không đổi mật khẩu",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 361,
+                      "error": {
+                        "message": "Error: Form Bước 2 phải có ô Xác nhận mật khẩu để để trống\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
+                        "stack": "Error: Form Bước 2 phải có ô Xác nhận mật khẩu để để trống\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js:220:101",
+                        "location": {
+                          "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js",
+                          "column": 101,
+                          "line": 220
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 218 |\u001b[39m     observations\u001b[33m.\u001b[39mconfirmFieldPresent \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m forgot\u001b[33m.\u001b[39mhasConfirmPasswordField()\u001b[33m;\u001b[39m\n \u001b[90m 219 |\u001b[39m     \u001b[36mawait\u001b[39m attachObservations(testInfo\u001b[33m,\u001b[39m observations)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 220 |\u001b[39m     expect(observations\u001b[33m.\u001b[39mconfirmFieldPresent\u001b[33m,\u001b[39m \u001b[32m'Form Bước 2 phải có ô Xác nhận mật khẩu để để trống'\u001b[39m)\u001b[33m.\u001b[39mtoBe(\u001b[36mtrue\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                                                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 221 |\u001b[39m\n \u001b[90m 222 |\u001b[39m     \u001b[36mawait\u001b[39m forgot\u001b[33m.\u001b[39motpInput\u001b[33m.\u001b[39mfill(\u001b[36mawait\u001b[39m forgot\u001b[33m.\u001b[39mreadDisplayedOtp())\u001b[33m;\u001b[39m\n \u001b[90m 223 |\u001b[39m     \u001b[36mawait\u001b[39m forgot\u001b[33m.\u001b[39mnewPasswordInput\u001b[33m.\u001b[39mfill(\u001b[33mNEW_PASSWORD\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js",
+                            "column": 101,
+                            "line": 220
+                          },
+                          "message": "Error: Form Bước 2 phải có ô Xác nhận mật khẩu để để trống\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\n  218 |     observations.confirmFieldPresent = await forgot.hasConfirmPasswordField();\n  219 |     await attachObservations(testInfo, observations);\n> 220 |     expect(observations.confirmFieldPresent, 'Form Bước 2 phải có ô Xác nhận mật khẩu để để trống').toBe(true);\n      |                                                                                                     ^\n  221 |\n  222 |     await forgot.otpInput.fill(await forgot.readDisplayedOtp());\n  223 |     await forgot.newPasswordInput.fill(NEW_PASSWORD);\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js:220:101"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-16T17:44:34.640Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "observations",
+                          "contentType": "application/json",
+                          "body": "ewogICJjb25maXJtRmllbGRQcmVzZW50IjogZmFsc2UKfQ=="
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\KCPM\\eshop-sut\\reports\\evidence\\FR-03\\playwright-artifacts\\run_ui_2\\fr03_ui-FR-03-UI-Quên-mật--515fa-o-lỗi-và-không-đổi-mật-khẩu-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js",
+                        "column": 101,
+                        "line": 220
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "9ae64af1a14d8fb4a573-8c5ee06666e497081412",
+              "file": "fr03_ui.spec.js",
+              "line": 210,
+              "column": 3
+            },
+            {
+              "title": "EP-TC29 UI: Chỉ báo tiến trình Bước 1/2, Bước 2/2 và nút Quay lại đăng nhập",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 350,
+                      "error": {
+                        "message": "Error: Phải hiển thị \"Bước 1 / 2\"\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
+                        "stack": "Error: Phải hiển thị \"Bước 1 / 2\"\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js:239:83",
+                        "location": {
+                          "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js",
+                          "column": 83,
+                          "line": 239
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 237 |\u001b[39m     observations\u001b[33m.\u001b[39mstep1IndicatorVisible \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m forgot\u001b[33m.\u001b[39mstepOneIndicator\u001b[33m.\u001b[39misVisible()\u001b[33m;\u001b[39m\n \u001b[90m 238 |\u001b[39m     observations\u001b[33m.\u001b[39mbackToLoginVisibleAtStep1 \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m forgot\u001b[33m.\u001b[39mbackToLoginControl\u001b[33m.\u001b[39misVisible()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 239 |\u001b[39m     expect\u001b[33m.\u001b[39msoft(observations\u001b[33m.\u001b[39mstep1IndicatorVisible\u001b[33m,\u001b[39m \u001b[32m'Phải hiển thị \"Bước 1 / 2\"'\u001b[39m)\u001b[33m.\u001b[39mtoBe(\u001b[36mtrue\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                                                   \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 240 |\u001b[39m     expect\u001b[33m.\u001b[39msoft(observations\u001b[33m.\u001b[39mbackToLoginVisibleAtStep1\u001b[33m,\u001b[39m \u001b[32m'Phải có nút hoặc liên kết \"Quay lại đăng nhập\"'\u001b[39m)\u001b[33m.\u001b[39mtoBe(\u001b[36mtrue\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 241 |\u001b[39m\n \u001b[90m 242 |\u001b[39m     \u001b[36mawait\u001b[39m forgot\u001b[33m.\u001b[39mrequestOtpFor(\u001b[33mACCOUNT\u001b[39m\u001b[33m.\u001b[39memail)\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js",
+                            "column": 83,
+                            "line": 239
+                          },
+                          "message": "Error: Phải hiển thị \"Bước 1 / 2\"\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\n  237 |     observations.step1IndicatorVisible = await forgot.stepOneIndicator.isVisible();\n  238 |     observations.backToLoginVisibleAtStep1 = await forgot.backToLoginControl.isVisible();\n> 239 |     expect.soft(observations.step1IndicatorVisible, 'Phải hiển thị \"Bước 1 / 2\"').toBe(true);\n      |                                                                                   ^\n  240 |     expect.soft(observations.backToLoginVisibleAtStep1, 'Phải có nút hoặc liên kết \"Quay lại đăng nhập\"').toBe(true);\n  241 |\n  242 |     await forgot.requestOtpFor(ACCOUNT.email);\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js:239:83"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js",
+                            "column": 107,
+                            "line": 240
+                          },
+                          "message": "Error: Phải có nút hoặc liên kết \"Quay lại đăng nhập\"\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\n  238 |     observations.backToLoginVisibleAtStep1 = await forgot.backToLoginControl.isVisible();\n  239 |     expect.soft(observations.step1IndicatorVisible, 'Phải hiển thị \"Bước 1 / 2\"').toBe(true);\n> 240 |     expect.soft(observations.backToLoginVisibleAtStep1, 'Phải có nút hoặc liên kết \"Quay lại đăng nhập\"').toBe(true);\n      |                                                                                                           ^\n  241 |\n  242 |     await forgot.requestOtpFor(ACCOUNT.email);\n  243 |     await forgot.otpInput.waitFor({ state: 'visible', timeout: 5000 });\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js:240:107"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js",
+                            "column": 83,
+                            "line": 245
+                          },
+                          "message": "Error: Phải hiển thị \"Bước 2 / 2\"\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\n  243 |     await forgot.otpInput.waitFor({ state: 'visible', timeout: 5000 });\n  244 |     observations.step2IndicatorVisible = await forgot.stepTwoIndicator.isVisible();\n> 245 |     expect.soft(observations.step2IndicatorVisible, 'Phải hiển thị \"Bước 2 / 2\"').toBe(true);\n      |                                                                                   ^\n  246 |\n  247 |     await attachObservations(testInfo, observations);\n  248 |   });\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js:245:83"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-16T17:44:35.488Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "observations",
+                          "contentType": "application/json",
+                          "body": "ewogICJzdGVwMUluZGljYXRvclZpc2libGUiOiBmYWxzZSwKICAiYmFja1RvTG9naW5WaXNpYmxlQXRTdGVwMSI6IGZhbHNlLAogICJzdGVwMkluZGljYXRvclZpc2libGUiOiBmYWxzZQp9"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\KCPM\\eshop-sut\\reports\\evidence\\FR-03\\playwright-artifacts\\run_ui_2\\fr03_ui-FR-03-UI-Quên-mật--e1a92-2-và-nút-Quay-lại-đăng-nhập-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js",
+                        "column": 83,
+                        "line": 239
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "9ae64af1a14d8fb4a573-806b238897547d809ed2",
+              "file": "fr03_ui.spec.js",
+              "line": 232,
+              "column": 3
+            },
+            {
+              "title": "EP-TC30 UI: Ô email sử dụng type=\"email\", chặn gửi và báo lỗi định dạng HTML5",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 846,
+                      "error": {
+                        "message": "Error: Ô email phải có thuộc tính type=\"email\"\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"email\"\u001b[39m\nReceived: \u001b[31m\"text\"\u001b[39m",
+                        "stack": "Error: Ô email phải có thuộc tính type=\"email\"\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"email\"\u001b[39m\nReceived: \u001b[31m\"text\"\u001b[39m\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js:256:89",
+                        "location": {
+                          "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js",
+                          "column": 89,
+                          "line": 256
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 254 |\u001b[39m     \u001b[36mawait\u001b[39m forgot\u001b[33m.\u001b[39mopen()\u001b[33m;\u001b[39m\n \u001b[90m 255 |\u001b[39m     observations\u001b[33m.\u001b[39memailInputType \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m forgot\u001b[33m.\u001b[39memailInput\u001b[33m.\u001b[39mgetAttribute(\u001b[32m'type'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 256 |\u001b[39m     expect\u001b[33m.\u001b[39msoft(observations\u001b[33m.\u001b[39memailInputType\u001b[33m,\u001b[39m \u001b[32m'Ô email phải có thuộc tính type=\"email\"'\u001b[39m)\u001b[33m.\u001b[39mtoBe(\u001b[32m'email'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                                                         \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 257 |\u001b[39m\n \u001b[90m 258 |\u001b[39m     \u001b[36mawait\u001b[39m forgot\u001b[33m.\u001b[39memailInput\u001b[33m.\u001b[39mfill(\u001b[32m'testeshop.com'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 259 |\u001b[39m     \u001b[36mawait\u001b[39m forgot\u001b[33m.\u001b[39mrequestOtpButton\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js",
+                            "column": 89,
+                            "line": 256
+                          },
+                          "message": "Error: Ô email phải có thuộc tính type=\"email\"\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"email\"\u001b[39m\nReceived: \u001b[31m\"text\"\u001b[39m\n\n  254 |     await forgot.open();\n  255 |     observations.emailInputType = await forgot.emailInput.getAttribute('type');\n> 256 |     expect.soft(observations.emailInputType, 'Ô email phải có thuộc tính type=\"email\"').toBe('email');\n      |                                                                                         ^\n  257 |\n  258 |     await forgot.emailInput.fill('testeshop.com');\n  259 |     await forgot.requestOtpButton.click();\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js:256:89"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js",
+                            "column": 106,
+                            "line": 267
+                          },
+                          "message": "Error: Trình duyệt phải đánh dấu ô email là không hợp lệ (:invalid)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mfalse\u001b[39m\nReceived: \u001b[31mtrue\u001b[39m\n\n  265 |     observations.dialogMessages = forgot.dialogMessages;\n  266 |\n> 267 |     expect.soft(observations.html5Valid, 'Trình duyệt phải đánh dấu ô email là không hợp lệ (:invalid)').toBe(false);\n      |                                                                                                          ^\n  268 |     expect.soft(observations.apiRequestsSent, 'Không được gửi request tới API khi email sai định dạng').toBe(0);\n  269 |\n  270 |     await attachObservations(testInfo, observations);\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js:267:106"
+                        },
+                        {
+                          "location": {
+                            "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js",
+                            "column": 105,
+                            "line": 268
+                          },
+                          "message": "Error: Không được gửi request tới API khi email sai định dạng\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n\n  266 |\n  267 |     expect.soft(observations.html5Valid, 'Trình duyệt phải đánh dấu ô email là không hợp lệ (:invalid)').toBe(false);\n> 268 |     expect.soft(observations.apiRequestsSent, 'Không được gửi request tới API khi email sai định dạng').toBe(0);\n      |                                                                                                         ^\n  269 |\n  270 |     await attachObservations(testInfo, observations);\n  271 |   });\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js:268:105"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-16T17:44:36.325Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "observations",
+                          "contentType": "application/json",
+                          "body": "ewogICJlbWFpbElucHV0VHlwZSI6ICJ0ZXh0IiwKICAiaHRtbDVWYWxpZCI6IHRydWUsCiAgInZhbGlkYXRpb25NZXNzYWdlIjogIiIsCiAgImFwaVJlcXVlc3RzU2VudCI6IDEsCiAgImRpYWxvZ01lc3NhZ2VzIjogWwogICAgIkzhu5dpOiBVc2VyIG5vdCBmb3VuZCIKICBdCn0="
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\KCPM\\eshop-sut\\reports\\evidence\\FR-03\\playwright-artifacts\\run_ui_2\\fr03_ui-FR-03-UI-Quên-mật--492bd--và-báo-lỗi-định-dạng-HTML5-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js",
+                        "column": 89,
+                        "line": 256
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "9ae64af1a14d8fb4a573-86fa289e7941aa70d0d3",
+              "file": "fr03_ui.spec.js",
+              "line": 250,
+              "column": 3
+            },
+            {
+              "title": "EP-TC31 UI: Cả hai ô mật khẩu ở Bước 2 đều phải che ký tự (type=\"password\")",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 5,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 395,
+                      "error": {
+                        "message": "Error: Ô Xác nhận mật khẩu phải tồn tại và có type=\"password\"\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"password\"\u001b[39m\nReceived: \u001b[31mnull\u001b[39m",
+                        "stack": "Error: Ô Xác nhận mật khẩu phải tồn tại và có type=\"password\"\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"password\"\u001b[39m\nReceived: \u001b[31mnull\u001b[39m\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js:285:109",
+                        "location": {
+                          "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js",
+                          "column": 109,
+                          "line": 285
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 283 |\u001b[39m\n \u001b[90m 284 |\u001b[39m     expect\u001b[33m.\u001b[39msoft(observations\u001b[33m.\u001b[39mnewPasswordType\u001b[33m,\u001b[39m \u001b[32m'Ô Mật khẩu mới phải có type=\"password\"'\u001b[39m)\u001b[33m.\u001b[39mtoBe(\u001b[32m'password'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 285 |\u001b[39m     expect\u001b[33m.\u001b[39msoft(observations\u001b[33m.\u001b[39mconfirmPasswordType\u001b[33m,\u001b[39m \u001b[32m'Ô Xác nhận mật khẩu phải tồn tại và có type=\"password\"'\u001b[39m)\u001b[33m.\u001b[39mtoBe(\u001b[32m'password'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                                                                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 286 |\u001b[39m\n \u001b[90m 287 |\u001b[39m     \u001b[36mawait\u001b[39m attachObservations(testInfo\u001b[33m,\u001b[39m observations)\u001b[33m;\u001b[39m\n \u001b[90m 288 |\u001b[39m   })\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js",
+                            "column": 109,
+                            "line": 285
+                          },
+                          "message": "Error: Ô Xác nhận mật khẩu phải tồn tại và có type=\"password\"\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"password\"\u001b[39m\nReceived: \u001b[31mnull\u001b[39m\n\n  283 |\n  284 |     expect.soft(observations.newPasswordType, 'Ô Mật khẩu mới phải có type=\"password\"').toBe('password');\n> 285 |     expect.soft(observations.confirmPasswordType, 'Ô Xác nhận mật khẩu phải tồn tại và có type=\"password\"').toBe('password');\n      |                                                                                                             ^\n  286 |\n  287 |     await attachObservations(testInfo, observations);\n  288 |   });\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js:285:109"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-16T17:44:37.678Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "observations",
+                          "contentType": "application/json",
+                          "body": "ewogICJuZXdQYXNzd29yZFR5cGUiOiAicGFzc3dvcmQiLAogICJjb25maXJtRmllbGRQcmVzZW50IjogZmFsc2UsCiAgImNvbmZpcm1QYXNzd29yZFR5cGUiOiBudWxsCn0="
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\KCPM\\eshop-sut\\reports\\evidence\\FR-03\\playwright-artifacts\\run_ui_2\\fr03_ui-FR-03-UI-Quên-mật--36519-ải-che-ký-tự-type-password--chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr03\\fr03_ui.spec.js",
+                        "column": 109,
+                        "line": 285
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "9ae64af1a14d8fb4a573-3f2841aaadffd49bb08c",
+              "file": "fr03_ui.spec.js",
+              "line": 273,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-16T17:44:16.369Z",
+    "duration": 22278.882999999998,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 6,
+    "flaky": 0
+  }
+}

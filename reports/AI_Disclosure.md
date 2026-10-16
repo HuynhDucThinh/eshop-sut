@@ -93,7 +93,7 @@ Toàn bộ 20 lượt tương tác (Artifact #1 đến #20) được lưu trữ 
 
 ## Tuyên bố trung thực
 
-Tôi xác nhận toàn bộ nội dung khai báo trên là chính xác và trung thực. Tôi hiểu rằng việc khai báo thiếu hoặc sai lệch về việc sử dụng AI là vi phạm liêm chính học thuật và có thể bị xử lý theo quy định của môn học.
+Em xác nhận toàn bộ nội dung khai báo trên là chính xác và trung thực. Em hiểu rằng việc khai báo thiếu hoặc sai lệch về việc sử dụng AI là vi phạm liêm chính học thuật và có thể bị xử lý theo quy định của môn học.
 
 | Mục | Nội dung |
 |---|---|

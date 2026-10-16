@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
   Reset dữ liệu của SUT EShop (chạy lại database.js) trước khi chạy nhóm test có trạng thái.
 

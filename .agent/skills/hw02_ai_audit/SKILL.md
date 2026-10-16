@@ -17,10 +17,10 @@ Sau mỗi lượt xử lý có sản phẩm, AI **tự thêm một dòng** vào 
 2. Ghi **thời gian thực** (ngày giờ), tên công cụ AI và mô hình nếu biết.
 3. Trích **prompt nguyên văn** của sinh viên (không diễn giải lại).
 4. Ghi **đầu ra AI**: nguyên văn nếu ngắn, nếu dài thì ghi tóm tắt cấu trúc + đường dẫn tới đầu ra đầy đủ (ví dụ vị trí trong `Main_Report.md` hoặc `evidence/`).
-5. Để trống **Verdict** và **Student Fix** cho sinh viên điền (hoặc đề xuất nháp ghi rõ "đề xuất của AI, chờ sinh viên xác nhận").
+5. Để **trống** cột **Verdict** và **Sinh viên sửa** (ghi chú *"Sinh viên tự điền"*). AI **không điền nháp, không đề xuất nhãn**; AI chỉ điền dữ kiện khách quan (công cụ, thời gian, prompt, đường dẫn đầu ra).
 6. Ghi nhớ: chưa có `AI_Audit_Report.md` thì tạo theo khuôn `references/audit_template.md`.
 7. **QUY TẮC BẮT BUỘC (APPEND-ONLY):** Khi ghi thêm artifact mới, **CHỈ ĐƯỢC CHÈN THÊM (APPEND)** dòng mới vào cuối bảng mục 2 (sau `Artifact #N`). **TUYỆT ĐỐI CẤM ghi đè, xóa hoặc thay thế** các dòng `Artifact #1, #2...` đã có từ trước nhằm bảo toàn 100% lịch sử audit qua các bước. Sau đó cập nhật lại số lượng tổng kết tại mục 3 tương ứng với toàn bộ các artifact hiện có.
-8. **100% Tiếng Việt có dấu:** Toàn bộ nội dung tóm tắt đầu ra AI, lý do trích dẫn ISTQB/bài giảng, báo cáo AI Gap và AI Audit bắt buộc sử dụng tiếng Việt có dấu chuẩn mực, không dùng tiếng Việt không dấu.
+8. **Ngôn ngữ:** tiếng Việt có dấu theo `rules/hw02_course_rules.md` §5; trích nguồn (slide, ISTQB, đặc tả) phải thật, không bịa.
 
 ### Chỉ tính là một "artifact" khi
 
@@ -37,7 +37,7 @@ AI tạo ra một sản phẩm cụ thể: bảng EC, bộ test case, script, b�
 - **(4)** Lý do **phải trích dẫn** nguồn: slide bài giảng, mục ISTQB Foundation, hoặc đặc tả. Không bịa nguồn.
 - **(5)** Phần sinh viên đã sửa, nêu rõ điểm thay đổi (ví dụ thêm ca `UB+1`).
 
-Nhãn `VALID/INVALID/INCOMPLETE` do **sinh viên quyết định**. AI chỉ đề xuất nháp.
+Nhãn `VALID/INVALID/INCOMPLETE` và cột (4)–(5) do **sinh viên quyết định và tự điền** (nghiêm cấm AI điền thay, kể cả dưới dạng nháp). AI có thể đưa **câu hỏi gợi ý** (ví dụ "đầu ra này có đúng đặc tả mục X không?") để sinh viên tự kiểm tra.
 
 ## 3. Tổng kết độ chính xác AI
 
@@ -48,7 +48,7 @@ Nhãn `VALID/INVALID/INCOMPLETE` do **sinh viên quyết định**. AI chỉ đ�
 | INVALID | | % |
 | INCOMPLETE | | % |
 
-AI tính số liệu từ bảng kiểm toán, sinh viên xác nhận. Không làm tròn cho đẹp.
+AI chỉ **tính số liệu** từ các nhãn mà sinh viên đã điền; chưa có nhãn thì để trống ô tương ứng. Không làm tròn cho đẹp.
 
 ## 4. Kết luận 80–150 từ (mẫu AI-02 mục 5)
 
@@ -91,7 +91,7 @@ Yêu cầu đề bài: *nếu AI bỏ sót test case hoặc bug, phải báo cá
 
 ## 7. Disclosure và đoạn cam kết
 
-- Điền `AI_Disclosure.md` theo mẫu AI-03 (`references/disclosure_template.md`).
+- Chuẩn bị **khung trống** `AI_Disclosure.md` theo mẫu AI-03 (`references/disclosure_template.md`) và liệt kê **dữ kiện khách quan** (công cụ, thời gian, đường dẫn nhật ký). **Sinh viên tự điền nội dung khai báo và tự ký.**
 - Cuối báo cáo thêm **Mandatory Disclosure** nguyên văn theo AI-02 mục 6 (sinh viên điền nội dung cụ thể).
 - Nếu không dùng AI: *"I do not use any AI help in this exercise."*
 
@@ -109,8 +109,8 @@ Yêu cầu đề bài: *nếu AI bỏ sót test case hoặc bug, phải báo cá
 > [!CAUTION]
 > ### CÁC ĐIỀU KHOẢN NGHIÊM CẤM (STRICT PROHIBITIONS)
 > - **[NGHIÊM CẤM]** Bịa prompt/đầu ra để nhật ký trông đầy đủ.
-> - **[NGHIÊM CẤM]** Gắn nhãn VALID thay sinh viên khi chưa được xác nhận.
-> - **[NGHIÊM CẤM]** Viết thay AI Critique.
+> - **[NGHIÊM CẤM]** Điền hoặc đề xuất Verdict (`VALID`/`INVALID`/`INCOMPLETE`), cột Sinh viên sửa, thay sinh viên.
+> - **[NGHIÊM CẤM]** Viết thay AI Critique, nội dung AI Disclosure, chữ ký hoặc tuyên bố trung thực.
 > - **[NGHIÊM CẤM]** Bịa nguồn trích dẫn trong cột Lý do.
 
 ## Tham chiếu

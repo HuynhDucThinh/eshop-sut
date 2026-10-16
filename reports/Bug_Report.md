@@ -81,6 +81,10 @@ Công thức này chỉ sinh số từ 1000 đến 9999 nên OTP luôn có 4 ch�
 
 *Ảnh Playwright thật cho thấy OTP `7153` và nhãn “Mã OTP (4 số)”.*
 
+![BUG-001 — Terminal: resetToken dài 4 ký tự](./evidence/FR-03/BUG-001-terminal.png)
+
+*Ảnh terminal thật (PowerShell `Invoke-RestMethod`): `POST /api/forgot-password` trả `resetToken` = 4 chữ số, độ dài 4 ≠ 6.*
+
 ### GitHub Issue
 
 - Tiêu đề: `[FR-03] [BUG-001] Mã OTP chỉ có 4 chữ số thay vì 6 chữ số`
@@ -135,9 +139,9 @@ db.run(
 
 ### Bằng chứng
 
-![BUG-002 — Giao diện đặt lại mật khẩu](./evidence/FR-03/screenshots/run_ui_1_EP-TC02.png)
+![BUG-002 — Terminal: reset mật khẩu yếu Ab1! được chấp nhận](./evidence/FR-03/BUG-002-terminal.png)
 
-*Ảnh Playwright thật của form đặt lại mật khẩu; kết quả API chấp nhận mật khẩu yếu được lưu trong `evidence/FR-03/run_api_1.md` và `run_api_2.md`.*
+*Ảnh terminal thật: `POST /api/reset-password` với `newPassword` = `Ab1!` (4 ký tự) trả HTTP 200; sau đó đăng nhập bằng mật khẩu cũ `Test1234!` trả 401, còn đăng nhập bằng `Ab1!` trả 200. Kết quả API đầy đủ nằm trong `evidence/FR-03/run_api_1.md` và `run_api_2.md`.*
 
 ### GitHub Issue
 
@@ -259,7 +263,9 @@ Backend bắt buộc phải tự tính lại tổng tiền từ giỏ hàng tron
 ### Bằng chứng
 
 ![BUG-004](./evidence/FR-08/BUG-004.png)  
-*(Ảnh minh chứng chụp Playwright: `reports/evidence/FR-08/screenshots/run_ui_1_EP-TC24.png`)*
+*(Ảnh terminal thật chạy trên CSDL SQLite sạch: giỏ có iPhone 15 Pro Max 30.000.000₫, client gửi `total_amount = 1`, `GET /api/orders/my-orders` trả đơn `id=1`, `total_amount=1`, `status=pending`.)*  
+![BUG-004 — UI cho phép sửa tổng tiền](./evidence/FR-08/screenshots/run_ui_1_EP-TC24.png)  
+*(Ảnh Playwright `EP-TC24`: trang `/checkout` có ô nhập số cho phép người dùng sửa tổng tiền.)*
 
 ### GitHub Issue
 
@@ -300,7 +306,8 @@ Giỏ hàng vẫn còn nguyên sản phẩm sau khi đơn hàng đã được t�
 
 ### Bằng chứng
 
-![BUG-005](./evidence/FR-08/BUG-005.png)
+![BUG-005](./evidence/FR-08/BUG-005.png)  
+*(Ảnh terminal thật: sau `POST /api/checkout` thành công (`orderId = 1`), `GET /api/cart` vẫn còn 1 sản phẩm; gọi checkout lần 2 vẫn thành công (`orderId = 2`) và `my-orders` có 2 đơn trùng lặp.)*
 
 ### GitHub Issue
 
@@ -340,7 +347,8 @@ Backend trả về HTTP 200 và tạo một đơn hàng rác với `total_amount
 
 ### Bằng chứng
 
-![BUG-006](./evidence/FR-08/BUG-006.png)
+![BUG-006](./evidence/FR-08/BUG-006.png)  
+*(Ảnh terminal thật: giỏ hàng có 0 sản phẩm nhưng `POST /api/checkout` vẫn trả `Checkout successful` và `my-orders` có đơn `id=1`, `total_amount=0`, `status=pending`.)*
 
 ### GitHub Issue
 
@@ -392,7 +400,8 @@ Endpoint này hoàn toàn thiếu middleware `authenticateToken` và không có 
 
 ### Bằng chứng
 
-![BUG-007](./evidence/FR-08/BUG-007.png)
+![BUG-007](./evidence/FR-08/BUG-007.png)  
+*(Ảnh terminal thật: User A tạo đơn #1 với địa chỉ riêng tư; khách không có token và User B (`admin@eshop.com`) đều đọc được toàn bộ `GET /api/orders/1` (`user_id = 2`, `total_amount`, `shipping_address`).)*
 
 ### GitHub Issue
 
@@ -862,7 +871,7 @@ Lập trình viên dùng toán tử `<=` (tương đương chỉ chấp nhận k
 
 ### Bằng chứng
 
-*(Log thực thi chi tiết 2 lần chạy độc lập của `BV-TC12`, `BV-TC15`, `BV-TC17` được lưu tại `reports/evidence/FR-20.3/run_api_1.md` và `reports/evidence/FR-20.3/run_api_2.md`.)*
+*(Lỗi nằm ở tầng API nên bằng chứng là log HTTP thật (request/response) của 2 lần chạy độc lập các ca `BV-TC12`, `BV-TC15`, `BV-TC17`, lưu tại `reports/evidence/FR-20.3/run_api_1.md` và `reports/evidence/FR-20.3/run_api_2.md`; chưa có ảnh chụp minh họa riêng.)*
 
 ### GitHub Issue
 
@@ -886,9 +895,9 @@ Lập trình viên dùng toán tử `<=` (tương đương chỉ chấp nhận k
 
 ### Các bước tái hiện
 
-1. Gọi `POST /api/apply-coupon` mà không truyền header `Authorization` (`EP-TC05`), hoặc truyền JWT không hợp lệ (`EP-TC06`), hoặc truyền JWT của `user_id = 2` kèm body `{"code":"VIP100","total_amount":500000,"user_id":1}` (`EP-TC07`).
+1. Gọi `POST /api/apply-coupon` mà không truyền header `Authorization` (`EP-TC05`), hoặc truyền JWT không hợp lệ (`EP-TC06`), hoặc truyền JWT của `user_id = 2` kèm body `{"code":"SAVE10","total_amount":500000,"user_id":null}` và `{"code":"SAVE10","total_amount":500000,"user_id":1}` (mạo danh `user_id` khác chủ sở hữu JWT) (`EP-TC07`).
 2. Sau khi `user_id = 2` đã sử dụng mã `VIP100`, gửi lại `POST /api/apply-coupon` với `{"code":"VIP100","total_amount":500000}` (không gửi trường `user_id` trong body).
-3. Thực hiện luồng áp mã `VIP100` hợp lệ rồi gọi `POST /api/checkout` hoàn tất đơn hàng, sau đó áp lại mã `VIP100` lần thứ 2 với cùng `user_id = 2` (`SR-TC04`).
+3. Bắn song song 2 request `POST /api/apply-coupon` với mã `SAVE10` (`max_uses_per_user = 1`) bằng cùng `user_id = 2`, sau đó kiểm tra bảng `coupon_usage` và áp lại mã (`SR-TC04`).
 
 ### Kết quả mong đợi (theo đặc tả)
 
@@ -900,7 +909,7 @@ Lập trình viên dùng toán tử `<=` (tương đương chỉ chấp nhận k
 - `POST /api/apply-coupon` trả về `HTTP 200 OK` ngay cả khi không có JWT (`EP-TC05`) hoặc JWT sai (`EP-TC06`).
 - Khi không truyền `user_id` trong body, backend nhảy sang nhánh `else` (dòng 420) và bỏ qua hoàn toàn truy vấn kiểm tra bảng `coupon_usage` (`C5`).
 - Trên ứng dụng Mobile (`frontend-mobile/App.js:362-370`), hàm `handleApplyCoupon` không gửi header `Authorization: Bearer <token>` và khi chưa lấy được `user.id` thì truyền `user_id: null`.
-- Trong suốt luồng `apply-coupon` và `checkout`, không có câu lệnh `INSERT INTO coupon_usage` nào được thực thi (hoặc không gắn với giao dịch đặt hàng), khiến người dùng có thể dùng lại mã `VIP100` nhiều lần (`SR-TC04`).
+- Trong suốt luồng `apply-coupon` và `checkout`, không có câu lệnh `INSERT INTO coupon_usage` nào được thực thi (hoặc không gắn với giao dịch đặt hàng), khiến người dùng có thể dùng lại mã `SAVE10` (giới hạn 1 lần) nhiều lần (`SR-TC04`).
 
 ### Nguyên nhân gốc (em tự đọc code sau khi test Fail)
 
@@ -909,7 +918,7 @@ Lập trình viên dùng toán tử `<=` (tương đương chỉ chấp nhận k
 
 ### Bằng chứng
 
-*(Log thực thi chi tiết 2 lần chạy độc lập của `EP-TC05`, `EP-TC06`, `EP-TC07`, `SR-TC04` được lưu tại `reports/evidence/FR-20.3/run_api_1.md` và `reports/evidence/FR-20.3/run_api_2.md`.)*
+*(Lỗi nằm ở tầng API nên bằng chứng là log HTTP thật (request/response) của 2 lần chạy độc lập các ca `EP-TC05`, `EP-TC06`, `EP-TC07`, `SR-TC04`, lưu tại `reports/evidence/FR-20.3/run_api_1.md` và `reports/evidence/FR-20.3/run_api_2.md`; chưa có ảnh chụp minh họa riêng. Ca `EP-TC26` (ảnh Mobile) chỉ minh họa việc ứng dụng không gửi header `Authorization`.)*
 
 ### GitHub Issue
 
@@ -930,6 +939,7 @@ Lập trình viên dùng toán tử `<=` (tương đương chỉ chấp nhận k
 | Thành phần | Màn hình Checkout trên `frontend-mobile/App.js` và API `POST /api/checkout` |
 | Môi trường | Windows 11 Home, Node.js v25.0.0, Chromium Mobile `390×844` |
 | Yêu cầu liên quan | README dòng 104–108 (FR-08: thông tin giao hàng bắt buộc), dòng 234–237 (FR-20: quy trình thanh toán trên Mobile), dòng 252–255 (FR-22: trường bắt buộc có dấu `*`) |
+| Liên hệ với bug đã báo | Cùng nguyên nhân gốc phía Backend (`POST /api/checkout` không kiểm tra `shipping_address`) với `BUG-008` của FR-08; `BUG-017` được báo riêng vì tái hiện ở một thành phần khác (ứng dụng Mobile thiếu hẳn ô nhập) và theo bộ test case của FR-20.3. |
 
 ### Các bước tái hiện
 
@@ -979,24 +989,25 @@ Lập trình viên dùng toán tử `<=` (tương đương chỉ chấp nhận k
 | Thành phần | API `POST /api/cart`, `POST /api/checkout` và `frontend-mobile/App.js` |
 | Môi trường | Windows 11 Home, Node.js v25.0.0, Chromium Mobile `390×844` |
 | Yêu cầu liên quan | README dòng 105–108 (FR-08: tự tính lại tổng tiền, xóa giỏ hàng sau khi thanh toán, kiểm tra giỏ hàng và tồn kho), dòng 234–237 (FR-20) |
+| Liên hệ với bug đã báo | Các cơ chế (a)–(d) bên dưới trùng nguyên nhân gốc Backend với `BUG-004` (giả mạo `total_amount`), `BUG-005` (không xóa giỏ) và `BUG-006` (giỏ rỗng) của FR-08; được báo lại ở đây vì tái hiện qua luồng Mobile/Coupon của FR-20.3. Cơ chế (e) chỉ có ở Mobile và cơ chế (f) chỉ có ở luồng áp mã của FR-20.3. |
 
 ### Các bước tái hiện
 
 1. Thêm 1 sản phẩm (`500,000 ₫`) vào giỏ hàng, gọi `POST /api/checkout` đặt hàng thành công, sau đó gọi `GET /api/cart` kiểm tra lại giỏ hàng (`EP-TC01`, `R6`).
 2. Khi giỏ hàng đang có `500,000 ₫`, gửi `POST /api/checkout` với `{"total_amount": 1000, "shipping_address": "123 Lê Lợi"}` (`EP-TC13`, `R5`).
 3. Khi giỏ hàng đang rỗng (`0` sản phẩm), gửi `POST /api/checkout` (`EP-TC09`).
-4. Thêm sản phẩm với `quantity = 0` (`BV-TC01`), `quantity = 100` hoặc `101` vượt tồn kho (`BV-TC04`, `BV-TC05`), hoặc gửi 2 request checkout đồng thời (`SR-TC05`).
+4. Thêm `11` sản phẩm (`> stock = 10`) vào giỏ rồi thanh toán (`BV-TC05`), hoặc đặt mua `2` sản phẩm `prod_id = 1` rồi kiểm tra `GET /api/products/1` trước/sau (`SR-TC05`).
 
 ### Kết quả mong đợi (theo đặc tả)
 
 - Sau khi `POST /api/checkout` thành công, giỏ hàng trên server phải được xóa rỗng (`[]`) (`R6`).
 - Backend phải tự tính lại `total_amount` từ giỏ hàng thực tế và mã giảm giá hợp lệ, từ chối giá trị `1,000 ₫` giả mạo từ client (`R5`).
-- Phải từ chối thanh toán khi giỏ hàng rỗng (`EP-TC09`), từ chối `quantity <= 0` (`BV-TC01`) và kiểm tra/trừ tồn kho nguyên tử (`BV-TC05`, `SR-TC05`).
+- Phải từ chối thanh toán khi giỏ hàng rỗng (`EP-TC09`), từ chối số lượng vượt tồn kho `qty = 11 > stock = 10` (`BV-TC05`) và trừ tồn kho sau khi đặt hàng thành công (`SR-TC05`).
 
 ### Kết quả thực tế
 
 - Giỏ hàng trên Backend (`userCarts[userId]`) vẫn giữ nguyên toàn bộ sản phẩm sau khi thanh toán thành công (làm cho toàn bộ các ca kiểm tra hậu điều kiện `R6` đều Fail).
-- Backend lưu thẳng `total_amount = 1000` giả mạo vào bảng `orders` (`EP-TC13`), cho phép thanh toán cả khi giỏ hàng rỗng (`EP-TC09`), chấp nhận `quantity = 0` (`BV-TC01`) và không có cột/logic kiểm tra tồn kho (`BV-TC05`, `SR-TC05`).
+- Backend lưu thẳng `total_amount = 1000` giả mạo vào bảng `orders` (`EP-TC13`), cho phép thanh toán cả khi giỏ hàng rỗng (`EP-TC09`), chấp nhận `qty = 11` vượt tồn kho (`BV-TC05`) và không có cột/logic kiểm tra, khấu trừ tồn kho (`BV-TC05`, `SR-TC05`).
 - Trên Mobile (`frontend-mobile/App.js:618-621`), khi giỏ hàng có nhiều hơn 1 món, danh sách giỏ hàng hiển thị `cart.slice(0, -1)` làm ẩn mất sản phẩm cuối cùng, và hàm `handleConfirmCheckout` (`App.js:392-394`) chỉ xóa giỏ ở state cục bộ khi `cart.length === 1` (`if (cart.length === 1) setCart([])`).
 
 ### Nguyên nhân gốc (em tự đọc code sau khi test Fail)
@@ -1004,9 +1015,20 @@ Lập trình viên dùng toán tử `<=` (tương đương chỉ chấp nhận k
 - `backend/server.js:288-313`: `POST /api/cart` không kiểm tra `quantity >= 1` hay tồn kho; `POST /api/checkout` không kiểm tra giỏ hàng khác rỗng, không tự tính lại `total_amount` từ `userCarts[req.user.id]` và không xóa `userCarts[req.user.id] = []` sau khi tạo đơn.
 - `frontend-mobile/App.js:392-394, 618-621`: Lỗi cố ý `if (cart.length === 1) setCart([])` và `(cart.length > 1 ? cart.slice(0, -1) : cart)`.
 
+### Phân rã cơ chế lỗi theo test case
+
+| Cơ chế | Mô tả | Test case Fail liên quan |
+|---|---|---|
+| (a) | Không xóa giỏ hàng sau khi thanh toán thành công (`R6`) | `EP-TC01`, `EP-TC02`, `EP-TC25`, `BV-TC01`–`BV-TC04`, `BV-TC06`–`BV-TC09` |
+| (b) | Tin `total_amount` giả mạo từ client (`R5`) | `EP-TC13` |
+| (c) | Cho phép thanh toán khi giỏ hàng rỗng | `EP-TC09` |
+| (d) | Không kiểm tra và không khấu trừ tồn kho `stock` | `BV-TC05`, `SR-TC05` |
+| (e) | Mobile làm rơi sản phẩm cuối khi giỏ có `> 1` món (`App.js:392-394, 618-621`) | Phát hiện khi đọc mã sau các ca Fail ở trên; chưa có ca riêng trong bộ 54 ca |
+| (f) | Thiếu ghi nhận lượt dùng mã/giỏ hàng nguyên tử khi gửi đồng thời | `SR-TC04` (đồng thời thuộc `BUG-016`) |
+
 ### Bằng chứng
 
-*(Log thực thi chi tiết 2 lần chạy độc lập của các ca `EP-TC01`, `EP-TC02`, `EP-TC09`, `EP-TC13`, `BV-TC01`–`BV-TC09`, `SR-TC04`, `SR-TC05` được lưu tại `reports/evidence/FR-20.3/run_api_1.md` và `reports/evidence/FR-20.3/run_api_2.md`.)*
+*(Lỗi chủ yếu ở tầng API nên bằng chứng là log HTTP thật (request/response) của 2 lần chạy độc lập các ca `EP-TC01`, `EP-TC02`, `EP-TC09`, `EP-TC13`, `EP-TC25`, `BV-TC01`–`BV-TC09`, `SR-TC04`, `SR-TC05`, lưu tại `reports/evidence/FR-20.3/run_api_1.md` và `reports/evidence/FR-20.3/run_api_2.md`; chưa có ảnh chụp minh họa riêng.)*
 
 ### GitHub Issue
 
@@ -1054,8 +1076,8 @@ Lập trình viên dùng toán tử `<=` (tương đương chỉ chấp nhận k
 
 ### Bằng chứng
 
-![BUG-019 — Màn hình Đăng nhập Mobile pha trộn tiếng Anh Username / Sign In và màn hình Thanh toán hiển thị số thô 500000 (VND)](./evidence/FR-20.3/screenshots/EP-TC30_currency_and_language_inconsistency.png)  
-*(Ảnh chụp thực tế từ màn hình Mobile `390×844` ca `EP-TC30` và `EP-TC28`.)*
+![BUG-019 — Màn hình Thanh toán Mobile hiển thị số thô 500000 với nhãn (VND), không có dấu phân cách và ký hiệu ₫](./evidence/FR-20.3/screenshots/EP-TC30_currency_and_language_inconsistency.png)  
+*(Ảnh chụp thực tế màn hình Thanh toán Mobile `390×844` ca `EP-TC30` (cùng nội dung với ảnh `EP-TC28`). Ảnh chỉ minh họa lỗi định dạng tiền tệ. Việc màn hình Đăng nhập trộn tiếng Anh `"Username"`/`"Sign In"` được ghi nhận qua phép kiểm tra DOM của ca `EP-TC30` trong `reports/evidence/FR-20.3/run_ui_results.md`, chưa có ảnh riêng.)*
 
 ### GitHub Issue
 

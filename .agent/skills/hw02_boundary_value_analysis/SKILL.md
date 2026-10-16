@@ -19,7 +19,7 @@ description: Áp dụng Phân tích giá trị biên (BVA) để thiết kế te
 2. Xét cả **biên đầu vào** và đầu vào khiến **đầu ra** đạt biên (khi đủ thông tin quan hệ input/output).
 3. **Hộp đen**: biên lấy từ đặc tả (quy định §4).
 4. Expected result **tính độc lập** từ đặc tả, không sao chép từ ví dụ hay từ code.
-5. **100% Tiếng Việt có dấu**: Toàn bộ mô tả ca kiểm thử, tên biên, kết quả mong đợi và giải thích công thức phải viết bằng tiếng Việt có dấu chuẩn mực.
+5. **Ngôn ngữ:** tiếng Việt có dấu theo `rules/hw02_course_rules.md` §5.
 
 ## Quy trình
 
@@ -58,7 +58,7 @@ Lập bảng biên:
 Số mũ là **lũy thừa** `5^n`, `7^n` chứ không phải `5×n`, `7×n`.
 
 Cách chọn:
-- Mặc định dùng **Robustness**: có cả ca ngoài miền (kiểm tra biên không hợp lệ) mà số ca vẫn vừa phải. Gợi ý: **dùng Robustness làm chế độ mặc định**, vì bài tập cần cả biên hợp lệ lẫn biên không hợp lệ.
+- Mặc định dùng **Robustness**: có cả ca ngoài miền (kiểm tra biên không hợp lệ) mà số ca vẫn vừa phải, phù hợp bài tập cần cả biên hợp lệ lẫn không hợp lệ.
 - Chỉ dùng **Worst-case / Robust Worst-case** khi các biến **tương tác** với nhau và số tổ hợp chấp nhận được. **Không tự chọn khi số tổ hợp quá lớn**; hỏi sinh viên.
 - Giải thích lý do chọn trong báo cáo **kèm bảng so sánh bốn chế độ với n thực tế** (số ca lý thuyết, lý do chọn/loại từng chế độ).
 

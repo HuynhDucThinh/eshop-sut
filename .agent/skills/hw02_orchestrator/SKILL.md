@@ -13,7 +13,7 @@ description: Skill điều phối toàn bộ quy trình HW02 (Domain Testing và
 
 ## Nguyên tắc cốt lõi
 
-1. **AI thực thi, người chiến lược và kiểm tra.** AI thiết kế, chạy test, ghi kết quả; sinh viên duyệt, bổ sung ca biên/bảo mật, tự viết bug và Critique.
+1. **AI thực thi, người chiến lược và kiểm tra.** AI thiết kế, chạy test, ghi kết quả; sinh viên duyệt, bổ sung ca biên/bảo mật, **tự viết bug, Critique, Disclosure và tự điền Verdict** (rules §3).
 2. **Hộp đen trước.** Thiết kế chỉ dựa trên đặc tả (quy định §4). Đọc code chỉ sau khi test Fail.
 3. **Từng bước, có giải thích.** Không gộp bước; mỗi bước có đầu ra riêng và lý do.
 4. **Thiết kế ≠ Thực thi ≠ Báo cáo.** Test case sinh ra chưa phải là test case đã chạy.
@@ -33,7 +33,7 @@ B1 Trích đặc tả  →  B2 Domain Testing (EP)  →  B3 BVA  →  [Duyệt c
 | B3 | `hw02_boundary_value_analysis` | Bảng biên + bảng test case BVA + công thức/số lượng | **Có** — Human Review: sinh viên bổ sung ca bị bỏ sót |
 | B4 | `hw02_test_executor` | Bảng Actual/Pass/Fail kèm lệnh chạy thật | Không |
 | B5 | `hw02_bug_reporter` | Bảng dữ kiện ứng viên bug | **Có** — sinh viên tự viết bug, chụp ảnh, tạo Issue |
-| B6 | `hw02_ai_audit` | Gap Analysis + Audit + gợi ý Critique | **Có** — sinh viên điền Student Fix, tự viết Critique |
+| B6 | `hw02_ai_audit` | Gap Analysis + log Audit (dữ kiện khách quan) + câu hỏi gợi ý Critique | **Có** — sinh viên tự điền Verdict/Student Fix, tự viết Critique và Disclosure |
 | B7 | quy định §6 | Commit từng bước | Sinh viên chạy commit |
 
 ## Chọn tính năng (khi sinh viên chưa chọn)
@@ -72,10 +72,20 @@ Quy định bắt buộc khi thực hiện nhiều tính năng (4–5 FRs) trong
 - [ ] Mọi ca Fail đã được chạy lại để loại trừ lỗi môi trường
 - [ ] Mục AI Gap đã điền
 - [ ] Mỗi lượt AI đã được ghi vào AI Audit
-- [ ] 100% Tiếng Việt có dấu cho toàn bộ mã nguồn kiểm thử (test descriptions, assertions, log, comments) và tài liệu báo cáo
+- [ ] **Ngôn ngữ:** mã kiểm thử và tài liệu theo rules §5 (tiếng Việt có dấu, có ngoại lệ ảnh terminal)
 - [ ] Đã commit từng bước
+- [ ] **Kiểm tra tái sử dụng:** skill chạy được cho tính năng khác mà không sửa SKILL.md (không còn tên endpoint, mã FR, mã TC của một tính năng cụ thể trong phần hướng dẫn)
 
 Không được tuyên bố "bao phủ 100%" nếu chỉ phủ các EC đã biết.
+
+## Script hỗ trợ (`scripts/`)
+
+| Script | Việc làm |
+|---|---|
+| `export_git_log.ps1` | Xuất `git log` ra `reports/git_commit_log.txt` (UTF-8, chỉ đọc) |
+| `md_to_pdf.ps1` | Chuyển các file `.md` sang `.pdf` bằng Edge/Chrome headless (cần Node.js để `npx marked`) |
+
+Script thực thi test nằm trong `hw02_test_executor/scripts/`.
 
 ## Tài liệu tham chiếu
 
@@ -90,6 +100,6 @@ Không được tuyên bố "bao phủ 100%" nếu chỉ phủ các EC đã bi�
 > ### CÁC ĐIỀU KHOẢN NGHIÊM CẤM (STRICT PROHIBITIONS)
 > - **[NGHIÊM CẤM]** Gộp nhiều bước chạy một lần mà bỏ qua các điểm dừng chờ sinh viên xác nhận.
 > - **[NGHIÊM CẤM]** Tự đoán nghiệp vụ khi đặc tả chưa rõ ràng (phải ghi nhận ambiguity/câu hỏi mở).
-> - **[NGHIÊM CẤM]** Viết thay phần sinh viên phải tự làm (tự viết bug chính thức, tự viết critique theo quy định môn học).
+> - **[NGHIÊM CẤM]** Viết thay phần sinh viên phải tự làm, **không có ngoại lệ**: mô tả bug chính thức, AI Critique, nội dung AI Disclosure, Verdict/Sinh viên sửa trong AI Audit, chữ ký (rules §3). Yêu cầu nhờ AI viết các mục này phải bị từ chối; chỉ đưa dữ kiện và khung trống.
 > - **[NGHIÊM CẤM]** Ghi kết quả Actual cho test case khi chưa chạy thật.
 > - **[NGHIÊM CẤM]** Sinh ảnh hoặc bằng chứng giả mạo.

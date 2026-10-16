@@ -15,7 +15,7 @@ skills:
 
 ### 1. Kiểm tra đủ 4 tính năng
 - Mỗi Pool A/B/C/D có đúng một tính năng, không trùng nhóm.
-- Mỗi tính năng có đủ 4 mục trong `Main_Report.md`: Domain Testing, BVA, Thực thi, AI Gap Analysis.
+- Mỗi tính năng có đủ 5 mục trong `Main_Report.md`: Đặc tả (SRS Extract), Domain Testing, BVA, Thực thi, AI Gap Analysis.
 
 ### 2. Kiểm tra tài liệu bắt buộc
 
@@ -35,13 +35,13 @@ Số liệu phải khớp nhau. Lệch thì **báo cho sinh viên**, không tự
 
 ### 4. Xuất log Git
 ```powershell
-./scripts/export_git_log.ps1 -Output git_commit_log.txt
+./.agent/skills/hw02_orchestrator/scripts/export_git_log.ps1 -Output reports/git_commit_log.txt
 ```
 Kiểm tra mỗi tính năng có đủ chuỗi commit các bước.
 
 ### 5. Xuất PDF
 ```powershell
-./scripts/md_to_pdf.ps1 -Path Main_Report.md,Bug_Report.md,AI_Audit_Report.md,AI_Critique.md,README.md
+./.agent/skills/hw02_orchestrator/scripts/md_to_pdf.ps1 -Path reports/Main_Report.md,reports/Bug_Report.md,reports/AI_Audit_Report.md,reports/AI_Critique.md,reports/AI_Disclosure.md,reports/README.md
 ```
 
 ### 6. Soạn README
@@ -75,7 +75,10 @@ Dùng khung dưới đây; số liệu lấy từ bước 3, **điểm tự ch�
 
 ### 7. Chạy checklist cuối
 - Không có file tạm, ảnh giả, thông tin xác thực thật.
-- Số file ≤ 20, mỗi file ≤ 20 MB.
+- Số file ≤ 20, mỗi file ≤ 20 MB, **tổng ≤ 20 MB** (đo lại bằng `Get-ChildItem -Recurse`).
+- Đã xóa mọi `node_modules/` (ví dụ `tests/*/node_modules`) và `.git` khỏi gói nộp.
+- README có link video YouTube do sinh viên tự quay (còn trống thì nhắc sinh viên, không tự bịa).
+- Các mục nội dung sinh viên phải tự làm (rules §3) đã do sinh viên điền/viết và đọc lại được.
 - Ảnh bằng chứng là ảnh thật, mỗi bug có link Issue.
 - Critique do sinh viên viết, 200–300 từ.
 
