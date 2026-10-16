@@ -1,0 +1,880 @@
+{
+  "baseUrl": "http://localhost:3000",
+  "results": [
+    {
+      "id": "EP-TC01",
+      "covers": "EC28, EC29",
+      "desc": "Xem danh sách danh mục hợp lệ qua GET /api/categories",
+      "kind": "API",
+      "expected": "200 OK; trả về mảng JSON gồm các đối tượng có đủ id (nguyên dương) và name (chuỗi không rỗng)",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "Trả về 3 danh mục: 1:Điện thoại, 2:Laptop, 3:Phụ kiện"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method GET -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "[{\"id\":1,\"name\":\"Điện thoại\"},{\"id\":2,\"name\":\"Laptop\"},{\"id\":3,\"name\":\"Phụ kiện\"}]",
+      "executedAt": "2026-10-15T16:01:11.944Z"
+    },
+    {
+      "id": "EP-TC02",
+      "covers": "EC01, EC08, EC30",
+      "desc": "Admin thêm danh mục mới hợp lệ (POST /api/categories với NAME_NOM)",
+      "kind": "API",
+      "expected": "OC-ADD-OK(NAME_NOM): HTTP 2xx; tăng đúng 1 danh mục mới khớp tên",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "Số danh mục: trước=3, sau=4",
+        "Bản ghi mới: id=4, len(name)=28"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDgwMDc0fQ.n-fDXmEXcJlwK0vnpuyWooWVcX02HE2R37KW1Rwae3E\" } -ContentType 'application/json' -Body '{\"name\":\"Thiết bị gia dụng thông minh\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Category created\",\"id\":4}",
+      "executedAt": "2026-10-15T16:01:14.175Z"
+    },
+    {
+      "id": "EP-TC03",
+      "covers": "EC01, EC17, EC31",
+      "desc": "Admin xóa danh mục hợp lệ không chứa sản phẩm (DELETE /api/categories/:ID_EMPTY)",
+      "kind": "API",
+      "expected": "OC-DEL-OK(ID_EMPTY): HTTP 2xx; giảm đúng 1 danh mục, các danh mục khác giữ nguyên",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "Số danh mục: trước=4, sau=3"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/4\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDgwMDc2fQ.j9OLyP-hJH_LX7WiSl1S0O6B3aTmc2mFisS0DZ_4-Sk\" } -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Category deleted\"}",
+      "executedAt": "2026-10-15T16:01:16.777Z"
+    },
+    {
+      "id": "EP-TC04",
+      "covers": "EC01, EC24, EC32",
+      "desc": "Admin cập nhật tên danh mục hợp lệ (PUT /api/categories/:ID_EMPTY)",
+      "kind": "API",
+      "expected": "OC-PUT-OK(ID_EMPTY, NAME_UPD): HTTP 2xx; danh mục đổi tên thành công, danh mục khác giữ nguyên",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "Số danh mục: trước=4, sau=4",
+        "Danh mục id=4 sau PUT: name=\"Thiết bị gia dụng cao cấp\""
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/4\" -Method PUT -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDgwMDc5fQ.KPti8EAnk4jYy7Es-UDhP-iHhtl5qbhXP23_cq3d9tc\" } -ContentType 'application/json' -Body '{\"name\":\"Thiết bị gia dụng cao cấp\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Category updated\"}",
+      "executedAt": "2026-10-15T16:01:19.258Z"
+    },
+    {
+      "id": "EP-TC05",
+      "covers": "EC02, EC33",
+      "desc": "Gửi POST /api/categories không có header Authorization",
+      "kind": "API",
+      "expected": "REJ-AUTH (401 Unauthorized); OC-NO (bảng categories không đổi)",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "Số danh mục: trước=3, sau=3"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -ContentType 'application/json' -Body '{\"name\":\"Thiết bị gia dụng thông minh\"}' -SkipHttpErrorCheck",
+      "actualStatus": 401,
+      "actualBody": "{\"error\":\"Unauthorized\"}",
+      "executedAt": "2026-10-15T16:01:21.860Z"
+    },
+    {
+      "id": "EP-TC06",
+      "covers": "EC03, EC33",
+      "desc": "Gửi POST /api/categories với Token giả mạo sai chữ ký",
+      "kind": "API",
+      "expected": "REJ-AUTH (401/403); OC-NO",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "Số danh mục: trước=3, sau=3"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer token.gia.mao\" } -ContentType 'application/json' -Body '{\"name\":\"Thiết bị gia dụng thông minh\"}' -SkipHttpErrorCheck",
+      "actualStatus": 403,
+      "actualBody": "{\"error\":\"Forbidden\"}",
+      "executedAt": "2026-10-15T16:01:24.531Z"
+    },
+    {
+      "id": "EP-TC07",
+      "covers": "EC04, EC33",
+      "desc": "Gửi POST /api/categories với header Authorization thiếu tiền tố Bearer",
+      "kind": "API",
+      "expected": "REJ-AUTH (401); OC-NO",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "Số danh mục: trước=3, sau=3"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDgwMDg2fQ.lt4W1-RV3dYRkFTCFBvjL543zbLOIMPbb1vKOCups4Y\" } -ContentType 'application/json' -Body '{\"name\":\"Thiết bị gia dụng thông minh\"}' -SkipHttpErrorCheck",
+      "actualStatus": 401,
+      "actualBody": "{\"error\":\"Unauthorized\"}",
+      "executedAt": "2026-10-15T16:01:26.959Z"
+    },
+    {
+      "id": "EP-TC08",
+      "covers": "EC05, EC33",
+      "desc": "Người dùng thường (role = user) gọi POST /api/categories (kiểm tra SEC-03 RBAC)",
+      "kind": "API",
+      "expected": "REJ-AUTH (403 Forbidden); OC-NO",
+      "status": "Fail",
+      "reasons": [
+        "Kỳ vọng HTTP 403 (hoặc 401) chặn role='user', thực tế nhận 200",
+        "OC-NO Thất bại: Số lượng danh mục bị thay đổi dù dữ liệu/quyền không hợp lệ (trước: 3, sau: 4)"
+      ],
+      "oracleLogs": [
+        "Số danh mục: trước=3, sau=4"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3OTIwODAwODl9.6aTIEdA1Jn_VJH2YcZV_SeZ_GqvW1zppKlrdL-qx_zM\" } -ContentType 'application/json' -Body '{\"name\":\"Thiết bị gia dụng thông minh\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Category created\",\"id\":4}",
+      "executedAt": "2026-10-15T16:01:29.339Z"
+    },
+    {
+      "id": "EP-TC09",
+      "covers": "EC06, EC33",
+      "desc": "Người dùng thường (role = user) gọi DELETE /api/categories/:ID_EMPTY (kiểm tra SEC-03 RBAC)",
+      "kind": "API",
+      "expected": "REJ-AUTH (403 Forbidden); OC-NO (ID_EMPTY không bị xóa)",
+      "status": "Fail",
+      "reasons": [
+        "Kỳ vọng HTTP 403 (hoặc 401) chặn role='user' xóa danh mục, thực tế nhận 200",
+        "OC-NO Thất bại: Số lượng danh mục bị thay đổi dù dữ liệu/quyền không hợp lệ (trước: 4, sau: 3)"
+      ],
+      "oracleLogs": [
+        "Số danh mục: trước=4, sau=3"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/4\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3OTIwODAwOTF9.xpeAhNN_GK_jbDu5BjzPg2ScB1pq1VviPChnYnuKKYI\" } -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Category deleted\"}",
+      "executedAt": "2026-10-15T16:01:31.645Z"
+    },
+    {
+      "id": "EP-TC10",
+      "covers": "EC07, EC33",
+      "desc": "Người dùng thường (role = user) gọi PUT /api/categories/:ID_EMPTY (kiểm tra SEC-03 RBAC)",
+      "kind": "API",
+      "expected": "REJ-AUTH (403 Forbidden); OC-NO",
+      "status": "Fail",
+      "reasons": [
+        "Kỳ vọng HTTP 403 (hoặc 401) chặn role='user' cập nhật danh mục, thực tế nhận 200",
+        "OC-NO Thất bại: Bản ghi id=4 (\"Danh mục tạm test\") bị thay đổi hoặc mất trong CSDL"
+      ],
+      "oracleLogs": [
+        "Số danh mục: trước=4, sau=4"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/4\" -Method PUT -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3OTIwODAwOTN9.oUmcUlpg-xsxzgWsClimpU01jNstOLrOXX3ARM_F_9U\" } -ContentType 'application/json' -Body '{\"name\":\"Thiết bị gia dụng cao cấp\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Category updated\"}",
+      "executedAt": "2026-10-15T16:01:33.972Z"
+    },
+    {
+      "id": "EP-TC11",
+      "covers": "EC09, EC34 (và BVA B01 LB-δ = 0 ký tự)",
+      "desc": "Admin gửi POST /api/categories với tên danh mục rỗng (name = \"\")",
+      "kind": "API",
+      "expected": "REJ-DATA (400 Bad Request); OC-NO (không tạo danh mục rỗng)",
+      "status": "Fail",
+      "reasons": [
+        "Vi phạm FR-14 (dòng 189): Tên danh mục rỗng \"\" phải bị từ chối 4xx, nhưng thực tế nhận HTTP 200",
+        "OC-NO Thất bại: Số lượng danh mục bị thay đổi dù dữ liệu/quyền không hợp lệ (trước: 3, sau: 4)"
+      ],
+      "oracleLogs": [
+        "Số danh mục: trước=3, sau=4"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDgwMDk2fQ.2CZcxlst6FqImAoJsc130-BfXXAMKim4aQqYtoRZd9I\" } -ContentType 'application/json' -Body '{\"name\":\"\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Category created\",\"id\":4}",
+      "executedAt": "2026-10-15T16:01:36.342Z"
+    },
+    {
+      "id": "EP-TC12",
+      "covers": "EC10, EC34",
+      "desc": "Admin gửi POST /api/categories với body rỗng {} (thiếu khóa name)",
+      "kind": "API",
+      "expected": "REJ-DATA (400 Bad Request); OC-NO",
+      "status": "Fail",
+      "reasons": [
+        "Vi phạm FR-14 (dòng 189): Thiếu trường name ({}) phải bị từ chối 4xx, nhưng thực tế nhận HTTP 200",
+        "OC-NO Thất bại: Số lượng danh mục bị thay đổi dù dữ liệu/quyền không hợp lệ (trước: 3, sau: 4)"
+      ],
+      "oracleLogs": [
+        "Số danh mục: trước=3, sau=4"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDgwMDk4fQ.xSfSny9aVJCPmvfKAZSE7N0vRSIhh5_ROssmrTrpsWg\" } -ContentType 'application/json' -Body '{}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Category created\",\"id\":4}",
+      "executedAt": "2026-10-15T16:01:38.784Z"
+    },
+    {
+      "id": "EP-TC13",
+      "covers": "EC11, EC34",
+      "desc": "Admin gửi POST /api/categories với chuỗi chỉ gồm 5 khoảng trắng (\"     \")",
+      "kind": "API",
+      "expected": "REJ-DATA (400 Bad Request); OC-NO (Q2)",
+      "status": "Fail",
+      "reasons": [
+        "Vi phạm FR-14 / Q2: Chuỗi toàn khoảng trắng phải bị từ chối 4xx, nhưng thực tế nhận HTTP 200",
+        "OC-NO Thất bại: Số lượng danh mục bị thay đổi dù dữ liệu/quyền không hợp lệ (trước: 3, sau: 4)"
+      ],
+      "oracleLogs": [
+        "Số danh mục: trước=3, sau=4"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDgwMTAxfQ.cyNX1AkhJAfmDELBXhI7Pbn9Jmd67cCAMbjaOZXZhEw\" } -ContentType 'application/json' -Body '{\"name\":\"     \"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Category created\",\"id\":4}",
+      "executedAt": "2026-10-15T16:01:41.256Z"
+    },
+    {
+      "id": "EP-TC14",
+      "covers": "EC12, EC34",
+      "desc": "Admin gửi POST /api/categories với tên dài 300 ký tự (> 255, theo giả định Q1/Q8)",
+      "kind": "API",
+      "expected": "REJ-DATA (400 Bad Request); OC-NO (theo giả định kỹ thuật Q1/Q8)",
+      "status": "Fail",
+      "reasons": [
+        "Theo Oracle giả định Q1 (max 255 ký tự): chuỗi 300 ký tự kỳ vọng bị từ chối 400, thực tế nhận HTTP 200 (Ghi chú Q8: điểm mơ hồ đặc tả)",
+        "OC-NO Thất bại: Số lượng danh mục bị thay đổi dù dữ liệu/quyền không hợp lệ (trước: 3, sau: 4)"
+      ],
+      "oracleLogs": [
+        "Số danh mục: trước=3, sau=4"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDgwMTAzfQ.McHaHLt-v7px-q9vATFcT4ibuXTYgjVKGmFs2KynvSM\" } -ContentType 'application/json' -Body '{\"name\":\"AAAAAAAAAAAAAAAAAAAA…(300 ký tự)\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Category created\",\"id\":4}",
+      "executedAt": "2026-10-15T16:01:43.673Z"
+    },
+    {
+      "id": "EP-TC15",
+      "covers": "EC13, EC34",
+      "desc": "Admin gửi POST /api/categories với name là kiểu số nguyên (12345)",
+      "kind": "API",
+      "expected": "REJ-DATA (400 Bad Request); OC-NO (Q7)",
+      "status": "Fail",
+      "reasons": [
+        "Vi phạm hợp đồng kiểu dữ liệu JSON (Q7): name=12345 (number) phải bị từ chối 400, nhưng thực tế nhận HTTP 200",
+        "OC-NO Thất bại: Số lượng danh mục bị thay đổi dù dữ liệu/quyền không hợp lệ (trước: 3, sau: 4)"
+      ],
+      "oracleLogs": [
+        "Số danh mục: trước=3, sau=4"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDgwMTA2fQ.IB50ikOcFVhPWiwz8OpnntplaUUn3XNNoGGr0LXYh4E\" } -ContentType 'application/json' -Body '{\"name\":12345}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Category created\",\"id\":4}",
+      "executedAt": "2026-10-15T16:01:46.264Z"
+    },
+    {
+      "id": "EP-TC16",
+      "covers": "EC14, EC34",
+      "desc": "Admin gửi POST /api/categories với name = null",
+      "kind": "API",
+      "expected": "REJ-DATA (400 Bad Request); OC-NO",
+      "status": "Fail",
+      "reasons": [
+        "Vi phạm FR-14 (dòng 189): name=null phải bị từ chối 4xx, nhưng thực tế nhận HTTP 200",
+        "OC-NO Thất bại: Số lượng danh mục bị thay đổi dù dữ liệu/quyền không hợp lệ (trước: 3, sau: 4)"
+      ],
+      "oracleLogs": [
+        "Số danh mục: trước=3, sau=4"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDgwMTA4fQ.bmb8KIIt03tvILQIAFylrNSC8VxZw4g9sHvIAp6ri2o\" } -ContentType 'application/json' -Body '{\"name\":null}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Category created\",\"id\":4}",
+      "executedAt": "2026-10-15T16:01:48.708Z"
+    },
+    {
+      "id": "EP-TC17",
+      "covers": "EC15, EC34",
+      "desc": "Admin tạo danh mục trùng tên với danh mục đã tồn tại (NAME_NOM lần 2)",
+      "kind": "API",
+      "expected": "REJ-DATA (400/409); không tạo bản ghi trùng tên thứ hai (Q3)",
+      "status": "Fail",
+      "reasons": [
+        "Vi phạm Q3 (tính duy nhất tên danh mục): Tạo trùng tên \"Thiết bị gia dụng thông minh\" lần 2 không bị chặn 4xx (nhận HTTP 200)",
+        "OC-NO Thất bại: Số lượng danh mục bị thay đổi dù dữ liệu/quyền không hợp lệ (trước: 4, sau: 5)"
+      ],
+      "oracleLogs": [
+        "Số danh mục: trước=4, sau=5"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDgwMTExfQ.tS6KWgKV_aiWKpdjx-UqrN9oql2LkzBSl-SjAGlRTnM\" } -ContentType 'application/json' -Body '{\"name\":\"Thiết bị gia dụng thông minh\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Category created\",\"id\":5}",
+      "executedAt": "2026-10-15T16:01:51.078Z"
+    },
+    {
+      "id": "EP-TC18",
+      "covers": "EC16, EC30",
+      "desc": "Tạo danh mục chứa chuỗi HTML/XSS (<img src=x onerror=alert(1)>) và kiểm tra lưu trữ/escape an toàn (SEC-04)",
+      "kind": "API+UI",
+      "expected": "API lưu chuỗi văn bản (không lỗi 500); trên Web Admin UI hiển thị dạng text, không thực thi onerror/alert",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "Số danh mục: trước=3, sau=4",
+        "Bản ghi mới: id=4, len(name)=28",
+        "Phần UI (escape DOM không thực thi onerror) được kiểm chứng bổ sung trong fr14_ui.spec.js"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDgwMTEzfQ.-VG8Q0ijgpQZZBtmRwGOthQl_wTjg6f27v1zfsvtuEc\" } -ContentType 'application/json' -Body '{\"name\":\"<img src=x onerror=alert(1)>\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Category created\",\"id\":4}",
+      "executedAt": "2026-10-15T16:01:53.357Z"
+    },
+    {
+      "id": "EP-TC19",
+      "covers": "EC18, EC34",
+      "desc": "Admin gọi DELETE /api/categories/999999 với id không tồn tại",
+      "kind": "API",
+      "expected": "REJ-DATA (404 Not Found); OC-NO (Q6)",
+      "status": "Fail",
+      "reasons": [
+        "Vi phạm Q6: Xóa ID không tồn tại (999999) phải trả 404 (4xx), nhưng thực tế nhận HTTP 200"
+      ],
+      "oracleLogs": [
+        "Số danh mục: trước=3, sau=3"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/999999\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDgwMTE1fQ.Eevc05JV-unbmwP0swuOtSnNrNUoQkVjwDivdkXJK5A\" } -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Category deleted\"}",
+      "executedAt": "2026-10-15T16:01:55.588Z"
+    },
+    {
+      "id": "EP-TC20",
+      "covers": "EC19, EC34 (và BVA B02 LB-δ: id = 0)",
+      "desc": "Admin gọi DELETE /api/categories/0 (ngoài miền nguyên dương)",
+      "kind": "API",
+      "expected": "REJ-DATA (400/404); OC-NO (Q6)",
+      "status": "Fail",
+      "reasons": [
+        "Vi phạm Q6: Xóa id=0 (ngoài miền hợp lệ) phải trả 400/404, nhưng thực tế nhận HTTP 200"
+      ],
+      "oracleLogs": [
+        "Số danh mục: trước=3, sau=3"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/0\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDgwMTE3fQ.UtlmIn6mIQQQHCQsTzmgqns1m_VW2finqrs7iIaqKmI\" } -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Category deleted\"}",
+      "executedAt": "2026-10-15T16:01:57.814Z"
+    },
+    {
+      "id": "EP-TC21",
+      "covers": "EC20, EC34",
+      "desc": "Admin gọi DELETE /api/categories/-5 (id nguyên âm)",
+      "kind": "API",
+      "expected": "REJ-DATA (400/404); OC-NO (Q6)",
+      "status": "Fail",
+      "reasons": [
+        "Vi phạm Q6: Xóa id=-5 (số nguyên âm) phải trả 400/404, nhưng thực tế nhận HTTP 200"
+      ],
+      "oracleLogs": [
+        "Số danh mục: trước=3, sau=3"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/-5\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDgwMTE5fQ.Xg-CaoMQ7jAGPLd3ABEa3oUA_49GGpNmpWujJ_XqnLk\" } -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Category deleted\"}",
+      "executedAt": "2026-10-15T16:02:00.001Z"
+    },
+    {
+      "id": "EP-TC22",
+      "covers": "EC21, EC34",
+      "desc": "Admin gọi DELETE /api/categories/abc (id không phải số nguyên)",
+      "kind": "API",
+      "expected": "REJ-DATA (400/404); OC-NO (Q6, Q7)",
+      "status": "Fail",
+      "reasons": [
+        "Vi phạm Q6/Q7: Xóa id=\"abc\" (sai kiểu dữ liệu) phải trả 400/404, nhưng thực tế nhận HTTP 200"
+      ],
+      "oracleLogs": [
+        "Số danh mục: trước=3, sau=3"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/abc\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDgwMTIyfQ.QvJCOcQ3LJoBLoO0BzWfhgKDRSFn3AjPp95c4yKU6WI\" } -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Category deleted\"}",
+      "executedAt": "2026-10-15T16:02:02.230Z"
+    },
+    {
+      "id": "EP-TC23",
+      "covers": "EC22, EC34",
+      "desc": "Admin gọi DELETE /api/categories/1 khi danh mục id=1 đang có sản phẩm tham chiếu (R5, Q5)",
+      "kind": "API",
+      "expected": "REJ-DATA (400/409); danh mục id=1 không bị xóa trái phép gây mồ côi sản phẩm",
+      "status": "Fail",
+      "reasons": [
+        "Vi phạm R5/Q5 (toàn vẹn khóa ngoại): Danh mục id=1 đang có 2 sản phẩm nhưng vẫn cho phép xóa (HTTP 200)",
+        "OC-NO Thất bại: Số lượng danh mục bị thay đổi dù dữ liệu/quyền không hợp lệ (trước: 3, sau: 2)"
+      ],
+      "oracleLogs": [
+        "Số sản phẩm đang gắn với category_id=1 trước khi xóa: 2",
+        "Số danh mục: trước=3, sau=2"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/1\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDgwMTI0fQ.4rhcIlEF0Rrnkan969AafuoluZM6wzekgjPOgU0sv-E\" } -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Category deleted\"}",
+      "executedAt": "2026-10-15T16:02:04.450Z"
+    },
+    {
+      "id": "EP-TC24",
+      "covers": "EC23, EC34",
+      "desc": "Admin gọi DELETE /api/categories/:ID_EMPTY lần 2 trên danh mục vừa bị xóa",
+      "kind": "API",
+      "expected": "REJ-DATA (404 Not Found); các danh mục còn lại giữ nguyên (Q6)",
+      "status": "Fail",
+      "reasons": [
+        "Vi phạm Q6: Xóa lại danh mục đã xóa (id=4) lần 2 phải trả 404, nhưng thực tế nhận HTTP 200"
+      ],
+      "oracleLogs": [
+        "Số danh mục: trước=3, sau=3"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/4\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDgwMTI2fQ.QcjPIo0pGcFKDOSu3bFjdD-RobXmTZ1_dOt6TBKMjIQ\" } -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Category deleted\"}",
+      "executedAt": "2026-10-15T16:02:06.780Z"
+    },
+    {
+      "id": "EP-TC25",
+      "covers": "EC25, EC34",
+      "desc": "Admin gọi PUT /api/categories/:ID_EMPTY với tên mới rỗng (name = \"\")",
+      "kind": "API",
+      "expected": "REJ-DATA (400 Bad Request); tên của ID_EMPTY giữ nguyên (Q4)",
+      "status": "Fail",
+      "reasons": [
+        "Kỳ vọng HTTP 400 Bad Request khi PUT name=\"\", thực tế nhận HTTP 200",
+        "OC-NO Thất bại: Bản ghi id=4 (\"Danh mục tạm test\") bị thay đổi hoặc mất trong CSDL"
+      ],
+      "oracleLogs": [
+        "Số danh mục: trước=4, sau=4"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/4\" -Method PUT -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDgwMTI5fQ.DhxHXUIAzwKpMmloIhaSsBqyqgDBOYZmoH_Sny4vzcg\" } -ContentType 'application/json' -Body '{\"name\":\"\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Category updated\"}",
+      "executedAt": "2026-10-15T16:02:09.016Z"
+    },
+    {
+      "id": "EP-TC26",
+      "covers": "EC26, EC34",
+      "desc": "Admin gọi PUT /api/categories/:ID_EMPTY với tên mới chỉ gồm khoảng trắng (\"     \")",
+      "kind": "API",
+      "expected": "REJ-DATA (400 Bad Request); tên của ID_EMPTY giữ nguyên (Q2, Q4)",
+      "status": "Fail",
+      "reasons": [
+        "Kỳ vọng HTTP 400 Bad Request khi PUT name toàn khoảng trắng, thực tế nhận HTTP 200",
+        "OC-NO Thất bại: Bản ghi id=4 (\"Danh mục tạm test\") bị thay đổi hoặc mất trong CSDL"
+      ],
+      "oracleLogs": [
+        "Số danh mục: trước=4, sau=4"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/4\" -Method PUT -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDgwMTMxfQ.iVop10jBYswCFU1n0ViSLsddTC2V2bg4yU4HgcTlzHg\" } -ContentType 'application/json' -Body '{\"name\":\"     \"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Category updated\"}",
+      "executedAt": "2026-10-15T16:02:11.273Z"
+    },
+    {
+      "id": "EP-TC27",
+      "covers": "EC27, EC34",
+      "desc": "Admin gọi PUT /api/categories/999999 (id không tồn tại) với tên mới hợp lệ",
+      "kind": "API",
+      "expected": "REJ-DATA (404 Not Found); OC-NO (Q4, Q6)",
+      "status": "Fail",
+      "reasons": [
+        "Kỳ vọng HTTP 404 khi PUT id=999999, thực tế nhận HTTP 200"
+      ],
+      "oracleLogs": [
+        "Số danh mục: trước=3, sau=3"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/999999\" -Method PUT -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDgwMTMzfQ.JtWOTYP0w9Q_eN25dCPHSxpLx6FLqI1N2fr3JISDu1E\" } -ContentType 'application/json' -Body '{\"name\":\"Thiết bị gia dụng cao cấp\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Category updated\"}",
+      "executedAt": "2026-10-15T16:02:13.459Z"
+    },
+    {
+      "id": "EP-TC28",
+      "covers": "EC35",
+      "desc": "Chưa đăng nhập hoặc dùng tài khoản role=user truy cập trang Quản lý Danh mục trên Web Admin",
+      "kind": "UI",
+      "expected": "Bị chặn truy cập hoặc yêu cầu đăng nhập Admin; không hiển thị giao diện thêm/xóa danh mục (FR-12, SEC-03)",
+      "status": "Not run",
+      "reasons": [
+        "Ca UI kiểm thử qua trình duyệt Playwright CLI (xem run_ui_results.md)"
+      ],
+      "oracleLogs": [],
+      "powershellCommand": "",
+      "actualStatus": null,
+      "actualBody": "",
+      "executedAt": "2026-10-15T16:02:13.459Z"
+    },
+    {
+      "id": "EP-TC29",
+      "covers": "EC01, EC08, EC17, EC30, EC31, EC36",
+      "desc": "Luồng Thêm và Xóa danh mục hợp lệ trên giao diện Web Admin",
+      "kind": "UI",
+      "expected": "Danh mục mới xuất hiện trong bảng và CSDL sau khi Thêm; biến mất sau khi bấm Xóa (FR-14)",
+      "status": "Not run",
+      "reasons": [
+        "Ca UI kiểm thử qua trình duyệt Playwright CLI (xem run_ui_results.md)"
+      ],
+      "oracleLogs": [],
+      "powershellCommand": "",
+      "actualStatus": null,
+      "actualBody": "",
+      "executedAt": "2026-10-15T16:02:13.459Z"
+    },
+    {
+      "id": "EP-TC30",
+      "covers": "EC37",
+      "desc": "Nhãn trường Tên danh mục (bắt buộc) có ký hiệu dấu * đi kèm",
+      "kind": "UI",
+      "expected": "Nhãn trường Tên danh mục hiển thị ký hiệu * (FR-22 dòng 252)",
+      "status": "Not run",
+      "reasons": [
+        "Ca UI kiểm thử qua trình duyệt Playwright CLI (xem run_ui_results.md)"
+      ],
+      "oracleLogs": [],
+      "powershellCommand": "",
+      "actualStatus": null,
+      "actualBody": "",
+      "executedAt": "2026-10-15T16:02:13.460Z"
+    },
+    {
+      "id": "EP-TC31",
+      "covers": "EC38, EC34",
+      "desc": "Để trống ô Tên danh mục trên UI rồi bấm Thêm",
+      "kind": "UI",
+      "expected": "Bị chặn hoặc hiển thị thông báo lỗi; không tạo danh mục rỗng trong CSDL (FR-14, FR-22)",
+      "status": "Not run",
+      "reasons": [
+        "Ca UI kiểm thử qua trình duyệt Playwright CLI (xem run_ui_results.md)"
+      ],
+      "oracleLogs": [],
+      "powershellCommand": "",
+      "actualStatus": null,
+      "actualBody": "",
+      "executedAt": "2026-10-15T16:02:13.460Z"
+    },
+    {
+      "id": "EP-TC32",
+      "covers": "EC39",
+      "desc": "Vị trí thông báo lỗi trên form Quản lý Danh mục hiển thị phía trên nút Submit",
+      "kind": "UI",
+      "expected": "Thông báo lỗi nằm phía trên nút Submit: bottom(lỗi) <= top(nút) (FR-22 dòng 255)",
+      "status": "Not run",
+      "reasons": [
+        "Ca UI kiểm thử qua trình duyệt Playwright CLI (xem run_ui_results.md)"
+      ],
+      "oracleLogs": [],
+      "powershellCommand": "",
+      "actualStatus": null,
+      "actualBody": "",
+      "executedAt": "2026-10-15T16:02:13.460Z"
+    },
+    {
+      "id": "EP-TC33",
+      "covers": "EC40",
+      "desc": "Màu sắc nút Thêm (xanh dương) và nút Xóa (đỏ) trên trang Quản lý Danh mục",
+      "kind": "UI",
+      "expected": "Nút Thêm màu xanh dương (B > R, B > G); nút Xóa màu đỏ (R > G, R > B) (FR-21 dòng 245)",
+      "status": "Not run",
+      "reasons": [
+        "Ca UI kiểm thử qua trình duyệt Playwright CLI (xem run_ui_results.md)"
+      ],
+      "oracleLogs": [],
+      "powershellCommand": "",
+      "actualStatus": null,
+      "actualBody": "",
+      "executedAt": "2026-10-15T16:02:13.460Z"
+    },
+    {
+      "id": "EP-TC34",
+      "covers": "EC41, EC42",
+      "desc": "Tiêu chuẩn thẻ <h1> duy nhất, ngôn ngữ tiếng Việt, highlight mục Danh mục và nhãn nút \"Đăng xuất\"",
+      "kind": "UI",
+      "expected": "Đúng 1 thẻ <h1>; tiếng Việt; mục Danh mục được highlight; nút đăng xuất ghi \"Đăng xuất\" (FR-21, FR-23)",
+      "status": "Not run",
+      "reasons": [
+        "Ca UI kiểm thử qua trình duyệt Playwright CLI (xem run_ui_results.md)"
+      ],
+      "oracleLogs": [],
+      "powershellCommand": "",
+      "actualStatus": null,
+      "actualBody": "",
+      "executedAt": "2026-10-15T16:02:13.460Z"
+    },
+    {
+      "id": "BV-TC01",
+      "covers": "B01 LB (1 ký tự)",
+      "desc": "Admin thêm danh mục có độ dài tên tại biên dưới LB = 1 ký tự (\"A\")",
+      "kind": "API",
+      "expected": "OC-ADD-OK(\"A\"): HTTP 2xx; tạo đúng 1 danh mục có name=\"A\" (độ dài 1)",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "Số danh mục: trước=3, sau=4",
+        "Bản ghi mới: id=4, len(name)=1"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDgwMTM1fQ.O0-AkSvUf2UN6NNyQAK5ocIdfByvTi9uFcSEJ45lUhY\" } -ContentType 'application/json' -Body '{\"name\":\"A\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Category created\",\"id\":4}",
+      "executedAt": "2026-10-15T16:02:15.620Z"
+    },
+    {
+      "id": "BV-TC02",
+      "covers": "B01 LB+δ (2 ký tự)",
+      "desc": "Admin thêm danh mục có độ dài tên tại sát biên dưới LB+δ = 2 ký tự (\"AB\")",
+      "kind": "API",
+      "expected": "OC-ADD-OK(\"AB\"): HTTP 2xx; tạo đúng 1 danh mục có name=\"AB\" (độ dài 2)",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "Số danh mục: trước=3, sau=4",
+        "Bản ghi mới: id=4, len(name)=2"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDgwMTM3fQ.7hJQeOlEgSAmEsCvMxec12gKRUt-Zw9CM8hmoaZVaJk\" } -ContentType 'application/json' -Body '{\"name\":\"AB\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Category created\",\"id\":4}",
+      "executedAt": "2026-10-15T16:02:17.794Z"
+    },
+    {
+      "id": "BV-TC03",
+      "covers": "B01 UB-δ (254 ký tự)",
+      "desc": "Admin thêm danh mục có độ dài tên tại sát biên trên UB-δ = 254 ký tự (\"A\"×254)",
+      "kind": "API",
+      "expected": "OC-ADD-OK(\"A\"×254): HTTP 2xx; lưu đủ 254 ký tự không bị cắt cụt (Q1)",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "Số danh mục: trước=3, sau=4",
+        "Bản ghi mới: id=4, len(name)=254"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDgwMTQwfQ.1q-ni3EAwkKVruQYemC79uYDVzrPHMTBP4GNvVYdGvY\" } -ContentType 'application/json' -Body '{\"name\":\"AAAAAAAAAAAAAAAAAAAA…(254 ký tự)\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Category created\",\"id\":4}",
+      "executedAt": "2026-10-15T16:02:20.048Z"
+    },
+    {
+      "id": "BV-TC04",
+      "covers": "B01 UB (255 ký tự)",
+      "desc": "Admin thêm danh mục có độ dài tên tại biên trên UB = 255 ký tự (\"A\"×255)",
+      "kind": "API",
+      "expected": "OC-ADD-OK(\"A\"×255): HTTP 2xx; lưu đủ 255 ký tự không bị cắt cụt (Q1)",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "Số danh mục: trước=3, sau=4",
+        "Bản ghi mới: id=4, len(name)=255"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDgwMTQyfQ.6PHeveayqTZ3iLebSPE7eRZ-FsjHDDt1AnB5S4M9_nw\" } -ContentType 'application/json' -Body '{\"name\":\"AAAAAAAAAAAAAAAAAAAA…(255 ký tự)\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Category created\",\"id\":4}",
+      "executedAt": "2026-10-15T16:02:22.293Z"
+    },
+    {
+      "id": "BV-TC05",
+      "covers": "B01 UB+δ (256 ký tự)",
+      "desc": "Admin thêm danh mục vượt biên trên UB+δ = 256 ký tự (\"A\"×256, theo giả định Q1/Q8)",
+      "kind": "API",
+      "expected": "REJ-DATA (400 Bad Request); OC-NO (theo giả định kỹ thuật Q1/Q8)",
+      "status": "Fail",
+      "reasons": [
+        "Theo Oracle giả định Q1 (max 255 ký tự): chuỗi 256 ký tự kỳ vọng bị từ chối 400, thực tế nhận HTTP 200 (Ghi chú Q8: điểm mơ hồ đặc tả)",
+        "OC-NO Thất bại: Số lượng danh mục bị thay đổi dù dữ liệu/quyền không hợp lệ (trước: 3, sau: 4)"
+      ],
+      "oracleLogs": [
+        "Số danh mục: trước=3, sau=4"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDgwMTQ0fQ.HmMz32-6YgGojwrEAsz-QZscvTh40eg4qy8YVGkm75M\" } -ContentType 'application/json' -Body '{\"name\":\"AAAAAAAAAAAAAAAAAAAA…(256 ký tự)\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Category created\",\"id\":4}",
+      "executedAt": "2026-10-15T16:02:24.547Z"
+    },
+    {
+      "id": "BV-TC06",
+      "covers": "B02 LB (id = 1 trên fixture 1..5)",
+      "desc": "Admin xóa danh mục tại biên dưới LB: DELETE /api/categories/1 (trên fixture P_BVA_ID 1..5)",
+      "kind": "API",
+      "expected": "OC-DEL-OK(1): HTTP 2xx; bản ghi id=1 bị xóa, còn đúng 4 bản ghi {2, 3, 4, 5}",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "Số danh mục: trước=5, sau=4"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/1\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDgwMTQ2fQ.F4-NBxzlzQ4Y2DeUsEPQ-WLz-SedK4f2Q-EjFfO7Ags\" } -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Category deleted\"}",
+      "executedAt": "2026-10-15T16:02:26.843Z"
+    },
+    {
+      "id": "BV-TC07",
+      "covers": "B02 LB+δ (id = 2 trên fixture 1..5)",
+      "desc": "Admin xóa danh mục tại sát biên dưới LB+δ: DELETE /api/categories/2 (trên fixture P_BVA_ID 1..5)",
+      "kind": "API",
+      "expected": "OC-DEL-OK(2): HTTP 2xx; bản ghi id=2 bị xóa, còn đúng 4 bản ghi {1, 3, 4, 5}",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "Số danh mục: trước=5, sau=4"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/2\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDgwMTQ5fQ.dmip-aX_wjPRc3KfYj0Y6dFHyRyqNlM5NtwoZE1Augk\" } -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Category deleted\"}",
+      "executedAt": "2026-10-15T16:02:29.024Z"
+    },
+    {
+      "id": "BV-TC08",
+      "covers": "B02 UB-δ (id = 4 = ID_max - 1 trên fixture 1..5)",
+      "desc": "Admin xóa danh mục tại sát biên trên UB-δ: DELETE /api/categories/4 (trên fixture P_BVA_ID 1..5)",
+      "kind": "API",
+      "expected": "OC-DEL-OK(4): HTTP 2xx; bản ghi id=4 bị xóa, còn đúng 4 bản ghi {1, 2, 3, 5}",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "Số danh mục: trước=5, sau=4"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/4\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDgwMTUxfQ.zNyk9y5otAa0RDH_MeI4dQ5oVy0WcrGVA0x1jrmKT7Y\" } -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Category deleted\"}",
+      "executedAt": "2026-10-15T16:02:31.289Z"
+    },
+    {
+      "id": "BV-TC09",
+      "covers": "B02 UB (id = 5 = ID_max trên fixture 1..5)",
+      "desc": "Admin xóa danh mục tại biên trên UB: DELETE /api/categories/5 (trên fixture P_BVA_ID 1..5)",
+      "kind": "API",
+      "expected": "OC-DEL-OK(5): HTTP 2xx; bản ghi id=5 bị xóa, còn đúng 4 bản ghi {1, 2, 3, 4}",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "Số danh mục: trước=5, sau=4"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/5\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDgwMTUzfQ.ldY3ZCjSF6HRH4MoX7XiXk5TFe_kiaMnJVg6rWfvcFc\" } -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Category deleted\"}",
+      "executedAt": "2026-10-15T16:02:33.555Z"
+    },
+    {
+      "id": "BV-TC10",
+      "covers": "B02 UB+δ (id = 6 = ID_max + 1 trên fixture 1..5)",
+      "desc": "Admin xóa danh mục vượt biên trên UB+δ: DELETE /api/categories/6 (ngoài miền 1..5)",
+      "kind": "API",
+      "expected": "REJ-DATA (404 Not Found); OC-NO (cả 5 bản ghi {1, 2, 3, 4, 5} giữ nguyên)",
+      "status": "Fail",
+      "reasons": [
+        "Vi phạm Q6 tại biên UB+δ (id=6 > ID_max=5): Kỳ vọng 404 Not Found, thực tế nhận HTTP 200"
+      ],
+      "oracleLogs": [
+        "Số danh mục: trước=5, sau=5"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/6\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDgwMTU1fQ.V-qBsYSTM8EKNgTOQtlm6-4fXwNHsHlT9j7RNSAFTRo\" } -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Category deleted\"}",
+      "executedAt": "2026-10-15T16:02:35.812Z"
+    },
+    {
+      "id": "OB-TC01",
+      "covers": "Output BVA LB_out = 0 danh mục (FR-14 & FR-24 Empty State)",
+      "desc": "Xóa toàn bộ danh mục về 0 bản ghi: kiểm tra GET /api/categories trả mảng rỗng [] và Web Admin hiển thị Empty State (FR-24)",
+      "kind": "API+UI",
+      "expected": "(1) API trả 200 OK với []; (2) Giao diện Web Admin hiển thị trạng thái trống (Empty State) có icon/hình minh họa theo FR-24",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "API GET /api/categories trả về 200 OK với mảng rỗng [] (length = 0)",
+        "Phần UI Empty State (FR-24) được kiểm chứng trên trình duyệt qua fr14_ui.spec.js"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method GET -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "[]",
+      "executedAt": "2026-10-15T16:02:38.095Z"
+    },
+    {
+      "id": "SR-TC01",
+      "covers": "Human Review — Chuẩn hóa khoảng trắng đầu/cuối (trim) & trùng tên khác hoa/thường",
+      "desc": "Admin tạo \"Thiết bị gia dụng thông minh\", sau đó gửi tiếp \"  thiết bị gia dụng thông minh  \"",
+      "kind": "API",
+      "expected": "Hệ thống tự động trim() và từ chối tạo bản ghi trùng tên không phân biệt hoa/thường (400/409); không lưu khoảng trắng thừa",
+      "status": "Fail",
+      "reasons": [
+        "Hệ thống lưu nguyên chuỗi chưa trim() khoảng trắng thừa (\"  thiết bị gia dụng thông minh  \") và cho phép trùng tên khác hoa/thường (HTTP 200)",
+        "OC-NO Thất bại: Số lượng danh mục bị thay đổi dù dữ liệu/quyền không hợp lệ (trước: 4, sau: 5)"
+      ],
+      "oracleLogs": [
+        "Số danh mục: trước=4, sau=5"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDgwMTYwfQ._lQUN0zWs2NBHnzQi9LydWN9oyvaDP86_N0XI1wpe14\" } -ContentType 'application/json' -Body '{\"name\":\"  thiết bị gia dụng thông minh  \"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Category created\",\"id\":5}",
+      "executedAt": "2026-10-15T16:02:40.361Z"
+    },
+    {
+      "id": "SR-TC02",
+      "covers": "Human Review — Tương thích chuỗi Unicode tiếng Việt, ký tự đặc biệt (&, -, ()) và Emoji",
+      "desc": "Admin tạo danh mục \"Ẩm thực & Đồ uống 🍜 - Tươi sống (100%)\" và kiểm tra lưu trữ UTF-8",
+      "kind": "API+UI",
+      "expected": "HTTP 2xx; lưu trữ nguyên vẹn 100% chuỗi UTF-8 trong CSDL và hiển thị đúng trên Web Admin",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "Số danh mục: trước=3, sau=4",
+        "Bản ghi mới: id=4, len(name)=39"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDgwMTYyfQ.cQxVDZIGy8yeC5g4tJMUshkVZ7uotSIKuSvBzhh7fRM\" } -ContentType 'application/json' -Body '{\"name\":\"Ẩm thực & Đồ uống 🍜 - Tươi sống (100%)\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Category created\",\"id\":4}",
+      "executedAt": "2026-10-15T16:02:42.661Z"
+    },
+    {
+      "id": "SR-TC03",
+      "covers": "Human Review — Phòng chống SQL Injection trong name và :id (SEC-05)",
+      "desc": "Gửi payload SQLi trong POST (\"Điện tử'); DROP TABLE categories; --\") và DELETE (/api/categories/1%20OR%201=1)",
+      "kind": "API",
+      "expected": "Xử lý an toàn bằng Parameterized Query: không lỗi 500, bảng categories không bị DROP và không bị xóa toàn bộ bởi 1 OR 1=1",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "Sau SQLi POST (200) & DELETE (200): còn 4 danh mục"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/1%20OR%201=1\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDgwMTY0fQ.44jP602NjBFlF2RX-Tb7ZxngfQBqNvfuHNJlj6guixI\" } -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Category deleted\"}",
+      "executedAt": "2026-10-15T16:02:44.939Z"
+    },
+    {
+      "id": "SR-TC04",
+      "covers": "Human Review — Gửi đồng thời 2 request tạo cùng một danh mục (Double Submit / Race Condition)",
+      "desc": "Bắn song song (Promise.all) 2 request POST /api/categories cùng tên \"Danh mục đồng thời\"",
+      "kind": "API",
+      "expected": "Trong CSDL chỉ có đúng 1 danh mục mang tên \"Danh mục đồng thời\" được tạo; không sinh 2 bản ghi trùng hệt nhau",
+      "status": "Fail",
+      "reasons": [
+        "Lỗi Race Condition / Double Submit (Q3): Tạo ra 2 bản ghi trùng tên \"Danh mục đồng thời\" (id=4, 5) khi gửi 2 request đồng thời"
+      ],
+      "oracleLogs": [
+        "Kết quả 2 request đồng thời: status=[200, 200], số bản ghi \"Danh mục đồng thời\"=2"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories\" -Method POST -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDgwMTY3fQ.gduijzKPz5T0QV_PZPrT2muoEmhZQGSycKkPPfmr524\" } -ContentType 'application/json' -Body '{\"name\":\"Danh mục đồng thời\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Category created\",\"id\":5}",
+      "executedAt": "2026-10-15T16:02:47.257Z"
+    },
+    {
+      "id": "SR-TC05",
+      "covers": "Human Review — Tính toàn vẹn liên hệ thống giữa Danh mục (FR-14) và Sản phẩm (FR-05/FR-15)",
+      "desc": "Kiểm tra tính toàn vẹn của GET /api/products sau khi gọi DELETE /api/categories/1 (danh mục đang có sản phẩm)",
+      "kind": "API",
+      "expected": "Mọi sản phẩm trong GET /api/products phải luôn trỏ tới category_id tồn tại trong GET /api/categories (không có sản phẩm mồ côi danh mục)",
+      "status": "Fail",
+      "reasons": [
+        "Vi phạm toàn vẹn khóa ngoại liên hệ thống (R5 / FR-15): Sau khi xóa category id=1, có 2 sản phẩm (#1 \"iPhone 15 Pro Max\", #2 \"Samsung Galaxy S24 Ultra\") trỏ tới category_id=1 không còn tồn tại trong bảng categories"
+      ],
+      "oracleLogs": [
+        "Trước khi xóa id=1: có 2 sản phẩm thuộc category_id=1",
+        "Sau DELETE /api/categories/1 (HTTP 200): số sản phẩm mồ côi danh mục=2"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/categories/1\" -Method DELETE -Headers @{ Authorization = \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkyMDgwMTY5fQ.eG2eygzMMlQj6NNpVAOjUQF1Xgh8dg8jsDwt9uNlYq4\" } -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Category deleted\"}",
+      "executedAt": "2026-10-15T16:02:49.565Z"
+    }
+  ]
+}
