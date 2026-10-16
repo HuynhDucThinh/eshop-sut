@@ -1,0 +1,451 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "D:\\KCPM\\eshop-sut\\tests\\ui-fr20_3\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "-c",
+      "playwright.config.js"
+    ],
+    "configFile": "D:\\KCPM\\eshop-sut\\tests\\ui-fr20_3\\playwright.config.js",
+    "rootDir": "D:/KCPM/eshop-sut/tests/ui-fr20_3",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/KCPM/eshop-sut/reports/evidence/FR-20.3/playwright-artifacts/run_ui_2",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "D:/KCPM/eshop-sut/tests/ui-fr20_3",
+        "testIgnore": [],
+        "testMatch": [
+          "/fr20_3_ui\\.spec\\.js/"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "D:\\KCPM\\eshop-sut\\reports\\evidence\\FR-20.3\\playwright-artifacts\\run_ui_2",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "chromium",
+        "testDir": "D:\\KCPM\\eshop-sut\\tests\\ui-fr20_3",
+        "snapshotDir": "D:\\KCPM\\eshop-sut\\tests\\ui-fr20_3",
+        "testIgnore": [],
+        "testMatch": {},
+        "timeout": 30000,
+        "use": {
+          "baseURL": "http://localhost:5175",
+          "headless": true,
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "trace": "off",
+          "browserName": "chromium"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "chromium"
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "D:\\KCPM\\eshop-sut\\reports\\evidence\\FR-20.3\\run_ui_2.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "fr20_3_ui.spec.js",
+      "file": "fr20_3_ui.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "FR-20.3 — Kiểm thử Giao diện Mobile: Thanh toán (Checkout) và Áp mã giảm giá (390x844)",
+          "file": "fr20_3_ui.spec.js",
+          "line": 127,
+          "column": 6,
+          "specs": [
+            {
+              "title": "EP-TC26: Luồng Áp mã SAVE10 và Đặt hàng hợp lệ trên màn hình Giỏ hàng/Thanh toán Mobile (390x844)",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 761,
+                      "error": {
+                        "message": "Error: Hiển thị \"Tiết kiệm: -4,500,000 ₫\" và \"Thành tiền: 5,000,000 ₫\" (Tổng thanh toán: 5,000,000 ₫)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
+                        "stack": "Error: Hiển thị \"Tiết kiệm: -4,500,000 ₫\" và \"Thành tiền: 5,000,000 ₫\" (Tổng thanh toán: 5,000,000 ₫)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr20_3\\fr20_3_ui.spec.js:177:66",
+                        "location": {
+                          "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr20_3\\fr20_3_ui.spec.js",
+                          "column": 66,
+                          "line": 177
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 175 |\u001b[39m     }\n \u001b[90m 176 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 177 |\u001b[39m     expect(hasCorrectDiscount \u001b[33m&&\u001b[39m hasCorrectFinal\u001b[33m,\u001b[39m actualSummary)\u001b[33m.\u001b[39mtoBe(\u001b[36mtrue\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                                  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 178 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 179 |\u001b[39m\n \u001b[90m 180 |\u001b[39m   test(\u001b[32m'EP-TC27: Nhập mã hết hạn EXPIRED trên màn hình Mobile rồi bấm Áp dụng'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr20_3\\fr20_3_ui.spec.js",
+                            "column": 66,
+                            "line": 177
+                          },
+                          "message": "Error: Hiển thị \"Tiết kiệm: -4,500,000 ₫\" và \"Thành tiền: 5,000,000 ₫\" (Tổng thanh toán: 5,000,000 ₫)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\n  175 |     }\n  176 |\n> 177 |     expect(hasCorrectDiscount && hasCorrectFinal, actualSummary).toBe(true);\n      |                                                                  ^\n  178 |   });\n  179 |\n  180 |   test('EP-TC27: Nhập mã hết hạn EXPIRED trên màn hình Mobile rồi bấm Áp dụng', async ({ page }) => {\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr20_3\\fr20_3_ui.spec.js:177:66"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-16T16:26:29.572Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\KCPM\\eshop-sut\\reports\\evidence\\FR-20.3\\playwright-artifacts\\run_ui_2\\fr20_3_ui-FR-20-3-—-Kiểm-t-7d538--Thanh-toán-Mobile-390x844--chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr20_3\\fr20_3_ui.spec.js",
+                        "column": 66,
+                        "line": 177
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "0a694694f80cb00337f2-1e703f54ea3e6fb91e1d",
+              "file": "fr20_3_ui.spec.js",
+              "line": 133,
+              "column": 3
+            },
+            {
+              "title": "EP-TC27: Nhập mã hết hạn EXPIRED trên màn hình Mobile rồi bấm Áp dụng",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 694,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-16T16:26:30.916Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0a694694f80cb00337f2-b7a99119dca7a055d767",
+              "file": "fr20_3_ui.spec.js",
+              "line": 180,
+              "column": 3
+            },
+            {
+              "title": "EP-TC28: Kiểm tra sự tồn tại của ô nhập Địa chỉ giao hàng và ký hiệu dấu * bắt buộc trên màn hình Thanh toán Mobile",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 652,
+                      "error": {
+                        "message": "Error: Trên màn hình Xác Nhận Đơn Hàng Mobile: số nhãn \"Địa chỉ giao hàng\" = 0, số ký hiệu \"*\" bắt buộc = 0\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
+                        "stack": "Error: Trên màn hình Xác Nhận Đơn Hàng Mobile: số nhãn \"Địa chỉ giao hàng\" = 0, số ký hiệu \"*\" bắt buộc = 0\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr20_3\\fr20_3_ui.spec.js:233:51",
+                        "location": {
+                          "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr20_3\\fr20_3_ui.spec.js",
+                          "column": 51,
+                          "line": 233
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 231 |\u001b[39m     )\u001b[33m;\u001b[39m\n \u001b[90m 232 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 233 |\u001b[39m     expect(hasAddressFieldAndStar\u001b[33m,\u001b[39m actualSummary)\u001b[33m.\u001b[39mtoBe(\u001b[36mtrue\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                   \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 234 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 235 |\u001b[39m\n \u001b[90m 236 |\u001b[39m   test(\u001b[32m'EP-TC29: Để trống Địa chỉ giao hàng trên màn hình Mobile rồi bấm Thanh toán'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr20_3\\fr20_3_ui.spec.js",
+                            "column": 51,
+                            "line": 233
+                          },
+                          "message": "Error: Trên màn hình Xác Nhận Đơn Hàng Mobile: số nhãn \"Địa chỉ giao hàng\" = 0, số ký hiệu \"*\" bắt buộc = 0\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\n  231 |     );\n  232 |\n> 233 |     expect(hasAddressFieldAndStar, actualSummary).toBe(true);\n      |                                                   ^\n  234 |   });\n  235 |\n  236 |   test('EP-TC29: Để trống Địa chỉ giao hàng trên màn hình Mobile rồi bấm Thanh toán', async ({ page }) => {\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr20_3\\fr20_3_ui.spec.js:233:51"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-16T16:26:31.724Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\KCPM\\eshop-sut\\reports\\evidence\\FR-20.3\\playwright-artifacts\\run_ui_2\\fr20_3_ui-FR-20-3-—-Kiểm-t-dc3da--màn-hình-Thanh-toán-Mobile-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr20_3\\fr20_3_ui.spec.js",
+                        "column": 51,
+                        "line": 233
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "0a694694f80cb00337f2-169abdbff2921c9742cc",
+              "file": "fr20_3_ui.spec.js",
+              "line": 209,
+              "column": 3
+            },
+            {
+              "title": "EP-TC29: Để trống Địa chỉ giao hàng trên màn hình Mobile rồi bấm Thanh toán",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 699,
+                      "error": {
+                        "message": "Error: Bấm \"Xác Nhận Thanh Toán\" khi không có địa chỉ vẫn báo \"Thanh toán thành công!\"; payload gửi đi: {\"items\":[{\"id\":1,\"name\":\"iPhone 15 Pro Max\",\"price\":250000,\"description\":\"Điện thoại cao cấp của Apple\",\"imageUrl\":\"https://placehold.co/300x300/png?text=iPhone+15\",\"category_id\":1,\"quantity\":2}],\"total_amount\":500000,\"coupon_id\":null} (không có trường shipping_address)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
+                        "stack": "Error: Bấm \"Xác Nhận Thanh Toán\" khi không có địa chỉ vẫn báo \"Thanh toán thành công!\"; payload gửi đi: {\"items\":[{\"id\":1,\"name\":\"iPhone 15 Pro Max\",\"price\":250000,\"description\":\"Điện thoại cao cấp của Apple\",\"imageUrl\":\"https://placehold.co/300x300/png?text=iPhone+15\",\"category_id\":1,\"quantity\":2}],\"total_amount\":500000,\"coupon_id\":null} (không có trường shipping_address)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr20_3\\fr20_3_ui.spec.js:267:99",
+                        "location": {
+                          "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr20_3\\fr20_3_ui.spec.js",
+                          "column": 99,
+                          "line": 267
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 265 |\u001b[39m     )\u001b[33m;\u001b[39m\n \u001b[90m 266 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 267 |\u001b[39m     expect(capturedCheckoutBody \u001b[33m&&\u001b[39m \u001b[33mBoolean\u001b[39m(capturedCheckoutBody\u001b[33m.\u001b[39mshipping_address)\u001b[33m,\u001b[39m actualSummary)\u001b[33m.\u001b[39mtoBe(\u001b[36mtrue\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                                                                   \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 268 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 269 |\u001b[39m\n \u001b[90m 270 |\u001b[39m   test(\u001b[32m'EP-TC30: Kiểm tra định dạng tiền tệ ₫ (dấu phân cách hàng nghìn) và ngôn ngữ tiếng Việt nhất quán trên màn hình Mobile'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr20_3\\fr20_3_ui.spec.js",
+                            "column": 99,
+                            "line": 267
+                          },
+                          "message": "Error: Bấm \"Xác Nhận Thanh Toán\" khi không có địa chỉ vẫn báo \"Thanh toán thành công!\"; payload gửi đi: {\"items\":[{\"id\":1,\"name\":\"iPhone 15 Pro Max\",\"price\":250000,\"description\":\"Điện thoại cao cấp của Apple\",\"imageUrl\":\"https://placehold.co/300x300/png?text=iPhone+15\",\"category_id\":1,\"quantity\":2}],\"total_amount\":500000,\"coupon_id\":null} (không có trường shipping_address)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\n  265 |     );\n  266 |\n> 267 |     expect(capturedCheckoutBody && Boolean(capturedCheckoutBody.shipping_address), actualSummary).toBe(true);\n      |                                                                                                   ^\n  268 |   });\n  269 |\n  270 |   test('EP-TC30: Kiểm tra định dạng tiền tệ ₫ (dấu phân cách hàng nghìn) và ngôn ngữ tiếng Việt nhất quán trên màn hình Mobile', async ({\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr20_3\\fr20_3_ui.spec.js:267:99"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-16T16:26:32.937Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\KCPM\\eshop-sut\\reports\\evidence\\FR-20.3\\playwright-artifacts\\run_ui_2\\fr20_3_ui-FR-20-3-—-Kiểm-t-b639c-h-Mobile-rồi-bấm-Thanh-toán-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr20_3\\fr20_3_ui.spec.js",
+                        "column": 99,
+                        "line": 267
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "0a694694f80cb00337f2-11f9705e148d36109110",
+              "file": "fr20_3_ui.spec.js",
+              "line": 236,
+              "column": 3
+            },
+            {
+              "title": "EP-TC30: Kiểm tra định dạng tiền tệ ₫ (dấu phân cách hàng nghìn) và ngôn ngữ tiếng Việt nhất quán trên màn hình Mobile",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 614,
+                      "error": {
+                        "message": "Error: Ô Tổng tiền thanh toán (VND) hiển thị số thô \"500000\" (thiếu dấu phân cách hàng nghìn và ký hiệu ₫); màn hình Đăng nhập trộn tiếng Anh (\"Username\", \"Sign In\")\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
+                        "stack": "Error: Ô Tổng tiền thanh toán (VND) hiển thị số thô \"500000\" (thiếu dấu phân cách hàng nghìn và ký hiệu ₫); màn hình Đăng nhập trộn tiếng Anh (\"Username\", \"Sign In\")\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr20_3\\fr20_3_ui.spec.js:308:41",
+                        "location": {
+                          "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr20_3\\fr20_3_ui.spec.js",
+                          "column": 41,
+                          "line": 308
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 306 |\u001b[39m     )\u001b[33m;\u001b[39m\n \u001b[90m 307 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 308 |\u001b[39m     expect(isConsistent\u001b[33m,\u001b[39m actualSummary)\u001b[33m.\u001b[39mtoBe(\u001b[36mtrue\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                         \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 309 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 310 |\u001b[39m\n \u001b[90m 311 |\u001b[39m   test(\u001b[32m'EP-TC25 (UI): Kiểm tra hiển thị an toàn chuỗi XSS trong đơn hàng trên màn hình Hồ sơ Mobile (SEC-04)'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr20_3\\fr20_3_ui.spec.js",
+                            "column": 41,
+                            "line": 308
+                          },
+                          "message": "Error: Ô Tổng tiền thanh toán (VND) hiển thị số thô \"500000\" (thiếu dấu phân cách hàng nghìn và ký hiệu ₫); màn hình Đăng nhập trộn tiếng Anh (\"Username\", \"Sign In\")\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\n  306 |     );\n  307 |\n> 308 |     expect(isConsistent, actualSummary).toBe(true);\n      |                                         ^\n  309 |   });\n  310 |\n  311 |   test('EP-TC25 (UI): Kiểm tra hiển thị an toàn chuỗi XSS trong đơn hàng trên màn hình Hồ sơ Mobile (SEC-04)', async ({\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr20_3\\fr20_3_ui.spec.js:308:41"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-16T16:26:34.220Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\KCPM\\eshop-sut\\reports\\evidence\\FR-20.3\\playwright-artifacts\\run_ui_2\\fr20_3_ui-FR-20-3-—-Kiểm-t-5f05d-t-quán-trên-màn-hình-Mobile-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr20_3\\fr20_3_ui.spec.js",
+                        "column": 41,
+                        "line": 308
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "0a694694f80cb00337f2-cbe8632b3f978bd94d56",
+              "file": "fr20_3_ui.spec.js",
+              "line": 270,
+              "column": 3
+            },
+            {
+              "title": "EP-TC25 (UI): Kiểm tra hiển thị an toàn chuỗi XSS trong đơn hàng trên màn hình Hồ sơ Mobile (SEC-04)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 438,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-16T16:26:35.397Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0a694694f80cb00337f2-856144170d88b260138c",
+              "file": "fr20_3_ui.spec.js",
+              "line": 311,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-16T16:26:27.816Z",
+    "duration": 8911.601999999999,
+    "expected": 2,
+    "skipped": 0,
+    "unexpected": 4,
+    "flaky": 0
+  }
+}
