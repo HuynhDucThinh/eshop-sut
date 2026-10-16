@@ -1,0 +1,647 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "D:\\KCPM\\eshop-sut\\tests\\ui-fr14\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "-c",
+      "tests\\ui-fr14\\playwright.config.js"
+    ],
+    "configFile": "D:\\KCPM\\eshop-sut\\tests\\ui-fr14\\playwright.config.js",
+    "rootDir": "D:/KCPM/eshop-sut/tests/ui-fr14",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/KCPM/eshop-sut/reports/evidence/FR-14/playwright-artifacts/run_ui_2",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "D:/KCPM/eshop-sut/tests/ui-fr14",
+        "testIgnore": [],
+        "testMatch": [
+          "/fr14_ui\\.spec\\.js/"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "D:\\KCPM\\eshop-sut\\reports\\evidence\\FR-14\\playwright-artifacts\\run_ui_2",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "chromium",
+        "testDir": "D:\\KCPM\\eshop-sut\\tests\\ui-fr14",
+        "snapshotDir": "D:\\KCPM\\eshop-sut\\tests\\ui-fr14",
+        "testIgnore": [],
+        "testMatch": {},
+        "timeout": 30000,
+        "use": {
+          "baseURL": "http://localhost:5174",
+          "headless": true,
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "trace": "off",
+          "browserName": "chromium"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "chromium"
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "D:\\KCPM\\eshop-sut\\reports\\evidence\\FR-14\\run_ui_2.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "fr14_ui.spec.js",
+      "file": "fr14_ui.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Kiểm thử Giao diện Web Admin FR-14 — Quản lý Danh mục (Category CRUD)",
+          "file": "fr14_ui.spec.js",
+          "line": 99,
+          "column": 6,
+          "specs": [
+            {
+              "title": "EP-TC28: Người dùng chưa đăng nhập hoặc có role=user bị chặn truy cập Quản lý Danh mục trên Web Admin",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 1812,
+                      "error": {
+                        "message": "Error: Tài khoản người dùng thường (role=\"user\", test@eshop.com) khi truy cập Web Admin phải bị chặn hoàn toàn, không được phép mở và thao tác trên giao diện Quản lý Danh mục (FR-12, SEC-03)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
+                        "stack": "Error: Tài khoản người dùng thường (role=\"user\", test@eshop.com) khi truy cập Web Admin phải bị chặn hoàn toàn, không được phép mở và thao tác trên giao diện Quản lý Danh mục (FR-12, SEC-03)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr14\\fr14_ui.spec.js:146:7",
+                        "location": {
+                          "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr14\\fr14_ui.spec.js",
+                          "column": 7,
+                          "line": 146
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 144 |\u001b[39m       \u001b[33m!\u001b[39muserRoleCanSeeAdminCategoryUI\u001b[33m,\u001b[39m\n \u001b[90m 145 |\u001b[39m       \u001b[32m'Tài khoản người dùng thường (role=\"user\", test@eshop.com) khi truy cập Web Admin phải bị chặn hoàn toàn, không được phép mở và thao tác trên giao diện Quản lý Danh mục (FR-12, SEC-03)'\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 146 |\u001b[39m     )\u001b[33m.\u001b[39mtoBe(\u001b[36mtrue\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 147 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 148 |\u001b[39m\n \u001b[90m 149 |\u001b[39m   test(\u001b[32m'EP-TC29: Luồng Thêm và Xóa danh mục hợp lệ trên giao diện Web Admin'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page\u001b[33m,\u001b[39m request }) \u001b[33m=>\u001b[39m {\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr14\\fr14_ui.spec.js",
+                            "column": 7,
+                            "line": 146
+                          },
+                          "message": "Error: Tài khoản người dùng thường (role=\"user\", test@eshop.com) khi truy cập Web Admin phải bị chặn hoàn toàn, không được phép mở và thao tác trên giao diện Quản lý Danh mục (FR-12, SEC-03)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\n  144 |       !userRoleCanSeeAdminCategoryUI,\n  145 |       'Tài khoản người dùng thường (role=\"user\", test@eshop.com) khi truy cập Web Admin phải bị chặn hoàn toàn, không được phép mở và thao tác trên giao diện Quản lý Danh mục (FR-12, SEC-03)'\n> 146 |     ).toBe(true);\n      |       ^\n  147 |   });\n  148 |\n  149 |   test('EP-TC29: Luồng Thêm và Xóa danh mục hợp lệ trên giao diện Web Admin', async ({ page, request }) => {\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr14\\fr14_ui.spec.js:146:7"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-15T16:15:55.134Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\KCPM\\eshop-sut\\reports\\evidence\\FR-14\\playwright-artifacts\\run_ui_2\\fr14_ui-Kiểm-thử-Giao-diện-421a8--lý-Danh-mục-trên-Web-Admin-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr14\\fr14_ui.spec.js",
+                        "column": 7,
+                        "line": 146
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "7f2d0ea0b424166cb93b-d1f49e39dabe68856687",
+              "file": "fr14_ui.spec.js",
+              "line": 101,
+              "column": 3
+            },
+            {
+              "title": "EP-TC29: Luồng Thêm và Xóa danh mục hợp lệ trên giao diện Web Admin",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2540,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-15T16:15:57.453Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "7f2d0ea0b424166cb93b-6f87faf0cd15a3b55d4e",
+              "file": "fr14_ui.spec.js",
+              "line": 149,
+              "column": 3
+            },
+            {
+              "title": "EP-TC30: Nhãn của trường Tên danh mục bắt buộc phải có ký hiệu dấu *",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 1167,
+                      "error": {
+                        "message": "Error: Trường bắt buộc Tên danh mục phải có nhãn kèm dấu sao (*) theo FR-22 dòng 252 (số thẻ <label> tìm thấy: 0, nội dung: [])\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
+                        "stack": "Error: Trường bắt buộc Tên danh mục phải có nhãn kèm dấu sao (*) theo FR-22 dòng 252 (số thẻ <label> tìm thấy: 0, nội dung: [])\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr14\\fr14_ui.spec.js:214:7",
+                        "location": {
+                          "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr14\\fr14_ui.spec.js",
+                          "column": 7,
+                          "line": 214
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 212 |\u001b[39m       hasLabelWithAsterisk\u001b[33m,\u001b[39m\n \u001b[90m 213 |\u001b[39m       \u001b[32m`Trường bắt buộc Tên danh mục phải có nhãn kèm dấu sao (*) theo FR-22 dòng 252 (số thẻ <label> tìm thấy: ${labelCount}, nội dung: ${JSON.stringify(labelTexts)})`\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 214 |\u001b[39m     )\u001b[33m.\u001b[39mtoBe(\u001b[36mtrue\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 215 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 216 |\u001b[39m\n \u001b[90m 217 |\u001b[39m   test(\u001b[32m'EP-TC31: Để trống ô Tên danh mục trên UI rồi bấm Thêm phải bị chặn và không tạo bản ghi rỗng'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page\u001b[33m,\u001b[39m request }) \u001b[33m=>\u001b[39m {\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr14\\fr14_ui.spec.js",
+                            "column": 7,
+                            "line": 214
+                          },
+                          "message": "Error: Trường bắt buộc Tên danh mục phải có nhãn kèm dấu sao (*) theo FR-22 dòng 252 (số thẻ <label> tìm thấy: 0, nội dung: [])\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\n  212 |       hasLabelWithAsterisk,\n  213 |       `Trường bắt buộc Tên danh mục phải có nhãn kèm dấu sao (*) theo FR-22 dòng 252 (số thẻ <label> tìm thấy: ${labelCount}, nội dung: ${JSON.stringify(labelTexts)})`\n> 214 |     ).toBe(true);\n      |       ^\n  215 |   });\n  216 |\n  217 |   test('EP-TC31: Để trống ô Tên danh mục trên UI rồi bấm Thêm phải bị chặn và không tạo bản ghi rỗng', async ({ page, request }) => {\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr14\\fr14_ui.spec.js:214:7"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-15T16:16:00.090Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\KCPM\\eshop-sut\\reports\\evidence\\FR-14\\playwright-artifacts\\run_ui_2\\fr14_ui-Kiểm-thử-Giao-diện-cd58b-t-buộc-phải-có-ký-hiệu-dấu--chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr14\\fr14_ui.spec.js",
+                        "column": 7,
+                        "line": 214
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "7f2d0ea0b424166cb93b-5c64576d4dd26020e2cf",
+              "file": "fr14_ui.spec.js",
+              "line": 191,
+              "column": 3
+            },
+            {
+              "title": "EP-TC31: Để trống ô Tên danh mục trên UI rồi bấm Thêm phải bị chặn và không tạo bản ghi rỗng",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 1938,
+                      "error": {
+                        "message": "Error: Để trống ô Tên danh mục rồi bấm Thêm mới tuyệt đối không được tạo danh mục rỗng (trước: 3 bản ghi, sau: 4 bản ghi)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
+                        "stack": "Error: Để trống ô Tên danh mục rồi bấm Thêm mới tuyệt đối không được tạo danh mục rỗng (trước: 3 bản ghi, sau: 4 bản ghi)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr14\\fr14_ui.spec.js:241:7",
+                        "location": {
+                          "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr14\\fr14_ui.spec.js",
+                          "column": 7,
+                          "line": 241
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 239 |\u001b[39m       \u001b[33m!\u001b[39mcreatedEmpty\u001b[33m,\u001b[39m\n \u001b[90m 240 |\u001b[39m       \u001b[32m`Để trống ô Tên danh mục rồi bấm Thêm mới tuyệt đối không được tạo danh mục rỗng (trước: ${beforeCats.length} bản ghi, sau: ${afterCats.length} bản ghi)`\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 241 |\u001b[39m     )\u001b[33m.\u001b[39mtoBe(\u001b[36mtrue\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 242 |\u001b[39m\n \u001b[90m 243 |\u001b[39m     \u001b[36mawait\u001b[39m resetCategoriesViaApi(request)\u001b[33m;\u001b[39m\n \u001b[90m 244 |\u001b[39m   })\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr14\\fr14_ui.spec.js",
+                            "column": 7,
+                            "line": 241
+                          },
+                          "message": "Error: Để trống ô Tên danh mục rồi bấm Thêm mới tuyệt đối không được tạo danh mục rỗng (trước: 3 bản ghi, sau: 4 bản ghi)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\n  239 |       !createdEmpty,\n  240 |       `Để trống ô Tên danh mục rồi bấm Thêm mới tuyệt đối không được tạo danh mục rỗng (trước: ${beforeCats.length} bản ghi, sau: ${afterCats.length} bản ghi)`\n> 241 |     ).toBe(true);\n      |       ^\n  242 |\n  243 |     await resetCategoriesViaApi(request);\n  244 |   });\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr14\\fr14_ui.spec.js:241:7"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-15T16:16:01.660Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\KCPM\\eshop-sut\\reports\\evidence\\FR-14\\playwright-artifacts\\run_ui_2\\fr14_ui-Kiểm-thử-Giao-diện-a2d7a-n-và-không-tạo-bản-ghi-rỗng-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr14\\fr14_ui.spec.js",
+                        "column": 7,
+                        "line": 241
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "7f2d0ea0b424166cb93b-c13f313a6fe2a36ccfe8",
+              "file": "fr14_ui.spec.js",
+              "line": 217,
+              "column": 3
+            },
+            {
+              "title": "EP-TC32: Thông báo lỗi khi nhập không hợp lệ phải hiển thị phía TRÊN nút Submit",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 1815,
+                      "error": {
+                        "message": "Error: Khi bấm Thêm mới với ô Tên danh mục để trống, giao diện phải hiển thị thông báo lỗi phía trên nút Submit theo FR-22 (thực tế không có thông báo lỗi nào trên form)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
+                        "stack": "Error: Khi bấm Thêm mới với ô Tên danh mục để trống, giao diện phải hiển thị thông báo lỗi phía trên nút Submit theo FR-22 (thực tế không có thông báo lỗi nào trên form)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr14\\fr14_ui.spec.js:265:7",
+                        "location": {
+                          "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr14\\fr14_ui.spec.js",
+                          "column": 7,
+                          "line": 265
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 263 |\u001b[39m       errorCount \u001b[33m>\u001b[39m \u001b[35m0\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 264 |\u001b[39m       \u001b[32m'Khi bấm Thêm mới với ô Tên danh mục để trống, giao diện phải hiển thị thông báo lỗi phía trên nút Submit theo FR-22 (thực tế không có thông báo lỗi nào trên form)'\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 265 |\u001b[39m     )\u001b[33m.\u001b[39mtoBe(\u001b[36mtrue\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 266 |\u001b[39m\n \u001b[90m 267 |\u001b[39m     \u001b[36mif\u001b[39m (errorCount \u001b[33m>\u001b[39m \u001b[35m0\u001b[39m) {\n \u001b[90m 268 |\u001b[39m       \u001b[36mconst\u001b[39m errBox \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m errorAlert\u001b[33m.\u001b[39mfirst()\u001b[33m.\u001b[39mboundingBox()\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr14\\fr14_ui.spec.js",
+                            "column": 7,
+                            "line": 265
+                          },
+                          "message": "Error: Khi bấm Thêm mới với ô Tên danh mục để trống, giao diện phải hiển thị thông báo lỗi phía trên nút Submit theo FR-22 (thực tế không có thông báo lỗi nào trên form)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\n  263 |       errorCount > 0,\n  264 |       'Khi bấm Thêm mới với ô Tên danh mục để trống, giao diện phải hiển thị thông báo lỗi phía trên nút Submit theo FR-22 (thực tế không có thông báo lỗi nào trên form)'\n> 265 |     ).toBe(true);\n      |       ^\n  266 |\n  267 |     if (errorCount > 0) {\n  268 |       const errBox = await errorAlert.first().boundingBox();\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr14\\fr14_ui.spec.js:265:7"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-15T16:16:04.108Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\KCPM\\eshop-sut\\reports\\evidence\\FR-14\\playwright-artifacts\\run_ui_2\\fr14_ui-Kiểm-thử-Giao-diện-fd618-ển-thị-phía-TRÊN-nút-Submit-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr14\\fr14_ui.spec.js",
+                        "column": 7,
+                        "line": 265
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "7f2d0ea0b424166cb93b-534ee01de228627dcaed",
+              "file": "fr14_ui.spec.js",
+              "line": 246,
+              "column": 3
+            },
+            {
+              "title": "EP-TC33: Nút Thêm dùng màu xanh dương và nút Xóa dùng màu đỏ theo chuẩn FR-21",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1249,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-15T16:16:06.423Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "7f2d0ea0b424166cb93b-69c822839cddfbea7862",
+              "file": "fr14_ui.spec.js",
+              "line": 281,
+              "column": 3
+            },
+            {
+              "title": "EP-TC34: Trang có đúng 1 thẻ <h1>, ngôn ngữ tiếng Việt nhất quán, highlight mục Danh mục và nút \"Đăng xuất\"",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 1216,
+                      "error": {
+                        "message": "Error: Giao diện phải hiển thị hoàn toàn bằng tiếng Việt, không lẫn tiếng Anh theo FR-21 dòng 244 (phát hiện mục tiếng Anh trên thanh điều hướng: [\"Dashboard\",\"Danh mục\",\"Sản phẩm\",\"Mã Giảm Giá\",\"Đơn hàng\",\"Người dùng\",\"Đăng xuất\"])\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
+                        "stack": "Error: Giao diện phải hiển thị hoàn toàn bằng tiếng Việt, không lẫn tiếng Anh theo FR-21 dòng 244 (phát hiện mục tiếng Anh trên thanh điều hướng: [\"Dashboard\",\"Danh mục\",\"Sản phẩm\",\"Mã Giảm Giá\",\"Đơn hàng\",\"Người dùng\",\"Đăng xuất\"])\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr14\\fr14_ui.spec.js:354:7",
+                        "location": {
+                          "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr14\\fr14_ui.spec.js",
+                          "column": 7,
+                          "line": 354
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 352 |\u001b[39m       \u001b[33m!\u001b[39mhasEnglishMenu\u001b[33m,\u001b[39m\n \u001b[90m 353 |\u001b[39m       \u001b[32m`Giao diện phải hiển thị hoàn toàn bằng tiếng Việt, không lẫn tiếng Anh theo FR-21 dòng 244 (phát hiện mục tiếng Anh trên thanh điều hướng: ${JSON.stringify(sidebarItems)})`\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 354 |\u001b[39m     )\u001b[33m.\u001b[39mtoBe(\u001b[36mtrue\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 355 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 356 |\u001b[39m\n \u001b[90m 357 |\u001b[39m   test(\u001b[32m'EP-TC18 (UI): Chuỗi XSS <img src=x onerror=alert(1)> hiển thị dạng văn bản thuần, không thực thi script (SEC-04)'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page\u001b[33m,\u001b[39m request }) \u001b[33m=>\u001b[39m {\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr14\\fr14_ui.spec.js",
+                            "column": 7,
+                            "line": 354
+                          },
+                          "message": "Error: Giao diện phải hiển thị hoàn toàn bằng tiếng Việt, không lẫn tiếng Anh theo FR-21 dòng 244 (phát hiện mục tiếng Anh trên thanh điều hướng: [\"Dashboard\",\"Danh mục\",\"Sản phẩm\",\"Mã Giảm Giá\",\"Đơn hàng\",\"Người dùng\",\"Đăng xuất\"])\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\n  352 |       !hasEnglishMenu,\n  353 |       `Giao diện phải hiển thị hoàn toàn bằng tiếng Việt, không lẫn tiếng Anh theo FR-21 dòng 244 (phát hiện mục tiếng Anh trên thanh điều hướng: ${JSON.stringify(sidebarItems)})`\n> 354 |     ).toBe(true);\n      |       ^\n  355 |   });\n  356 |\n  357 |   test('EP-TC18 (UI): Chuỗi XSS <img src=x onerror=alert(1)> hiển thị dạng văn bản thuần, không thực thi script (SEC-04)', async ({ page, request }) => {\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr14\\fr14_ui.spec.js:354:7"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-15T16:16:07.771Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\KCPM\\eshop-sut\\reports\\evidence\\FR-14\\playwright-artifacts\\run_ui_2\\fr14_ui-Kiểm-thử-Giao-diện-728e9--Danh-mục-và-nút-Đăng-xuất--chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr14\\fr14_ui.spec.js",
+                        "column": 7,
+                        "line": 354
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "7f2d0ea0b424166cb93b-51ede3d376849e58888c",
+              "file": "fr14_ui.spec.js",
+              "line": 314,
+              "column": 3
+            },
+            {
+              "title": "EP-TC18 (UI): Chuỗi XSS <img src=x onerror=alert(1)> hiển thị dạng văn bản thuần, không thực thi script (SEC-04)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 5,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2184,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-15T16:16:09.393Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "7f2d0ea0b424166cb93b-863660207670d2292a78",
+              "file": "fr14_ui.spec.js",
+              "line": 357,
+              "column": 3
+            },
+            {
+              "title": "OB-TC01 (UI): Khi xóa hết danh mục (0 bản ghi), giao diện hiển thị Empty State có icon/hình minh họa (FR-24)",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 5,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 2088,
+                      "error": {
+                        "message": "Error: Khi danh sách danh mục trống (0 bản ghi), giao diện phải hiển thị trạng thái trống (Empty State) kèm icon/hình minh họa và thông báo thân thiện theo FR-24 dòng 269 (thông báo tìm thấy: 0, icon/hình: 0)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
+                        "stack": "Error: Khi danh sách danh mục trống (0 bản ghi), giao diện phải hiển thị trạng thái trống (Empty State) kèm icon/hình minh họa và thông báo thân thiện theo FR-24 dòng 269 (thông báo tìm thấy: 0, icon/hình: 0)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr14\\fr14_ui.spec.js:416:7",
+                        "location": {
+                          "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr14\\fr14_ui.spec.js",
+                          "column": 7,
+                          "line": 416
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 414 |\u001b[39m       emptyStateMsg \u001b[33m>\u001b[39m \u001b[35m0\u001b[39m \u001b[33m&&\u001b[39m emptyStateIcon \u001b[33m>\u001b[39m \u001b[35m0\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 415 |\u001b[39m       \u001b[32m`Khi danh sách danh mục trống (0 bản ghi), giao diện phải hiển thị trạng thái trống (Empty State) kèm icon/hình minh họa và thông báo thân thiện theo FR-24 dòng 269 (thông báo tìm thấy: ${emptyStateMsg}, icon/hình: ${emptyStateIcon})`\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 416 |\u001b[39m     )\u001b[33m.\u001b[39mtoBe(\u001b[36mtrue\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 417 |\u001b[39m\n \u001b[90m 418 |\u001b[39m     \u001b[90m// Khôi phục lại danh mục chuẩn sau khi kiểm thử\u001b[39m\n \u001b[90m 419 |\u001b[39m     \u001b[36mawait\u001b[39m resetCategoriesViaApi(request)\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr14\\fr14_ui.spec.js",
+                            "column": 7,
+                            "line": 416
+                          },
+                          "message": "Error: Khi danh sách danh mục trống (0 bản ghi), giao diện phải hiển thị trạng thái trống (Empty State) kèm icon/hình minh họa và thông báo thân thiện theo FR-24 dòng 269 (thông báo tìm thấy: 0, icon/hình: 0)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\n  414 |       emptyStateMsg > 0 && emptyStateIcon > 0,\n  415 |       `Khi danh sách danh mục trống (0 bản ghi), giao diện phải hiển thị trạng thái trống (Empty State) kèm icon/hình minh họa và thông báo thân thiện theo FR-24 dòng 269 (thông báo tìm thấy: ${emptyStateMsg}, icon/hình: ${emptyStateIcon})`\n> 416 |     ).toBe(true);\n      |       ^\n  417 |\n  418 |     // Khôi phục lại danh mục chuẩn sau khi kiểm thử\n  419 |     await resetCategoriesViaApi(request);\n    at D:\\KCPM\\eshop-sut\\tests\\ui-fr14\\fr14_ui.spec.js:416:7"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-15T16:16:11.677Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\KCPM\\eshop-sut\\reports\\evidence\\FR-14\\playwright-artifacts\\run_ui_2\\fr14_ui-Kiểm-thử-Giao-diện-17935-ó-icon-hình-minh-họa-FR-24--chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\KCPM\\eshop-sut\\tests\\ui-fr14\\fr14_ui.spec.js",
+                        "column": 7,
+                        "line": 416
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "7f2d0ea0b424166cb93b-2bc93c51a159c71130d4",
+              "file": "fr14_ui.spec.js",
+              "line": 391,
+              "column": 3
+            },
+            {
+              "title": "SR-TC02 (UI): Hiển thị đúng chuỗi danh mục tiếng Việt có dấu, ký tự đặc biệt (&, -, ()) và Emoji trên Web Admin",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 6,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2183,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-15T16:16:14.176Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "7f2d0ea0b424166cb93b-e70071b349418f83a451",
+              "file": "fr14_ui.spec.js",
+              "line": 422,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-15T16:15:53.358Z",
+    "duration": 23765.137,
+    "expected": 4,
+    "skipped": 0,
+    "unexpected": 6,
+    "flaky": 0
+  }
+}
