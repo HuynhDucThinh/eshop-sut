@@ -1,0 +1,933 @@
+{
+  "baseUrl": "http://localhost:3000",
+  "results": [
+    {
+      "id": "EP-TC01",
+      "covers": "EC01, EC06, EC17, EC27, EC35",
+      "desc": "Đặt hàng hợp lệ không dùng mã giảm giá (giỏ 500,000 ₫, địa chỉ chuẩn 44 ký tự)",
+      "kind": "API",
+      "expected": "OC-CHECKOUT-OK(500000, ADDR_NOM): HTTP 200, tạo đơn status=\"pending\", total_amount=500000, xóa rỗng giỏ hàng (FR-08, FR-20.3)",
+      "status": "Fail",
+      "reasons": [
+        "Vi phạm FR-08 dòng 106 (R6): Sau khi thanh toán thành công, giỏ hàng không được làm rỗng (còn 1 mục)"
+      ],
+      "oracleLogs": [
+        "Đơn hàng: 0 -> 1 (id=1, status=pending, total=500000, addrLen=44); Giỏ hàng sau checkout: 1 mục"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"total_amount\":500000,\"shipping_address\":\"123 Lê Lợi, Phường Bến Thành, Quận 1, TP.HCM\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":1}",
+      "executedAt": "2026-10-16T16:16:58.817Z"
+    },
+    {
+      "id": "EP-TC02",
+      "covers": "EC01, EC08, EC14, EC23, EC33, EC35",
+      "desc": "Áp mã SAVE10 (percent 10%) hợp lệ trên đơn 500,000 ₫ rồi tiến hành Đặt hàng liên thông (Q3)",
+      "kind": "API",
+      "expected": "Bước 1: OC-COUPON-OK(50000, 450000); Bước 2: OC-CHECKOUT-OK(450000, ADDR_NOM), xóa rỗng giỏ hàng (FR-09, FR-08, Q3)",
+      "status": "Fail",
+      "reasons": [
+        "Sai discount_amount: kỳ vọng 50000, thực tế -4500000",
+        "Sai final_amount: kỳ vọng 450000, thực tế 5000000",
+        "Vi phạm FR-08 dòng 106 (R6): Sau khi thanh toán thành công, giỏ hàng không được làm rỗng (còn 1 mục)"
+      ],
+      "oracleLogs": [
+        "discount_amount=-4500000, final_amount=5000000",
+        "Đơn hàng: 0 -> 1 (id=2, status=pending, total=450000, addrLen=44); Giỏ hàng sau checkout: 1 mục"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"total_amount\":450000,\"shipping_address\":\"123 Lê Lợi, Phường Bến Thành, Quận 1, TP.HCM\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":2}",
+      "executedAt": "2026-10-16T16:16:59.121Z"
+    },
+    {
+      "id": "EP-TC03",
+      "covers": "EC01, EC10, EC15, EC23, EC34",
+      "desc": "Áp mã BIGBUY (fixed 50,000 ₫, ngưỡng 500,000 ₫) hợp lệ trên đơn 600,000 ₫",
+      "kind": "API",
+      "expected": "OC-COUPON-OK(50000, 550000): HTTP 200, discount_amount=50000, final_amount=550000 (FR-09 dòng 125-126, 131)",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "discount_amount=50000, final_amount=550000"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/apply-coupon\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"code\":\"BIGBUY\",\"total_amount\":600000,\"user_id\":2}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"success\":true,\"coupon_id\":2,\"discount_amount\":50000,\"final_amount\":550000,\"message\":\"Áp dụng thành công! Giảm 50,000 ₫\"}",
+      "executedAt": "2026-10-16T16:16:59.444Z"
+    },
+    {
+      "id": "EP-TC04",
+      "covers": "EC01, EC08, EC16, EC25, EC34",
+      "desc": "Áp mã VIP100 (fixed 100,000 ₫, max_uses_per_user = 2) ở lần sử dụng thứ 2 (usage_count = 1 < 2)",
+      "kind": "API",
+      "expected": "OC-COUPON-OK(100000, 400000): HTTP 200, lần dùng thứ 2 vẫn hợp lệ vì max_uses_per_user=2 (FR-09 dòng 120, 132)",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "discount_amount=100000, final_amount=400000"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/apply-coupon\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"code\":\"VIP100\",\"total_amount\":500000,\"user_id\":2}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"success\":true,\"coupon_id\":3,\"discount_amount\":100000,\"final_amount\":400000,\"message\":\"Áp dụng thành công! Giảm 100,000 ₫\"}",
+      "executedAt": "2026-10-16T16:16:59.684Z"
+    },
+    {
+      "id": "EP-TC05",
+      "covers": "EC02, EC36",
+      "desc": "Gọi POST /api/apply-coupon khi chưa đăng nhập (không gửi Header Authorization) — vi phạm C4",
+      "kind": "API",
+      "expected": "REJ-COUPON (401 Unauthorized): Bắt buộc có JWT Token hợp lệ theo điều kiện C4 (README dòng 119, SEC-02, Q2)",
+      "status": "Fail",
+      "reasons": [
+        "Vi phạm điều kiện C4 (README dòng 119) & SEC-02: Gọi /api/apply-coupon không có JWT Token nhưng vẫn trả HTTP 200 ({\"success\":true,\"coupon_id\":1,\"discount_amount\":-4500000,\"final_amount\":5000000,…)"
+      ],
+      "oracleLogs": [
+        "Phản hồi khi không có JWT Header: HTTP 200"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/apply-coupon\" -Method POST -ContentType 'application/json' -Body '{\"code\":\"SAVE10\",\"total_amount\":500000,\"user_id\":2}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"success\":true,\"coupon_id\":1,\"discount_amount\":-4500000,\"final_amount\":5000000,\"message\":\"Áp dụng thành công! Giảm 10%\"}",
+      "executedAt": "2026-10-16T16:16:59.965Z"
+    },
+    {
+      "id": "EP-TC06",
+      "covers": "EC03, EC36",
+      "desc": "Gọi POST /api/apply-coupon với Header Authorization: Bearer token.gia.mao — vi phạm C4",
+      "kind": "API",
+      "expected": "REJ-COUPON (401/403): Từ chối JWT Token giả mạo theo điều kiện C4 (README dòng 119, SEC-02, Q2)",
+      "status": "Fail",
+      "reasons": [
+        "Vi phạm điều kiện C4 (README dòng 119) & SEC-02: Gửi JWT giả mạo nhưng /api/apply-coupon vẫn trả HTTP 200"
+      ],
+      "oracleLogs": [
+        "Phản hồi khi gửi JWT giả mạo: HTTP 200"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/apply-coupon\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"code\":\"SAVE10\",\"total_amount\":500000,\"user_id\":2}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"success\":true,\"coupon_id\":1,\"discount_amount\":-4500000,\"final_amount\":5000000,\"message\":\"Áp dụng thành công! Giảm 10%\"}",
+      "executedAt": "2026-10-16T16:17:00.226Z"
+    },
+    {
+      "id": "EP-TC07",
+      "covers": "EC04, EC36",
+      "desc": "Gọi POST /api/apply-coupon khi user_id=null hoặc mạo danh user_id=1 khác với chủ sở hữu JWT (user_id=2)",
+      "kind": "API",
+      "expected": "REJ-COUPON (400/403): Từ chối khi thiếu user_id hoặc mạo danh user_id của người khác (C4, C5, Q2)",
+      "status": "Fail",
+      "reasons": [
+        "Kỳ vọng 4xx khi user_id=null, thực tế nhận HTTP 200",
+        "Vi phạm C4/C5 (IDOR): User 2 mạo danh user_id=1 trong body vẫn được chấp nhận HTTP 200"
+      ],
+      "oracleLogs": [
+        "user_id=null -> HTTP 200; mạo danh user_id=1 -> HTTP 200"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/apply-coupon\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"code\":\"SAVE10\",\"total_amount\":500000,\"user_id\":1}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"success\":true,\"coupon_id\":1,\"discount_amount\":-4500000,\"final_amount\":5000000,\"message\":\"Áp dụng thành công! Giảm 10%\"}",
+      "executedAt": "2026-10-16T16:17:00.508Z"
+    },
+    {
+      "id": "EP-TC08",
+      "covers": "EC05, EC37",
+      "desc": "Gọi POST /api/checkout khi không gửi Header Authorization",
+      "kind": "API",
+      "expected": "REJ-CHECKOUT (401 Unauthorized + OC-ORDER-NO) (FR-08 dòng 104, SEC-02)",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "Đơn hàng: 0 -> 0; Giỏ hàng: 1 -> 1"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Body '{\"total_amount\":500000,\"shipping_address\":\"123 Lê Lợi, Phường Bến Thành, Quận 1, TP.HCM\"}' -SkipHttpErrorCheck",
+      "actualStatus": 401,
+      "actualBody": "{\"error\":\"Unauthorized\"}",
+      "executedAt": "2026-10-16T16:17:00.777Z"
+    },
+    {
+      "id": "EP-TC09",
+      "covers": "EC07, EC37",
+      "desc": "Gọi POST /api/checkout khi giỏ hàng trống (0 sản phẩm trong CSDL)",
+      "kind": "API",
+      "expected": "REJ-CHECKOUT (400 Bad Request + OC-ORDER-NO): Không cho phép tạo đơn hàng khi giỏ hàng rỗng (FR-08 dòng 104)",
+      "status": "Fail",
+      "reasons": [
+        "Kỳ vọng HTTP 400 khi từ chối thanh toán, thực tế nhận HTTP 200",
+        "Vi phạm OC-ORDER-NO: Yêu cầu không hợp lệ nhưng vẫn tạo thêm 1 đơn hàng rác trong DB"
+      ],
+      "oracleLogs": [
+        "Đơn hàng: 0 -> 1; Giỏ hàng: 0 -> 0"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"total_amount\":500000,\"shipping_address\":\"123 Lê Lợi, Phường Bến Thành, Quận 1, TP.HCM\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":3}",
+      "executedAt": "2026-10-16T16:17:00.999Z"
+    },
+    {
+      "id": "EP-TC10",
+      "covers": "EC09, EC36",
+      "desc": "Áp mã SAVE10 khi tổng tiền đơn hàng chưa đạt mức tối thiểu (total_amount = 200,000 < 300,000 ₫) — vi phạm C3",
+      "kind": "API",
+      "expected": "REJ-COUPON (400 Bad Request): Từ chối vì 200,000 < min_order_amount 300,000 (FR-09 C3 dòng 118, 130)",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "total=200000 với SAVE10 (min=300000) -> HTTP 400"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/apply-coupon\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"code\":\"SAVE10\",\"total_amount\":200000,\"user_id\":2}' -SkipHttpErrorCheck",
+      "actualStatus": 400,
+      "actualBody": "{\"error\":\"Đơn hàng chưa đủ giá trị tối thiểu 300,000 ₫ để áp dụng mã này\"}",
+      "executedAt": "2026-10-16T16:17:01.262Z"
+    },
+    {
+      "id": "EP-TC11",
+      "covers": "EC11, EC36",
+      "desc": "Áp mã BIGBUY khi tổng tiền đơn hàng chưa đạt ngưỡng 500,000 ₫ (total_amount = 400,000 < 500,000 ₫) — vi phạm C3",
+      "kind": "API",
+      "expected": "REJ-COUPON (400 Bad Request): Từ chối vì 400,000 < min_order_amount 500,000 (FR-09 C3 dòng 118, 131)",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "total=400000 với BIGBUY (min=500000) -> HTTP 400"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/apply-coupon\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"code\":\"BIGBUY\",\"total_amount\":400000,\"user_id\":2}' -SkipHttpErrorCheck",
+      "actualStatus": 400,
+      "actualBody": "{\"error\":\"Đơn hàng chưa đủ giá trị tối thiểu 500,000 ₫ để áp dụng mã này\"}",
+      "executedAt": "2026-10-16T16:17:01.548Z"
+    },
+    {
+      "id": "EP-TC12",
+      "covers": "EC12, EC36",
+      "desc": "Áp mã SAVE10 với total_amount âm (-100,000 ₫)",
+      "kind": "API",
+      "expected": "REJ-COUPON (400 Bad Request): Tổng tiền âm không hợp lệ (FR-09 C3 dòng 118)",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "total=-100000 -> HTTP 400"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/apply-coupon\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"code\":\"SAVE10\",\"total_amount\":-100000,\"user_id\":2}' -SkipHttpErrorCheck",
+      "actualStatus": 400,
+      "actualBody": "{\"error\":\"Đơn hàng chưa đủ giá trị tối thiểu 300,000 ₫ để áp dụng mã này\"}",
+      "executedAt": "2026-10-16T16:17:01.829Z"
+    },
+    {
+      "id": "EP-TC13",
+      "covers": "EC13, EC37",
+      "desc": "Client gửi total_amount = 1,000 ₫ gian lận khi giỏ hàng thực tế là 500,000 ₫ tại POST /api/checkout (vi phạm R5)",
+      "kind": "API",
+      "expected": "Từ chối 400 Bad Request hoặc Backend tự tính lại đúng 500,000 ₫ từ giỏ hàng; tuyệt đối không lưu đơn 1,000 ₫ (FR-08 dòng 107)",
+      "status": "Fail",
+      "reasons": [
+        "Vi phạm FR-08 dòng 107 (R5): Backend chấp nhận nguyên xi total_amount=1000 gian lận từ client thay vì tự tính lại 500000 ₫ từ giỏ hàng"
+      ],
+      "oracleLogs": [
+        "HTTP 200; Đơn mới lưu total_amount=1000"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"total_amount\":1000,\"shipping_address\":\"123 Lê Lợi, Phường Bến Thành, Quận 1, TP.HCM\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":4}",
+      "executedAt": "2026-10-16T16:17:02.091Z"
+    },
+    {
+      "id": "EP-TC14",
+      "covers": "EC18, EC36",
+      "desc": "Áp mã giảm giá không tồn tại trong hệ thống (code = \"NOTEXIST99\") — vi phạm C1 vế 1",
+      "kind": "API",
+      "expected": "REJ-COUPON (400/404): Từ chối vì mã không tồn tại (FR-09 C1 dòng 116)",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "code=\"NOTEXIST99\" -> HTTP 404"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/apply-coupon\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"code\":\"NOTEXIST99\",\"total_amount\":500000,\"user_id\":2}' -SkipHttpErrorCheck",
+      "actualStatus": 404,
+      "actualBody": "{\"error\":\"Mã giảm giá không tồn tại hoặc đã bị vô hiệu hóa\"}",
+      "executedAt": "2026-10-16T16:17:02.369Z"
+    },
+    {
+      "id": "EP-TC15",
+      "covers": "EC19, EC36",
+      "desc": "Áp mã giảm giá tồn tại nhưng đang bị vô hiệu hóa (code = \"INACTIVE10\", is_active = 0) — vi phạm C1 vế 2",
+      "kind": "API",
+      "expected": "REJ-COUPON (400 Bad Request): Từ chối vì mã có is_active = 0 (FR-09 C1 dòng 116, Q5)",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "code=\"INACTIVE10\" (is_active=0) -> HTTP 404"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/apply-coupon\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"code\":\"INACTIVE10\",\"total_amount\":500000,\"user_id\":2}' -SkipHttpErrorCheck",
+      "actualStatus": 404,
+      "actualBody": "{\"error\":\"Mã giảm giá không tồn tại hoặc đã bị vô hiệu hóa\"}",
+      "executedAt": "2026-10-16T16:17:02.656Z"
+    },
+    {
+      "id": "EP-TC16",
+      "covers": "EC20, EC36",
+      "desc": "Áp mã giảm giá đã hết hạn (code = \"EXPIRED\", expired_at = 2020-01-01 < NOW) — vi phạm C2",
+      "kind": "API",
+      "expected": "REJ-COUPON (400 Bad Request): Từ chối vì mã đã hết hạn theo điều kiện C2 (FR-09 dòng 117, 133)",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "code=\"EXPIRED\" (expired_at=2020-01-01) -> HTTP 400 ({\"error\":\"Mã giảm giá đã hết hạn\"})"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/apply-coupon\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"code\":\"EXPIRED\",\"total_amount\":500000,\"user_id\":2}' -SkipHttpErrorCheck",
+      "actualStatus": 400,
+      "actualBody": "{\"error\":\"Mã giảm giá đã hết hạn\"}",
+      "executedAt": "2026-10-16T16:17:02.963Z"
+    },
+    {
+      "id": "EP-TC17",
+      "covers": "EC21, EC36",
+      "desc": "Áp mã giảm giá rỗng (code = \"\")",
+      "kind": "API",
+      "expected": "REJ-COUPON (400 Bad Request): Mã giảm giá rỗng phải bị từ chối (FR-09 C1)",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "code=\"\" -> HTTP 400"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/apply-coupon\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"code\":\"\",\"total_amount\":500000,\"user_id\":2}' -SkipHttpErrorCheck",
+      "actualStatus": 400,
+      "actualBody": "{\"error\":\"Vui lòng nhập mã giảm giá\"}",
+      "executedAt": "2026-10-16T16:17:03.257Z"
+    },
+    {
+      "id": "EP-TC18",
+      "covers": "EC22, EC36",
+      "desc": "Áp mã giảm giá chỉ gồm khoảng trắng (code = \"     \")",
+      "kind": "API",
+      "expected": "REJ-COUPON (400 Bad Request): Chuỗi khoảng trắng phải bị từ chối (FR-09 C1, Q6)",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "code=\"     \" -> HTTP 404"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/apply-coupon\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"code\":\"     \",\"total_amount\":500000,\"user_id\":2}' -SkipHttpErrorCheck",
+      "actualStatus": 404,
+      "actualBody": "{\"error\":\"Mã giảm giá không tồn tại hoặc đã bị vô hiệu hóa\"}",
+      "executedAt": "2026-10-16T16:17:03.560Z"
+    },
+    {
+      "id": "EP-TC19",
+      "covers": "EC24, EC36",
+      "desc": "Áp mã SAVE10 lần thứ 2 sau khi cùng user đã dùng 1 lần (vượt max_uses_per_user = 1) — vi phạm C5",
+      "kind": "API",
+      "expected": "REJ-COUPON (400 Bad Request): Từ chối vì usage_count = 1 >= max_uses_per_user (1) theo điều kiện C5 (README dòng 120, 130, Q4)",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "Gọi SAVE10 lần 2 (sau khi đã có 1 lượt dùng trong coupon_usage, max_uses=1) -> HTTP 400 ({\"error\":\"Bạn đã sử dụng mã này 1 lần (đã đạt giới hạn)\"})"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/apply-coupon\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"code\":\"SAVE10\",\"total_amount\":500000,\"user_id\":2}' -SkipHttpErrorCheck",
+      "actualStatus": 400,
+      "actualBody": "{\"error\":\"Bạn đã sử dụng mã này 1 lần (đã đạt giới hạn)\"}",
+      "executedAt": "2026-10-16T16:17:03.853Z"
+    },
+    {
+      "id": "EP-TC20",
+      "covers": "EC26, EC36",
+      "desc": "Áp mã VIP100 lần thứ 3 sau khi cùng user đã dùng đủ 2 lần (vượt max_uses_per_user = 2) — vi phạm C5",
+      "kind": "API",
+      "expected": "REJ-COUPON (400 Bad Request): Từ chối vì usage_count = 2 >= max_uses_per_user (2) theo điều kiện C5 (README dòng 120, 132, Q4)",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "Gọi VIP100 lần 3 (sau khi đã có 2 lượt dùng trong coupon_usage, max_uses=2) -> HTTP 400 ({\"error\":\"Bạn đã sử dụng mã này 2 lần (đã đạt giới hạn)\"})"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/apply-coupon\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"code\":\"VIP100\",\"total_amount\":500000,\"user_id\":2}' -SkipHttpErrorCheck",
+      "actualStatus": 400,
+      "actualBody": "{\"error\":\"Bạn đã sử dụng mã này 2 lần (đã đạt giới hạn)\"}",
+      "executedAt": "2026-10-16T16:17:04.184Z"
+    },
+    {
+      "id": "EP-TC21",
+      "covers": "EC28, EC37",
+      "desc": "Đặt hàng với shipping_address rỗng (\"\") tại POST /api/checkout",
+      "kind": "API",
+      "expected": "REJ-CHECKOUT (400 Bad Request + OC-ORDER-NO): Địa chỉ giao hàng bắt buộc không được rỗng (FR-08 dòng 105, FR-22)",
+      "status": "Fail",
+      "reasons": [
+        "Kỳ vọng HTTP 400 khi từ chối thanh toán, thực tế nhận HTTP 200",
+        "Vi phạm OC-ORDER-NO: Yêu cầu không hợp lệ nhưng vẫn tạo thêm 1 đơn hàng rác trong DB"
+      ],
+      "oracleLogs": [
+        "Đơn hàng: 0 -> 1; Giỏ hàng: 1 -> 1"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"total_amount\":500000,\"shipping_address\":\"\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":8}",
+      "executedAt": "2026-10-16T16:17:04.476Z"
+    },
+    {
+      "id": "EP-TC22",
+      "covers": "EC29, EC37",
+      "desc": "Đặt hàng với shipping_address chỉ chứa khoảng trắng (\"      \") tại POST /api/checkout",
+      "kind": "API",
+      "expected": "REJ-CHECKOUT (400 Bad Request + OC-ORDER-NO): Không chấp nhận địa chỉ toàn khoảng trắng (FR-08 dòng 105, Q1)",
+      "status": "Fail",
+      "reasons": [
+        "Kỳ vọng HTTP 400 khi từ chối thanh toán, thực tế nhận HTTP 200",
+        "Vi phạm OC-ORDER-NO: Yêu cầu không hợp lệ nhưng vẫn tạo thêm 1 đơn hàng rác trong DB"
+      ],
+      "oracleLogs": [
+        "Đơn hàng: 0 -> 1; Giỏ hàng: 1 -> 1"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"total_amount\":500000,\"shipping_address\":\"      \"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":9}",
+      "executedAt": "2026-10-16T16:17:04.698Z"
+    },
+    {
+      "id": "EP-TC23",
+      "covers": "EC30, EC37",
+      "desc": "Đặt hàng với shipping_address dài 300 ký tự (> 255 ký tự theo Q1/Q8)",
+      "kind": "API",
+      "expected": "REJ-CHECKOUT (400 Bad Request + OC-ORDER-NO) theo giả định cận trên 255 ký tự (Q1, Q8)",
+      "status": "Fail",
+      "reasons": [
+        "Kỳ vọng HTTP 400 khi từ chối thanh toán, thực tế nhận HTTP 200",
+        "Vi phạm OC-ORDER-NO: Yêu cầu không hợp lệ nhưng vẫn tạo thêm 1 đơn hàng rác trong DB"
+      ],
+      "oracleLogs": [
+        "Đơn hàng: 0 -> 1; Giỏ hàng: 1 -> 1"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"total_amount\":500000,\"shipping_address\":\"AAAAAAAAAAAAAAAAAAAA…(300 ký tự)\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":10}",
+      "executedAt": "2026-10-16T16:17:04.985Z"
+    },
+    {
+      "id": "EP-TC24",
+      "covers": "EC31, EC37",
+      "desc": "Đặt hàng với shipping_address sai kiểu dữ liệu (số nguyên 12345)",
+      "kind": "API",
+      "expected": "REJ-CHECKOUT (400 Bad Request + OC-ORDER-NO) (api_spec dòng 135)",
+      "status": "Fail",
+      "reasons": [
+        "Kỳ vọng HTTP 400 khi từ chối thanh toán, thực tế nhận HTTP 200",
+        "Vi phạm OC-ORDER-NO: Yêu cầu không hợp lệ nhưng vẫn tạo thêm 1 đơn hàng rác trong DB"
+      ],
+      "oracleLogs": [
+        "Đơn hàng: 0 -> 1; Giỏ hàng: 1 -> 1"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"total_amount\":500000,\"shipping_address\":12345}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":11}",
+      "executedAt": "2026-10-16T16:17:05.280Z"
+    },
+    {
+      "id": "EP-TC25",
+      "covers": "EC32, EC35",
+      "desc": "Đặt hàng với shipping_address chứa chuỗi HTML/script \"<img src=x onerror=alert(1)> 123 Lê Lợi\" (SEC-04)",
+      "kind": "API+UI",
+      "expected": "Nếu tạo đơn: lưu chuỗi văn bản và xóa giỏ hàng; khi hiển thị trên UI phải được escape an toàn không thực thi script (SEC-04)",
+      "status": "Fail",
+      "reasons": [
+        "Vi phạm FR-08 dòng 106 (R6): Sau khi thanh toán thành công, giỏ hàng không được làm rỗng (còn 1 mục)"
+      ],
+      "oracleLogs": [
+        "Đơn hàng: 0 -> 1 (id=12, status=pending, total=500000, addrLen=39); Giỏ hàng sau checkout: 1 mục"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"total_amount\":500000,\"shipping_address\":\"<img src=x onerror=alert(1)> 123 Lê Lợi\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":12}",
+      "executedAt": "2026-10-16T16:17:05.569Z"
+    },
+    {
+      "id": "EP-TC26",
+      "covers": "EC01, EC06, EC08, EC14, EC27, EC33, EC35, EC38",
+      "desc": "Luồng Áp mã SAVE10 và Đặt hàng hợp lệ trên màn hình Giỏ hàng/Thanh toán Mobile (390x844)",
+      "kind": "UI",
+      "expected": "Hiển thị giảm 50,000 ₫ còn 450,000 ₫; nhập địa chỉ và bấm Thanh toán tạo đơn thành công, làm rỗng giỏ hàng (FR-20.3)",
+      "status": "Not run",
+      "reasons": [
+        "Ca UI kiểm thử qua trình duyệt Playwright CLI (xem run_ui_results.md)"
+      ],
+      "oracleLogs": [],
+      "powershellCommand": "",
+      "actualStatus": null,
+      "actualBody": "",
+      "executedAt": "2026-10-16T16:17:05.569Z"
+    },
+    {
+      "id": "EP-TC27",
+      "covers": "EC20, EC36, EC39",
+      "desc": "Nhập mã hết hạn EXPIRED trên màn hình Mobile rồi bấm Áp dụng",
+      "kind": "UI",
+      "expected": "Hiển thị thông báo lỗi rõ ràng bằng tiếng Việt trên màn hình Mobile; tổng tiền giữ nguyên 500,000 ₫ (FR-20.3, FR-21)",
+      "status": "Not run",
+      "reasons": [
+        "Ca UI kiểm thử qua trình duyệt Playwright CLI (xem run_ui_results.md)"
+      ],
+      "oracleLogs": [],
+      "powershellCommand": "",
+      "actualStatus": null,
+      "actualBody": "",
+      "executedAt": "2026-10-16T16:17:05.569Z"
+    },
+    {
+      "id": "EP-TC28",
+      "covers": "EC40",
+      "desc": "Kiểm tra sự tồn tại của ô nhập Địa chỉ giao hàng và ký hiệu dấu * bắt buộc trên màn hình Thanh toán Mobile",
+      "kind": "UI",
+      "expected": "Màn hình Thanh toán Mobile có ô nhập Địa chỉ giao hàng kèm nhãn dấu * bắt buộc (FR-08 dòng 105, FR-22 dòng 252)",
+      "status": "Not run",
+      "reasons": [
+        "Ca UI kiểm thử qua trình duyệt Playwright CLI (xem run_ui_results.md)"
+      ],
+      "oracleLogs": [],
+      "powershellCommand": "",
+      "actualStatus": null,
+      "actualBody": "",
+      "executedAt": "2026-10-16T16:17:05.569Z"
+    },
+    {
+      "id": "EP-TC29",
+      "covers": "EC28, EC37, EC41",
+      "desc": "Để trống Địa chỉ giao hàng trên màn hình Mobile rồi bấm Thanh toán",
+      "kind": "UI",
+      "expected": "Bị chặn không cho đặt hàng; thông báo lỗi hiển thị phía trên nút Submit; không tạo đơn hàng thiếu địa chỉ (FR-08, FR-22)",
+      "status": "Not run",
+      "reasons": [
+        "Ca UI kiểm thử qua trình duyệt Playwright CLI (xem run_ui_results.md)"
+      ],
+      "oracleLogs": [],
+      "powershellCommand": "",
+      "actualStatus": null,
+      "actualBody": "",
+      "executedAt": "2026-10-16T16:17:05.569Z"
+    },
+    {
+      "id": "EP-TC30",
+      "covers": "EC42",
+      "desc": "Kiểm tra định dạng tiền tệ ₫ (dấu phân cách hàng nghìn) và ngôn ngữ tiếng Việt nhất quán trên màn hình Giỏ hàng/Thanh toán Mobile",
+      "kind": "UI",
+      "expected": "Số tiền có dấu phân cách hàng nghìn kèm ký hiệu ₫; ngôn ngữ tiếng Việt nhất quán không lẫn tiếng Anh (FR-21 dòng 244, 248)",
+      "status": "Not run",
+      "reasons": [
+        "Ca UI kiểm thử qua trình duyệt Playwright CLI (xem run_ui_results.md)"
+      ],
+      "oracleLogs": [],
+      "powershellCommand": "",
+      "actualStatus": null,
+      "actualBody": "",
+      "executedAt": "2026-10-16T16:17:05.569Z"
+    },
+    {
+      "id": "BV-TC01",
+      "covers": "B01 LB (qty = 1 SP)",
+      "desc": "Thanh toán giỏ hàng tại biên dưới số lượng sản phẩm LB = 1 SP (250,000 ₫)",
+      "kind": "API",
+      "expected": "OC-CHECKOUT-OK(250000, ADDR_NOM): HTTP 200, tạo đơn total_amount=250000, xóa rỗng giỏ hàng",
+      "status": "Fail",
+      "reasons": [
+        "Vi phạm FR-08 dòng 106 (R6): Sau khi thanh toán thành công, giỏ hàng không được làm rỗng (còn 1 mục)"
+      ],
+      "oracleLogs": [
+        "Đơn hàng: 0 -> 1 (id=13, status=pending, total=250000, addrLen=44); Giỏ hàng sau checkout: 1 mục"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"total_amount\":250000,\"shipping_address\":\"123 Lê Lợi, Phường Bến Thành, Quận 1, TP.HCM\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":13}",
+      "executedAt": "2026-10-16T16:17:05.786Z"
+    },
+    {
+      "id": "BV-TC02",
+      "covers": "B01 LB+δ (qty = 2 SP)",
+      "desc": "Thanh toán giỏ hàng tại sát biên dưới số lượng sản phẩm LB+δ = 2 SP (500,000 ₫)",
+      "kind": "API",
+      "expected": "OC-CHECKOUT-OK(500000, ADDR_NOM): HTTP 200, tạo đơn total_amount=500000, xóa rỗng giỏ hàng",
+      "status": "Fail",
+      "reasons": [
+        "Vi phạm FR-08 dòng 106 (R6): Sau khi thanh toán thành công, giỏ hàng không được làm rỗng (còn 1 mục)"
+      ],
+      "oracleLogs": [
+        "Đơn hàng: 0 -> 1 (id=14, status=pending, total=500000, addrLen=44); Giỏ hàng sau checkout: 1 mục"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"total_amount\":500000,\"shipping_address\":\"123 Lê Lợi, Phường Bến Thành, Quận 1, TP.HCM\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":14}",
+      "executedAt": "2026-10-16T16:17:06.061Z"
+    },
+    {
+      "id": "BV-TC03",
+      "covers": "B01 UB-δ (qty = 9 SP, stock = 10)",
+      "desc": "Thêm vào giỏ và thanh toán số lượng sản phẩm tại sát biên trên tồn kho UB-δ = 9 SP (2,250,000 ₫)",
+      "kind": "API",
+      "expected": "OC-CHECKOUT-OK(2250000, ADDR_NOM): HTTP 200, tạo đơn total_amount=2250000, xóa rỗng giỏ hàng",
+      "status": "Fail",
+      "reasons": [
+        "Vi phạm FR-08 dòng 106 (R6): Sau khi thanh toán thành công, giỏ hàng không được làm rỗng (còn 1 mục)"
+      ],
+      "oracleLogs": [
+        "Đơn hàng: 0 -> 1 (id=15, status=pending, total=2250000, addrLen=44); Giỏ hàng sau checkout: 1 mục"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"total_amount\":2250000,\"shipping_address\":\"123 Lê Lợi, Phường Bến Thành, Quận 1, TP.HCM\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":15}",
+      "executedAt": "2026-10-16T16:17:06.278Z"
+    },
+    {
+      "id": "BV-TC04",
+      "covers": "B01 UB (qty = 10 SP = stock)",
+      "desc": "Thêm vào giỏ và thanh toán số lượng sản phẩm chạm đúng biên trên tồn kho UB = 10 SP (2,500,000 ₫)",
+      "kind": "API",
+      "expected": "OC-CHECKOUT-OK(2500000, ADDR_NOM): HTTP 200, tạo đơn total_amount=2500000, xóa rỗng giỏ hàng",
+      "status": "Fail",
+      "reasons": [
+        "Vi phạm FR-08 dòng 106 (R6): Sau khi thanh toán thành công, giỏ hàng không được làm rỗng (còn 1 mục)"
+      ],
+      "oracleLogs": [
+        "Đơn hàng: 0 -> 1 (id=16, status=pending, total=2500000, addrLen=44); Giỏ hàng sau checkout: 1 mục"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"total_amount\":2500000,\"shipping_address\":\"123 Lê Lợi, Phường Bến Thành, Quận 1, TP.HCM\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":16}",
+      "executedAt": "2026-10-16T16:17:06.546Z"
+    },
+    {
+      "id": "BV-TC05",
+      "covers": "B01 UB+δ (qty = 11 SP > stock = 10)",
+      "desc": "Thêm vào giỏ và thanh toán số lượng vượt biên trên tồn kho UB+δ = 11 SP (khi stock = 10)",
+      "kind": "API",
+      "expected": "Từ chối 400 Bad Request khi thêm vào giỏ hoặc khi thanh toán vượt tồn kho (FR-07 dòng 98, FR-08 dòng 104)",
+      "status": "Fail",
+      "reasons": [
+        "Vi phạm biên trên tồn kho B01 (FR-07 dòng 98 & FR-08): Sản phẩm có stock=10 nhưng hệ thống vẫn cho thêm vào giỏ (HTTP 200) và thanh toán thành công (HTTP 200) với quantity=11"
+      ],
+      "oracleLogs": [
+        "POST /api/cart (qty=11, stock=10) -> HTTP 200; POST /api/checkout -> HTTP 200; Đơn hàng: 0 -> 1"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"total_amount\":2750000,\"shipping_address\":\"123 Lê Lợi, Phường Bến Thành, Quận 1, TP.HCM\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":17}",
+      "executedAt": "2026-10-16T16:17:06.826Z"
+    },
+    {
+      "id": "BV-TC06",
+      "covers": "B02 LB (len(shipping_address) = 1 ký tự)",
+      "desc": "Đặt hàng với địa chỉ giao hàng tại biên dưới độ dài LB = 1 ký tự (\"A\")",
+      "kind": "API",
+      "expected": "OC-CHECKOUT-OK(500000, \"A\"): HTTP 200, lưu địa chỉ \"A\", xóa rỗng giỏ hàng (FR-08 dòng 105, Q1)",
+      "status": "Fail",
+      "reasons": [
+        "Vi phạm FR-08 dòng 106 (R6): Sau khi thanh toán thành công, giỏ hàng không được làm rỗng (còn 1 mục)"
+      ],
+      "oracleLogs": [
+        "Đơn hàng: 0 -> 1 (id=18, status=pending, total=500000, addrLen=1); Giỏ hàng sau checkout: 1 mục"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"total_amount\":500000,\"shipping_address\":\"A\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":18}",
+      "executedAt": "2026-10-16T16:17:07.118Z"
+    },
+    {
+      "id": "BV-TC07",
+      "covers": "B02 LB+δ (len(shipping_address) = 2 ký tự)",
+      "desc": "Đặt hàng với địa chỉ giao hàng tại sát biên dưới độ dài LB+δ = 2 ký tự (\"AB\")",
+      "kind": "API",
+      "expected": "OC-CHECKOUT-OK(500000, \"AB\"): HTTP 200, lưu địa chỉ \"AB\", xóa rỗng giỏ hàng (FR-08 dòng 105, Q1)",
+      "status": "Fail",
+      "reasons": [
+        "Vi phạm FR-08 dòng 106 (R6): Sau khi thanh toán thành công, giỏ hàng không được làm rỗng (còn 1 mục)"
+      ],
+      "oracleLogs": [
+        "Đơn hàng: 0 -> 1 (id=19, status=pending, total=500000, addrLen=2); Giỏ hàng sau checkout: 1 mục"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"total_amount\":500000,\"shipping_address\":\"AB\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":19}",
+      "executedAt": "2026-10-16T16:17:07.427Z"
+    },
+    {
+      "id": "BV-TC08",
+      "covers": "B02 UB-δ (len(shipping_address) = 254 ký tự)",
+      "desc": "Đặt hàng với địa chỉ giao hàng tại sát biên trên độ dài UB-δ = 254 ký tự (\"A\"×254)",
+      "kind": "API",
+      "expected": "OC-CHECKOUT-OK(500000, \"A\"×254): HTTP 200, lưu đủ 254 ký tự, xóa rỗng giỏ hàng (Q1, Q8)",
+      "status": "Fail",
+      "reasons": [
+        "Vi phạm FR-08 dòng 106 (R6): Sau khi thanh toán thành công, giỏ hàng không được làm rỗng (còn 1 mục)"
+      ],
+      "oracleLogs": [
+        "Đơn hàng: 0 -> 1 (id=20, status=pending, total=500000, addrLen=254); Giỏ hàng sau checkout: 1 mục"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"total_amount\":500000,\"shipping_address\":\"AAAAAAAAAAAAAAAAAAAA…(254 ký tự)\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":20}",
+      "executedAt": "2026-10-16T16:17:07.729Z"
+    },
+    {
+      "id": "BV-TC09",
+      "covers": "B02 UB (len(shipping_address) = 255 ký tự)",
+      "desc": "Đặt hàng với địa chỉ giao hàng tại biên trên độ dài UB = 255 ký tự (\"A\"×255)",
+      "kind": "API",
+      "expected": "OC-CHECKOUT-OK(500000, \"A\"×255): HTTP 200, lưu đủ 255 ký tự, xóa rỗng giỏ hàng (Q1, Q8)",
+      "status": "Fail",
+      "reasons": [
+        "Vi phạm FR-08 dòng 106 (R6): Sau khi thanh toán thành công, giỏ hàng không được làm rỗng (còn 1 mục)"
+      ],
+      "oracleLogs": [
+        "Đơn hàng: 0 -> 1 (id=21, status=pending, total=500000, addrLen=255); Giỏ hàng sau checkout: 1 mục"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"total_amount\":500000,\"shipping_address\":\"AAAAAAAAAAAAAAAAAAAA…(255 ký tự)\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":21}",
+      "executedAt": "2026-10-16T16:17:08.011Z"
+    },
+    {
+      "id": "BV-TC10",
+      "covers": "B02 UB+δ (len(shipping_address) = 256 ký tự)",
+      "desc": "Đặt hàng với địa chỉ giao hàng vượt biên trên độ dài UB+δ = 256 ký tự (\"A\"×256)",
+      "kind": "API",
+      "expected": "REJ-CHECKOUT (400 Bad Request + OC-ORDER-NO) theo giả định cận trên 255 ký tự (Q1, Q8)",
+      "status": "Fail",
+      "reasons": [
+        "Kỳ vọng HTTP 400 khi từ chối thanh toán, thực tế nhận HTTP 200",
+        "Vi phạm OC-ORDER-NO: Yêu cầu không hợp lệ nhưng vẫn tạo thêm 1 đơn hàng rác trong DB"
+      ],
+      "oracleLogs": [
+        "Đơn hàng: 0 -> 1; Giỏ hàng: 1 -> 1"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"total_amount\":500000,\"shipping_address\":\"AAAAAAAAAAAAAAAAAAAA…(256 ký tự)\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":22}",
+      "executedAt": "2026-10-16T16:17:08.280Z"
+    },
+    {
+      "id": "BV-TC11",
+      "covers": "B03 LB1-δ (total_amount = 299,999 ₫ với SAVE10)",
+      "desc": "Áp mã SAVE10 tại điểm sát dưới ngưỡng tối thiểu LB1-δ = 299,999 ₫ (dưới ngưỡng 300,000 ₫ đúng 1 ₫)",
+      "kind": "API",
+      "expected": "REJ-COUPON (400 Bad Request): Từ chối vì 299,999 < 300,000 (FR-09 C3 dòng 118, 130)",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "total=299999 với SAVE10 -> HTTP 400"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/apply-coupon\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"code\":\"SAVE10\",\"total_amount\":299999,\"user_id\":2}' -SkipHttpErrorCheck",
+      "actualStatus": 400,
+      "actualBody": "{\"error\":\"Đơn hàng chưa đủ giá trị tối thiểu 300,000 ₫ để áp dụng mã này\"}",
+      "executedAt": "2026-10-16T16:17:08.510Z"
+    },
+    {
+      "id": "BV-TC12",
+      "covers": "B03 LB1 (total_amount = 300,000 ₫ với SAVE10)",
+      "desc": "Áp mã SAVE10 chạm đúng biên dưới ngưỡng tối thiểu LB1 = 300,000 ₫",
+      "kind": "API",
+      "expected": "OC-COUPON-OK(30000, 270000): HTTP 200, discount_amount=30000, final_amount=270000 (FR-09 C3 dòng 118, 130)",
+      "status": "Fail",
+      "reasons": [
+        "Kỳ vọng HTTP 200 OK khi áp mã hợp lệ, thực tế nhận HTTP 400 ({\"error\":\"Đơn hàng chưa đủ giá trị tối thiểu 300,000 ₫ để áp dụng mã này\"})"
+      ],
+      "oracleLogs": [],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/apply-coupon\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"code\":\"SAVE10\",\"total_amount\":300000,\"user_id\":2}' -SkipHttpErrorCheck",
+      "actualStatus": 400,
+      "actualBody": "{\"error\":\"Đơn hàng chưa đủ giá trị tối thiểu 300,000 ₫ để áp dụng mã này\"}",
+      "executedAt": "2026-10-16T16:17:08.777Z"
+    },
+    {
+      "id": "BV-TC13",
+      "covers": "B03 LB1+δ (total_amount = 300,001 ₫ với SAVE10)",
+      "desc": "Áp mã SAVE10 tại điểm sát trên ngưỡng tối thiểu LB1+δ = 300,001 ₫",
+      "kind": "API",
+      "expected": "OC-COUPON-OK(30000.1, 270000.9): HTTP 200, discount_amount=30000.1, final_amount=270000.9 (FR-09 C3)",
+      "status": "Fail",
+      "reasons": [
+        "Sai discount_amount: kỳ vọng 30000.1, thực tế -2700009",
+        "Sai final_amount: kỳ vọng 270000.9, thực tế 3000010"
+      ],
+      "oracleLogs": [
+        "discount_amount=-2700009, final_amount=3000010"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/apply-coupon\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"code\":\"SAVE10\",\"total_amount\":300001,\"user_id\":2}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"success\":true,\"coupon_id\":1,\"discount_amount\":-2700009,\"final_amount\":3000010,\"message\":\"Áp dụng thành công! Giảm 10%\"}",
+      "executedAt": "2026-10-16T16:17:09.059Z"
+    },
+    {
+      "id": "BV-TC14",
+      "covers": "B03 LB2-δ (total_amount = 499,999 ₫ với BIGBUY)",
+      "desc": "Áp mã BIGBUY tại điểm sát dưới ngưỡng tối thiểu LB2-δ = 499,999 ₫ (dưới ngưỡng 500,000 ₫ đúng 1 ₫)",
+      "kind": "API",
+      "expected": "REJ-COUPON (400 Bad Request): Từ chối vì 499,999 < 500,000 (FR-09 C3 dòng 118, 131)",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "total=499999 với BIGBUY -> HTTP 400"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/apply-coupon\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"code\":\"BIGBUY\",\"total_amount\":499999,\"user_id\":2}' -SkipHttpErrorCheck",
+      "actualStatus": 400,
+      "actualBody": "{\"error\":\"Đơn hàng chưa đủ giá trị tối thiểu 500,000 ₫ để áp dụng mã này\"}",
+      "executedAt": "2026-10-16T16:17:09.335Z"
+    },
+    {
+      "id": "BV-TC15",
+      "covers": "B03 LB2 (total_amount = 500,000 ₫ với BIGBUY)",
+      "desc": "Áp mã BIGBUY chạm đúng biên dưới ngưỡng tối thiểu LB2 = 500,000 ₫",
+      "kind": "API",
+      "expected": "OC-COUPON-OK(50000, 450000): HTTP 200, discount_amount=50000, final_amount=450000 (FR-09 C3 dòng 118, 131)",
+      "status": "Fail",
+      "reasons": [
+        "Kỳ vọng HTTP 200 OK khi áp mã hợp lệ, thực tế nhận HTTP 400 ({\"error\":\"Đơn hàng chưa đủ giá trị tối thiểu 500,000 ₫ để áp dụng mã này\"})"
+      ],
+      "oracleLogs": [],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/apply-coupon\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"code\":\"BIGBUY\",\"total_amount\":500000,\"user_id\":2}' -SkipHttpErrorCheck",
+      "actualStatus": 400,
+      "actualBody": "{\"error\":\"Đơn hàng chưa đủ giá trị tối thiểu 500,000 ₫ để áp dụng mã này\"}",
+      "executedAt": "2026-10-16T16:17:09.659Z"
+    },
+    {
+      "id": "BV-TC16",
+      "covers": "B03 LB2+δ (total_amount = 500,001 ₫ với BIGBUY)",
+      "desc": "Áp mã BIGBUY tại điểm sát trên ngưỡng tối thiểu LB2+δ = 500,001 ₫",
+      "kind": "API",
+      "expected": "OC-COUPON-OK(50000, 450001): HTTP 200, discount_amount=50000, final_amount=450001 (FR-09 C3)",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "discount_amount=50000, final_amount=450001"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/apply-coupon\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"code\":\"BIGBUY\",\"total_amount\":500001,\"user_id\":2}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"success\":true,\"coupon_id\":2,\"discount_amount\":50000,\"final_amount\":450001,\"message\":\"Áp dụng thành công! Giảm 50,000 ₫\"}",
+      "executedAt": "2026-10-16T16:17:09.927Z"
+    },
+    {
+      "id": "BV-TC17",
+      "covers": "B04 LB (usage_count = 0) & B03 LB1 (300,000 ₫) với VIP100",
+      "desc": "Áp mã VIP100 lần đầu tiên (usage_count = 0) ngay tại biên ngưỡng tối thiểu 300,000 ₫",
+      "kind": "API",
+      "expected": "OC-COUPON-OK(100000, 200000): HTTP 200, discount_amount=100000, final_amount=200000 (FR-09 dòng 118, 120, 132)",
+      "status": "Fail",
+      "reasons": [
+        "Kỳ vọng HTTP 200 OK khi áp mã hợp lệ, thực tế nhận HTTP 400 ({\"error\":\"Đơn hàng chưa đủ giá trị tối thiểu 300,000 ₫ để áp dụng mã này\"})"
+      ],
+      "oracleLogs": [],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/apply-coupon\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"code\":\"VIP100\",\"total_amount\":300000,\"user_id\":2}' -SkipHttpErrorCheck",
+      "actualStatus": 400,
+      "actualBody": "{\"error\":\"Đơn hàng chưa đủ giá trị tối thiểu 300,000 ₫ để áp dụng mã này\"}",
+      "executedAt": "2026-10-16T16:17:10.123Z"
+    },
+    {
+      "id": "OB-TC01",
+      "covers": "Output BVA — LB_out (final_amount = max(0, total - discount) = 0 ₫)",
+      "desc": "Áp mã loại fixed có discount_value (350,000 ₫) > total_amount (300,000 ₫) để kiểm tra biên dưới đầu ra final_amount = 0 ₫",
+      "kind": "API",
+      "expected": "HTTP 200; final_amount = max(0, 300000 - 350000) = 0 ₫ (tuyệt đối không trả về số âm -50,000 ₫) (README dòng 126)",
+      "status": "Fail",
+      "reasons": [
+        "Vi phạm công thức FR-09 dòng 126 (final_amount = max(0, total_amount - discount_value)): Kỳ vọng final_amount = 0 ₫ nhưng thực tế nhận -50000 ₫"
+      ],
+      "oracleLogs": [
+        "discount_value=350000 trên total=300000 -> final_amount=-50000"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/apply-coupon\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"code\":\"FREE350\",\"total_amount\":300000,\"user_id\":2}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"success\":true,\"coupon_id\":6,\"discount_amount\":350000,\"final_amount\":-50000,\"message\":\"Áp dụng thành công! Giảm 350,000 ₫\"}",
+      "executedAt": "2026-10-16T16:17:10.335Z"
+    },
+    {
+      "id": "OB-TC02",
+      "covers": "Date BVA (C2) — expired_at sát ngày hiện tại (Yesterday vs Tomorrow)",
+      "desc": "Áp mã tại biên ngày hết hạn C2: EXP_YESTERDAY (hôm qua) bị từ chối và EXP_TOMORROW (ngày mai) được chấp nhận",
+      "kind": "API",
+      "expected": "EXP_YESTERDAY -> 400 Bad Request; EXP_TOMORROW -> 200 OK (discount=50000, final=450000) (FR-09 C2 dòng 117, Q5)",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "EXP_YESTERDAY -> HTTP 400; EXP_TOMORROW -> HTTP 200"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/apply-coupon\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"code\":\"EXP_TOMORROW\",\"total_amount\":500000,\"user_id\":2}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"success\":true,\"coupon_id\":8,\"discount_amount\":50000,\"final_amount\":450000,\"message\":\"Áp dụng thành công! Giảm 50,000 ₫\"}",
+      "executedAt": "2026-10-16T16:17:10.624Z"
+    },
+    {
+      "id": "SR-TC01",
+      "covers": "Human Review — Chuẩn hóa chuỗi mã giảm giá chữ thường & khoảng trắng hai đầu (Q6)",
+      "desc": "Kiểm tra nhập mã chữ thường \"save10\" và dư khoảng trắng \"  SAVE10  \" trên bàn phím điện thoại tại POST /api/apply-coupon",
+      "kind": "API",
+      "expected": "Xử lý nhất quán (từ chối 400 nếu đối sánh viết hoa nghiêm ngặt theo Q6, hoặc tự động trim/toUpperCase hợp lệ, không lỗi 500)",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "\"save10\" -> HTTP 404; \"  SAVE10  \" -> HTTP 404"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/apply-coupon\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"code\":\"  SAVE10  \",\"total_amount\":500000,\"user_id\":2}' -SkipHttpErrorCheck",
+      "actualStatus": 404,
+      "actualBody": "{\"error\":\"Mã giảm giá không tồn tại hoặc đã bị vô hiệu hóa\"}",
+      "executedAt": "2026-10-16T16:17:10.847Z"
+    },
+    {
+      "id": "SR-TC02",
+      "covers": "Human Review — Luồng Hủy đơn hàng ở trạng thái pending trên Mobile & chống IDOR/hủy lặp (FR-20.3 dòng 237, FR-10 dòng 145-146)",
+      "desc": "Tạo đơn hàng pending rồi gọi PUT /api/orders/:id/cancel: kiểm tra chặn không có token/IDOR, hủy hợp lệ lần 1 và chặn hủy lại khi đã cancelled",
+      "kind": "API",
+      "expected": "Không có token -> 401; Hủy lần 1 khi pending -> 200 OK (status=\"cancelled\"); Hủy lần 2 khi đã cancelled -> 400 Bad Request",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "Không token -> HTTP 401; Hủy lần 1 (pending) -> HTTP 200; Hủy lần 2 (đã cancelled) -> HTTP 400"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/orders/23/cancel\" -Method PUT -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '' -SkipHttpErrorCheck",
+      "actualStatus": 400,
+      "actualBody": "{\"error\":\"Cannot cancel this order.\"}",
+      "executedAt": "2026-10-16T16:17:11.147Z"
+    },
+    {
+      "id": "SR-TC03",
+      "covers": "Human Review — Phòng chống SQL Injection trong code coupon và shipping_address (SEC-05)",
+      "desc": "Gửi payload SQL Injection trong trường code tại /api/apply-coupon và shipping_address tại /api/checkout",
+      "kind": "API",
+      "expected": "apply-coupon trả 400/404 (không bị bypass bởi OR 1=1); checkout dùng Parameterized Query không gây lỗi 500 hay mất bảng orders (SEC-05)",
+      "status": "Pass",
+      "reasons": [],
+      "oracleLogs": [
+        "SQLi apply-coupon -> HTTP 404; SQLi checkout -> HTTP 200; Bảng orders còn hoạt động (1 đơn)"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"total_amount\":250000,\"shipping_address\":\"123 Lê Lợi'); DROP TABLE orders; --\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":24}",
+      "executedAt": "2026-10-16T16:17:11.452Z"
+    },
+    {
+      "id": "SR-TC04",
+      "covers": "Human Review — Xung đột đồng thời (Race Condition / Double Submit) khi áp mã SAVE10 và bấm Thanh toán song song",
+      "desc": "Bắn đồng thời 2 request POST /api/apply-coupon (SAVE10, max_uses=1) và 2 request POST /api/checkout trên cùng 1 giỏ hàng",
+      "kind": "API",
+      "expected": "SAVE10 chỉ được dùng thành công tối đa 1 lần; từ 1 giỏ hàng chỉ được tạo đúng 1 đơn hàng (không tạo 2 đơn trùng và không giữ nguyên giỏ hàng)",
+      "status": "Fail",
+      "reasons": [
+        "Vi phạm C5 (max_uses_per_user = 1): Cả 2 request áp mã SAVE10 đồng thời đều trả HTTP 200 OK",
+        "Lỗi Double Submit / Race Condition tại /api/checkout: Từ 1 giỏ hàng duy nhất nhưng sinh ra 2 đơn hàng trùng lặp"
+      ],
+      "oracleLogs": [
+        "Song song apply-coupon SAVE10: 2/2 thành công; Song song checkout: tạo thêm 2 đơn hàng"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"total_amount\":450000,\"shipping_address\":\"123 Lê Lợi, Phường Bến Thành, Quận 1, TP.HCM\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":26}",
+      "executedAt": "2026-10-16T16:17:11.740Z"
+    },
+    {
+      "id": "SR-TC05",
+      "covers": "Human Review — Tính toàn vẹn khấu trừ tồn kho stock của sản phẩm sau khi Đặt hàng thành công (FR-07 & FR-08)",
+      "desc": "Kiểm tra sau khi đặt mua 2 sản phẩm prod_id=1 (stock ban đầu = 10), tồn kho sản phẩm trong CSDL phải giảm xuống 8",
+      "kind": "API",
+      "expected": "stock_after = stock_before - quantity = 10 - 2 = 8 (ngăn chặn bán vượt tồn kho ở các đơn tiếp theo)",
+      "status": "Fail",
+      "reasons": [
+        "Vi phạm toàn vẹn tồn kho (FR-07 & FR-08): Sau khi đặt mua 2 sản phẩm thành công, tồn kho sản phẩm #1 không được trừ (kỳ vọng 8, thực tế nhận undefined (thiếu cột stock))"
+      ],
+      "oracleLogs": [
+        "POST /api/checkout (qty=2) -> HTTP 200; Tồn kho sản phẩm #1: stock_before=undefined -> stock_after=undefined (thiếu cột stock)"
+      ],
+      "powershellCommand": "Invoke-WebRequest -Uri \"http://localhost:3000/api/checkout\" -Method POST -ContentType 'application/json' -Headers @{ Authorization = \"Bearer <JWT_TOKEN>\" } -Body '{\"total_amount\":500000,\"shipping_address\":\"123 Lê Lợi, Phường Bến Thành, Quận 1, TP.HCM\"}' -SkipHttpErrorCheck",
+      "actualStatus": 200,
+      "actualBody": "{\"message\":\"Checkout successful\",\"orderId\":27}",
+      "executedAt": "2026-10-16T16:17:12.055Z"
+    }
+  ]
+}
