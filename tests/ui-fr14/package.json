@@ -1,0 +1,12 @@
+{
+  "name": "eshop-fr14-ui-tests",
+  "private": true,
+  "version": "1.0.0",
+  "description": "HW02 - FR-14 UI automation (Playwright CLI)",
+  "scripts": {
+    "test": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.0"
+  }
+}
