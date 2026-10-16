@@ -9,13 +9,17 @@
 | Lớp / Khóa | CQ2023/31 |
 | Môn học | CS423 / CSC13003 – Kiểm thử phần mềm |
 | Giảng viên | ThS. Hồ Tuấn Thanh |
-| Hệ thống kiểm thử | EShop SUT (backend `http://localhost:3000`, web `http://localhost:5173`) |
-| Tính năng | FR-03 — Quên mật khẩu và đặt lại mật khẩu (2 bước), Pool A |
-| Kỹ thuật kiểm thử | Domain Testing (EP) và Boundary Value Analysis (Robustness) |
-| Ngày lập báo cáo | 12/10/2026 |
+| Hệ thống kiểm thử | EShop SUT (backend `http://localhost:3000`, web `http://localhost:5173`, admin `http://localhost:5174`) |
+| Tính năng | 1. **FR-03** — Quên mật khẩu và đặt lại mật khẩu (Pool A)<br>2. **FR-08** — Thanh toán / Checkout (Pool B)<br>3. **FR-14** — Quản lý Danh mục / Category CRUD (Pool C) |
+| Kỹ thuật kiểm thử | Domain Testing (EP) và Boundary Value Analysis (Robustness $6n+1$) |
+| Ngày lập báo cáo | 12/10/2026 – 15/10/2026 |
 | Môi trường chạy | Windows 11 Home, Node.js v25.0.0, Google Chrome 154, SQLite |
 
-## 2. Tổng hợp
+---
+
+# PHẦN I: BÁO CÁO LỖI — FR-03: QUÊN MẬT KHẨU & ĐẶT LẠI MẬT KHẨU
+
+## 1. Tổng hợp FR-03
 
 Em thiết kế 45 test case cho FR-03 (gồm 31 ca EP, 9 ca BVA, 1 ca OB và 4 ca sinh viên bổ sung SR) và chạy 2 lần liên tiếp trên cả API và Playwright UI. Kết quả hai lần giống nhau 100%: 24 ca Pass, 20 ca Fail, 1 ca Blocked (`SR-TC01`). Các ca Fail có chung nguyên nhân kỹ thuật nên em gom lại thành 3 nhóm bug chính thức:
 
@@ -456,10 +460,278 @@ Endpoint này hoàn toàn thiếu middleware `authenticateToken` và không có 
 
 ---
 
+# PHẦN III: BÁO CÁO LỖI — FR-14: QUẢN LÝ DANH MỤC (CATEGORY CRUD)
+
+## 1. Thông tin chung & Bảng tổng hợp ứng viên bug FR-14
+
+| Mục | Nội dung |
+|---|---|
+| Tính năng | FR-14 — Quản lý Danh mục (Category CRUD), Pool C |
+| Kỹ thuật kiểm thử | Domain Testing (EP 3 bước) và BVA (Robustness $6n+1$) + Review kiểm thử nâng cao |
+| Ngày thực thi | 15/10/2026 |
+| Tổng số ca đã chạy | 50 test case (40 API + 3 Hybrid API/UI + 7 UI Playwright) |
+| Kết quả kiểm thử | 20 Pass (40,0%), 30 Fail (60,0%), 0 Blocked, 0 Not run (Độ ổn định 100% qua 2 lần chạy độc lập) |
+
+### Bảng dữ kiện ứng viên bug FR-14
+
+| Mã bug | Tiêu đề | Mức độ nghiêm trọng | Mức độ ưu tiên | Test case liên quan | Nguyên nhân gốc (tệp:dòng) |
+|---|---|---|---|---|---|
+| **BUG-009** | Lỗ hổng bảo mật Thiếu kiểm tra phân quyền Admin (Broken Access Control — RBAC) trên các API và giao diện Quản lý Danh mục | **Critical** (Bảo mật) | High | `EP-TC08`, `EP-TC09`, `EP-TC10`, `EP-TC28` | `backend/server.js:104-114, 253-282`<br>`frontend-admin/src/App.jsx:7, 34-59` |
+| **BUG-010** | Thiếu toàn bộ kiểm tra hợp lệ trường `name` (rỗng, khoảng trắng, `null`, kiểu số) và cho phép tạo danh mục trùng lặp | **High** (Nghiêm trọng) | High | `EP-TC11`, `EP-TC12`, `EP-TC13`, `EP-TC15`, `EP-TC16`, `EP-TC17`, `EP-TC25`, `EP-TC26`, `EP-TC31`, `SR-TC01`, `SR-TC04` *(EP-TC14 và BV-TC05 thuộc câu hỏi mở Q1/Q8)* | `backend/server.js:253-271`<br>`backend/database.js:25-28`<br>`frontend-admin/src/App.jsx:142-151, 298-307` |
+| **BUG-011** | Cho phép xóa danh mục đang có sản phẩm tham chiếu gây mồ côi dữ liệu sản phẩm (Foreign Key Integrity Violation) | **High** (Toàn vẹn dữ liệu) | High | `EP-TC23`, `SR-TC05` | `backend/server.js:273-282`<br>`backend/database.js:66-73` |
+| **BUG-012** | Thao tác `DELETE` và `PUT` trên `:id` không tồn tại hoặc sai kiểu dữ liệu vẫn trả về `200 OK` thay vì `400`/`404` | **Medium** (Hợp đồng API) | Medium | `EP-TC19`, `EP-TC20`, `EP-TC21`, `EP-TC22`, `EP-TC24`, `EP-TC27`, `BV-TC10` | `backend/server.js:261-282` |
+| **BUG-013** | Giao diện Quản lý Danh mục trên Web Admin thiếu nhãn `*`, thiếu vùng thông báo lỗi trên nút Submit, pha trộn tiếng Anh và thiếu Empty State | **Medium** (UI/UX) | Medium | `EP-TC30`, `EP-TC32`, `EP-TC34`, `OB-TC01` | `frontend-admin/src/App.jsx:195-211, 231, 297-333` |
+
+*(Ghi chú: Hai ca `EP-TC14` và `BV-TC05` với chuỗi 256 ký tự phụ thuộc vào giả định cận trên `Q1`/`Q8` nên em ghi nhận ở mục câu hỏi mở đặc tả, không tính vào danh sách ca kích hoạt bug chính thức.)*
+
+---
+
+## BUG-009: Lỗ hổng bảo mật Thiếu kiểm tra phân quyền Admin (Broken Access Control — RBAC) trên các API và giao diện Quản lý Danh mục
+
+| Mục | Nội dung |
+|---|---|
+| Test case liên quan | `EP-TC08`, `EP-TC09`, `EP-TC10`, `EP-TC28` |
+| EC / Biên | EC06, EC33, EC35 (`SEC-03`, `FR-12`) |
+| Mức độ nghiêm trọng | **Critical** (Bảo mật) |
+| Mức độ ưu tiên | **High** |
+| Thành phần | API `POST /api/categories`, `PUT /api/categories/:id`, `DELETE /api/categories/:id` và Giao diện Web Admin `http://localhost:5174` |
+| Môi trường | Windows 11 Home, Node.js v25.0.0, Google Chrome / Chromium Headless |
+| Yêu cầu liên quan | README dòng 174–180 (FR-12): *"Chỉ tài khoản có role = 'admin' mới được phép đăng nhập vào Admin Dashboard."*; README dòng 280 (SEC-03): *"Các API của Admin phải kiểm tra vai trò (role = 'admin'), không chỉ kiểm tra tính hợp lệ của token."* |
+
+### Các bước tái hiện
+
+1. Đăng nhập tài khoản người dùng thường `test@eshop.com` (`role = 'user'`) qua `POST /api/login` để lấy JWT `token_user`.
+2. Dùng `token_user` gọi các API quản trị danh mục:
+```powershell
+Invoke-WebRequest -Uri "http://localhost:3000/api/categories" -Method POST -Headers @{ Authorization = "Bearer <token_user>" } -ContentType 'application/json' -Body '{"name":"Danh mục trái phép"}' -SkipHttpErrorCheck
+Invoke-WebRequest -Uri "http://localhost:3000/api/categories/2" -Method PUT -Headers @{ Authorization = "Bearer <token_user>" } -ContentType 'application/json' -Body '{"name":"Danh mục bị user sửa"}' -SkipHttpErrorCheck
+Invoke-WebRequest -Uri "http://localhost:3000/api/categories/3" -Method DELETE -Headers @{ Authorization = "Bearer <token_user>" } -SkipHttpErrorCheck
+```
+3. Mở trình duyệt tại `http://localhost:5174`, lưu `token_user` vào `localStorage.setItem("adminToken", token_user)` rồi tải lại trang và chuyển sang tab `"Quản lý Danh mục"`.
+
+### Kết quả mong đợi (theo đặc tả)
+
+- Cả 3 API `POST`, `PUT`, `DELETE /api/categories` phải từ chối truy cập với mã `HTTP 403 Forbidden`, không cho phép tài khoản `role = 'user'` thêm, sửa hoặc xóa danh mục.
+- Giao diện Web Admin phải kiểm tra vai trò `role === 'admin'`, từ chối hiển thị màn hình quản trị danh mục đối với tài khoản thường.
+
+### Kết quả thực tế
+
+- Cả 3 lệnh `POST`, `PUT`, `DELETE /api/categories` với JWT của `test@eshop.com` đều trả về `HTTP 200 OK` và thay đổi trực tiếp bảng `categories` trong CSDL.
+- Trên Web Admin `http://localhost:5174`, tài khoản `role = 'user'` vào thẳng được màn hình Quản lý Danh mục, xem bảng và thấy nút `"Thêm mới"`, `"Xóa"`.
+
+### Nguyên nhân gốc (em tự đọc code sau khi test Fail)
+
+- `backend/server.js:104-114, 253-282`: Các route `POST`, `PUT`, `DELETE /api/categories` chỉ gắn middleware `authenticateToken` (kiểm tra chữ ký JWT hợp lệ) mà hoàn toàn không có câu lệnh kiểm tra `if (req.user.role !== 'admin') return res.status(403).json({ error: "Forbidden" });`.
+- `frontend-admin/src/App.jsx:7, 34-59, 188`: Khi ứng dụng khởi chạy lại với token trong `localStorage`, component chỉ kiểm tra `if (!token)` mà không xác minh `role === 'admin'`.
+
+### Bằng chứng
+
+![BUG-009 — Người dùng thường truy cập được giao diện Quản lý Danh mục trên Web Admin](./evidence/FR-14/BUG-009.png)  
+*(Ảnh minh chứng chụp Playwright: `reports/evidence/FR-14/screenshots/run_ui_1_EP-TC28.png`)*
+
+### GitHub Issue
+
+- Tiêu đề: `[FR-14] [BUG-009] Lỗ hổng bảo mật Thiếu kiểm tra phân quyền Admin (Broken Access Control — RBAC) trên API và giao diện Quản lý Danh mục`
+- Link: https://github.com/HuynhDucThinh/eshop-sut/issues/10
+- Trạng thái: Open
+
+---
+
+## BUG-010: Thiếu toàn bộ kiểm tra hợp lệ trường `name` (rỗng, khoảng trắng, `null`, kiểu số) và cho phép tạo danh mục trùng lặp
+
+| Mục | Nội dung |
+|---|---|
+| Test case liên quan | `EP-TC11`, `EP-TC12`, `EP-TC13`, `EP-TC15`, `EP-TC16`, `EP-TC17`, `EP-TC25`, `EP-TC26`, `EP-TC31`, `SR-TC01`, `SR-TC04` *(EP-TC14 và BV-TC05 thuộc câu hỏi mở Q1/Q8)* |
+| EC / Biên | EC09, EC10, EC11, EC13, EC14, EC15, EC31, EC38 (`FR-14`, `FR-22`, `Q2`, `Q3`, `Q7`) |
+| Mức độ nghiêm trọng | **High** |
+| Mức độ ưu tiên | **High** |
+| Thành phần | API `POST /api/categories`, `PUT /api/categories/:id` và Giao diện `http://localhost:5174` |
+| Yêu cầu liên quan | README dòng 186–190 (FR-14), dòng 252–255 (FR-22); giả định Q2, Q3, Q7 đã xác nhận |
+
+### Các bước tái hiện
+
+1. Đăng nhập tài khoản Admin `admin@eshop.com` lấy `token_admin`.
+2. Gửi `POST /api/categories` lần lượt với body `{"name": ""}`, `{}`, `{"name": "     "}`, `{"name": 12345}`, `{"name": null}`.
+3. Gửi 2 request `POST /api/categories` liên tiếp hoặc đồng thời (`Promise.all`) với cùng tên `"Thiết bị gia dụng thông minh"`, hoặc gửi `"  thiết bị gia dụng thông minh  "`.
+4. Trên giao diện Web Admin (`http://localhost:5174`), để trống ô `"Tên danh mục mới"` và bấm nút `"Thêm mới"`.
+
+### Kết quả mong đợi (theo đặc tả)
+
+- Backend phải từ chối (`HTTP 400 Bad Request` hoặc `409 Conflict`) mọi request có `name` rỗng, thiếu trường, chỉ chứa khoảng trắng, sai kiểu dữ liệu (`number`, `null`) hoặc trùng tên với danh mục đã có (sau khi `trim()` và không phân biệt hoa/thường).
+- Trên giao diện Web Admin, khi để trống ô nhập và bấm `"Thêm mới"`, form phải chặn gửi request và hiển thị thông báo lỗi.
+
+### Kết quả thực tế
+
+- Backend trả về `HTTP 200 OK` cho tất cả các trường hợp trên, chèn trực tiếp bản ghi có `name = ""`, `name = null`, `name = "     "`, `name = "12345"` và các bản ghi trùng lặp tên vào bảng `categories`.
+- Trên giao diện Web Admin, bấm `"Thêm mới"` khi ô trống vẫn tạo thêm một dòng danh mục có cột Tên trống rỗng trên bảng.
+
+### Nguyên nhân gốc (em tự đọc code sau khi test Fail)
+
+- `backend/server.js:253-271`: Cả `POST /api/categories` và `PUT /api/categories/:id` lấy thẳng `const { name } = req.body` rồi truyền vào `INSERT` / `UPDATE` mà không kiểm tra kiểu chuỗi, không gọi `.trim()`, không kiểm tra độ dài và không truy vấn kiểm tra trùng tên.
+- `backend/database.js:25-28`: Bảng `categories` được khai báo `CREATE TABLE categories (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)` không có `NOT NULL` và không có `UNIQUE`.
+- `frontend-admin/src/App.jsx:142-151, 298-307`: Hàm `handleCategorySubmit` không kiểm tra `categoryName.trim()` trước khi gửi API, và thẻ `<input>` ở dòng 298 không có thuộc tính `required`.
+
+### Bằng chứng
+
+![BUG-010 — Bấm Thêm mới khi để trống tạo dòng danh mục rỗng trên bảng](./evidence/FR-14/BUG-010.png)  
+*(Ảnh minh chứng chụp Playwright: `reports/evidence/FR-14/screenshots/run_ui_1_EP-TC31.png`)*
+
+### GitHub Issue
+
+- Tiêu đề: `[FR-14] [BUG-010] Thiếu kiểm tra hợp lệ trường name (rỗng, khoảng trắng, null, kiểu số) và cho phép tạo danh mục trùng lặp`
+- Link: https://github.com/HuynhDucThinh/eshop-sut/issues/11
+- Trạng thái: Open
+
+---
+
+## BUG-011: Cho phép xóa danh mục đang có sản phẩm tham chiếu gây mồ côi dữ liệu sản phẩm (Foreign Key Integrity Violation)
+
+| Mục | Nội dung |
+|---|---|
+| Test case liên quan | `EP-TC23`, `SR-TC05` |
+| EC / Biên | EC25, EC34 (`FR-14`, `FR-15`, `R5`, `Q5`) |
+| Mức độ nghiêm trọng | **High** (Toàn vẹn dữ liệu) |
+| Mức độ ưu tiên | **High** |
+| Thành phần | API `DELETE /api/categories/:id` và `GET /api/products` |
+| Yêu cầu liên quan | README dòng 186–190 (FR-14), dòng 197 (FR-15: mỗi sản phẩm gắn với `category_id`), ràng buộc toàn vẹn khóa ngoại R5/Q5 |
+
+### Các bước tái hiện
+
+1. Khởi tạo CSDL chuẩn: danh mục `id = 1` (`"Điện thoại"`) đang được tham chiếu bởi 2 sản phẩm `#1 "iPhone 15 Pro Max"` và `#2 "Samsung Galaxy S24 Ultra"` (`category_id = 1`).
+2. Gửi request xóa danh mục `id = 1`:
+```powershell
+Invoke-WebRequest -Uri "http://localhost:3000/api/categories/1" -Method DELETE -Headers @{ Authorization = "Bearer <token_admin>" } -SkipHttpErrorCheck
+```
+3. Gọi tiếp `GET /api/categories` và `GET /api/products` để kiểm tra tính toàn vẹn dữ liệu.
+
+### Kết quả mong đợi (theo đặc tả)
+
+Backend phải kiểm tra ràng buộc khóa ngoại với bảng `products` và từ chối xóa danh mục đang chứa sản phẩm (`HTTP 400 Bad Request` hoặc `409 Conflict`), giữ nguyên danh mục `id = 1`.
+
+### Kết quả thực tế
+
+- `DELETE /api/categories/1` trả về `HTTP 200 OK` (`{"message":"Category deleted"}`) và xóa mất danh mục `id = 1` khỏi bảng `categories`.
+- Khi gọi `GET /api/products`, 2 sản phẩm `#1 "iPhone 15 Pro Max"` và `#2 "Samsung Galaxy S24 Ultra"` vẫn mang `category_id = 1` (trỏ tới danh mục không còn tồn tại), trở thành dữ liệu mồ côi.
+
+### Nguyên nhân gốc (em tự đọc code sau khi test Fail)
+
+- `backend/server.js:273-282`: Endpoint `DELETE /api/categories/:id` thực thi thẳng `DELETE FROM categories WHERE id = ?` mà không kiểm tra `SELECT COUNT(*) FROM products WHERE category_id = ?`.
+- `backend/database.js:66-73`: Bảng `products` chỉ khai báo `category_id INTEGER` mà không khai báo `FOREIGN KEY (category_id) REFERENCES categories(id)` và không bật `PRAGMA foreign_keys = ON`.
+
+### Bằng chứng
+
+![BUG-011 — Giao diện Quản lý Danh mục cho phép thao tác xóa trực tiếp](./evidence/FR-14/BUG-011.png)  
+*(Kết quả chi tiết API xóa danh mục `id = 1` và kiểm tra sản phẩm mồ côi được lưu tại `reports/evidence/FR-14/run_api_1.md` và `run_api_2.md` — ca `EP-TC23` và `SR-TC05`.)*
+
+### GitHub Issue
+
+- Tiêu đề: `[FR-14] [BUG-011] Cho phép xóa danh mục đang có sản phẩm tham chiếu gây mồ côi dữ liệu sản phẩm`
+- Link: https://github.com/HuynhDucThinh/eshop-sut/issues/12
+- Trạng thái: Open
+
+---
+
+## BUG-012: Thao tác `DELETE` và `PUT` trên `:id` không tồn tại hoặc sai kiểu dữ liệu vẫn trả về `200 OK` thay vì `400`/`404`
+
+| Mục | Nội dung |
+|---|---|
+| Test case liên quan | `EP-TC19`, `EP-TC20`, `EP-TC21`, `EP-TC22`, `EP-TC24`, `EP-TC27`, `BV-TC10` |
+| EC / Biên | EC18, EC19, EC20, EC21, EC26, EC32; biên `B02 LB-δ` (`0`), `UB+δ` (`6`) |
+| Mức độ nghiêm trọng | **Medium** |
+| Mức độ ưu tiên | **Medium** |
+| Thành phần | API `PUT /api/categories/:id` và `DELETE /api/categories/:id` |
+| Yêu cầu liên quan | README dòng 186–190 (FR-14), `api_specification.md` mục 3.4; giả định Q6, Q7 đã xác nhận |
+
+### Các bước tái hiện
+
+1. Đăng nhập Admin lấy `token_admin`.
+2. Gửi request cập nhật hoặc xóa danh mục với `:id` không tồn tại (`999999`, `6`), ngoài miền (`0`, `-5`) hoặc không phải số (`"abc"`):
+```powershell
+Invoke-WebRequest -Uri "http://localhost:3000/api/categories/999999" -Method DELETE -Headers @{ Authorization = "Bearer <token_admin>" } -SkipHttpErrorCheck
+Invoke-WebRequest -Uri "http://localhost:3000/api/categories/abc" -Method PUT -Headers @{ Authorization = "Bearer <token_admin>" } -ContentType 'application/json' -Body '{"name":"Tên hợp lệ"}' -SkipHttpErrorCheck
+```
+
+### Kết quả mong đợi (theo đặc tả)
+
+- Với `:id` không phải số nguyên dương (`0`, `-5`, `"abc"`): trả về `HTTP 400 Bad Request` (hoặc `404 Not Found`).
+- Với `:id` không tồn tại trong CSDL (`999999`, `6` hoặc danh mục đã xóa): trả về `HTTP 404 Not Found`.
+
+### Kết quả thực tế
+
+Tất cả các request trên đều trả về `HTTP 200 OK` kèm thông báo giả tạo `{"message":"Category updated"}` hoặc `{"message":"Category deleted"}` dù `this.changes === 0` (không có bản ghi nào được cập nhật/xóa).
+
+### Nguyên nhân gốc (em tự đọc code sau khi test Fail)
+
+`backend/server.js:261-282`: Trong callback `function (err)` của `db.run("UPDATE categories SET name = ? WHERE id = ?", ...)` và `db.run("DELETE FROM categories WHERE id = ?", ...)`, lập trình viên chỉ kiểm tra `if (err)` mà bỏ quên `if (this.changes === 0) return res.status(404).json({ error: "Category not found" });`.
+
+### Bằng chứng
+
+![BUG-012 — Bảng danh mục trên Web Admin](./evidence/FR-14/BUG-012.png)  
+*(Log phản hồi HTTP 200 cho `:id = 999999, 6, 0, -5, "abc"` được lưu đầy đủ tại `reports/evidence/FR-14/run_api_1.md` và `run_api_2.md`.)*
+
+### GitHub Issue
+
+- Tiêu đề: `[FR-14] [BUG-012] Thao tác DELETE và PUT trên :id không tồn tại hoặc sai kiểu dữ liệu vẫn trả về 200 OK`
+- Link: https://github.com/HuynhDucThinh/eshop-sut/issues/13
+- Trạng thái: Open
+
+---
+
+## BUG-013: Giao diện Quản lý Danh mục trên Web Admin thiếu nhãn `*`, thiếu vùng thông báo lỗi phía trên nút Submit, pha trộn tiếng Anh và thiếu Empty State
+
+| Mục | Nội dung |
+|---|---|
+| Test case liên quan | `EP-TC30`, `EP-TC32`, `EP-TC34`, `OB-TC01` |
+| EC / Biên | EC28 (Empty State 0 danh mục), EC37, EC39, EC41 (`FR-21`, `FR-22`, `FR-24`) |
+| Mức độ nghiêm trọng | **Medium** (UI/UX) |
+| Mức độ ưu tiên | **Medium** |
+| Thành phần | Giao diện Web Admin `http://localhost:5174` (tab `Quản lý Danh mục`) |
+| Yêu cầu liên quan | README dòng 244 (FR-21: ngôn ngữ nhất quán tiếng Việt), dòng 252 & 255 (FR-22: nhãn `*` và thông báo lỗi phía trên nút Submit), dòng 269 (FR-24: Empty State có hình minh họa/icon và hướng dẫn) |
+
+### Các bước tái hiện
+
+1. Mở `http://localhost:5174`, đăng nhập `admin@eshop.com` / `admin123`, bấm vào tab `"Quản lý Danh mục"`.
+2. Quan sát form thêm danh mục mới, thanh điều hướng bên trái (`"Dashboard"`) và bấm `"Thêm mới"` khi ô nhập trống.
+3. Xóa hết cả 3 danh mục mặc định (`id = 1, 2, 3`) để danh sách về `0` phần tử và quan sát bảng hiển thị.
+
+### Kết quả mong đợi (theo đặc tả)
+
+- Ô nhập tên danh mục phải có thẻ `<label>` rõ ràng kèm dấu `*` báo hiệu trường bắt buộc (`FR-22`).
+- Khi nhập liệu không hợp lệ (rỗng/trùng), phải hiển thị thông báo lỗi rõ ràng phía trên nút `"Thêm mới"` (`FR-22`).
+- Toàn bộ giao diện dùng tiếng Việt nhất quán, không pha trộn tiếng Anh (`FR-21`).
+- Khi có `0` danh mục, phải hiển thị trạng thái trống (**Empty State**) gồm icon/hình minh họa và thông báo hướng dẫn người dùng (`FR-24`).
+
+### Kết quả thực tế
+
+- Form chỉ có `<input placeholder="Tên danh mục mới">`, hoàn toàn không có thẻ `<label>` và không có dấu `*` (`EP-TC30`).
+- Không có bất kỳ vùng hiển thị thông báo lỗi nào phía trên nút `"Thêm mới"` (`EP-TC32`).
+- Thanh menu bên trái hiển thị chữ tiếng Anh `"Dashboard"`, màn hình đăng nhập hiển thị `"Admin Login"`, `"Password"`, `"Login"` (`EP-TC34`).
+- Khi xóa hết danh mục về `0`, giao diện chỉ hiện bảng trống chỉ có dòng tiêu đề cột (`ID`, `Tên Danh Mục`, `Hành Động`), không có Empty State hay icon hướng dẫn (`OB-TC01`).
+
+### Nguyên nhân gốc (em tự đọc code sau khi test Fail)
+
+- `frontend-admin/src/App.jsx:297-308`: Form chỉ khai báo `<input>` và `<button>`, thiếu thẻ `<label>` có dấu `*` và thiếu state/phần tử hiển thị lỗi.
+- `frontend-admin/src/App.jsx:195-211, 231`: Các chuỗi `"Admin Login"`, `"Password"`, `"Login"`, `"Dashboard"` được viết cứng bằng tiếng Anh.
+- `frontend-admin/src/App.jsx:309-333`: Phần thân bảng `<tbody>` chỉ chạy `categories.map(...)` mà không xử lý trường hợp `categories.length === 0` để hiển thị Empty State.
+
+### Bằng chứng
+
+![BUG-013 Form — Thiếu nhãn có dấu sao và thiếu vùng báo lỗi](./evidence/FR-14/BUG-013_form.png)  
+![BUG-013 Empty State — Bảng trống không có Empty State khi 0 danh mục và menu pha trộn tiếng Anh Dashboard](./evidence/FR-14/BUG-013.png)  
+*(Ảnh minh chứng chụp Playwright: `run_ui_1_EP-TC30.png`, `run_ui_1_EP-TC32.png`, `run_ui_1_EP-TC34.png`, `run_ui_1_OB-TC01.png`.)*
+
+### GitHub Issue
+
+- Tiêu đề: `[FR-14] [BUG-013] Giao diện Quản lý Danh mục thiếu nhãn dấu sao, thiếu vùng báo lỗi, pha trộn tiếng Anh và thiếu Empty State`
+- Link: https://github.com/HuynhDucThinh/eshop-sut/issues/14
+- Trạng thái: Open
+
+---
+
 ## 2. Danh sách tự kiểm tra
 
-- [x] Nội dung BUG-001–BUG-008 đã được rà soát; phần mở rộng BUG-008 do AI hoàn thiện theo ngoại lệ giảng viên ngày 13/10/2026 và được khai báo trong AI Audit
-- [x] Em đã chạy lại và toàn bộ các lỗi tái hiện ổn định 100%
+- [x] Nội dung BUG-001–BUG-013 đã được rà soát đầy đủ cho cả 3 tính năng (FR-03, FR-08, FR-14)
+- [x] Em đã chạy lại 2 lần độc lập cho từng tính năng và toàn bộ các lỗi tái hiện ổn định 100% (0% flakiness)
 - [x] Ảnh là ảnh thật chụp từ hệ thống đang chạy (Playwright screenshots)
-- [x] Expected dựa trên đặc tả, không suy ra từ code
-- [x] Đã tạo GitHub Issue và dán link vào báo cáo
+- [x] Expected dựa trên đặc tả (`README.md` và `api_specification.md`), không suy ra từ code
+- [x] Đã tạo đủ 13 GitHub Issues (#2 đến #14) cho cả 3 tính năng (FR-03, FR-08, FR-14) và dán link vào báo cáo
