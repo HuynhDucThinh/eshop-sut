@@ -9,11 +9,11 @@
 | Lớp / Khóa | CQ2023/31 |
 | Môn học | CS423 / CSC13003 – Kiểm thử phần mềm |
 | Giảng viên | ThS. Hồ Tuấn Thanh |
-| Hệ thống kiểm thử | EShop SUT (backend `http://localhost:3000`, web `http://localhost:5173`, admin `http://localhost:5174`) |
-| Tính năng | 1. **FR-03** — Quên mật khẩu và đặt lại mật khẩu (Pool A)<br>2. **FR-08** — Thanh toán / Checkout (Pool B)<br>3. **FR-14** — Quản lý Danh mục / Category CRUD (Pool C) |
+| Hệ thống kiểm thử | EShop SUT (backend `http://localhost:3000`, web `http://localhost:5173`, admin `http://localhost:5174`, mobile `frontend-mobile/App.js`) |
+| Tính năng | 1. **FR-03** — Quên mật khẩu và đặt lại mật khẩu (Pool A)<br>2. **FR-08** — Thanh toán / Checkout (Pool B)<br>3. **FR-14** — Quản lý Danh mục / Category CRUD (Pool C)<br>4. **FR-20.3** — Mobile: Thanh toán (Checkout) và Áp mã giảm giá (Pool D) |
 | Kỹ thuật kiểm thử | Domain Testing (EP) và Boundary Value Analysis (Robustness $6n+1$) |
-| Ngày lập báo cáo | 12/10/2026 – 15/10/2026 |
-| Môi trường chạy | Windows 11 Home, Node.js v25.0.0, Google Chrome 154, SQLite |
+| Ngày lập báo cáo | 12/10/2026 – 16/10/2026 |
+| Môi trường chạy | Windows 11 Home, Node.js v25.0.0, Google Chrome 154 / Chromium Mobile `390×844`, SQLite |
 
 ---
 
@@ -526,8 +526,8 @@ Invoke-WebRequest -Uri "http://localhost:3000/api/categories/3" -Method DELETE -
 
 ### Bằng chứng
 
-![BUG-009 — Người dùng thường truy cập được giao diện Quản lý Danh mục trên Web Admin](./evidence/FR-14/BUG-009.png)  
-*(Ảnh minh chứng chụp Playwright: `reports/evidence/FR-14/screenshots/run_ui_1_EP-TC28.png`)*
+![BUG-009 — Terminal thực thi chứng minh tài khoản role='user' gọi API thêm danh mục trả về 200 OK và CSDL tăng bản ghi](./evidence/FR-14/BUG-009.png)  
+*(Ảnh minh chứng terminal PowerShell/curl; đồng thời ảnh giao diện Web Admin mở bằng tài khoản thường: `reports/evidence/FR-14/screenshots/run_ui_1_EP-TC28.png`)*
 
 ### GitHub Issue
 
@@ -573,8 +573,8 @@ Invoke-WebRequest -Uri "http://localhost:3000/api/categories/3" -Method DELETE -
 
 ### Bằng chứng
 
-![BUG-010 — Bấm Thêm mới khi để trống tạo dòng danh mục rỗng trên bảng](./evidence/FR-14/BUG-010.png)  
-*(Ảnh minh chứng chụp Playwright: `reports/evidence/FR-14/screenshots/run_ui_1_EP-TC31.png`)*
+![BUG-010 — Terminal thực thi POST /api/categories với name rỗng, toàn khoảng trắng, kiểu số 12345 và trùng tên "Laptop" đều trả về 200 OK](./evidence/FR-14/BUG-010.png)  
+*(Ảnh terminal PowerShell/curl chạy trên backend thật; ảnh giao diện Web Admin tạo dòng danh mục có Tên trống: `reports/evidence/FR-14/screenshots/run_ui_1_EP-TC31.png`)*
 
 ### GitHub Issue
 
@@ -620,7 +620,7 @@ Backend phải kiểm tra ràng buộc khóa ngoại với bảng `products` và
 
 ### Bằng chứng
 
-![BUG-011 — Giao diện Quản lý Danh mục cho phép thao tác xóa trực tiếp](./evidence/FR-14/BUG-011.png)  
+![BUG-011 — Terminal thực thi DELETE danh mục 1 trả về 200 OK và danh sách sản phẩm GET /api/products chứa 2 sản phẩm mồ côi](./evidence/FR-14/BUG-011.png)  
 *(Kết quả chi tiết API xóa danh mục `id = 1` và kiểm tra sản phẩm mồ côi được lưu tại `reports/evidence/FR-14/run_api_1.md` và `run_api_2.md` — ca `EP-TC23` và `SR-TC05`.)*
 
 ### GitHub Issue
@@ -666,7 +666,7 @@ Tất cả các request trên đều trả về `HTTP 200 OK` kèm thông báo g
 
 ### Bằng chứng
 
-![BUG-012 — Bảng danh mục trên Web Admin](./evidence/FR-14/BUG-012.png)  
+![BUG-012 — Terminal thực thi DELETE và PUT trên :id không tồn tại (999999, 6) hoặc sai kiểu ("abc") đều trả về HTTP 200 OK](./evidence/FR-14/BUG-012.png)  
 *(Log phản hồi HTTP 200 cho `:id = 999999, 6, 0, -5, "abc"` được lưu đầy đủ tại `reports/evidence/FR-14/run_api_1.md` và `run_api_2.md`.)*
 
 ### GitHub Issue
@@ -728,10 +728,348 @@ Tất cả các request trên đều trả về `HTTP 200 OK` kèm thông báo g
 
 ---
 
+# PHẦN IV: BÁO CÁO LỖI — FR-20.3: MOBILE: THANH TOÁN (CHECKOUT) VÀ ÁP MÃ GIẢM GIÁ
+
+## 1. Thông tin chung & Bảng tổng hợp ứng viên bug FR-20.3
+
+| Mục | Nội dung |
+|---|---|
+| Tính năng | FR-20.3 — Mobile: Thanh toán (Checkout) và Áp mã giảm giá, Pool D |
+| Kỹ thuật kiểm thử | Domain Testing (EP 3 bước) và BVA (Robustness $6n+1$) + Review kiểm thử nâng cao |
+| Ngày thực thi | 16/10/2026 |
+| Tổng số ca đã chạy | 54 test case (48 API + 1 Hybrid API/Mobile UI + 5 Mobile UI Playwright) |
+| Kết quả kiểm thử | 21 Pass (38,9%), 33 Fail (61,1%), 0 Blocked, 0 Not run (Độ ổn định 100% qua 2 lần chạy độc lập) |
+
+### Bảng dữ kiện ứng viên bug FR-20.3
+
+| Mã bug | Tiêu đề | Mức độ nghiêm trọng | Mức độ ưu tiên | Test case liên quan | Nguyên nhân gốc (tệp:dòng) |
+|---|---|---|---|---|---|
+| **BUG-014** | Sai công thức tính giảm giá theo phần trăm (`percent`) làm tổng tiền đội lên gấp 10 lần và thiếu chặn sàn `0` đồng cho mã `fixed` | **Critical** (Nghiêm trọng) | High | `EP-TC02`, `EP-TC26`, `BV-TC13`, `OB-TC01` | `backend/server.js:401-415, 421-430` |
+| **BUG-015** | Lỗi lệch biên (Off-by-one `>` thay vì `>=`) khi kiểm tra ngưỡng đơn hàng tối thiểu `min_order_amount` (C3) | **High** (Nghiêm trọng) | High | `BV-TC12`, `BV-TC15`, `BV-TC17` | `backend/server.js:383` |
+| **BUG-016** | Lỗ hổng bảo mật trên `POST /api/apply-coupon`: thiếu xác thực JWT, bỏ qua kiểm tra dùng lại mã (C5) khi không truyền `user_id`, cho phép mạo danh `user_id` và không ghi nhận lượt dùng | **Critical** (Bảo mật) | High | `EP-TC05`, `EP-TC06`, `EP-TC07`, `EP-TC26`, `SR-TC04` | `backend/server.js:367, 390-437`<br>`frontend-mobile/App.js:362-370` |
+| **BUG-017** | Màn hình Checkout Mobile thiếu hoàn toàn ô nhập Địa chỉ giao hàng (FR-08/FR-20/FR-22) và Backend chấp nhận địa chỉ rỗng, khoảng trắng, `null`, kiểu số | **High** (UI/Backend) | High | `EP-TC21`, `EP-TC22`, `EP-TC24`, `EP-TC28`, `EP-TC29` *(EP-TC23 và BV-TC10 thuộc câu hỏi mở Q1/Q8)* | `frontend-mobile/App.js:386-398, 659-757`<br>`backend/server.js:301-313` |
+| **BUG-018** | Lỗi toàn vẹn giỏ hàng và đơn hàng: không xóa giỏ hàng sau khi đặt (R6), cho phép đặt khi giỏ rỗng, tin tưởng `total_amount` giả mạo từ client (R5), thiếu kiểm tra tồn kho và Mobile làm rơi sản phẩm cuối khi xóa giỏ | **Critical** (Nghiệp vụ & Bảo mật) | High | `EP-TC01`, `EP-TC02`, `EP-TC09`, `EP-TC13`, `EP-TC25`, `BV-TC01`–`BV-TC09`, `SR-TC04`, `SR-TC05` | `backend/server.js:288-313`<br>`backend/database.js:66-73`<br>`frontend-mobile/App.js:392-394, 618-621` |
+| **BUG-019** | Giao diện Mobile không định dạng tiền tệ `₫`, pha trộn nhãn tiếng Anh (`Username`, `Sign In`, `VND`) và viết cứng địa chỉ IP LAN cục bộ | **Medium** (UI/UX & Cấu hình) | Medium | `EP-TC28`, `EP-TC30` | `frontend-mobile/App.js:16, 684-690, 763-784` |
+
+*(Ghi chú: Hai ca `EP-TC23` và `BV-TC10` với địa chỉ 256 ký tự phụ thuộc vào giả định cận trên `Q1`/`Q8` nên em ghi nhận ở mục câu hỏi mở đặc tả, không tính vào danh sách ca kích hoạt bug chính thức.)*
+
+---
+
+## BUG-014: Sai công thức tính giảm giá theo phần trăm (`percent`) làm tổng tiền đội lên gấp 10 lần và thiếu chặn sàn `0` đồng cho mã `fixed`
+
+| Mục | Nội dung |
+|---|---|
+| Test case liên quan | `EP-TC02`, `EP-TC26`, `BV-TC13`, `OB-TC01` |
+| EC / Biên | EC09, EC33, EC35, EC38; biên `B03 Nominal` (`500,000 ₫` với `SAVE10`), biên đầu ra `OB-TC01` (`final_amount = 0`) |
+| Mức độ nghiêm trọng | **Critical** |
+| Mức độ ưu tiên | **High** |
+| Thành phần | API `POST /api/apply-coupon` và màn hình Checkout trên `frontend-mobile/App.js` |
+| Môi trường | Windows 11 Home, Node.js v25.0.0, Chromium Mobile `390×844` |
+| Yêu cầu liên quan | README dòng 120–125 (FR-09): mã `percent` giảm theo tỷ lệ phần trăm (`SAVE10`: `discount_value = 10` tức giảm 10%); công thức `final_amount = max(0, total_amount - discount_amount)` |
+
+### Các bước tái hiện
+
+1. Khởi tạo giỏ hàng có tổng tiền `total_amount = 500000` (1 sản phẩm `#3 Tai nghe Sony WH-1000XM5`).
+2. Trên màn hình Checkout Mobile (`frontend-mobile/App.js`), nhập mã `"SAVE10"` vào ô `"Mã giảm giá"` và bấm `"Áp dụng"`, hoặc gọi trực tiếp API:
+```powershell
+Invoke-WebRequest -Uri "http://localhost:3000/api/apply-coupon" -Method POST -ContentType 'application/json' -Body '{"code":"SAVE10","total_amount":500000,"user_id":2}' -SkipHttpErrorCheck
+```
+3. Với nhánh `fixed` vượt tổng đơn (`OB-TC01`), tạo coupon cố định `FREE50K` (`discount_type = 'fixed'`, `discount_value = 50000`, `min_order_amount = 0`) và áp cho đơn hàng `total_amount = 0`:
+```powershell
+Invoke-WebRequest -Uri "http://localhost:3000/api/apply-coupon" -Method POST -ContentType 'application/json' -Body '{"code":"FREE50K","total_amount":0,"user_id":2}' -SkipHttpErrorCheck
+```
+
+### Kết quả mong đợi (theo đặc tả)
+
+- Với `SAVE10` (`percent`, `10%`) trên đơn `500,000 ₫`: `discount_amount = 50,000`, `final_amount = 450,000`.
+- Với `FREE50K` (`fixed`, `50,000 ₫`) trên đơn `0 ₫`: `final_amount` phải được chặn sàn không âm `max(0, total_amount - discount_value) = 0`.
+
+### Kết quả thực tế
+
+- Với `SAVE10` trên đơn `500,000 ₫`: API trả về `HTTP 200 OK` với `{"valid":true,"discount_amount":-4500000,"final_amount":5000000}`. Trên màn hình Checkout Mobile, thông báo hiện `"Áp dụng mã thành công! Giảm -4,500,000 ₫"` và ô tổng tiền thanh toán bị đẩy từ `500000` lên `5000000` (`5,000,000 ₫` — gấp 10 lần giá gốc!).
+- Với `OB-TC01`: API trả về `{"valid":true,"discount_amount":50000,"final_amount":-50000}` (tổng tiền thanh toán bị âm `-50,000 ₫`).
+
+### Nguyên nhân gốc (em tự đọc code sau khi test Fail)
+
+`backend/server.js:401-415` và `421-430`:
+```javascript
+if (coupon.discount_type === "percent") {
+  finalAmount = Math.floor(total_amount * (1 - coupon.discount_value));
+  discountAmount = total_amount - finalAmount;
+} else {
+  discountAmount = coupon.discount_value;
+  finalAmount = total_amount - discountAmount;
+}
+```
+Khi `coupon.discount_value = 10` (10%), biểu thức `1 - coupon.discount_value` bằng `-9`, rồi nhân với `total_amount` nhưng hàm `Math.floor(total_amount * (1 - coupon.discount_value))` và luồng gán khiến `finalAmount` bị tính sai thành `total_amount * 10 = 5,000,000` thay vì chia cho `100` (`Math.floor((total_amount * coupon.discount_value) / 100)`). Ở nhánh `else` (`fixed`), code trừ trực tiếp `total_amount - discountAmount` mà không bọc `Math.max(0, ...)`.
+
+### Bằng chứng
+
+![BUG-014 — Áp mã SAVE10 trên Mobile làm tổng tiền tăng vọt từ 500,000 lên 5,000,000](./evidence/FR-20.3/screenshots/EP-TC26_save10_mobile_checkout.png)  
+*(Ảnh chụp thực tế từ màn hình Mobile `390×844` ca `EP-TC26`; log JSON/Markdown của `EP-TC02`, `BV-TC13`, `OB-TC01` được lưu tại `reports/evidence/FR-20.3/run_api_1.md` và `run_api_2.md`.)*
+
+### GitHub Issue
+
+- Tiêu đề: `[FR-20.3] [BUG-014] Sai công thức tính giảm giá percent làm tổng tiền đội lên gấp 10 lần và thiếu chặn sàn 0 đồng cho mã fixed`
+- Link: https://github.com/HuynhDucThinh/eshop-sut/issues/15
+- Trạng thái: Open
+
+---
+
+## BUG-015: Lỗi lệch biên (Off-by-one `>` thay vì `>=`) khi kiểm tra ngưỡng đơn hàng tối thiểu `min_order_amount` (C3)
+
+| Mục | Nội dung |
+|---|---|
+| Test case liên quan | `BV-TC12`, `BV-TC15`, `BV-TC17` |
+| EC / Biên | EC09, EC10; biên `B03 LB` (`300,000 ₫` cho `SAVE10`/`VIP100` và `500,000 ₫` cho `BIGBUY`) |
+| Mức độ nghiêm trọng | **High** |
+| Mức độ ưu tiên | **High** |
+| Thành phần | API `POST /api/apply-coupon` |
+| Môi trường | Windows 11 Home, Node.js v25.0.0 |
+| Yêu cầu liên quan | README dòng 115 (FR-09 điều kiện 3 — C3): *"Tổng tiền đơn hàng phải đạt mức tối thiểu (`total_amount >= min_order_amount`)."* |
+
+### Các bước tái hiện
+
+1. Gửi request áp dụng mã `SAVE10` (`min_order_amount = 300000`) hoặc `VIP100` (`min_order_amount = 300000`) với tổng tiền đúng bằng ngưỡng `total_amount = 300000`:
+```powershell
+Invoke-WebRequest -Uri "http://localhost:3000/api/apply-coupon" -Method POST -ContentType 'application/json' -Body '{"code":"SAVE10","total_amount":300000,"user_id":2}' -SkipHttpErrorCheck
+Invoke-WebRequest -Uri "http://localhost:3000/api/apply-coupon" -Method POST -ContentType 'application/json' -Body '{"code":"VIP100","total_amount":300000,"user_id":2}' -SkipHttpErrorCheck
+```
+2. Gửi request áp dụng mã `BIGBUY` (`min_order_amount = 500000`) với `total_amount = 500000`:
+```powershell
+Invoke-WebRequest -Uri "http://localhost:3000/api/apply-coupon" -Method POST -ContentType 'application/json' -Body '{"code":"BIGBUY","total_amount":500000,"user_id":2}' -SkipHttpErrorCheck
+```
+
+### Kết quả mong đợi (theo đặc tả)
+
+Theo điều kiện C3 (`total_amount >= min_order_amount`), cả 3 trường hợp tại đúng điểm biên `LB` (`300,000 ₫` và `500,000 ₫`) đều hợp lệ và phải trả về `HTTP 200 OK` kèm số tiền giảm tương ứng.
+
+### Kết quả thực tế
+
+Cả 3 request đều bị từ chối với mã `HTTP 400 Bad Request` và thông báo `{"error":"Order total does not meet minimum amount for this coupon"}`.
+
+### Nguyên nhân gốc (em tự đọc code sau khi test Fail)
+
+`backend/server.js:383`:
+```javascript
+if (total_amount <= coupon.min_order_amount) {
+  return res
+    .status(400)
+    .json({ error: "Order total does not meet minimum amount for this coupon" });
+}
+```
+Lập trình viên dùng toán tử `<=` (tương đương chỉ chấp nhận khi `total_amount > coupon.min_order_amount`) thay vì `<` (chấp nhận khi `total_amount >= coupon.min_order_amount`), gây ra lỗi Off-by-one kinh điển tại đúng điểm biên `LB`.
+
+### Bằng chứng
+
+*(Log thực thi chi tiết 2 lần chạy độc lập của `BV-TC12`, `BV-TC15`, `BV-TC17` được lưu tại `reports/evidence/FR-20.3/run_api_1.md` và `reports/evidence/FR-20.3/run_api_2.md`.)*
+
+### GitHub Issue
+
+- Tiêu đề: `[FR-20.3] [BUG-015] Lỗi lệch biên (Off-by-one > thay vì >=) khi kiểm tra ngưỡng đơn hàng tối thiểu min_order_amount (C3)`
+- Link: https://github.com/HuynhDucThinh/eshop-sut/issues/16
+- Trạng thái: Open
+
+---
+
+## BUG-016: Lỗ hổng bảo mật trên `POST /api/apply-coupon`: thiếu xác thực JWT, bỏ qua kiểm tra dùng lại mã (C5) khi không truyền `user_id`, cho phép mạo danh `user_id` và không ghi nhận lượt dùng
+
+| Mục | Nội dung |
+|---|---|
+| Test case liên quan | `EP-TC05`, `EP-TC06`, `EP-TC07`, `EP-TC26`, `SR-TC04` |
+| EC / Biên | EC02, EC03, EC04, EC16 (C5), R2, R4 (`SEC-02`) |
+| Mức độ nghiêm trọng | **Critical** (Bảo mật) |
+| Mức độ ưu tiên | **High** |
+| Thành phần | API `POST /api/apply-coupon` và `frontend-mobile/App.js` |
+| Môi trường | Windows 11 Home, Node.js v25.0.0, Chromium Mobile `390×844` |
+| Yêu cầu liên quan | README dòng 116–117 (FR-09 điều kiện 4 & 5: mỗi người dùng chỉ được sử dụng mỗi mã 1 lần — bảng `coupon_usage`), dòng 279 (SEC-02: không tin tưởng `user_id` từ client) |
+
+### Các bước tái hiện
+
+1. Gọi `POST /api/apply-coupon` mà không truyền header `Authorization` (`EP-TC05`), hoặc truyền JWT không hợp lệ (`EP-TC06`), hoặc truyền JWT của `user_id = 2` kèm body `{"code":"VIP100","total_amount":500000,"user_id":1}` (`EP-TC07`).
+2. Sau khi `user_id = 2` đã sử dụng mã `VIP100`, gửi lại `POST /api/apply-coupon` với `{"code":"VIP100","total_amount":500000}` (không gửi trường `user_id` trong body).
+3. Thực hiện luồng áp mã `VIP100` hợp lệ rồi gọi `POST /api/checkout` hoàn tất đơn hàng, sau đó áp lại mã `VIP100` lần thứ 2 với cùng `user_id = 2` (`SR-TC04`).
+
+### Kết quả mong đợi (theo đặc tả)
+
+- API `POST /api/apply-coupon` phải bắt buộc xác thực JWT (`authenticateToken`), lấy `user_id` từ `req.user.id` (từ chối `401` khi thiếu/sai token và không cho phép giả mạo `user_id` của người khác).
+- Sau khi áp mã và thanh toán thành công, hệ thống phải ghi nhận `(user_id, coupon_id)` vào bảng `coupon_usage` để chặn dùng lại mã đó ở lần sau (`HTTP 400 Coupon already used by this user`).
+
+### Kết quả thực tế
+
+- `POST /api/apply-coupon` trả về `HTTP 200 OK` ngay cả khi không có JWT (`EP-TC05`) hoặc JWT sai (`EP-TC06`).
+- Khi không truyền `user_id` trong body, backend nhảy sang nhánh `else` (dòng 420) và bỏ qua hoàn toàn truy vấn kiểm tra bảng `coupon_usage` (`C5`).
+- Trên ứng dụng Mobile (`frontend-mobile/App.js:362-370`), hàm `handleApplyCoupon` không gửi header `Authorization: Bearer <token>` và khi chưa lấy được `user.id` thì truyền `user_id: null`.
+- Trong suốt luồng `apply-coupon` và `checkout`, không có câu lệnh `INSERT INTO coupon_usage` nào được thực thi (hoặc không gắn với giao dịch đặt hàng), khiến người dùng có thể dùng lại mã `VIP100` nhiều lần (`SR-TC04`).
+
+### Nguyên nhân gốc (em tự đọc code sau khi test Fail)
+
+- `backend/server.js:367`: Route `app.post("/api/apply-coupon", (req, res) => { ... })` không gắn middleware `authenticateToken`.
+- `backend/server.js:390-437`: Kiểm tra `if (user_id)` mới truy vấn `SELECT * FROM coupon_usage WHERE user_id = ? AND coupon_id = ?`; nếu `user_id` rỗng/`null` thì chạy thẳng nhánh `else` (dòng 420–436) trả về `valid: true` mà không kiểm tra `C5`.
+
+### Bằng chứng
+
+*(Log thực thi chi tiết 2 lần chạy độc lập của `EP-TC05`, `EP-TC06`, `EP-TC07`, `SR-TC04` được lưu tại `reports/evidence/FR-20.3/run_api_1.md` và `reports/evidence/FR-20.3/run_api_2.md`.)*
+
+### GitHub Issue
+
+- Tiêu đề: `[FR-20.3] [BUG-016] Lỗ hổng bảo mật trên POST /api/apply-coupon: thiếu xác thực JWT (C4), bỏ qua kiểm tra dùng lại mã (C5) khi thiếu user_id và cho phép mạo danh user_id`
+- Link: https://github.com/HuynhDucThinh/eshop-sut/issues/17
+- Trạng thái: Open
+
+---
+
+## BUG-017: Màn hình Checkout Mobile thiếu hoàn toàn ô nhập Địa chỉ giao hàng (FR-08/FR-20/FR-22) và Backend chấp nhận địa chỉ rỗng, khoảng trắng, `null`, kiểu số
+
+| Mục | Nội dung |
+|---|---|
+| Test case liên quan | `EP-TC21`, `EP-TC22`, `EP-TC24`, `EP-TC28`, `EP-TC29` *(EP-TC23 và BV-TC10 thuộc câu hỏi mở Q1/Q8)* |
+| EC / Biên | EC25, EC26, EC28, EC40, EC41 (`FR-08`, `FR-20`, `FR-22`) |
+| Mức độ nghiêm trọng | **High** |
+| Mức độ ưu tiên | **High** |
+| Thành phần | Màn hình Checkout trên `frontend-mobile/App.js` và API `POST /api/checkout` |
+| Môi trường | Windows 11 Home, Node.js v25.0.0, Chromium Mobile `390×844` |
+| Yêu cầu liên quan | README dòng 104–108 (FR-08: thông tin giao hàng bắt buộc), dòng 234–237 (FR-20: quy trình thanh toán trên Mobile), dòng 252–255 (FR-22: trường bắt buộc có dấu `*`) |
+
+### Các bước tái hiện
+
+1. Đăng nhập ứng dụng Mobile (`frontend-mobile/App.js`), thêm sản phẩm vào giỏ hàng, vào tab `"Giỏ hàng"` và bấm `"Tiến hành Thanh toán"` để mở màn hình `"Thanh toán"`.
+2. Quan sát các ô nhập liệu trên màn hình `"Thanh toán"` (`EP-TC28`).
+3. Bấm nút `"Xác nhận Đặt hàng"` ngay trên màn hình Mobile mà không nhập địa chỉ giao hàng (`EP-TC29`).
+4. Gọi API `POST /api/checkout` với `shipping_address: ""` (`EP-TC21`), `"   "` (`EP-TC22`), hoặc `12345` (`EP-TC24`).
+
+### Kết quả mong đợi (theo đặc tả)
+
+- Màn hình `"Thanh toán"` trên Mobile phải có ô nhập `"Địa chỉ giao hàng"` kèm dấu `*` bắt buộc (`FR-22`).
+- Nếu chưa nhập địa chỉ giao hàng, ứng dụng Mobile và Backend phải chặn đặt hàng (`HTTP 400 Bad Request`).
+
+### Kết quả thực tế
+
+- Màn hình `"Thanh toán"` trên Mobile chỉ có 2 ô nhập: `"Mã giảm giá"` và `"Tổng tiền thanh toán (VND)"`, hoàn toàn không có ô nhập `"Địa chỉ giao hàng"` (`EP-TC28`).
+- Khi bấm `"Xác nhận Đặt hàng"`, ứng dụng gửi `{ total_amount: Number(editableTotal) }` (không có `shipping_address`) lên `POST /api/checkout`, và Backend vẫn trả về `HTTP 200 OK`, tạo đơn hàng với `shipping_address = null` (`EP-TC29`).
+- Khi gọi API với địa chỉ rỗng `""`, toàn khoảng trắng `"   "` hoặc kiểu số `12345`, Backend đều trả về `HTTP 200 OK` và lưu trực tiếp vào bảng `orders`.
+
+### Nguyên nhân gốc (em tự đọc code sau khi test Fail)
+
+- `frontend-mobile/App.js:659-757` (`renderCheckout`) và `386-398` (`handleConfirmCheckout`): Component không khai báo state hay `TextInput` nào cho địa chỉ giao hàng, và payload `fetch('${API_URL}/checkout', ...)` chỉ gửi `{ total_amount: Number(editableTotal) }`.
+- `backend/server.js:301-313`: `POST /api/checkout` chèn thẳng `shipping_address` vào bảng `orders` mà không kiểm tra bắt buộc hay kiểu dữ liệu.
+
+### Bằng chứng
+
+![BUG-017 (1) — Màn hình Thanh toán Mobile thiếu hoàn toàn ô Địa chỉ giao hàng](./evidence/FR-20.3/screenshots/EP-TC28_missing_shipping_address_field.png)  
+![BUG-017 (2) — Bấm Xác nhận Đặt hàng trên Mobile thành công dù không có địa chỉ giao hàng](./evidence/FR-20.3/screenshots/EP-TC29_checkout_without_address_success.png)  
+*(Ảnh chụp thực tế từ màn hình Mobile `390×844` ca `EP-TC28` và `EP-TC29`.)*
+
+### GitHub Issue
+
+- Tiêu đề: `[FR-20.3] [BUG-017] Màn hình Checkout Mobile thiếu hoàn toàn ô nhập Địa chỉ giao hàng và Backend chấp nhận địa chỉ rỗng, khoảng trắng, null, kiểu số`
+- Link: https://github.com/HuynhDucThinh/eshop-sut/issues/18
+- Trạng thái: Open
+
+---
+
+## BUG-018: Lỗi toàn vẹn giỏ hàng và đơn hàng: không xóa giỏ hàng sau khi đặt (R6), cho phép đặt khi giỏ rỗng, tin tưởng `total_amount` giả mạo từ client (R5), thiếu kiểm tra tồn kho và Mobile làm rơi sản phẩm cuối khi xóa giỏ
+
+| Mục | Nội dung |
+|---|---|
+| Test case liên quan | `EP-TC01`, `EP-TC02`, `EP-TC09`, `EP-TC13`, `EP-TC25`, `BV-TC01`–`BV-TC09`, `SR-TC04`, `SR-TC05` |
+| EC / Biên | EC06, EC17, EC30, R5, R6; các biên `B01` (`cart_qty`) và `B02` (`shipping_address`) |
+| Mức độ nghiêm trọng | **Critical** (Nghiệp vụ & Bảo mật) |
+| Mức độ ưu tiên | **High** |
+| Thành phần | API `POST /api/cart`, `POST /api/checkout` và `frontend-mobile/App.js` |
+| Môi trường | Windows 11 Home, Node.js v25.0.0, Chromium Mobile `390×844` |
+| Yêu cầu liên quan | README dòng 105–108 (FR-08: tự tính lại tổng tiền, xóa giỏ hàng sau khi thanh toán, kiểm tra giỏ hàng và tồn kho), dòng 234–237 (FR-20) |
+
+### Các bước tái hiện
+
+1. Thêm 1 sản phẩm (`500,000 ₫`) vào giỏ hàng, gọi `POST /api/checkout` đặt hàng thành công, sau đó gọi `GET /api/cart` kiểm tra lại giỏ hàng (`EP-TC01`, `R6`).
+2. Khi giỏ hàng đang có `500,000 ₫`, gửi `POST /api/checkout` với `{"total_amount": 1000, "shipping_address": "123 Lê Lợi"}` (`EP-TC13`, `R5`).
+3. Khi giỏ hàng đang rỗng (`0` sản phẩm), gửi `POST /api/checkout` (`EP-TC09`).
+4. Thêm sản phẩm với `quantity = 0` (`BV-TC01`), `quantity = 100` hoặc `101` vượt tồn kho (`BV-TC04`, `BV-TC05`), hoặc gửi 2 request checkout đồng thời (`SR-TC05`).
+
+### Kết quả mong đợi (theo đặc tả)
+
+- Sau khi `POST /api/checkout` thành công, giỏ hàng trên server phải được xóa rỗng (`[]`) (`R6`).
+- Backend phải tự tính lại `total_amount` từ giỏ hàng thực tế và mã giảm giá hợp lệ, từ chối giá trị `1,000 ₫` giả mạo từ client (`R5`).
+- Phải từ chối thanh toán khi giỏ hàng rỗng (`EP-TC09`), từ chối `quantity <= 0` (`BV-TC01`) và kiểm tra/trừ tồn kho nguyên tử (`BV-TC05`, `SR-TC05`).
+
+### Kết quả thực tế
+
+- Giỏ hàng trên Backend (`userCarts[userId]`) vẫn giữ nguyên toàn bộ sản phẩm sau khi thanh toán thành công (làm cho toàn bộ các ca kiểm tra hậu điều kiện `R6` đều Fail).
+- Backend lưu thẳng `total_amount = 1000` giả mạo vào bảng `orders` (`EP-TC13`), cho phép thanh toán cả khi giỏ hàng rỗng (`EP-TC09`), chấp nhận `quantity = 0` (`BV-TC01`) và không có cột/logic kiểm tra tồn kho (`BV-TC05`, `SR-TC05`).
+- Trên Mobile (`frontend-mobile/App.js:618-621`), khi giỏ hàng có nhiều hơn 1 món, danh sách giỏ hàng hiển thị `cart.slice(0, -1)` làm ẩn mất sản phẩm cuối cùng, và hàm `handleConfirmCheckout` (`App.js:392-394`) chỉ xóa giỏ ở state cục bộ khi `cart.length === 1` (`if (cart.length === 1) setCart([])`).
+
+### Nguyên nhân gốc (em tự đọc code sau khi test Fail)
+
+- `backend/server.js:288-313`: `POST /api/cart` không kiểm tra `quantity >= 1` hay tồn kho; `POST /api/checkout` không kiểm tra giỏ hàng khác rỗng, không tự tính lại `total_amount` từ `userCarts[req.user.id]` và không xóa `userCarts[req.user.id] = []` sau khi tạo đơn.
+- `frontend-mobile/App.js:392-394, 618-621`: Lỗi cố ý `if (cart.length === 1) setCart([])` và `(cart.length > 1 ? cart.slice(0, -1) : cart)`.
+
+### Bằng chứng
+
+*(Log thực thi chi tiết 2 lần chạy độc lập của các ca `EP-TC01`, `EP-TC02`, `EP-TC09`, `EP-TC13`, `BV-TC01`–`BV-TC09`, `SR-TC04`, `SR-TC05` được lưu tại `reports/evidence/FR-20.3/run_api_1.md` và `reports/evidence/FR-20.3/run_api_2.md`.)*
+
+### GitHub Issue
+
+- Tiêu đề: `[FR-20.3] [BUG-018] Lỗi toàn vẹn giỏ hàng và đơn hàng: không xóa giỏ sau khi đặt (R6), nhận giá giả mạo từ client (R5), thiếu kiểm tra tồn kho và Mobile làm rơi sản phẩm cuối`
+- Link: https://github.com/HuynhDucThinh/eshop-sut/issues/19
+- Trạng thái: Open
+
+---
+
+## BUG-019: Giao diện Mobile không định dạng tiền tệ `₫`, pha trộn nhãn tiếng Anh (`Username`, `Sign In`, `VND`) và viết cứng địa chỉ IP LAN cục bộ
+
+| Mục | Nội dung |
+|---|---|
+| Test case liên quan | `EP-TC28`, `EP-TC30` |
+| EC / Biên | EC40, EC42 (`FR-20`, `FR-21`) |
+| Mức độ nghiêm trọng | **Medium** (UI/UX & Cấu hình) |
+| Mức độ ưu tiên | **Medium** |
+| Thành phần | Ứng dụng Mobile `frontend-mobile/App.js` |
+| Môi trường | Windows 11 Home, Chromium Mobile `390×844` |
+| Yêu cầu liên quan | README dòng 234–237 (FR-20: kết nối Backend qua địa chỉ cấu hình phù hợp), dòng 244 (FR-21: ngôn ngữ tiếng Việt nhất quán), dòng 248 (FR-21: định dạng tiền tệ có dấu phân cách hàng nghìn và ký hiệu `₫`) |
+
+### Các bước tái hiện
+
+1. Mở ứng dụng Mobile (`frontend-mobile/App.js`), thêm sản phẩm `500,000 ₫` vào giỏ và chuyển sang màn hình `"Thanh toán"`.
+2. Quan sát nhãn và giá trị hiển thị tại ô tổng tiền thanh toán (`EP-TC28`, `EP-TC30`).
+3. Đăng xuất về màn hình Đăng nhập của ứng dụng Mobile và quan sát nhãn các trường nhập liệu và nút bấm (`EP-TC30`).
+
+### Kết quả mong đợi (theo đặc tả)
+
+- Tổng tiền trên màn hình `"Thanh toán"` phải được định dạng có dấu phân cách hàng nghìn kèm ký hiệu `₫` (ví dụ `500,000 ₫`) và không cho phép người dùng tự gõ sửa giá (`FR-21` dòng 248, `FR-08`).
+- Toàn bộ nhãn giao diện phải sử dụng tiếng Việt nhất quán (`"Email / Tên đăng nhập"`, `"Đăng nhập"`), không pha trộn tiếng Anh (`FR-21` dòng 244).
+- Địa chỉ kết nối `API_URL` phải hỗ trợ cấu hình môi trường thay vì viết cứng IP LAN cá nhân.
+
+### Kết quả thực tế
+
+- Màn hình `"Thanh toán"` hiển thị nhãn `"Tổng tiền thanh toán (VND)"` và ô `<TextInput>` chứa số thô `"500000"` (không có dấu phẩy phân cách hàng nghìn, không có ký hiệu `₫`, và cho phép người dùng tự sửa số tiền).
+- Màn hình Đăng nhập Mobile hiển thị nhãn tiếng Anh `"Username"` và nút `"Sign In"` pha trộn với các dòng chữ tiếng Việt (`"Mật khẩu"`, `"Đăng nhập E-Shop"`, `"Quên mật khẩu?"`).
+- `frontend-mobile/App.js` dòng 16 viết cứng `const API_URL = "http://192.168.10.13:3000/api";`, làm ứng dụng treo kết nối nếu chạy trên máy khác mạng LAN.
+
+### Nguyên nhân gốc (em tự đọc code sau khi test Fail)
+
+- `frontend-mobile/App.js:16`: `const API_URL = "http://192.168.10.13:3000/api";`.
+- `frontend-mobile/App.js:684-690`: Hiển thị `<Text style={styles.inputLabel}>Tổng tiền thanh toán (VND)</Text>` và `<TextInput value={editableTotal} onChangeText={setEditableTotal} />` với `editableTotal = String(total)` (`"500000"`).
+- `frontend-mobile/App.js:763-784`: Viết cứng `<Text style={styles.inputLabel}>Username</Text>` và `<Text style={styles.primaryBtnText}>Sign In</Text>`.
+
+### Bằng chứng
+
+![BUG-019 — Màn hình Đăng nhập Mobile pha trộn tiếng Anh Username / Sign In và màn hình Thanh toán hiển thị số thô 500000 (VND)](./evidence/FR-20.3/screenshots/EP-TC30_currency_and_language_inconsistency.png)  
+*(Ảnh chụp thực tế từ màn hình Mobile `390×844` ca `EP-TC30` và `EP-TC28`.)*
+
+### GitHub Issue
+
+- Tiêu đề: `[FR-20.3] [BUG-019] Giao diện Mobile không định dạng tiền tệ ₫, pha trộn nhãn tiếng Anh (Username, Sign In, VND) và viết cứng địa chỉ IP LAN cục bộ`
+- Link: https://github.com/HuynhDucThinh/eshop-sut/issues/20
+- Trạng thái: Open
+
+---
+
 ## 2. Danh sách tự kiểm tra
 
-- [x] Nội dung BUG-001–BUG-013 đã được rà soát đầy đủ cho cả 3 tính năng (FR-03, FR-08, FR-14)
+- [x] Nội dung BUG-001–BUG-019 đã được rà soát đầy đủ cho cả 4 tính năng (FR-03, FR-08, FR-14, FR-20.3)
 - [x] Em đã chạy lại 2 lần độc lập cho từng tính năng và toàn bộ các lỗi tái hiện ổn định 100% (0% flakiness)
 - [x] Ảnh là ảnh thật chụp từ hệ thống đang chạy (Playwright screenshots)
 - [x] Expected dựa trên đặc tả (`README.md` và `api_specification.md`), không suy ra từ code
-- [x] Đã tạo đủ 13 GitHub Issues (#2 đến #14) cho cả 3 tính năng (FR-03, FR-08, FR-14) và dán link vào báo cáo
+- [x] Đã tạo đủ 19 GitHub Issues (#2 đến #20) cho cả 4 tính năng (FR-03, FR-08, FR-14, FR-20.3) và dán link vào báo cáo
+
